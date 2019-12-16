@@ -4,7 +4,7 @@ set -ex
 cppcheck --version
 
 cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --inline-suppr --error-exitcode=1 \
-    -IFossaSat1B FossaSat1B
+    -IFossaSat1B FossaSat1B FossaSat1B/FossaSat1B.ino
     # --suppress=unusedFunction
     #--platform=avr8
 
