@@ -360,13 +360,12 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
         memcpy(encSection, frame + callsignLen, encSectionLen);
 
         // decrypt
-        aes128_dec_multiple(encryptionKey, encSection, encSectionLen);
-        /*struct AES_ctx ctx;
+        struct AES_ctx ctx;
         AES_init_ctx(&ctx, encryptionKey);
         uint8_t numBlocks = encSectionLen / 16;
         for(uint8_t i = 0; i < numBlocks; i++) {
           AES_ECB_decrypt(&ctx, encSection + (i * 16));
-        }*/
+        }
 
         // copy into the response frame
         uint8_t failedOptDataLen = encSection[0];

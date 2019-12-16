@@ -8,8 +8,7 @@
 #include <FOSSA-Comms.h>
 
 // contributed libraries
-//#include <aes.hpp>
-#include <AESLib.h>
+#include <aes.hpp>
 #include <INA226.h>
 #include <LowPower.h>
 #include <RadioLib.h>

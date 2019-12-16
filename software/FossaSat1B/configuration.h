@@ -100,14 +100,14 @@
 #define ANALOG_IN_SOLAR_B_VOLTAGE_PIN                   A7  // ADC7
 #define ANALOG_IN_SOLAR_C_VOLTAGE_PIN                   A2  // PC2
 #define ANALOG_IN_RANDOM_SEED                           A6  // ADC6; used as source for randomSeed(), should be left floating
-#define DIGITAL_OUT_MPPT_PIN                            7//10  // PB2
-#define DIGITAL_OUT_MOSFET_1                            6//9   // PB1
+#define DIGITAL_OUT_MPPT_PIN                            10  // PB2
+#define DIGITAL_OUT_MOSFET_1                            9   // PB1
 #define DIGITAL_OUT_MOSFET_2                            8   // PB0
 #define DIGITAL_OUT_WATCHDOG_HEARTBEAT                  4   // PD4
-#define RADIO_NSS                                       10//7   // PD7
+#define RADIO_NSS                                       7   // PD7
 #define RADIO_DIO1                                      2   // PD2
 #define RADIO_DIO2                                      3   // PD3
-#define RADIO_BUSY                                      9//6   // PD6
+#define RADIO_BUSY                                      6   // PD6
 
 
 // TMP100 temperature sensor configuration
