@@ -1,0 +1,13 @@
+sudo: required
+language: cpp
+
+services:
+  - docker
+
+before_install:
+  - docker pull peterus/fossasat
+
+script:
+  - docker run -t -i -v $PWD:/src -w /src peterus/fossasat /bin/bash -c '!! TODO build process is missing !!'
+  - docker run -t -i -v $PWD:/src -w /src peterus/fossasat /bin/bash software/cppcheck.sh
+
