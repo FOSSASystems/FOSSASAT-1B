@@ -108,6 +108,7 @@
 #define RADIO_DIO1                                      2   // PD2
 #define RADIO_DIO2                                      3   // PD3
 #define RADIO_BUSY                                      6   // PD6
+#define RADIO_NRST                                      NC
 
 
 // TMP100 temperature sensor configuration
@@ -133,7 +134,7 @@
 #define RTTY_ENABLED
 
 // common
-#define SYNC_WORD                                       0x0F0F
+#define SYNC_WORD                                       0x12
 #define TCXO_VOLTAGE                                    1.6f    // V
 #define LOW_POWER_LEVEL                                 10      // dBm
 #define MAX_NUM_OF_BLOCKS                               3       // maximum number of AES128 blocks that will be accepted
@@ -151,17 +152,17 @@
 #define LORA_SPREADING_FACTOR_ALT                       10
 #define LORA_CODING_RATE                                8       // 4/8, Extended Hamming
 #define LORA_OUTPUT_POWER                               21      // dBm
-#define LORA_CURRENT_LIMIT                              200//120     // mA
+#define LORA_CURRENT_LIMIT                              160.0f  // mA
 
 // Non-ISM band FSK
 #define FSK_CARRIER_FREQUENCY                           436.7f  // MHz
 #define FSK_BIT_RATE                                    1.2f    // kbps nominal
 #define FSK_FREQUENCY_DEVIATION                         5.0f    // kHz single-sideband
-#define FSK_RX_BANDWIDTH                                19.5//20.0f   // kHz single-sideband
+#define FSK_RX_BANDWIDTH                                19.5f   // kHz single-sideband
 #define FSK_OUTPUT_POWER                                21      // dBm
 #define FSK_PREAMBLE_LENGTH                             16      // bits
 #define FSK_DATA_SHAPING                                0.5f    // GFSK filter BT product
-#define FSK_CURRENT_LIMIT                               200//120     // mA
+#define FSK_CURRENT_LIMIT                               160.0f  // mA
 
 // RTTY configuration
 #define RTTY_PREAMBLE                                   "RY"

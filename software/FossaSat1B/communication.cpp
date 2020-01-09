@@ -47,7 +47,7 @@ void Communication_Set_Modem(uint8_t modem) {
                                FSK_CURRENT_LIMIT,
                                FSK_PREAMBLE_LENGTH,
                                FSK_DATA_SHAPING);
-        uint8_t syncWordFSK[2] = {(uint8_t)((SYNC_WORD >> 8) & 0xFF), (uint8_t)(SYNC_WORD & 0xFF)};
+        uint8_t syncWordFSK[2] = {SYNC_WORD, SYNC_WORD};
         radio.setSyncWord(syncWordFSK, 2);
         radio.setCRC(2);
       } break;

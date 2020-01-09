@@ -26,7 +26,7 @@ uint32_t lastRtty = 0;
 INA226 ina;
 
 // RadioLib instances
-SX1268 radio = new Module(RADIO_NSS, RADIO_DIO1, RADIO_BUSY);
+SX1268 radio = new Module(RADIO_NSS, RADIO_DIO1, RADIO_NRST, RADIO_BUSY);
 RTTYClient rtty(&radio);
 
 // transmission password

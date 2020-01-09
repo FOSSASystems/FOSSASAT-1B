@@ -44,7 +44,7 @@ void Persistent_Storage_Wipe() {
   Persistent_Storage_Write<uint16_t>(EEPROM_RESTART_COUNTER_ADDR, 0);
 
   // set default callsign
-  System_Info_Set_Callsign((char*)"FOSSASAT-1");
+  System_Info_Set_Callsign((char*)"FOSSASAT-1B");
 }
 
 // explicitly instantiate templates
