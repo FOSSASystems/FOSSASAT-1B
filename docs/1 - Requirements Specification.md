@@ -8,6 +8,7 @@
 |08/01/2020|Added HREQ1 to HREQ25.|RB|
 |08/01/2020|Added LREQ1 to LREQ5.|RB|
 |08/01/2020|Merged FOSSASAT-1 requirements.|RB|
+|09/01/2020|Modified requirement for transmissions modes to CW and FSK|RB|
 
 ## High Level Requirements Specification
 |ID|Description|Author|Functional Requirements (Y/N)|Reference IDs|
@@ -42,8 +43,8 @@
 ## Low Level Requirements
 |Requirement ID|Description|Functional (Y/N)|Author|Reference IDs|
 |--|--|--|--|--|
-|LREQ1|The satellite must be able to trasmit using RTTY|Y|RB||
-|LREQ2|The satellite must be able to trasmit using LoRa|Y|RB||
+|LREQ1|The satellite must be able to trasmit using CW|Y|RB||
+|LREQ2|The satellite must be able to trasmit using FSK|Y|RB||
 |LREQ3|The battery must stop charging if the temperature goes below 0 degrees Celsius.|Y|RB||
 |LREQ4|The satellite must enter a low power mode when not in use.|Y|RB||
 |LREQ5|Low power mode must be saved and retrieved from EEPROM|Y|RB||
