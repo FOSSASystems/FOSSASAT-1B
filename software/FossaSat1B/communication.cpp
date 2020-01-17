@@ -10,25 +10,15 @@ void Communication_Receive_Interrupt() {
   dataReceived = true;
 }
 
-void Communication_Change_Modem() {
-  // check interrups are enabled
-  if(!interruptsEnabled) {
-    return;
-  }
-
-  // set flag
-  switchModem = true;
-}
-
 void Communication_Set_Modem(uint8_t modem) {
   int16_t state = ERR_NONE;
   FOSSASAT_DEBUG_PRINT(F("Set modem "));
-  FOSSASAT_DEBUG_PRINTLN(modem);
+  FOSSASAT_DEBUG_WRITE(modem);
+  FOSSASAT_DEBUG_PRINTLN();
 
   // initialize requested modem
   switch (modem) {
-    case MODEM_LORA_ISM:
-    case MODEM_LORA_NON_ISM:
+    case MODEM_LORA:
         state = radio.begin(LORA_CARRIER_FREQUENCY,
                             LORA_BANDWIDTH,
                             LORA_SPREADING_FACTOR,
@@ -38,7 +28,7 @@ void Communication_Set_Modem(uint8_t modem) {
                             LORA_CURRENT_LIMIT);
         radio.setCRC(true);
       break;
-    case MODEM_FSK_NON_ISM: {
+    case MODEM_FSK: {
         state = radio.beginFSK(FSK_CARRIER_FREQUENCY,
                                FSK_BIT_RATE,
                                FSK_FREQUENCY_DEVIATION,
@@ -57,18 +47,13 @@ void Communication_Set_Modem(uint8_t modem) {
       return;
   }
 
-  // set ISM LoRa frequency
-  if(modem == MODEM_LORA_ISM) {
-    radio.setFrequency(LORA_CARRIER_FREQUENCY_ISM);
-  }
-
   radio.setDio2AsRfSwitch(true);
 
   // handle possible error codes
   FOSSASAT_DEBUG_PRINT(F("Radio init "));
   FOSSASAT_DEBUG_PRINTLN(state);
-  if (state == ERR_SPI_CMD_TIMEOUT) {
-    // radio chip was not found, restart
+  if (state != ERR_NONE) {
+    // radio chip failed, restart
     Pin_Interface_Watchdog_Restart();
   }
 
@@ -77,13 +62,16 @@ void Communication_Set_Modem(uint8_t modem) {
 
   // set TCXO
   radio.setTCXO(TCXO_VOLTAGE);
+
+  // save current modem
+  currentModem = modem;
 }
 
 int16_t Communication_Set_SpreadingFactor(uint8_t sfMode) {
   uint8_t sfs[] = {LORA_SPREADING_FACTOR, LORA_SPREADING_FACTOR_ALT};
 
   // check currently active modem
-  if(currentModem == MODEM_FSK_NON_ISM) {
+  if(currentModem == MODEM_FSK) {
     return(ERR_WRONG_MODEM);
   }
 
@@ -133,17 +121,50 @@ int16_t Communication_Set_Configuration(uint8_t* optData, uint8_t optDataLen) {
   return(state);
 }
 
-void Communication_RTTY_Print_Hex(uint8_t val) {
-  char buff[3];
-  sprintf(buff, "%02X", val);
-  rtty.print(buff);
-  FOSSASAT_DEBUG_PRINT(buff);
+void Communication_Send_Morse_Beacon(float battVoltage) {
+  // initialize Morse client
+  morse.begin(FSK_CARRIER_FREQUENCY, MORSE_SPEED);
+
+  // read callsign
+  uint8_t callsignLen = Persistent_Storage_Read<uint8_t>(EEPROM_CALLSIGN_LEN_ADDR);
+  char callsign[MAX_STRING_LENGTH + 1];
+  System_Info_Get_Callsign(callsign, callsignLen);
+
+  // send start signals
+  for(uint8_t i = 0; i < MORSE_PREAMBLE_LENGTH; i++) {
+    morse.startSignal();
+    FOSSASAT_DEBUG_PRINT('*');
+    Pin_Interface_Watchdog_Heartbeat();
+  }
+
+  // send callsign
+  for(uint8_t i = 0; i < callsignLen - 1; i++) {
+    morse.print(callsign[i]);
+    FOSSASAT_DEBUG_PRINT(callsign[i]);
+    Pin_Interface_Watchdog_Heartbeat();
+  }
+
+  // space
+  morse.print(' ');
+  FOSSASAT_DEBUG_PRINT(' ');
+  Pin_Interface_Watchdog_Heartbeat();
+
+  // send battery voltage
+  morse.println(battVoltage, 2);
+  FOSSASAT_DEBUG_PRINTLN(battVoltage, 2);
+  Pin_Interface_Watchdog_Heartbeat();
 }
 
-void Communication_Send_System_Info(bool useRtty) {
+void Communication_CW_Beep() {
+  radio.transmitDirect();
+  LowPower.powerDown(SLEEP_500MS, ADC_OFF, BOD_OFF);
+  radio.standby();
+}
+
+void Communication_Send_System_Info() {
   // build response frame
-  size_t optDataLen = 6*sizeof(uint8_t) + 3*sizeof(int16_t) + sizeof(uint16_t) + sizeof(int8_t);
-  uint8_t* optData = new uint8_t[optDataLen];
+  static const uint8_t optDataLen = 6*sizeof(uint8_t) + 3*sizeof(int16_t) + sizeof(uint16_t) + sizeof(int8_t);
+  uint8_t optData[optDataLen];
   uint8_t* optDataPtr = optData;
 
   FOSSASAT_DEBUG_PRINTLN(F("System info:"));
@@ -239,15 +260,13 @@ void Communication_Send_System_Info(bool useRtty) {
 
   // set mcuTemperature variable (read twice since first value is often nonsense)
   Pin_Interface_Read_Temperature_Internal();
-  //int8_t mcuTemperature = Pin_Interface_Read_Temperature_Internal();
-  int8_t mcuTemperature = 79;
+  int8_t mcuTemperature = Pin_Interface_Read_Temperature_Internal();
   memcpy(optDataPtr, &mcuTemperature, sizeof(int8_t));
   optDataPtr += sizeof(int8_t);
   FOSSASAT_DEBUG_PRINTLN(mcuTemperature);
 
   // set resetCounter variable
-  //uint16_t resetCounter = Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR);
-  uint16_t resetCounter = 0x0945;
+  uint16_t resetCounter = Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR);
   memcpy(optDataPtr, &resetCounter, sizeof(uint16_t));
   optDataPtr += sizeof(uint16_t);
   FOSSASAT_DEBUG_PRINTLN(resetCounter);
@@ -259,69 +278,57 @@ void Communication_Send_System_Info(bool useRtty) {
   memcpy(optDataPtr, &powerConfig.val, sizeof(uint8_t));
   optDataPtr += sizeof(uint8_t);
 
-  // when transitting via RTTY, convert bytes to ASCII chars
-  if(useRtty) {
-    // read callsign from EEPROM
+  // send as raw bytes
+  Communication_Send_Response(RESP_SYSTEM_INFO, optData, optDataLen, false);
+}
+
+void Communication_Process_Packet() {
+  // disable interrupts
+  interruptsEnabled = false;
+
+  // read data
+  size_t len = radio.getPacketLength();
+  if(len == 0) {
+    dataReceived = false;
+    interruptsEnabled = true;
+    return;
+  }
+  uint8_t* frame = new uint8_t[len];
+  int16_t state = radio.readData(frame, len);
+
+  // check reception state
+  if(state == ERR_NONE) {
+    FOSSASAT_DEBUG_PRINT(F("Got frame "));
+    FOSSASAT_DEBUG_PRINTLN(len);
+    FOSSASAT_DEBUG_PRINT_BUFF(frame, len);
+
+    // check callsign
     uint8_t callsignLen = Persistent_Storage_Read<uint8_t>(EEPROM_CALLSIGN_LEN_ADDR);
-    char* callsign = new char[callsignLen];
+    char callsign[MAX_STRING_LENGTH + 1];
     System_Info_Get_Callsign(callsign, callsignLen);
-
-    // send frame by RTTY
-    FOSSASAT_DEBUG_PRINTLN(F("RTTY start"));
-    uint8_t modem = currentModem;
-    Communication_Set_Modem(MODEM_FSK_NON_ISM);
-    rtty.begin(FSK_CARRIER_FREQUENCY, RTTY_FREQUENCY_SHIFT, RTTY_BAUDRATE, RTTY_ENCODING);
-
-    // preamble
-    for(uint8_t i = 0; i < RTTY_PREAMBLE_LENGTH; i++) {
-      rtty.print(RTTY_PREAMBLE);
-      FOSSASAT_DEBUG_PRINT(RTTY_PREAMBLE);
-      Pin_Interface_Watchdog_Heartbeat();
+    if(memcmp(frame, (uint8_t*)callsign, callsignLen - 1) == 0) {
+      // check passed
+      Comunication_Parse_Frame(frame, len);
+    } else {
+      FOSSASAT_DEBUG_PRINTLN(F("Callsign mismatch!"));
     }
 
-    // callsign
-    rtty.print(callsign);
-    FOSSASAT_DEBUG_PRINT(callsign);
-    Pin_Interface_Watchdog_Heartbeat();
-
-    // data
-    Communication_RTTY_Print_Hex(RESP_SYSTEM_INFO);
-    Communication_RTTY_Print_Hex((uint8_t)optDataLen);
-    Communication_RTTY_Print_Hex(batteryChargingVoltage);
-    Communication_RTTY_Print_Hex(batteryChragingCurrent);
-    Communication_RTTY_Print_Hex(batteryVoltage);
-    Communication_RTTY_Print_Hex(solarCellAVoltage);
-    Communication_RTTY_Print_Hex(solarCellBVoltage);
-    Communication_RTTY_Print_Hex(solarCellCVoltage);
-    Communication_RTTY_Print_Hex((uint8_t)(batteryTemperature & 0xFF));
-    Communication_RTTY_Print_Hex((uint8_t)((batteryTemperature >> 8) & 0xFF));
-    Communication_RTTY_Print_Hex((uint8_t)(boardTemperature & 0xFF));
-    Communication_RTTY_Print_Hex((uint8_t)((boardTemperature >> 8) & 0xFF));
-    Communication_RTTY_Print_Hex(mcuTemperature);
-    Communication_RTTY_Print_Hex((uint8_t)(resetCounter & 0xFF));
-    Communication_RTTY_Print_Hex((uint8_t)((resetCounter >> 8) & 0xFF));
-    //Communication_RTTY_Print_Hex(powerConfig.val);
-    Communication_RTTY_Print_Hex(0x3B);
-    FOSSASAT_DEBUG_PRINTLN();
-    Pin_Interface_Watchdog_Heartbeat();
-    FOSSASAT_DEBUG_PRINTLN(F("RTTY done"));
-    Communication_Set_Modem(modem);
-
-    // deallocate memory
-    delete[] callsign;
-  } else {
-    // send as raw bytes
-    Communication_Send_Response(RESP_SYSTEM_INFO, optData, optDataLen);
   }
 
   // deallocate memory
-  delete[] optData;
+  delete[] frame;
+
+  // reset flag
+  dataReceived = false;
+
+  // enable interrupts
+  interruptsEnabled = true;
 }
 
 void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
   // read callsign from EEPROM
   uint8_t callsignLen = Persistent_Storage_Read<uint8_t>(EEPROM_CALLSIGN_LEN_ADDR);
-  char* callsign = new char[callsignLen];
+  char callsign[MAX_STRING_LENGTH + 1];
   System_Info_Get_Callsign(callsign, callsignLen);
 
   // get functionID
@@ -329,7 +336,6 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
   if(functionId < 0) {
     FOSSASAT_DEBUG_PRINT(F("Unable to get func. ID "));
     FOSSASAT_DEBUG_PRINTLN(functionId);
-    delete[] callsign;
     return;
   }
   FOSSASAT_DEBUG_PRINT(F("Func. ID = 0x"));
@@ -385,8 +391,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
         delete[] failedOptData;
       }
 
-      // decryption failed, deallocate memory and return
-      delete[] callsign;
+      // decryption failed, return
       return;
     }
 
@@ -405,8 +410,6 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
       // optional data extraction failed,
       FOSSASAT_DEBUG_PRINT(F("Failed to get optDataLen "));
       FOSSASAT_DEBUG_PRINTLN(optDataLen);
-
-      delete[] callsign;
       return;
     }
 
@@ -416,9 +419,6 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
       FCP_Get_OptData(callsign, frame, len, optData);
     }
   }
-
-  // deallocate memory
-  delete[] callsign;
 
   // check optional data presence
   if(optDataLen > 0) {
@@ -438,6 +438,10 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 }
 
 void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t optDataLen) {
+  // delay before responding
+  FOSSASAT_DEBUG_DELAY(100);
+  Power_Control_Delay(RESPONSE_DELAY, true);
+
   // execute function based on ID
   switch(functionId) {
     case CMD_PING:
@@ -590,7 +594,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t optDataLen, bool overrideModem) {
   // read callsign from EEPROM
   uint8_t callsignLen = Persistent_Storage_Read<uint8_t>(EEPROM_CALLSIGN_LEN_ADDR);
-  char* callsign = new char[callsignLen];
+  char callsign[MAX_STRING_LENGTH + 1];
   System_Info_Get_Callsign(callsign, callsignLen);
 
   // build response frame
@@ -603,7 +607,6 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
 
   // deallocate memory
   delete[] frame;
-  delete[] callsign;
 
   return(state);
 }
@@ -611,7 +614,7 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
 int16_t Communication_Send_Response_Encrypted(uint8_t respId, uint8_t* optData, size_t optDataLen, bool overrideModem) {
   // read callsign from EEPROM
   uint8_t callsignLen = Persistent_Storage_Read<uint8_t>(EEPROM_CALLSIGN_LEN_ADDR);
-  char* callsign = new char[callsignLen];
+  char callsign[MAX_STRING_LENGTH + 1];
   System_Info_Get_Callsign(callsign, callsignLen);
 
   // build response frame
@@ -624,7 +627,6 @@ int16_t Communication_Send_Response_Encrypted(uint8_t respId, uint8_t* optData, 
 
   // deallocate memory
   delete[] frame;
-  delete[] callsign;
 
   return(state);
 }
@@ -640,19 +642,23 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
   #endif
 
   // disable receive interrupt
-  detachInterrupt(digitalPinToInterrupt(RADIO_DIO1));
+  radio.clearDio1Action();
 
   // print frame for debugging
-  FOSSASAT_DEBUG_PRINT(F("Sending LoRa frame "));
+  FOSSASAT_DEBUG_PRINT(F("Sending frame "));
   FOSSASAT_DEBUG_PRINTLN(len);
   FOSSASAT_DEBUG_PRINT_BUFF(data, len);
 
-  // send frame by non-ISM LoRa
-  uint8_t modem = currentModem;
-
   // check if modem should be switched - required for transmissions with custom settings
-  if(!overrideModem) {
-    Communication_Set_Modem(MODEM_LORA_NON_ISM);
+  uint8_t modem = currentModem;
+  FOSSASAT_DEBUG_PRINT(F("Using modem "));
+  if(overrideModem) {
+    FOSSASAT_DEBUG_WRITE(MODEM_LORA);
+    FOSSASAT_DEBUG_PRINTLN(F(" (overridden)"));
+    Communication_Set_Modem(MODEM_LORA);
+  } else {
+    FOSSASAT_DEBUG_WRITE(modem);
+    FOSSASAT_DEBUG_PRINTLN();
   }
 
   // get timeout
@@ -688,11 +694,16 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
 
   // transmission done, set mode standby
   state = radio.standby();
-  Communication_Set_Modem(modem);
+
+  // restore modem
+  if(overrideModem) {
+    Communication_Set_Modem(modem);
+  }
 
   // set receive ISR
   radio.setDio1Action(Communication_Receive_Interrupt);
-  radio.startReceive();
+
+  FOSSASAT_DEBUG_PRINTLN(F("done"));
 
   return(state);
 }

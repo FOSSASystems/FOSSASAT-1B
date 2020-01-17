@@ -29,14 +29,11 @@
 
 // power management configuration
 
-// automatic battery voltage measurement period
-#define BATTERY_CHECK_PERIOD                            300000 // ms
-
-// satellite will go to sleep each time this period has elapsed
-#define SLEEP_PERIOD                                    30000 // ms
-
 // battery voltage limit to enable low power mode
 #define BATTERY_VOLTAGE_LIMIT                           3.8f // V
+
+// battery voltage limit to enable low power mode
+#define BATTERY_CW_BEEP_VOLTAGE_LIMIT                   3.9f // V
 
 // battery charging temperature limit
 #define BATTERY_TEMPERATURE_LIMIT                       -0.7f // deg. C
@@ -66,10 +63,10 @@
 #define INA_TIMEOUT                                     2000 // ms
 
 // shunt resistor value
-#define INA_RSHUNT                                      0.1f // ohm
+#define INA_RSHUNT                                      0.1  // ohm
 
 // maximum current
-#define INA_MAX_CURRENT                                 0.5f // A
+#define INA_MAX_CURRENT                                 0.5  // A
 
 // registers
 #define INA_REG_MANUFACTURER_ID                         0xFE
@@ -106,7 +103,6 @@
 #define DIGITAL_OUT_WATCHDOG_HEARTBEAT                  4   // PD4
 #define RADIO_NSS                                       7   // PD7
 #define RADIO_DIO1                                      2   // PD2
-#define RADIO_DIO2                                      3   // PD3
 #define RADIO_BUSY                                      6   // PD6
 #define RADIO_NRST                                      NC
 
@@ -124,8 +120,8 @@
 
 
 // MCU temperature sensor configuration
-#define MCU_TEMP_OFFSET                                 324.31f   // t = (raw - MCU_TEMP_OFFSET) / MCU_TEMP_COEFFICIENT
-#define MCU_TEMP_COEFFICIENT                            1.22f     // empirical constants
+#define MCU_TEMP_OFFSET                                 324.31    // t = (raw - MCU_TEMP_OFFSET) / MCU_TEMP_COEFFICIENT
+#define MCU_TEMP_COEFFICIENT                            1.22      // empirical constants
 
 
 // radio configuration
@@ -135,46 +131,40 @@
 
 // common
 #define SYNC_WORD                                       0x12
-#define TCXO_VOLTAGE                                    1.6f    // V
+#define TCXO_VOLTAGE                                    1.6     // V
 #define LOW_POWER_LEVEL                                 10      // dBm
 #define MAX_NUM_OF_BLOCKS                               3       // maximum number of AES128 blocks that will be accepted
-#define MODEM_SWITCHING_PERIOD_FSK                      2000000 // us
-#define MODEM_SWITCHING_PERIOD_LORA_ISM                 2000000 // us
-#define MODEM_SWITCHING_PERIOD_LORA_NON_ISM             5000000 // us
-#define SYSTEM_INFO_TRANSMIT_PERIOD                     30000   // ms
-#define RTTY_SYSTEM_INFO_PERIOD                         180000  // ms
+#define LORA_RECEIVE_WINDOW_LENGTH                      40      // s
+#define FSK_RECEIVE_WINDOW_LENGTH                       20      // s
+#define RESPONSE_DELAY                                  1000    // ms
 
 // LoRa
-#define LORA_CARRIER_FREQUENCY_ISM                      434.5f  // MHz
-#define LORA_CARRIER_FREQUENCY                          436.7f  // MHz
-#define LORA_BANDWIDTH                                  125.0f  // kHz dual sideband
+#define LORA_CARRIER_FREQUENCY                          436.7   // MHz
+#define LORA_BANDWIDTH                                  125.0   // kHz dual sideband
 #define LORA_SPREADING_FACTOR                           11
 #define LORA_SPREADING_FACTOR_ALT                       10
 #define LORA_CODING_RATE                                8       // 4/8, Extended Hamming
-#define LORA_OUTPUT_POWER                               21      // dBm
-#define LORA_CURRENT_LIMIT                              160.0f  // mA
+#define LORA_OUTPUT_POWER                               20      // dBm
+#define LORA_CURRENT_LIMIT                              160.0   // mA
 
 // Non-ISM band FSK
-#define FSK_CARRIER_FREQUENCY                           436.7f  // MHz
-#define FSK_BIT_RATE                                    1.2f    // kbps nominal
-#define FSK_FREQUENCY_DEVIATION                         5.0f    // kHz single-sideband
-#define FSK_RX_BANDWIDTH                                19.5f   // kHz single-sideband
-#define FSK_OUTPUT_POWER                                21      // dBm
+#define FSK_CARRIER_FREQUENCY                           436.7   // MHz
+#define FSK_BIT_RATE                                    9.6     // kbps nominal
+#define FSK_FREQUENCY_DEVIATION                         5.0     // kHz single-sideband
+#define FSK_RX_BANDWIDTH                                19.5    // kHz single-sideband
+#define FSK_OUTPUT_POWER                                20      // dBm
 #define FSK_PREAMBLE_LENGTH                             16      // bits
-#define FSK_DATA_SHAPING                                0.5f    // GFSK filter BT product
-#define FSK_CURRENT_LIMIT                               160.0f  // mA
+#define FSK_DATA_SHAPING                                0.5     // GFSK filter BT product
+#define FSK_CURRENT_LIMIT                               160.0   // mA
 
-// RTTY configuration
-#define RTTY_PREAMBLE                                   "RY"
-#define RTTY_PREAMBLE_LENGTH                            8       // number of RTTY_PREAMBLE repetitions
-#define RTTY_FREQUENCY_SHIFT                            182     // Hz
-#define RTTY_BAUDRATE                                   45      // baud
-#define RTTY_ENCODING                                   ITA2    // 5-bit "Baudot" encoding
+// Morse/CW configuration
+#define NUM_CW_BEEPS                                    3       // number of CW sync beeps in low power mode
+#define MORSE_PREAMBLE_LENGTH                           3       // number of start signal repetitions
+#define MORSE_SPEED                                     40      // words per minute
 
-// modem definitions
-#define MODEM_FSK_NON_ISM                               0
-#define MODEM_LORA_ISM                                  1
-#define MODEM_LORA_NON_ISM                              2
+// modems
+#define MODEM_LORA                                      'L'
+#define MODEM_FSK                                       'F'
 
 // spreading factor modes
 #define SPREADING_FACTOR_STANDARD                       0
@@ -188,9 +178,6 @@ extern volatile bool interruptsEnabled;
 // flag to signal data was received from ISR
 extern volatile bool dataReceived;
 
-// flag to signal modem should be switched
-extern volatile bool switchModem;
-
 // current modem configuration
 extern uint8_t currentModem;
 
@@ -198,18 +185,14 @@ extern uint8_t currentModem;
 extern uint8_t spreadingFactorMode;
 
 // timestamps
-extern uint32_t lastTransmit;
-extern uint32_t lastBatteryCheck;
-extern uint32_t lastSleep;
 extern uint32_t lastHeartbeat;
-extern uint32_t lastRtty;
 
 // INA226 instance
 extern INA226 ina;
 
 // RadioLib instances
 extern SX1268 radio;
-extern RTTYClient rtty;
+extern MorseClient morse;
 
 // transmission password
 extern const char* password;

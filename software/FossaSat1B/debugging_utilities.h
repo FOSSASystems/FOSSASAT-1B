@@ -7,18 +7,20 @@
 // RadioLib debug can be enabled in RadioLib/src/TypeDef.h
 #define FOSSASAT_DEBUG
 
+#define FOSSASAT_DEBUG_PORT   Serial
+
 #ifdef FOSSASAT_DEBUG
-  #define FOSSASAT_DEBUG_BEGIN(...) { Serial.begin(__VA_ARGS__); }
-  #define FOSSASAT_DEBUG_PRINT(...) { Serial.print(__VA_ARGS__); }
-  #define FOSSASAT_DEBUG_PRINTLN(...) { Serial.println(__VA_ARGS__); }
-  #define FOSSASAT_DEBUG_WRITE(...) { Serial.write(__VA_ARGS__); }
+  #define FOSSASAT_DEBUG_BEGIN(...) { FOSSASAT_DEBUG_PORT.begin(__VA_ARGS__); }
+  #define FOSSASAT_DEBUG_PRINT(...) { FOSSASAT_DEBUG_PORT.print(__VA_ARGS__); }
+  #define FOSSASAT_DEBUG_PRINTLN(...) { FOSSASAT_DEBUG_PORT.println(__VA_ARGS__); }
+  #define FOSSASAT_DEBUG_WRITE(...) { FOSSASAT_DEBUG_PORT.write(__VA_ARGS__); }
   #define FOSSASAT_DEBUG_PRINT_BUFF(BUFF, LEN) { \
     for(size_t i = 0; i < LEN; i++) { \
-      Serial.print(F("0x")); \
-      Serial.print(BUFF[i], HEX); \
-      Serial.print('\t'); \
-      Serial.write(BUFF[i]); \
-      Serial.println(); \
+      FOSSASAT_DEBUG_PORT.print(F("0x")); \
+      FOSSASAT_DEBUG_PORT.print(BUFF[i], HEX); \
+      FOSSASAT_DEBUG_PORT.print('\t'); \
+      FOSSASAT_DEBUG_PORT.write(BUFF[i]); \
+      FOSSASAT_DEBUG_PORT.println(); \
     } }
   #define FOSSASAT_DEBUG_DELAY(MS) { delay(MS); }
 #else
@@ -27,7 +29,7 @@
   #define FOSSASAT_DEBUG_PRINTLN(...) {}
   #define FOSSASAT_DEBUG_WRITE(...) {}
   #define FOSSASAT_DEBUG_PRINT_BUFF(BUFF, LEN) {}
-#define FOSSASAT_DEBUG_DELAY(MS) {}
+  #define FOSSASAT_DEBUG_DELAY(MS) {}
 #endif
 
 #endif

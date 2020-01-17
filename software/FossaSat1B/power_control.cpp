@@ -71,7 +71,7 @@ uint32_t Power_Control_Get_Sleep_Interval() {
   return(interval);
 }
 
-void Power_Control_Delay(uint32_t ms, bool sleep) {
+void Power_Control_Delay(uint32_t ms, bool sleep, bool sleepRadio) {
   if(ms == 0) {
     return;
   }
@@ -79,9 +79,14 @@ void Power_Control_Delay(uint32_t ms, bool sleep) {
   // calculate number of required loops (rounded up)
   float numLoops = 0.5f;
   if(sleep) {
-    numLoops += (float)ms / 1000.0;
+    numLoops += (float)ms / 500.0;
   } else {
     numLoops += (float)ms / 50.0;
+  }
+
+  // set radio to sleep
+  if(sleepRadio) {
+    radio.sleep();
   }
 
   // perform all loops
@@ -89,10 +94,15 @@ void Power_Control_Delay(uint32_t ms, bool sleep) {
     Pin_Interface_Watchdog_Heartbeat();
 
     if(sleep) {
-      LowPower.powerDown(SLEEP_1S, ADC_OFF, BOD_OFF);
+      LowPower.powerDown(SLEEP_500MS, ADC_OFF, BOD_OFF);
     } else {
       delay(50);
     }
+  }
+
+  // wake up radio
+  if(sleepRadio) {
+    radio.standby();
   }
 }
 

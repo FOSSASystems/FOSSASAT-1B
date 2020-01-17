@@ -24,7 +24,7 @@ void Power_Control_Save_Configuration();
 void Power_Control_Charge(bool charge);
 uint32_t Power_Control_Get_Sleep_Interval();
 
-void Power_Control_Delay(uint32_t ms, bool sleep);
+void Power_Control_Delay(uint32_t ms, bool sleep, bool sleepRadio = false);
 
 void Power_Control_Setup_INA226();
 bool Power_Control_INA2256_Check();

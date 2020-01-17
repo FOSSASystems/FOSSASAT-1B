@@ -6,28 +6,21 @@ volatile bool interruptsEnabled = true;
 // flag to signal data was received from ISR
 volatile bool dataReceived = false;
 
-// flag to signal modem should be switched
-volatile bool switchModem = false;
-
 // current modem configuration
-uint8_t currentModem = MODEM_FSK_NON_ISM;
+uint8_t currentModem;
 
 // current spreading factor mode
-uint8_t spreadingFactorMode = SPREADING_FACTOR_STANDARD;
+uint8_t spreadingFactorMode;
 
 // timestamps
-uint32_t lastTransmit = 0;
-uint32_t lastBatteryCheck = 0;
-uint32_t lastSleep = 0;
 uint32_t lastHeartbeat = 0;
-uint32_t lastRtty = 0;
 
 // INA226 instance
 INA226 ina;
 
 // RadioLib instances
 SX1268 radio = new Module(RADIO_NSS, RADIO_DIO1, RADIO_NRST, RADIO_BUSY);
-RTTYClient rtty(&radio);
+MorseClient morse(&radio);
 
 // transmission password
 const char* password = "password";
