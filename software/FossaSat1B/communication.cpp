@@ -10,7 +10,7 @@ void Communication_Receive_Interrupt() {
   dataReceived = true;
 }
 
-void Communication_Set_Modem(uint8_t modem) {
+int16_t Communication_Set_Modem(uint8_t modem) {
   int16_t state = ERR_NONE;
   FOSSASAT_DEBUG_PRINT(F("Set modem "));
   FOSSASAT_DEBUG_WRITE(modem);
@@ -44,7 +44,7 @@ void Communication_Set_Modem(uint8_t modem) {
     default:
       FOSSASAT_DEBUG_PRINT(F("Unkown modem "));
       FOSSASAT_DEBUG_PRINTLN(modem);
-      return;
+      return(ERR_UNKNOWN);
   }
 
   radio.setDio2AsRfSwitch(true);
@@ -52,6 +52,7 @@ void Communication_Set_Modem(uint8_t modem) {
   // handle possible error codes
   FOSSASAT_DEBUG_PRINT(F("Radio init "));
   FOSSASAT_DEBUG_PRINTLN(state);
+  FOSSASAT_DEBUG_DELAY(100);
   if (state != ERR_NONE) {
     // radio chip failed, restart
     Pin_Interface_Watchdog_Restart();
@@ -65,6 +66,7 @@ void Communication_Set_Modem(uint8_t modem) {
 
   // save current modem
   currentModem = modem;
+  return(state);
 }
 
 int16_t Communication_Set_SpreadingFactor(uint8_t sfMode) {
@@ -156,6 +158,8 @@ void Communication_Send_Morse_Beacon(float battVoltage) {
 }
 
 void Communication_CW_Beep() {
+  FOSSASAT_DEBUG_PRINTLN(F("beep"));
+  FOSSASAT_DEBUG_DELAY(10);
   radio.transmitDirect();
   LowPower.powerDown(SLEEP_500MS, ADC_OFF, BOD_OFF);
   radio.standby();
@@ -173,7 +177,7 @@ void Communication_Send_System_Info() {
   #ifdef ENABLE_INA226
     uint8_t batteryChargingVoltage = Power_Control_Get_Charging_Voltage() * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #else
-    uint8_t batteryChargingVoltage = 4.02 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
+    uint8_t batteryChargingVoltage = 3.82 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #endif
   memcpy(optDataPtr, &batteryChargingVoltage, sizeof(uint8_t));
   optDataPtr += sizeof(uint8_t);
@@ -186,7 +190,7 @@ void Communication_Send_System_Info() {
   #ifdef ENABLE_INA226
     int16_t batteryChragingCurrent = Power_Control_Get_Charging_Current() * (CURRENT_UNIT / CURRENT_MULTIPLIER);
   #else
-    int16_t batteryChragingCurrent = 0xAA19;
+    int16_t batteryChragingCurrent = 0.056 * (CURRENT_UNIT / CURRENT_MULTIPLIER);
   #endif
   memcpy(optDataPtr, &batteryChragingCurrent, sizeof(int16_t));
   optDataPtr += sizeof(int16_t);

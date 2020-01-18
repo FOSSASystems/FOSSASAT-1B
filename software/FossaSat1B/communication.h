@@ -5,7 +5,7 @@
 
 void Communication_Receive_Interrupt();
 
-void Communication_Set_Modem(uint8_t modem);
+int16_t Communication_Set_Modem(uint8_t modem);
 int16_t Communication_Set_Configuration(uint8_t* optData, uint8_t optDataLen);
 int16_t Communication_Set_SpreadingFactor(uint8_t sfMode);
 
