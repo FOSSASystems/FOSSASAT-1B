@@ -122,14 +122,9 @@ bool Power_Control_INA2256_Check() {
   delay(1);
 
   // try to read
-  Wire.beginTransmission(INA_ADDR);
   Wire.requestFrom((uint8_t)INA_ADDR, (uint8_t)2);
-  uint32_t start = millis();
-  while(!Wire.available()) {
-    if(millis() - start >= INA_TIMEOUT) {
-      // timed out
-      return(false);
-    }
+  if(Wire.available() != 2) {
+    return(false);
   }
 
   // check value
