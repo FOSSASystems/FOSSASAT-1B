@@ -12,19 +12,19 @@
 // debug macros - only comment out for debug purposes!
 
 // comment out to disable transmission control (transmission disable and no transmissions in low power mode)
-//#define ENABLE_TRANSMISSION_CONTROL
+#define ENABLE_TRANSMISSION_CONTROL
 
 // comment out to disable deployment sequence
-//#define ENABLE_DEPLOYMENT_SEQUENCE
+#define ENABLE_DEPLOYMENT_SEQUENCE
 
 // comment out to disable automatic sleep interval control
-//#define ENABLE_INTERVAL_CONTROL
+#define ENABLE_INTERVAL_CONTROL
 
 // comment out to skip INA226 reading
-//#define ENABLE_INA226
+#define ENABLE_INA226
 
 // uncomment to wipe EEPROM on start (will also set all EEPROM variables to defaults)
-#define EEPROM_WIPE
+//#define EEPROM_WIPE
 
 
 // power management configuration
