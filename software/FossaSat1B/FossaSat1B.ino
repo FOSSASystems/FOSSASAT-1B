@@ -43,15 +43,15 @@ void setup() {
   FOSSASAT_DEBUG_PORT.println(powerConfig.val, BIN);
 
   // set temperature sensor resolution
-  Pin_Interface_Set_Temp_Resolution(BOARD_TEMP_SENSOR_ADDR, TEMP_SENSOR_RESOLUTION_10_BITS);
-  Pin_Interface_Set_Temp_Resolution(BATTERY_TEMP_SENSOR_ADDR, TEMP_SENSOR_RESOLUTION_10_BITS);
+  //Pin_Interface_Set_Temp_Resolution(BOARD_TEMP_SENSOR_ADDR, TEMP_SENSOR_RESOLUTION_10_BITS);
+  //Pin_Interface_Set_Temp_Resolution(BATTERY_TEMP_SENSOR_ADDR, TEMP_SENSOR_RESOLUTION_10_BITS);
 
   // setup INA226
   Power_Control_Setup_INA226();
 
   // check deployment
   #ifdef ENABLE_DEPLOYMENT_SEQUENCE
-    uint8_t attemptNumber = PersistentStorage_Read_Internal<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
+    uint8_t attemptNumber = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
 
     FOSSASAT_DEBUG_PORT.print(F("Deployment attempt #"));
     FOSSASAT_DEBUG_PORT.println(attemptNumber);
@@ -67,37 +67,37 @@ void setup() {
           lastSample = millis();
           FOSSASAT_DEBUG_PORT.println();
 
-          FOSSASAT_DEBUG_PORT.print(F("Charging [V]:\t"))
+          FOSSASAT_DEBUG_PORT.print(F("Charging [V]:\t"));
           FOSSASAT_DEBUG_PORT.println(Power_Control_Get_Charging_Voltage(), 2);
 
-          FOSSASAT_DEBUG_PORT.print(F("Charging [mA]:\t"))
+          FOSSASAT_DEBUG_PORT.print(F("Charging [mA]:\t"));
           FOSSASAT_DEBUG_PORT.println(Power_Control_Get_Charging_Current(), 3);
 
-          FOSSASAT_DEBUG_PORT.print(F("Battery [V]:\t"))
+          FOSSASAT_DEBUG_PORT.print(F("Battery [V]:\t"));
           FOSSASAT_DEBUG_PORT.println(Power_Control_Get_Battery_Voltage(), 2);
 
-          FOSSASAT_DEBUG_PORT.print(F("Solar A [V]:\t"))
-          FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN) 2);
+          FOSSASAT_DEBUG_PORT.print(F("Solar A [V]:\t"));
+          FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN), 2);
 
-          FOSSASAT_DEBUG_PORT.print(F("Solar B [V]:\t"))
-          FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN) 2);
+          FOSSASAT_DEBUG_PORT.print(F("Solar B [V]:\t"));
+          FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN), 2);
 
-          FOSSASAT_DEBUG_PORT.print(F("Solar C [V]:\t"))
-          FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN) 2);
+          FOSSASAT_DEBUG_PORT.print(F("Solar C [V]:\t"));
+          FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN), 2);
 
-          FOSSASAT_DEBUG_PORT.print(F("Battery [°C]:\t"))
+          FOSSASAT_DEBUG_PORT.print(F("Battery [°C]:\t"));
           FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Temperature(BATTERY_TEMP_SENSOR_ADDR), 2);
 
-          FOSSASAT_DEBUG_PORT.print(F("Board [°C]:\t"))
+          FOSSASAT_DEBUG_PORT.print(F("Board [°C]:\t"));
           FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Temperature(BOARD_TEMP_SENSOR_ADDR), 2);
 
-          FOSSASAT_DEBUG_PORT.print(F("MCU [°C]:\t"))
+          FOSSASAT_DEBUG_PORT.print(F("MCU [°C]:\t"));
           FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Temperature_Internal());
 
-          FOSSASAT_DEBUG_PORT.print(F("Reset:\t\t"))
+          FOSSASAT_DEBUG_PORT.print(F("Reset:\t\t"));
           FOSSASAT_DEBUG_PORT.println(Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR));
 
-          FOSSASAT_DEBUG_PORT.print(F("Power config:\t0b"))
+          FOSSASAT_DEBUG_PORT.print(F("Power config:\t0b"));
           Power_Control_Load_Configuration();
           FOSSASAT_DEBUG_PORT.println(powerConfig.val, BIN);
 
@@ -106,7 +106,7 @@ void setup() {
 
         // pet watchdog
         if (millis() - lastHeartbeat >= WATCHDOG_LOOP_HEARTBEAT_PERIOD) {
-          PowerControl_Watchdog_Heartbeat();
+          Pin_Interface_Watchdog_Heartbeat();
         }
       }
     } else if(Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR) < DEPLOYMENT_ATTEMPTS) {
