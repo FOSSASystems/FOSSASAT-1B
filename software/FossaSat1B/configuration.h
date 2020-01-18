@@ -41,6 +41,9 @@
 // wachdog heartbeat period in loop()
 #define WATCHDOG_LOOP_HEARTBEAT_PERIOD                  1000 // ms
 
+// all sleep times are multiplied by this constant to compensate LowPower overhead
+#define SLEEP_LENGTH_CONSTANT                           0.9
+
 // number of deployment attempts
 #define DEPLOYMENT_ATTEMPTS                             2
 

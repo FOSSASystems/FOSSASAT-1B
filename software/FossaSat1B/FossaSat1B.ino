@@ -212,7 +212,7 @@ void loop() {
   radio.setDio1Action(Communication_Receive_Interrupt);
   radio.startReceive();
 
-  for(uint8_t i = 0; i < LORA_RECEIVE_WINDOW_LENGTH; i++) {
+  for(uint8_t i = 0; i < LORA_RECEIVE_WINDOW_LENGTH * SLEEP_LENGTH_CONSTANT; i++) {
     Power_Control_Delay(1000, true);
     if(dataReceived) {
       radio.standby();
@@ -228,7 +228,7 @@ void loop() {
   radio.setDio1Action(Communication_Receive_Interrupt);
   radio.startReceive();
 
-  for(uint8_t i = 0; i < FSK_RECEIVE_WINDOW_LENGTH; i++) {
+  for(uint8_t i = 0; i < FSK_RECEIVE_WINDOW_LENGTH * SLEEP_LENGTH_CONSTANT; i++) {
     Power_Control_Delay(1000, true);
     if(dataReceived) {
       radio.standby();
@@ -244,5 +244,5 @@ void loop() {
   FOSSASAT_DEBUG_PRINT(F("Sleep for "));
   FOSSASAT_DEBUG_PRINTLN(interval);
   FOSSASAT_DEBUG_DELAY(10);
-  Power_Control_Delay(interval, true, true);
+  Power_Control_Delay(interval * SLEEP_LENGTH_CONSTANT, true, true);
 }
