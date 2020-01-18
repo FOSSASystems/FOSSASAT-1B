@@ -6,6 +6,7 @@
 // uncomment to enable debug output
 // RadioLib debug can be enabled in RadioLib/src/TypeDef.h
 #define FOSSASAT_DEBUG
+//#define FOSSASAT_VERBOSE
 
 #define FOSSASAT_DEBUG_PORT   Serial
 #define FOSSASAT_DEBUG_SPEED  115200
@@ -31,6 +32,14 @@
   #define FOSSASAT_DEBUG_WRITE(...) {}
   #define FOSSASAT_DEBUG_PRINT_BUFF(BUFF, LEN) {}
   #define FOSSASAT_DEBUG_DELAY(MS) {}
+#endif
+
+#ifdef FOSSASAT_VERBOSE
+  #define FOSSASAT_VERBOSE_PRINT(...) { FOSSASAT_DEBUG_PORT.print(__VA_ARGS__); }
+  #define FOSSASAT_VERBOSE_PRINTLN(...) { FOSSASAT_DEBUG_PORT.println(__VA_ARGS__); }
+#else
+  #define FOSSASAT_VERBOSE_PRINT(...) {}
+  #define FOSSASAT_VERBOSE_PRINTLN(...) {}
 #endif
 
 #endif
