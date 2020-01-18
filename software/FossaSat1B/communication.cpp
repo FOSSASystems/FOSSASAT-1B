@@ -209,8 +209,7 @@ void Communication_Send_System_Info() {
   FOSSASAT_DEBUG_PRINTLN(F(" mV"));
 
   // set solarCellAVoltage variable
-  //uint8_t solarCellAVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-  uint8_t solarCellAVoltage = 1.26 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
+  uint8_t solarCellAVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   memcpy(optDataPtr, &solarCellAVoltage, sizeof(uint8_t));
   optDataPtr += sizeof(uint8_t);
   FOSSASAT_DEBUG_PRINT(solarCellAVoltage);
@@ -219,8 +218,7 @@ void Communication_Send_System_Info() {
   FOSSASAT_DEBUG_PRINTLN(F(" mV"));
 
   // set solarCellBVoltage variable
-  //uint8_t solarCellBVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-  uint8_t solarCellBVoltage = 0.42 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
+  uint8_t solarCellBVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   memcpy(optDataPtr, &solarCellBVoltage, sizeof(uint8_t));
   optDataPtr += sizeof(uint8_t);
   FOSSASAT_DEBUG_PRINT(solarCellBVoltage);
@@ -229,8 +227,7 @@ void Communication_Send_System_Info() {
   FOSSASAT_DEBUG_PRINTLN(F(" mV"));
 
   // set solarCellCVoltage variable
-  //uint8_t solarCellCVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-  uint8_t solarCellCVoltage = 0.0 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
+  uint8_t solarCellCVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   memcpy(optDataPtr, &solarCellCVoltage, sizeof(uint8_t));
   optDataPtr += sizeof(uint8_t);
   FOSSASAT_DEBUG_PRINT(solarCellCVoltage);
@@ -239,8 +236,7 @@ void Communication_Send_System_Info() {
   FOSSASAT_DEBUG_PRINTLN(F(" mV"));
 
   // set batteryTemperature variable
-  //int16_t batteryTemperature = Pin_Interface_Read_Temperature(BATTERY_TEMP_SENSOR_ADDR) * (TEMPERATURE_UNIT / TEMPERATURE_MULTIPLIER);
-  int16_t batteryTemperature = 9.5 * (TEMPERATURE_UNIT / TEMPERATURE_MULTIPLIER);
+  int16_t batteryTemperature = Pin_Interface_Read_Temperature(BATTERY_TEMP_SENSOR_ADDR) * (TEMPERATURE_UNIT / TEMPERATURE_MULTIPLIER);
   memcpy(optDataPtr, &batteryTemperature, sizeof(int16_t));
   optDataPtr += sizeof(int16_t);
   FOSSASAT_DEBUG_PRINT(batteryTemperature);
@@ -249,8 +245,7 @@ void Communication_Send_System_Info() {
   FOSSASAT_DEBUG_PRINTLN(F(" mdeg C"));
 
   // set boardTemperature variable
-  //int16_t boardTemperature = Pin_Interface_Read_Temperature(BOARD_TEMP_SENSOR_ADDR) * (TEMPERATURE_UNIT / TEMPERATURE_MULTIPLIER);
-  int16_t boardTemperature = 38.75 * (TEMPERATURE_UNIT / TEMPERATURE_MULTIPLIER);
+  int16_t boardTemperature = Pin_Interface_Read_Temperature(BOARD_TEMP_SENSOR_ADDR) * (TEMPERATURE_UNIT / TEMPERATURE_MULTIPLIER);
   memcpy(optDataPtr, &boardTemperature, sizeof(int16_t));
   optDataPtr += sizeof(int16_t);
   FOSSASAT_DEBUG_PRINT(boardTemperature);
