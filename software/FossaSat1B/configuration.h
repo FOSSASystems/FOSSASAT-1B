@@ -33,7 +33,7 @@
 #define BATTERY_VOLTAGE_LIMIT                           3.8f // V
 
 // battery voltage limit to enable low power mode
-#define BATTERY_CW_BEEP_VOLTAGE_LIMIT                   3.9f // V
+#define BATTERY_CW_BEEP_VOLTAGE_LIMIT                   3.8f // V
 
 // battery charging temperature limit
 #define BATTERY_TEMPERATURE_LIMIT                       -0.7f // deg. C
