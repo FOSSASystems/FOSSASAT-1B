@@ -47,6 +47,9 @@
 // sleep for this period of time before deployment
 #define DEPLOYMENT_SLEEP_LENGTH                         180000 // ms
 
+#define DEPLOYMENT_DEBUG_LENGTH                         60      // s
+#define DEPLOYMENT_DEBUG_SAMPLE_PERIOD                  1000    // ms
+
 // default power configuration
 #define LOW_POWER_MODE_ACTIVE                           0
 #define LOW_POWER_MODE_ENABLED                          1
