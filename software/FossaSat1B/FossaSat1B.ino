@@ -1,3 +1,10 @@
+/**
+ * @file FossaSat1B.ino
+ * @author FOSSA Systems
+ * @brief 
+ * 
+ */
+
 #include "FossaSat1B.h"
 
 // compile-time checks
