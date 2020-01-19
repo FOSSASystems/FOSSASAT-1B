@@ -4,11 +4,21 @@
 #include "FossaSat1B.h"
 
 /**
- * @defgroup configuration_page Configuration
- * @brief
+ * @mainpage
+ * 
  * # NOTICE
  * The tests given here are only guidelines, please also refer to the FOSSASAT-1 software test plans and documentation for a complete view.
+ *
+ * # Navigation
+ * - See the modules section for help with the satellite's configuration.
+ * - Each header file contains documentation.
  * 
+ */
+
+/**
+ * @defgroup configuration_page Configuration
+ * @brief
+
  * @{
  */
 
@@ -320,7 +330,7 @@
  */
 
 /**
- * @defgroup defines_radio_lora_configuraiton  LoRa Radio Configuration
+ * @defgroup defines_radio_lora_configuration  LoRa Radio Configuration
  * 
  * @todo Julian -> double check these values please.
  * @test Test that we can receive LoRa transmissions from the satellite with these default parameters
@@ -469,8 +479,11 @@ extern const uint8_t encryptionKey[];								/*!< Encryption key (AES). */
  * 
  */
 void Configuration_Setup_Pins();
+/**
+ * @}
+ */
 
-/** Endof configuration module
+/**
  * @}
  */
 
