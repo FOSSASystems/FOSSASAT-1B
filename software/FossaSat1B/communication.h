@@ -3,8 +3,18 @@
 
 #include "FossaSat1B.h"
 
+/**
+ * @brief This function is called by the ISR when a transmission is received.
+ * 
+ */
 void Communication_Receive_Interrupt();
 
+/**
+ * @brief This function configures the radio to the given modem.
+ * 
+ * @param modem see @ref defines_radio_modem_configuration
+ * @return int16_t The RadioLib status code for .Begin().
+ */
 int16_t Communication_Set_Modem(uint8_t modem);
 int16_t Communication_Set_Configuration(uint8_t* optData, uint8_t optDataLen);
 int16_t Communication_Set_SpreadingFactor(uint8_t sfMode);

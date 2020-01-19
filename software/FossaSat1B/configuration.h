@@ -396,7 +396,7 @@
 
 
 /**
- * @defgroup defines_radio_morse_cw_configuraiton  Morse/CW Radio Configuration
+ * @defgroup defines_radio_morse_cw_configuration  Morse/CW Radio Configuration
  * 
  * @test (ID CONF_MORSE_CW_T0) (SEV 1) Check that the number of beeps given by the radio in low power mode is NUM_CW_BEEPS.
  * @test (ID CONF_MORSE_CW_T1) (SEV 1) Check that the morse starts a signal with MORSE_PREAMBLE_LENGTH.
@@ -412,7 +412,7 @@
  */
 
 /**
- * @defgroup defines_radio_modem_configuraiton Modem Identifiers
+ * @defgroup defines_radio_modem_configuration Modem Identifiers
  * 
  * @test (ID CONF_MODEM_T0) Check that MODEM_LORA is suitable.
  * @test (ID CONF_MODEM_T1) Check that MODEM_FSK is suitable.
@@ -426,7 +426,7 @@
  */
 
 /**
- * @defgroup defines_radio_sf_modes_configuraiton Spreading Factor Modes
+ * @defgroup defines_radio_sf_modes_configuration Spreading Factor Modes
  * 
  * @todo SPREADING_FACTOR_STANDARD is not used ?
  * @todo SPREADING_FACTOR_ALTERNATIVE is not used ?
