@@ -12,6 +12,8 @@
 /**
  * @brief This function deploys the antenna by powering the MOSFET1/2 for 1200 seconds.
  * 
+ * @test (ID DEPLOYMENT_H_T0) (SEV 1) Make sure the antenna deploys using this function.
+ * 
  */
 void Deployment_Deploy();
 
