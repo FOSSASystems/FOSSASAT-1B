@@ -44,6 +44,9 @@ void Power_Control_Charge(bool charge) {
   }
 }
 
+/**
+* @todo Julian -> The sleep intervals should be updated to match the new CW-synced communications.
+*/
 
 uint32_t Power_Control_Get_Sleep_Interval() {
   // sleep interval in ms (default for battery > 3.7 V)
