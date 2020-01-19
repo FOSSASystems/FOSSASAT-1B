@@ -12,7 +12,6 @@
 #include <INA226.h>
 #include <LowPower.h>
 #include <RadioLib.h>
-#include <TimerOne.h>
 
 // files
 #include "communication.h"

@@ -1,12 +1,29 @@
+/**
+ * @file FossaSat1B.ino
+ * @author FOSSA Systems
+ * @brief 
+ * 
+ */
+
 #include "FossaSat1B.h"
+
+// compile-time checks
+#if (!defined RADIOLIB_VERSION) || (RADIOLIB_VERSION < 0x03010000)
+  #error "Unsupported RadioLib version (< 3.1.0)!"
+#endif
+
+#ifndef RADIOLIB_STATIC_ONLY
+  #error "RadioLib is using dynamic memory management, enable static only in RadioLib/src/TypeDef.h"
+#endif
 
 void setup() {
   // initialize debug port
-  FOSSASAT_DEBUG_BEGIN(9600);
+  FOSSASAT_DEBUG_PORT.begin(FOSSASAT_DEBUG_SPEED);
+  FOSSASAT_DEBUG_PORT.println();
 
   // increment reset counter
-  FOSSASAT_DEBUG_PRINT(F("Restart #"));
-  FOSSASAT_DEBUG_PRINTLN(Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR));
+  FOSSASAT_DEBUG_PORT.print(F("Restart #"));
+  FOSSASAT_DEBUG_PORT.println(Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR));
   Persistent_Storage_Write<uint16_t>(EEPROM_RESTART_COUNTER_ADDR, Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR) + 1);
 
   // setup pins
@@ -29,215 +46,210 @@ void setup() {
   }
 
   // print power configuration
-  FOSSASAT_DEBUG_PRINT(F("Config: 0b"));
-  FOSSASAT_DEBUG_PRINTLN(powerConfig.val, BIN);
-
-  // check deployment
-  #ifdef ENABLE_DEPLOYMENT_SEQUENCE
-    FOSSASAT_DEBUG_PRINT(F("Deploy #"));
-    FOSSASAT_DEBUG_PRINTLN(Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR));
-    // skip deployment for first restart (integration purposes) and try several deployment attempts
-    if((Persistent_Storage_Read<uint8_t>(EEPROM_FIRST_RUN_ADDR) > (uint8_t)0) &&
-       (Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR) < DEPLOYMENT_ATTEMPTS)) {
-
-      // sleep before deployment
-      Power_Control_Delay(DEPLOYMENT_SLEEP_LENGTH, true);
-
-      // deploy
-      Deployment_Deploy();
-    }
-  #endif
+  FOSSASAT_DEBUG_PORT.print(F("Config: 0b"));
+  FOSSASAT_DEBUG_PORT.println(powerConfig.val, BIN);
 
   // set temperature sensor resolution
   Pin_Interface_Set_Temp_Resolution(BOARD_TEMP_SENSOR_ADDR, TEMP_SENSOR_RESOLUTION_10_BITS);
   Pin_Interface_Set_Temp_Resolution(BATTERY_TEMP_SENSOR_ADDR, TEMP_SENSOR_RESOLUTION_10_BITS);
 
   // setup INA226
-  Power_Control_Setup_INA226();
+  #ifdef ENABLE_INA226
+    Power_Control_Setup_INA226();
+  #endif
 
-  // enable interrupts and set default modem
-  Communication_Set_Modem(currentModem);
+  // setup radio
+  FOSSASAT_DEBUG_PORT.print(F("LoRa modem init: "));
+  FOSSASAT_DEBUG_PORT.println(Communication_Set_Modem(MODEM_LORA));
+  FOSSASAT_DEBUG_PORT.print(F("FSK modem init:\t"));
+  FOSSASAT_DEBUG_PORT.println(Communication_Set_Modem(MODEM_FSK));
 
-  // set receive ISR
-  radio.setDio1Action(Communication_Receive_Interrupt);
-  radio.startReceive();
+  #ifdef ENABLE_INA226
+    FOSSASAT_DEBUG_PORT.print(F("INA226 check:\t"));
+    FOSSASAT_DEBUG_PORT.println(Power_Control_INA2256_Check());
+  #endif
 
-  // start modem switch timer
-  Timer1.initialize(MODEM_SWITCHING_PERIOD_FSK);
-  Timer1.attachInterrupt(Communication_Change_Modem);
+  // check deployment
+  #ifdef ENABLE_DEPLOYMENT_SEQUENCE
+    uint8_t attemptNumber = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
+
+    FOSSASAT_DEBUG_PORT.print(F("Deployment attempt #"));
+    FOSSASAT_DEBUG_PORT.println(attemptNumber);
+    delay(10);
+
+    // check number of deployment attempts
+    if (attemptNumber == 0) {
+      // print sensor data for integration purposes (independently of FOSSASAT_DEBUG macro!)
+      uint32_t start = millis();
+      uint32_t lastSample = 0;
+      while (millis() - start <= (uint32_t)DEPLOYMENT_DEBUG_LENGTH * (uint32_t)1000) {
+        // check if its time for next measurement
+        if (millis() - lastSample >= (uint32_t)DEPLOYMENT_DEBUG_SAMPLE_PERIOD) {
+          lastSample = millis();
+          FOSSASAT_DEBUG_PORT.println();
+
+          #ifdef ENABLE_INA226
+            FOSSASAT_DEBUG_PORT.print(F("Charging [V]:\t"));
+            FOSSASAT_DEBUG_PORT.println(Power_Control_Get_Charging_Voltage(), 2);
+  
+            FOSSASAT_DEBUG_PORT.print(F("Charging [mA]:\t"));
+            FOSSASAT_DEBUG_PORT.println(Power_Control_Get_Charging_Current(), 3);
+
+            FOSSASAT_DEBUG_PORT.print(F("Battery [V]:\t"));
+            FOSSASAT_DEBUG_PORT.println(Power_Control_Get_Battery_Voltage(), 2);
+          #endif
+
+          FOSSASAT_DEBUG_PORT.print(F("Solar A [V]:\t"));
+          FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN), 2);
+
+          FOSSASAT_DEBUG_PORT.print(F("Solar B [V]:\t"));
+          FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN), 2);
+
+          FOSSASAT_DEBUG_PORT.print(F("Solar C [V]:\t"));
+          FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN), 2);
+
+          FOSSASAT_DEBUG_PORT.print(F("Battery [°C]:\t"));
+          FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Temperature(BATTERY_TEMP_SENSOR_ADDR), 2);
+
+          FOSSASAT_DEBUG_PORT.print(F("Board [°C]:\t"));
+          FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Temperature(BOARD_TEMP_SENSOR_ADDR), 2);
+
+          FOSSASAT_DEBUG_PORT.print(F("MCU [°C]:\t"));
+          FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Temperature_Internal());
+
+          FOSSASAT_DEBUG_PORT.print(F("Reset:\t\t"));
+          FOSSASAT_DEBUG_PORT.println(Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR));
+
+          FOSSASAT_DEBUG_PORT.print(F("Power config:\t0b"));
+          Power_Control_Load_Configuration();
+          FOSSASAT_DEBUG_PORT.println(powerConfig.val, BIN);
+
+          FOSSASAT_DEBUG_PORT.println(F("======================="));
+        }
+
+        // pet watchdog
+        if (millis() - lastHeartbeat >= WATCHDOG_LOOP_HEARTBEAT_PERIOD) {
+          lastHeartbeat = millis();
+          Pin_Interface_Watchdog_Heartbeat();
+        }
+      }
+
+      // increment deployment counter
+      Persistent_Storage_Write<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR, attemptNumber + 1);
+      
+    } else if(Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR) <= DEPLOYMENT_ATTEMPTS) {
+      // sleep before deployment
+      FOSSASAT_DEBUG_PRINT(F("Pre-deploy sleep "));
+      FOSSASAT_DEBUG_PRINTLN(DEPLOYMENT_SLEEP_LENGTH);
+      FOSSASAT_DEBUG_DELAY(10);
+      Power_Control_Delay(DEPLOYMENT_SLEEP_LENGTH, true, true);
+
+      // deploy
+      Deployment_Deploy();
+    }
+    
+  #endif
 }
 
 void loop() {
-  // check received data flag
-  if(dataReceived) {
-    // disable interrupts
-    interruptsEnabled = false;
+  // check battery voltage
+  FOSSASAT_DEBUG_PRINTLN(F("Battery check"));
+  #ifdef ENABLE_INA226
+  float battVoltage = Power_Control_Get_Battery_Voltage();
+  #else
+  float battVoltage = 3.99;
+  #endif
 
-    // read data
-    size_t len = radio.getPacketLength();
-    uint8_t* frame = new uint8_t[len];
-    int16_t state = radio.readData(frame, len);
-
-    // check reception state
-    if(state == ERR_NONE) {
-      FOSSASAT_DEBUG_PRINT(F("Got frame "));
-      FOSSASAT_DEBUG_PRINTLN(len);
-      FOSSASAT_DEBUG_PRINT_BUFF(frame, len);
-
-      // check callsign
-      uint8_t callsignLen = Persistent_Storage_Read<uint8_t>(EEPROM_CALLSIGN_LEN_ADDR);
-      char* callsign = new char[callsignLen];
-      System_Info_Get_Callsign(callsign, callsignLen);
-      if(memcmp(frame, (uint8_t*)callsign, callsignLen - 1) == 0) {
-        // check passed
-        Comunication_Parse_Frame(frame, len);
-      } else {
-        FOSSASAT_DEBUG_PRINTLN(F("Callsign mismatch!"));
-      }
-      delete[] callsign;
-
-    }
-
-    // deallocate memory
-    delete[] frame;
-
-    // reset flag
-    dataReceived = false;
-
-    // enable interrupts
-    interruptsEnabled = true;
-  }
-
-  // check modem switch
-  if(switchModem) {
-    // disable interrupts
-    interruptsEnabled = false;
-
-    // update modem
-    switch(currentModem) {
-      case MODEM_FSK_NON_ISM:
-        // check low power flag
-        Power_Control_Load_Configuration();
-        if(powerConfig.bits.lowPowerModeActive) {
-          // skip ISM LoRa in low power mode
-          currentModem = MODEM_LORA_NON_ISM;
-          Timer1.setPeriod(MODEM_SWITCHING_PERIOD_LORA_NON_ISM);
-        } else {
-          currentModem = MODEM_LORA_ISM;
-          Timer1.setPeriod(MODEM_SWITCHING_PERIOD_LORA_ISM);
-        }
-        break;
-      case MODEM_LORA_ISM:
-        currentModem = MODEM_LORA_NON_ISM;
-        Timer1.setPeriod(MODEM_SWITCHING_PERIOD_LORA_NON_ISM);
-        break;
-      case MODEM_LORA_NON_ISM:
-        currentModem = MODEM_FSK_NON_ISM;
-        Timer1.setPeriod(MODEM_SWITCHING_PERIOD_FSK);
-        break;
-    }
-    Communication_Set_Modem(currentModem);
-
-    // restart listen mode
-    radio.startReceive();
-
-    // reset flag
-    switchModem = false;
-
-    // enable interrupts
-    interruptsEnabled = true;
-  }
-
-  // check elapsed time since last system info transmissions
-  if(millis() - lastTransmit >= SYSTEM_INFO_TRANSMIT_PERIOD) {
-    // disable interrupts
-    interruptsEnabled = false;
-
-    // check low power flag
-    #ifdef ENABLE_TRANSMISSION_CONTROL
-      Power_Control_Load_Configuration();
-      if((!powerConfig.bits.lowPowerModeActive) && (powerConfig.bits.transmitEnabled)) {
-        Communication_Send_System_Info();
-      } else {
-        FOSSASAT_DEBUG_PRINTLN(F("Tx off"));
-      }
-    #else
-      Communication_Send_System_Info();
-    #endif
-
-    // update timestamp
-    lastTransmit = millis();
-
-    // enable interrupts
-    interruptsEnabled = true;
-  }
-
-  // transmit system info frame via RTTY
-  if(millis() - lastRtty >= RTTY_SYSTEM_INFO_PERIOD) {
-    // disable interrupts
-    interruptsEnabled = false;
-
-    // check low power flag
-    #ifdef ENABLE_TRANSMISSION_CONTROL
-      Power_Control_Load_Configuration();
-      if((!powerConfig.bits.lowPowerModeActive) && (powerConfig.bits.transmitEnabled)) {
-        Communication_Send_System_Info(true);
-      } else {
-        FOSSASAT_DEBUG_PRINTLN(F("Tx off"));
-      }
-    #else
-      Communication_Send_System_Info(true);
-    #endif
-
-    // save timestamp
-    lastRtty = millis();
-
-    // enable interrupts
-    interruptsEnabled = true;
-  }
+  // load power configuration from EEPROM
+  Power_Control_Load_Configuration();
 
   // check battery voltage
-  if(millis() - lastBatteryCheck >= BATTERY_CHECK_PERIOD) {
-    FOSSASAT_DEBUG_PRINTLN(F("Battery check"));
+  if((battVoltage <= BATTERY_VOLTAGE_LIMIT) && powerConfig.bits.lowPowerModeEnabled) {
+    // activate low power mode
+    powerConfig.bits.lowPowerModeActive = 1;
+  } else {
+    // deactivate low power mode
+    powerConfig.bits.lowPowerModeActive = 0;
+  }
+  FOSSASAT_DEBUG_PRINTLN(powerConfig.val, BIN);
 
-    // load power configuration from EEPROM
-    Power_Control_Load_Configuration();
+  // save power configuration to EEPROM
+  Power_Control_Save_Configuration();
 
-    // check battery voltage
-    if((Power_Control_Get_Battery_Voltage() <= BATTERY_VOLTAGE_LIMIT) && powerConfig.bits.lowPowerModeEnabled) {
-      // activate low power mode
-      powerConfig.bits.lowPowerModeActive = 1;
-    } else {
-      // deactivate low power mode
-      powerConfig.bits.lowPowerModeActive = 0;
+  // try to switch MPPT on (may be overridden by temperature check)
+  Power_Control_Charge(true);
+
+  // CW beacon
+  Communication_Set_Modem(MODEM_FSK);
+  FOSSASAT_DEBUG_DELAY(10);
+  if(battVoltage >= BATTERY_CW_BEEP_VOLTAGE_LIMIT) {
+    // transmit full Morse beacon
+    Communication_Send_Morse_Beacon(battVoltage);
+  } else {
+    // battery is low, transmit CW beeps
+    for(uint8_t i = 0; i < NUM_CW_BEEPS; i++) {
+      Communication_CW_Beep();
+      LowPower.powerDown(SLEEP_500MS, ADC_OFF, BOD_OFF);
     }
-    FOSSASAT_DEBUG_PRINTLN(powerConfig.val, BIN);
-
-    // save power configuration to EEPROM
-    Power_Control_Save_Configuration();
-
-    // try to switch MPPT on (may be overridden by temperature check)
-    Power_Control_Charge(true);
-
-    // update timestamp
-    lastBatteryCheck = millis();
   }
 
-  // set to sleep for variable interval
-  if(millis() - lastSleep >= SLEEP_PERIOD) {
-    uint32_t interval = Power_Control_Get_Sleep_Interval();
-    FOSSASAT_DEBUG_PRINT(F("Sleep for "));
-    FOSSASAT_DEBUG_PRINTLN(interval);
-    FOSSASAT_DEBUG_DELAY(100);
-    Power_Control_Delay(interval, true);
+  // wait for a bit
+  FOSSASAT_DEBUG_DELAY(10);
+  Power_Control_Delay(500, true, true);
 
-    // update timestamp
-    lastSleep = millis();
+  // send FSK system info
+  Communication_Set_Modem(MODEM_FSK);
+  Communication_Send_System_Info();
+
+  // wait for a bit
+  FOSSASAT_DEBUG_DELAY(10);
+  Power_Control_Delay(500, true, true);
+
+  // send LoRa system info
+  Communication_Set_Modem(MODEM_LORA);
+  Communication_Send_System_Info();
+
+  // wait for a bit
+  FOSSASAT_DEBUG_DELAY(10);
+  Power_Control_Delay(500, true, true);
+
+  // LoRa receive
+  FOSSASAT_DEBUG_PRINTLN(F("LoRa Rx"));
+  FOSSASAT_DEBUG_DELAY(10);
+  radio.setDio1Action(Communication_Receive_Interrupt);
+  radio.startReceive();
+
+  for(uint8_t i = 0; i < LORA_RECEIVE_WINDOW_LENGTH * SLEEP_LENGTH_CONSTANT; i++) {
+    Power_Control_Delay(1000, true);
+    if(dataReceived) {
+      radio.standby();
+      Communication_Process_Packet();
+      radio.startReceive();
+    }
   }
 
-  // pet watchdog every second
-  if(millis() - lastHeartbeat >= WATCHDOG_LOOP_HEARTBEAT_PERIOD) {
-    Pin_Interface_Watchdog_Heartbeat();
-    lastHeartbeat = millis();
+  // GFSK receive
+  Communication_Set_Modem(MODEM_FSK);
+  FOSSASAT_DEBUG_PRINTLN(F("FSK Rx"));
+  FOSSASAT_DEBUG_DELAY(10);
+  radio.setDio1Action(Communication_Receive_Interrupt);
+  radio.startReceive();
+
+  for(uint8_t i = 0; i < FSK_RECEIVE_WINDOW_LENGTH * SLEEP_LENGTH_CONSTANT; i++) {
+    Power_Control_Delay(1000, true);
+    if(dataReceived) {
+      radio.standby();
+      Communication_Process_Packet();
+      radio.startReceive();
+    }
   }
+
+  radio.clearDio1Action();
+
+  // set everything to sleep
+  uint32_t interval = Power_Control_Get_Sleep_Interval();
+  FOSSASAT_DEBUG_PRINT(F("Sleep for "));
+  FOSSASAT_DEBUG_PRINTLN(interval);
+  FOSSASAT_DEBUG_DELAY(10);
+  Power_Control_Delay(interval * SLEEP_LENGTH_CONSTANT, true, true);
 }

@@ -1,3 +1,6 @@
 # Atom C-tags
 *.tags
 *.tags1
+
+# Doxygen
+/software/Doxygen/

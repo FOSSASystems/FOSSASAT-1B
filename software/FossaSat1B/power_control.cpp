@@ -21,17 +21,17 @@ void Power_Control_Save_Configuration() {
 }
 
 void Power_Control_Charge(bool charge) {
-  FOSSASAT_DEBUG_PRINT(F("MPPT "));
-  FOSSASAT_DEBUG_PRINTLN(charge);
+  FOSSASAT_VERBOSE_PRINT(F("MPPT "));
+  FOSSASAT_VERBOSE_PRINTLN(charge);
 
   Power_Control_Load_Configuration();
   if(powerConfig.bits.mpptKeepAliveEnabled) {
     // force MPPT to float regardless of anything else
-    FOSSASAT_DEBUG_PRINTLN(F("Keep alive"));
+    FOSSASAT_VERBOSE_PRINTLN(F("Keep alive"));
     pinMode(DIGITAL_OUT_MPPT_PIN, INPUT);
   } else if((Pin_Interface_Read_Temperature(BATTERY_TEMP_SENSOR_ADDR) < BATTERY_TEMPERATURE_LIMIT) && powerConfig.bits.mpptTempSwitchEnabled) {
     // force MPPT low, only if temperature switch is enabled
-    FOSSASAT_DEBUG_PRINTLN(F("Low temp"));
+    FOSSASAT_VERBOSE_PRINTLN(F("Low temp"));
     pinMode(DIGITAL_OUT_MPPT_PIN, OUTPUT);
     digitalWrite(DIGITAL_OUT_MPPT_PIN, LOW);
   } else if(charge){
@@ -71,7 +71,7 @@ uint32_t Power_Control_Get_Sleep_Interval() {
   return(interval);
 }
 
-void Power_Control_Delay(uint32_t ms, bool sleep) {
+void Power_Control_Delay(uint32_t ms, bool sleep, bool sleepRadio) {
   if(ms == 0) {
     return;
   }
@@ -79,25 +79,36 @@ void Power_Control_Delay(uint32_t ms, bool sleep) {
   // calculate number of required loops (rounded up)
   float numLoops = 0.5f;
   if(sleep) {
-    numLoops += (float)ms / 1000.0;
+    numLoops += (float)ms / 500.0;
   } else {
     numLoops += (float)ms / 50.0;
   }
 
-  // perform all loops
-  for(uint32_t i = 0; i < (uint32_t)numLoops; i++) {
-    Pin_Interface_Watchdog_Heartbeat();
+  // set radio to sleep
+  if(sleepRadio) {
+    radio.sleep();
+  }
 
+  // perform all loops
+  Pin_Interface_Watchdog_Heartbeat();
+  for(uint32_t i = 0; i < (uint32_t)numLoops; i++) {
     if(sleep) {
-      LowPower.powerDown(SLEEP_1S, ADC_OFF, BOD_OFF);
+      LowPower.powerDown(SLEEP_500MS, ADC_OFF, BOD_OFF);
     } else {
       delay(50);
     }
+
+    Pin_Interface_Watchdog_Heartbeat();
+  }
+
+  // wake up radio
+  if(sleepRadio) {
+    radio.standby();
   }
 }
 
 void Power_Control_Setup_INA226() {
-  FOSSASAT_DEBUG_PRINTLN(F("INA setup "));
+  FOSSASAT_VERBOSE_PRINTLN(F("INA setup"));
 
   ina.begin(INA_ADDR);
   ina.configure(INA226_AVERAGES_1, INA226_BUS_CONV_TIME_1100US, INA226_SHUNT_CONV_TIME_1100US, INA226_MODE_SHUNT_BUS_CONT);
@@ -112,14 +123,9 @@ bool Power_Control_INA2256_Check() {
   delay(1);
 
   // try to read
-  Wire.beginTransmission(INA_ADDR);
   Wire.requestFrom((uint8_t)INA_ADDR, (uint8_t)2);
-  uint32_t start = millis();
-  while(!Wire.available()) {
-    if(millis() - start >= INA_TIMEOUT) {
-      // timed out
-      return(false);
-    }
+  if(Wire.available() != 2) {
+    return(false);
   }
 
   // check value
