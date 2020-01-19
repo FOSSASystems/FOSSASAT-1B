@@ -53,11 +53,13 @@ void Power_Control_Save_Configuration();
 
 /**
  * @brief This function ensures that the battery is charging.
+ * "set MPPT to input which enables battery charging, but only after checking keep alive and temperature limit"
  * 
  * @test (ID POWER_CONT_H_T3) (SEV 1) Make sure the battery charges when this function is called.
  * @test (ID POWER_CONT_H_T4) (SEV 1) When mppt keep alive is enabled, make sure that the battery charges.
  * @test (ID POWER_CONT_H_T5) (SEV 1) When mppt temperature switch is enabled, make sure the battery doesn't charge.
- * @test (ID POWER_CONT_H_T6) (SEV 1) When the charge boolean is TRUE, 
+ * @test (ID POWER_CONT_H_T6) (SEV 1) When the charge boolean is TRUE, is allows the battery to charge.
+ * @test (ID POWER_CONT_H_T14) (SEV 1) When the charge boolean is FALSe, is prevents the battery to charge.
  * 
  * @param charge The option to charge the battery or turn off the MPPT.
  */
