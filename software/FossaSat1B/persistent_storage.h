@@ -5,6 +5,7 @@
 
 /**
  * @file persistent_storage.h
+ * @brief This module controls access to the EEPROM.
  */
 
 /**
