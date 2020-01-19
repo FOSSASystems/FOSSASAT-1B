@@ -5,18 +5,32 @@
 
 /**
  * @defgroup configuration_page Configuration
+ * @brief
+ * # NOTICE
+ * The tests given here are only guidelines, please also refer to the FOSSASAT-1 software test plans and documentation for a complete view.
+ * 
  * @{
  */
 
-
-// string length limit
-#define MAX_STRING_LENGTH                               32
-
-// message length limit
-#define MAX_MESSAGE_LENGTH                              64
+/**
+ * @defgroup defines_string_memory_limits String Limits
+ * @{
+ */
+#define MAX_STRING_LENGTH                               32			/*!< String length limit (bytes). */
+#define MAX_MESSAGE_LENGTH                              64			/*!< Message length limit (bytes). */
+/**
+ * @}
+ */
 
 /**
  * @defgroup defines_debug_macros Debug Macros (only comment out for debug usage.)
+ * 
+ * @test (ID CONF_DEBUG_MACROS_T0) (SEV 1) Uncomment ENABLE_TRANSMISSION_CONTROL, test no transmissions are produced.
+ * @test (ID CONF_DEBUG_MACROS_T1) (SEV 1) Uncomment ENABLE_DEPLOYMENT_SEQUENCE, test no deployment sequence ran (this define is for debugging purposes).
+ * @test (ID CONF_DEBUG_MACROS_T2) (SEV 1) Uncomment ENABLE_INTERVAL_CONTROL, test that the battery voltages have no affect on the sleep duration.
+ * @test (ID CONF_DEBUG_MACROS_T3) (SEV 1) Uncomment ENABLE_INA226, test that the current readings are correct.
+ * @test (ID CONF_DEBUG_MACROS_T4) (SEV 1) Uncomment EEPROM_WIPE, test that the EEPROM clears and writes defaults correctly.
+ * 
  * @{
  */
 #define ENABLE_TRANSMISSION_CONTROL                                 /*!< Comment out to disable transmission control (transmission disable and no transmissions in low power mode) */
@@ -31,6 +45,16 @@
 
 /**
  * @defgroup defines_power_management_configuration Power Management Configuration
+ * 
+ * @test (ID CONF_POWER_MANAGEMENT_T0) (SEV 1) Check that the satellite switches to low power mode when its voltage goes below BATTERY_VOLTAGE_LIMIT.
+ * @test (ID CONF_POWER_MANAGEMENT_T1) (SEV 2) Check that the satellite sends a morse beacon transmission when it switches to Low Power Mode.
+ * @test (ID CONF_POWER_MANAGEMENT_T2) (SEV 1) Check that the battery stops charging when the temperature goes below this threshold, and starts charging again when it is not.
+ * @test (ID CONF_POWER_MANAGEMENT_T3) (SEV 1) Check that the watchdog is signalled every WATCHDOG_LOOP_HEARTBEAT_PERIOD.
+ * @test (ID CONF_POWER_MANAGEMENT_T4) (SEV 1) Check that the satellite sleeping times using the SLEEP_LENGTH_CONSTANT is suitable to account for the LowPower libraries overhead.
+ * @test (ID CONF_POWER_MANAGEMENT_T5) (SEV 1) Check that the satellite does not deploy after DEPLOYMENT_ATTEMPS has reached.
+ * @test (ID CONF_POWER_MANAGEMENT_T6) (SEV 1) Check that the satellite waits for this amount of time before the deploy sequence starts, this is for jettison.
+ * @test (ID CONF_POWER_MANAGEMENT_T7) (SEV 5) Check that each debug print waits DEPLOYMENT_DEBUG_SAMPLE_PERIOD amount of time between each print.
+ * 
  * @{
  */
 #define BATTERY_VOLTAGE_LIMIT                           3.8f        /*!< Battery voltage limit to enable low power mode (V). */
@@ -48,6 +72,15 @@
 
 /**
  * @defgroup defines_default_power_configuration Default Power Configuration
+ * 
+ * @todo Is LOW_POWER_MODE_ACTIVE even used? Can't find any low power implementation. (RESOLVED 19/01/2020)
+ * 
+ * @test (ID CONF_POWER_CONF_T0) (SEV 1) Check that the low power mode works.
+ * @test (ID CONF_POWER_CONF_T1) (SEV 1) Check that the low power mode can be disabled using LOW_POWER_MODE_ENABLED.
+ * @test (ID CONF_POWER_CONF_T3) (SEV 1) Check that the MPPT is controlled by the temperature using MPPT_TEMP_SWITCH_ENABLED.
+ * @test (ID CONF_POWER_CONF_T4) (SEV 1) Check that the MPPT's temperature controller can be disabled and enabled using MPPT_KEEP_ALIVE_ENABLED.
+ * @test (ID CONF_POWER_CONF_T5) (SEV 1) Check that the satellite's transmissions can be disabled and enabled using TRANSMIT_ENABLED.
+ * 
  * @{
  */
 #define LOW_POWER_MODE_ACTIVE                           0           /*!< Whether the low power mode is currently active (0 is no, 1 is yes). */
@@ -63,6 +96,8 @@
  * @defgroup defines_ina226_configuration INA226 Configuration
  *
  * @todo Implement INA timeout (18/01/2020 RGB).
+ * 
+ * @test (ID CONF_INA226_CONF_T0) (SEV 1) Check that the INA226 can be connected to and gives the correct values.
  *
  * @{
  */
@@ -89,6 +124,15 @@
  * |Length of callsign (number).|0x0005|0x0005|1|
  * |Callsign (string).|0x0006|0x0026|32|
  * |Total|||38|
+ * 
+ * 
+ * @test (ID CONF_EEPROM_ADDR_MAP_T0) (SEV 1) Check that EEPROM_DEPLOYMENT_COUNTER_ADDR is functional, including restarts.
+ * @test (ID CONF_EEPROM_ADDR_MAP_T1) (SEV 1) Check that EEPROM_POWER_CONFIG_ADDR is functional, including restarts.
+ * @test (ID CONF_EEPROM_ADDR_MAP_T2) (SEV 1) Check that EEPROM_FIRST_RUN_ADDR is functional, including restarts.
+ * @test (ID CONF_EEPROM_ADDR_MAP_T3) (SEV 1) Check that EEPROM_RESTART_COUNTER_ADDR is functional, including restarts.
+ * @test (ID CONF_EEPROM_ADDR_MAP_T4) (SEV 1) Check that EEPROM_CALLSIGN_LEN_ADDR is functional, including restarts.
+ * @test (ID CONF_EEPROM_ADDR_MAP_T5) (SEV 1) Check that EEPROM_CALLSIGN_ADDR is functional, including restarts.
+ * 
  * @{
  */
 
@@ -142,6 +186,10 @@
 /**
  * @defgroup defines_eeprom_variables EEPROM Variables
  *
+ * @test (ID CONF_EEPROM_VAR_T0) (SEV 1) Check that the EEPROM_RESET_VALUE is suitable.
+ * @test (ID CONF_EEPROM_VAR_T1) (SEV 1) Check that the EEPROM_FIRST_RUN is suitable.
+ * @test (ID CONF_EEPROM_VAR_T3) (SEV 1) Check that the EEPROM_CONSECUTIVE_RUN is suitable.
+ * 
  * @{
  */
 //EEPROM_FIRST_RUN_ADDR
@@ -174,6 +222,14 @@
  * |Radio BUSY pin.|6|PD6|DIGITAL|IN|
  * |Radio NRST pin.|NC|N/A|N/A|N/A|
  *
+ * @test (ID CONF_PIN_MAP_T0) (SEV 1) Check that solar panel A voltage can be read from ANALOG_IN_SOLAR_A_VOLTAGE_PIN.
+ * @test (ID CONF_PIN_MAP_T1) (SEV 1) Check that solar panel B voltage can be read from ANALOG_IN_SOLAR_B_VOLTAGE_PIN.
+ * @test (ID CONF_PIN_MAP_T2) (SEV 1) Check that solar panel C voltage can be read from ANALOG_IN_SOLAR_C_VOLTAGE_PIN.
+ * @test (ID CONF_PIN_MAP_T3) (SEV 1) Check that the random seed analog pin is suitable from ANALOG_IN_RANDOM_SEED.
+ * @test (ID CONF_PIN_MAP_T4) (SEV 1) Check that the MPPT circuit is controlled correctly using DIGITAL_OUT_MPPT_PIN.
+ * @test (ID CONF_PIN_MAP_T5) (SEV 1) Check that the deployment hardware deploys when DIGITAL_OUT_MOSFET_1 and DIGITAL_OUT_MOSFET_2 are brought high.
+ * @test (ID CONF_PIN_MAP_T6) (SEV 1) Check that the radio can be communicated with using pins RADIO_NSS, RADIO_DIO1, RADIO_BUSY and RADIO_NRST.
+ * 
  * @{
  */
 #define ANALOG_IN_SOLAR_A_VOLTAGE_PIN                   A0          /*!< PC0 */
@@ -194,6 +250,8 @@
 
 /**
  * @defgroup defines_tmp100_configuration TMP100 Temperature Sensor Configuration
+ * 
+ * @test (ID CONF_TMP100_T0) (SEV 1) Check that the TMP100 sensor returns the correct value (given the resolution) from the Wire connection.
  *
  * @{
  */
@@ -213,92 +271,203 @@
  * @defgroup defines_mcu_temperature_configuration  MCU Temperature Sensor Configuration
  *
  * @todo Julian -> Verify both MCU_TEMP constants give accurate internal temperature.
+ * 
+ * @test (ID CONF_MCU_TEMP_T0) (SEV 1) Check that the MCU_TEMP_OFFSET functions correctly.
+ * @test (ID CONF_MCU_TEMP_T1) (SEV 1) Check that the MCU_TEMP_COEFFICIENT functions correctly.
  *
  * @{
  */
 #define MCU_TEMP_OFFSET                                 324.31      /*!< This value is used to convert the sensors temperature to the real temperature. \n t = (raw - MCU_TEMP_OFFSET) / MCU_TEMP_COEFFICIENT */
-#define MCU_TEMP_COEFFICIENT                            1.22        /*!< Empirical constant*/
+#define MCU_TEMP_COEFFICIENT                            1.22        /*!< Empirical constant */
 /**
  * @}
  */
 
 
-// radio configuration
+/**
+ * @defgroup defines_radio_configuraiton  Radio Configuration
+ * 
+ * @todo Ensure the sync word is compatable with all devices. SYNC_WORD
+ * @todo LOW_POWER_LEVEL is not used in the code.
+ * 
+ * @test (ID CONF_RADIO_T0) (SEV 1) Check that the RTTY can be enabled and disabled using RTTY_ENABLED.
+ * @{
+ */
+#define RTTY_ENABLED                                                /*!< Comment out to disable RTTY */
 
-// comment out to disable RTTY
-#define RTTY_ENABLED
+/**
+ * @defgroup defines_radio_common_configuraiton  Common Radio Configuration
+ * 
+ * @test (ID CONF_RADIO_T0) (SEV 1) Check that the SYNC_WORD is compatable with all radios and is suitable.
+ * @test (ID CONF_RADIO_T1) (SEV 1) Check that the TXC0_VOLTAGE value is suitable.
+ * @test (ID CONF_RADIO_T2) (SEV 1) Check that the LOW_POWER_LEVEL is suitable.
+ * @test (ID CONF_RADIO_T3) (SEV 1) Check that the MAX_NUMBER_OF_BLOCKS works.
+ * @test (ID CONF_RADIO_T4) (SEV 1) Check that the LORA_RECEIVE_WINDOW_LENGTH works.
+ * @test (ID CONF_RADIO_T5) (SEV 1) Check that the FSK_RECEIVE_WINDOW_LENGTH works.
+ * @test (ID CONF_RADIO_T6) (SEV 1) Check that the RESPONSE_DELAY is suitable and works.
+ * 
+ * @{
+ */
+#define SYNC_WORD                                       0x12        /*!< Ensure this sync word is compatable with all devices. */
+#define TCXO_VOLTAGE                                    1.6         /*!< Sets the radio's TCX0 voltage. (V) */
+#define LOW_POWER_LEVEL                                 10          /*!< Sets the low power level. (NOT USED?). (dBm) */
+#define MAX_NUM_OF_BLOCKS                               3           /*!< maximum number of AES128 blocks that will be accepted */
+#define LORA_RECEIVE_WINDOW_LENGTH                      40          /*!< How long to listen out for LoRa transmissions for (s) */
+#define FSK_RECEIVE_WINDOW_LENGTH                       20          /*!< How long to listen out for FSK transmissions for (s) */
+#define RESPONSE_DELAY                                  1000        /*!< How long to wait for before responding/processing a transmission (ms) */
+/**
+ * @}
+ */
 
-// common
-#define SYNC_WORD                                       0x12
-#define TCXO_VOLTAGE                                    1.6     // V
-#define LOW_POWER_LEVEL                                 10      // dBm
-#define MAX_NUM_OF_BLOCKS                               3       // maximum number of AES128 blocks that will be accepted
-#define LORA_RECEIVE_WINDOW_LENGTH                      40      // s
-#define FSK_RECEIVE_WINDOW_LENGTH                       20      // s
-#define RESPONSE_DELAY                                  1000    // ms
-
-// LoRa
-#define LORA_CARRIER_FREQUENCY                          436.7   // MHz
-#define LORA_BANDWIDTH                                  125.0   // kHz dual sideband
+/**
+ * @defgroup defines_radio_lora_configuraiton  LoRa Radio Configuration
+ * 
+ * @todo Julian -> double check these values please.
+ * @test Test that we can receive LoRa transmissions from the satellite with these default parameters
+ * 
+ * @brief
+ * |Description|Value|Units|
+ * |--|--|--|
+ * |Carrier Frequency.|436.7|MHz|
+ * |Bandwidth.|125.0|KHz dual sideband|
+ * |Spreading Factor.|11|N/A|
+ * |Spreading Factor Alternate.|10|N/A|
+ * |Coding rate.|8 (4/8 Extended Hamming)|N/A|
+ * |Output Power.|20|dBm|
+ * |Current limit.|160.0|mA|
+ * 
+ * @test (ID CONF_LORA_RADIO_T0) (SEV 1) Check that the radio transmits lora at LORA_CARRIER_FREQUENCY.
+ * @test (ID CONF_LORA_RADIO_T1) (SEV 1) Check that the radio transmits at LORA_BANDWIDTH.
+ * @test (ID CONF_LORA_RADIO_T2) (SEV 1) Check that the radio is transmitting at LORA_SPREADING_FACTOR.
+ * @test (ID CONF_LORA_RADIO_T3) (SEV 1) Check that the radio can/is transmitting at LORA_SPREADING_FACTOR_ALT.
+ * @test (ID CONF_LORA_RADIO_T4) (SEV 1) Check that the radio is transmitting at LORA_CODING_RATE.
+ * @test (ID CONF_LORA_RADIO_T5) (SEV 1) Check that the radio is transmitting at LORA_OUTPUT_POWER.
+ * @test (ID CONF_LORA_RADIO_T6) (SEV 1) Check that the radio draws no more than 160.0mA.
+ * 
+ * @{
+ */
+#define LORA_CARRIER_FREQUENCY                          436.7       /*!< MHz */
+#define LORA_BANDWIDTH                                  125.0       /*!< kHz dual sideband */
 #define LORA_SPREADING_FACTOR                           11
 #define LORA_SPREADING_FACTOR_ALT                       10
-#define LORA_CODING_RATE                                8       // 4/8, Extended Hamming
-#define LORA_OUTPUT_POWER                               20      // dBm
-#define LORA_CURRENT_LIMIT                              160.0   // mA
+#define LORA_CODING_RATE                                8           /*!< 4/8, Extended Hamming */
+#define LORA_OUTPUT_POWER                               20          /*!< dBm */
+#define LORA_CURRENT_LIMIT                              160.0       /*!< mA */
 
-// Non-ISM band FSK
-#define FSK_CARRIER_FREQUENCY                           436.7   // MHz
-#define FSK_BIT_RATE                                    9.6     // kbps nominal
-#define FSK_FREQUENCY_DEVIATION                         5.0     // kHz single-sideband
-#define FSK_RX_BANDWIDTH                                19.5    // kHz single-sideband
-#define FSK_OUTPUT_POWER                                20      // dBm
-#define FSK_PREAMBLE_LENGTH                             16      // bits
-#define FSK_DATA_SHAPING                                0.5     // GFSK filter BT product
-#define FSK_CURRENT_LIMIT                               160.0   // mA
+/**
+ * @defgroup defines_radio_non_ism_band_fsk_configuraiton  FSK Radio Configuration
+ * 
+ * @todo Is 9.6 a valid value for the FSK_BIT_RATE?
+ * 
+ * @brief
+ * |Description|Value|Units|
+ * |--|--|--|
+ * |Carrier Frequency.|436.7|MHz|
+ * |Bit Rate.|9.6|Kbps|
+ * |Frequency Deviation.|5.0|KHz single-sideband|
+ * |RX Bandwidth.|19.5|KHz single-sideband|
+ * |Output Power.|20|dBm|
+ * |Preamble Length.|16|bits|
+ * |Data Shaping.|0.5|GFSK filter BT product|
+ * |Current Limit.|160.0|mA|
+ * 
+ * @test (ID CONF_FSK_RADIO_T0) (SEV 1) Check that the radio functions at FSK_CARRIER_FREQUENCY.
+ * @test (ID CONF_FSK_RADIO_T1) (SEV 1) Check that the radio functions with bit rate of FSK_BIT_RATE.
+ * @test (ID CONF_FSK_RADIO_T2) (SEV 1) Check that the radio functions with a frequency deviation of FSK_FREQUENCY_DEVIATION.
+ * @test (ID CONF_FSK_RADIO_T3) (SEV 1) Check that the radio receives FSK messages at FSK_RX_BANDWIDTH.
+ * @test (ID CONF_FSK_RADIO_T4) (SEV 1) Check that the radio outputs at FSK_OUTPUT_POWER.
+ * @test (ID CONF_FSK_RADIO_T5) (SEV 1) Check that the radio preamble is FSK_PREAMBLE_LENGTH.
+ * @test (ID CONF_FSK_RADIO_T6) (SEV 1) Check that the data shaping is FSK_DATA_SHAPING.
+ * @test (ID CONF_FSK_RADIO_T7) (SEV 1) Check that the maximum drawn current is no more than FSK_CURRENT_LIMIT.
+ * 
+ * @{
+ */
+#define FSK_CARRIER_FREQUENCY                           436.7       /*!< MHz */
+#define FSK_BIT_RATE                                    9.6         /*!< kbps nominal */
+#define FSK_FREQUENCY_DEVIATION                         5.0         /*!< kHz single-sideband */
+#define FSK_RX_BANDWIDTH                                19.5        /*!< kHz single-sideband */
+#define FSK_OUTPUT_POWER                                20          /*!< dBm */
+#define FSK_PREAMBLE_LENGTH                             16          /*!< bits */
+#define FSK_DATA_SHAPING                                0.5         /*!< GFSK filter BT product */
+#define FSK_CURRENT_LIMIT                               160.0       /*!< mA */
+/**
+ * @}
+ */
 
-// Morse/CW configuration
-#define NUM_CW_BEEPS                                    3       // number of CW sync beeps in low power mode
-#define MORSE_PREAMBLE_LENGTH                           3       // number of start signal repetitions
-#define MORSE_SPEED                                     40      // words per minute
 
-// modems
+/**
+ * @defgroup defines_radio_morse_cw_configuraiton  Morse/CW Radio Configuration
+ * 
+ * @test (ID CONF_MORSE_CW_T0) (SEV 1) Check that the number of beeps given by the radio in low power mode is NUM_CW_BEEPS.
+ * @test (ID CONF_MORSE_CW_T1) (SEV 1) Check that the morse starts a signal with MORSE_PREAMBLE_LENGTH.
+ * @test (ID CONF_MORSE_CW_T2) (SEV 1) Check that the words per minute of the morse transmissions is MORSE_SPEED.
+ * 
+ * @{
+ */
+#define NUM_CW_BEEPS                                    3           /*!< number of CW sync beeps in low power mode */
+#define MORSE_PREAMBLE_LENGTH                           3           /*!< number of start signal repetitions */
+#define MORSE_SPEED                                     40          /*!< words per minute */
+/**
+ * @}
+ */
+
+/**
+ * @defgroup defines_radio_modem_configuraiton Modem Identifiers
+ * 
+ * @test (ID CONF_MODEM_T0) Check that MODEM_LORA is suitable.
+ * @test (ID CONF_MODEM_T1) Check that MODEM_FSK is suitable.
+ * 
+ * @{
+ */
 #define MODEM_LORA                                      'L'
 #define MODEM_FSK                                       'F'
+/**
+ * @}
+ */
 
-// spreading factor modes
+/**
+ * @defgroup defines_radio_sf_modes_configuraiton Spreading Factor Modes
+ * 
+ * @todo SPREADING_FACTOR_STANDARD is not used ?
+ * @todo SPREADING_FACTOR_ALTERNATIVE is not used ?
+ * 
+ * @test (ID CONF_SF_T0) Check that SPREAD_FACTOR_STANDARD is suitable.
+ * @test (ID CONF_SF_T1) Check that SPREADING_FACTOR_ALTERNATIVE is suitable.
+ * @{
+ */
 #define SPREADING_FACTOR_STANDARD                       0
 #define SPREADING_FACTOR_ALTERNATIVE                    1
+/**
+ * @}
+ */
 
-// global variables
+/**
+ * @}
+ */
 
-// flag to signal interrupts enabled/disabled
-extern volatile bool interruptsEnabled;
+/**
+ * @defgroup defines_global_variables Global Variables
+ * 
+ * @{
+ */
+extern volatile bool interruptsEnabled;                             /*!< Flag to signal interrupts enabled/disabled. */
+extern volatile bool dataReceived;                                  /*!< Flag to signal data was received from ISR. */
+extern uint8_t currentModem;                                        /*!< Current modem configuration. */
+extern uint8_t spreadingFactorMode;                                 /*!< Current spreading factor mode. */
+extern uint32_t lastHeartbeat;                                      /*!< Timestamp for the watchdog. */
+extern INA226 ina;                                                  /*!< INA226 object. */
+extern SX1268 radio;                                                /*!< SX1268 object. */
+extern MorseClient morse;                                           /*!< MorseClient object. */
+extern const char* password;										/*!< Transmission password (AES). */
+extern const uint8_t encryptionKey[];								/*!< Encryption key (AES). */
+/**
+ * @}
+ */
 
-// flag to signal data was received from ISR
-extern volatile bool dataReceived;
-
-// current modem configuration
-extern uint8_t currentModem;
-
-// current spreading factor mode
-extern uint8_t spreadingFactorMode;
-
-// timestamps
-extern uint32_t lastHeartbeat;
-
-// INA226 instance
-extern INA226 ina;
-
-// RadioLib instances
-extern SX1268 radio;
-extern MorseClient morse;
-
-// transmission password
-extern const char* password;
-
-// encryption key
-extern const uint8_t encryptionKey[];
-
+/**
+ * @brief This function is called at the very beginning of the satellite's startup to configure each pin.
+ * 
+ */
 void Configuration_Setup_Pins();
 
 /** Endof configuration module
