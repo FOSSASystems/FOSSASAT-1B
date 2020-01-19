@@ -3,6 +3,17 @@
 
 #include "FossaSat1B.h"
 
+/**
+ * @file debugging_utilities.h 
+ * 
+ */
+
+/**
+ * @defgroup debugging_h_defines Debugging Utility
+ * 
+ * @{
+ */
+
 // uncomment to enable debug output
 // RadioLib debug can be enabled in RadioLib/src/TypeDef.h
 #define FOSSASAT_DEBUG
@@ -42,4 +53,8 @@
   #define FOSSASAT_VERBOSE_PRINTLN(...) {}
 #endif
 
+/**
+ * @}
+ * 
+ */
 #endif
