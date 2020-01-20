@@ -262,7 +262,7 @@ void Communication_Process_Packet() {
     interruptsEnabled = true;
     return;
   }
-  uint8_t* frame = new uint8_t[len];
+  uint8_t frame[MAX_RADIO_BUFFER_LENGTH];
   int16_t state = radio.readData(frame, len);
 
   // check reception state
@@ -283,9 +283,6 @@ void Communication_Process_Packet() {
     }
 
   }
-
-  // deallocate memory
-  delete[] frame;
 
   // reset flag
   dataReceived = false;
@@ -354,7 +351,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
         delete[] encSection;
 
         // send response
-        Communication_Send_Response_Encrypted(RESP_INCORRECT_PASSWORD, failedOptData, failedOptDataLen);
+        Communication_Send_Response(RESP_INCORRECT_PASSWORD, failedOptData, failedOptDataLen, true);
 
         // deallocate memory
         delete[] failedOptData;
@@ -441,7 +438,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
             uint8_t repeatedMessageLen = optDataLen - 7;
             uint8_t* repeatedMessage = new uint8_t[repeatedMessageLen];
             memcpy(repeatedMessage, optData + 7, repeatedMessageLen);
-            Communication_Send_Response(RESP_REPEATED_MESSAGE_CUSTOM, repeatedMessage, repeatedMessageLen, true);
+            Communication_Send_Response(RESP_REPEATED_MESSAGE_CUSTOM, repeatedMessage, repeatedMessageLen, false, true);
 
             // deallocate memory
             delete[] repeatedMessage;
@@ -466,7 +463,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
         // get deployment counter value and send it
         uint8_t counter = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
-        Communication_Send_Response_Encrypted(RESP_DEPLOYMENT_STATE, &counter, 1);
+        Communication_Send_Response(RESP_DEPLOYMENT_STATE, &counter, 1, true);
       } break;
 
     case CMD_RESTART:
@@ -560,44 +557,25 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
   }
 }
 
-int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t optDataLen, bool overrideModem) {
-  // read callsign from EEPROM
+int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t optDataLen, bool encrypt, bool overrideModem) {
+  // get callsign from EEPROM
   uint8_t callsignLen = Persistent_Storage_Read<uint8_t>(EEPROM_CALLSIGN_LEN_ADDR);
-  char callsign[MAX_STRING_LENGTH + 1];
+  char callsign[MAX_STRING_LENGTH];
   System_Info_Get_Callsign(callsign, callsignLen);
 
   // build response frame
-  uint8_t len = FCP_Get_Frame_Length(callsign, optDataLen);
-  uint8_t* frame = new uint8_t[len];
-  FCP_Encode(frame, callsign, respId, optDataLen, optData);
+  uint8_t len = 0;
+  uint8_t frame[MAX_RADIO_BUFFER_LENGTH];
+  if(encrypt) {
+    len = FCP_Get_Frame_Length(callsign, optDataLen, password);
+    FCP_Encode(frame, callsign, respId, optDataLen, optData, encryptionKey, password);
+  } else {
+    len = FCP_Get_Frame_Length(callsign, optDataLen);
+    FCP_Encode(frame, callsign, respId, optDataLen, optData);
+  }
 
   // send response
-  int16_t state = Communication_Transmit(frame, len, overrideModem);
-
-  // deallocate memory
-  delete[] frame;
-
-  return(state);
-}
-
-int16_t Communication_Send_Response_Encrypted(uint8_t respId, uint8_t* optData, size_t optDataLen, bool overrideModem) {
-  // read callsign from EEPROM
-  uint8_t callsignLen = Persistent_Storage_Read<uint8_t>(EEPROM_CALLSIGN_LEN_ADDR);
-  char callsign[MAX_STRING_LENGTH + 1];
-  System_Info_Get_Callsign(callsign, callsignLen);
-
-  // build response frame
-  uint8_t len = FCP_Get_Frame_Length(callsign, optDataLen, password);
-  uint8_t* frame = new uint8_t[len];
-  FCP_Encode(frame, callsign, respId, optDataLen, optData, encryptionKey, password);
-
-  // send response
-  int16_t state = Communication_Transmit(frame, len, overrideModem);
-
-  // deallocate memory
-  delete[] frame;
-
-  return(state);
+  return(Communication_Transmit(frame, len, overrideModem));
 }
 
 int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
