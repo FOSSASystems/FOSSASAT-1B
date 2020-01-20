@@ -5,6 +5,7 @@
 
 // EEPROM reading template
 template <class T>
+// cppcheck-suppress unusedFunction
 T Persistent_Storage_Read(uint16_t addr) {
   T val;
   EEPROM.get(addr, val);

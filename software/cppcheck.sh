@@ -3,9 +3,10 @@ set -ex
 
 cppcheck --version
 
-cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --inline-suppr --error-exitcode=1 \
+cppcheck --language=c++ -f \
+    -DRADIOLIB_VERSION=0x03010000 -DRADIOLIB_STATIC_ONLY \
+    --enable=all --suppress=missingIncludeSystem --inconclusive --inline-suppr --error-exitcode=1 \
     -IFossaSat1B FossaSat1B FossaSat1B/FossaSat1B.ino
-    # --suppress=unusedFunction
     #--platform=avr8
 
 # docker run -t -i -v $PWD:/src -w /src peterus/fossasat /bin/bash cppcheck.sh

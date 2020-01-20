@@ -16,6 +16,7 @@
   #error "RadioLib is using dynamic memory management, enable static only in RadioLib/src/TypeDef.h"
 #endif
 
+// cppcheck-suppress unusedFunction
 void setup() {
   // initialize debug port
   FOSSASAT_DEBUG_PORT.begin(FOSSASAT_DEBUG_SPEED);
@@ -151,6 +152,7 @@ void setup() {
   #endif
 }
 
+// cppcheck-suppress unusedFunction
 void loop() {
   // check battery voltage
   FOSSASAT_DEBUG_PRINTLN(F("Battery check"));
