@@ -4,3 +4,7 @@
 
 # Doxygen
 /software/Doxygen/
+
+# binaries
+*.elf
+*.hex

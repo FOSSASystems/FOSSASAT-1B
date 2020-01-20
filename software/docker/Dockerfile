@@ -1,20 +1,13 @@
-FROM alpine:3.10
+FROM ubuntu:latest
 
-RUN apk add --no-cache --update \
-        bash \
-        wget \
-        bzip2 \
-        tar \
-        ca-certificates \
-        cppcheck
+RUN apt-get update \
+    && apt-get install -y build-essential libpcre3 libpcre3-dev python wget git curl \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN wget -O /tmp/cppcheck-1.90.tar.gz https://github.com/danmar/cppcheck/archive/1.90.tar.gz \
+    && cd /tmp/ && tar xvzf cppcheck-1.90.tar.gz \
+    && cd /tmp/cppcheck-1.90 && make install -j8 MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function"
 
 ENV USER=root
-RUN wget -O /tmp/cli.tar.bz2 \
-        https://downloads.arduino.cc/arduino-cli/arduino-cli-latest-linux64.tar.bz2 && \
-    cd /tmp && \
-    mkdir arduino && \
-    bunzip2 /tmp/cli.tar.bz2 && \
-    tar -xvf /tmp/cli.tar && \
-    mv /tmp/arduino-cli* /usr/bin/arduino
+RUN curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/bin sh
 
-RUN arduino core update-index

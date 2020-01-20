@@ -8,6 +8,6 @@ before_install:
   - docker pull peterus/fossasat
 
 script:
-  - docker run -t -i -v $PWD/software:/src -w /src peterus/fossasat /bin/bash -c 'echo TODO build process is missing'
+  - docker run -t -i -v $PWD/software:/src -w /src peterus/fossasat /bin/bash compile.sh
   - docker run -t -i -v $PWD/software:/src -w /src peterus/fossasat /bin/bash cppcheck.sh
 
