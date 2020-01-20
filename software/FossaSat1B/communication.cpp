@@ -310,7 +310,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 
   // check encryption
   int16_t optDataLen = 0;
-  uint8_t* optData = NULL;
+  uint8_t optData[MAX_OPT_DATA_LENGTH];
   if(functionId >= PRIVATE_OFFSET) {
     // frame contains encrypted data, decrypt
     FOSSASAT_DEBUG_PRINTLN(F("Decrypting"));
@@ -327,7 +327,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 
         // build frame
         uint8_t encSectionLen = len - callsignLen;
-        uint8_t* encSection = new uint8_t[encSectionLen];
+        uint8_t encSection[MAX_OPT_DATA_LENGTH];
 
         // copy encrypted section
         memcpy(encSection, frame + callsignLen, encSectionLen);
@@ -347,15 +347,9 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
           // if we exceed allowed number of AES128 blocks, decryption probably failed due to wrong key
           failedOptDataLen = maxLen;
         }
-        uint8_t* failedOptData = new uint8_t[failedOptDataLen];
-        memcpy(failedOptData, encSection + 1, failedOptDataLen);
-        delete[] encSection;
 
         // send response
-        Communication_Send_Response(RESP_INCORRECT_PASSWORD, failedOptData, failedOptDataLen, true);
-
-        // deallocate memory
-        delete[] failedOptData;
+        Communication_Send_Response(RESP_INCORRECT_PASSWORD, encSection + 1, failedOptDataLen, true);
       }
 
       // decryption failed, return
@@ -364,7 +358,6 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 
     // get optional data
     if(optDataLen > 0) {
-      optData = new uint8_t[optDataLen];
       FCP_Get_OptData(callsign, frame, len, optData, encryptionKey, password);
     }
 
@@ -382,7 +375,6 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 
     // get optional data
     if(optDataLen > 0) {
-      optData = new uint8_t[optDataLen];
       FCP_Get_OptData(callsign, frame, len, optData);
     }
   }
@@ -399,9 +391,6 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
     // execute without optional data
     Communication_Execute_Function(functionId);
   }
-
-  // deallocate memory
-  delete[] optData;
 }
 
 void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t optDataLen) {
@@ -418,7 +407,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
     case CMD_RETRANSMIT: {
         // check message length
-        if(optDataLen <= MAX_MESSAGE_LENGTH) {
+        if(optDataLen <= MAX_OPT_DATA_LENGTH) {
           // respond with the requested data
           Communication_Send_Response(RESP_REPEATED_MESSAGE, optData, optDataLen);
         }
@@ -426,7 +415,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
     case CMD_RETRANSMIT_CUSTOM: {
         // check message length
-          if(optDataLen <= MAX_MESSAGE_LENGTH + 7) {
+        if(optDataLen <= MAX_OPT_DATA_LENGTH + 7) {
           // change modem configuration
           int16_t state = Communication_Set_Configuration(optData, optDataLen);
 
@@ -436,13 +425,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
             FOSSASAT_DEBUG_PRINTLN(state);
           } else {
             // configuration changed successfully, transmit response
-            uint8_t repeatedMessageLen = optDataLen - 7;
-            uint8_t* repeatedMessage = new uint8_t[repeatedMessageLen];
-            memcpy(repeatedMessage, optData + 7, repeatedMessageLen);
-            Communication_Send_Response(RESP_REPEATED_MESSAGE_CUSTOM, repeatedMessage, repeatedMessageLen, false, true);
-
-            // deallocate memory
-            delete[] repeatedMessage;
+            Communication_Send_Response(RESP_REPEATED_MESSAGE_CUSTOM, optData + 7, optDataLen - 7, false, true);
           }
         }
       } break;
@@ -497,7 +480,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
         // check optional data is less than limit
         if(optDataLen <= MAX_STRING_LENGTH) {
           // get callsign from frame
-          char* newCallsign = new char[optDataLen + 1];
+          char newCallsign[MAX_STRING_LENGTH];
           memcpy(newCallsign, optData, optDataLen);
           newCallsign[optDataLen] = '\0';
 
@@ -505,9 +488,6 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
           System_Info_Set_Callsign(newCallsign);
           FOSSASAT_DEBUG_PRINT(F("newCallsign="));
           FOSSASAT_DEBUG_PRINTLN(newCallsign);
-
-          // deallocate memory
-          delete[] newCallsign;
         }
       } break;
 
