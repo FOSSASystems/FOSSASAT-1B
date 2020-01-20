@@ -166,6 +166,7 @@ void Communication_CW_Beep() {
 }
 
 template <class T>
+// cppcheck-suppress unusedFunction
 void Communication_System_Info_Add(uint8_t** buffPtr, T val, const char* name, uint32_t mult, const char* unit) {
   memcpy(*buffPtr, &val, sizeof(val));
   (*buffPtr) += sizeof(val);
