@@ -165,6 +165,24 @@ void Communication_CW_Beep() {
   radio.standby();
 }
 
+template <class T>
+void Communication_System_Info_Add(uint8_t** buffPtr, T val, const char* name, uint32_t mult, const char* unit) {
+  memcpy(*buffPtr, &val, sizeof(val));
+  (*buffPtr) += sizeof(val);
+  FOSSASAT_DEBUG_PRINT(name);
+  FOSSASAT_DEBUG_PRINT(F(" = "));
+  FOSSASAT_DEBUG_PRINT(val);
+  FOSSASAT_DEBUG_PRINT('*');
+  FOSSASAT_DEBUG_PRINT(mult);
+  FOSSASAT_DEBUG_PRINT(' ');
+  FOSSASAT_DEBUG_PRINTLN(unit);
+}
+
+template void Communication_System_Info_Add<int8_t>(uint8_t**, int8_t, const char*, uint32_t, const char*);
+template void Communication_System_Info_Add<uint8_t>(uint8_t**, uint8_t, const char*, uint32_t, const char*);
+template void Communication_System_Info_Add<int16_t>(uint8_t**, int16_t, const char*, uint32_t, const char*);
+template void Communication_System_Info_Add<uint16_t>(uint8_t**, uint16_t, const char*, uint32_t, const char*);
+
 void Communication_Send_System_Info() {
   // build response frame
   static const uint8_t optDataLen = 6*sizeof(uint8_t) + 3*sizeof(int16_t) + sizeof(uint16_t) + sizeof(int8_t);
@@ -173,102 +191,54 @@ void Communication_Send_System_Info() {
 
   FOSSASAT_DEBUG_PRINTLN(F("System info:"));
 
-  // set batteryChargingVoltage variable
   #ifdef ENABLE_INA226
     uint8_t batteryChargingVoltage = Power_Control_Get_Charging_Voltage() * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #else
     uint8_t batteryChargingVoltage = 3.82 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #endif
-  memcpy(optDataPtr, &batteryChargingVoltage, sizeof(uint8_t));
-  optDataPtr += sizeof(uint8_t);
-  FOSSASAT_DEBUG_PRINT(batteryChargingVoltage);
-  FOSSASAT_DEBUG_PRINT('*');
-  FOSSASAT_DEBUG_PRINT(VOLTAGE_MULTIPLIER);
-  FOSSASAT_DEBUG_PRINTLN(F(" mV"));
+  Communication_System_Info_Add(&optDataPtr, batteryChargingVoltage, "batteryChargingVoltage", VOLTAGE_MULTIPLIER, "mV");
 
-  // set batteryChragingCurrent variable
   #ifdef ENABLE_INA226
     int16_t batteryChragingCurrent = Power_Control_Get_Charging_Current() * (CURRENT_UNIT / CURRENT_MULTIPLIER);
   #else
     int16_t batteryChragingCurrent = 0.056 * (CURRENT_UNIT / CURRENT_MULTIPLIER);
   #endif
-  memcpy(optDataPtr, &batteryChragingCurrent, sizeof(int16_t));
-  optDataPtr += sizeof(int16_t);
-  FOSSASAT_DEBUG_PRINT(batteryChragingCurrent);
-  FOSSASAT_DEBUG_PRINT('*');
-  FOSSASAT_DEBUG_PRINT(CURRENT_MULTIPLIER);
-  FOSSASAT_DEBUG_PRINTLN(F(" uA"));
+  Communication_System_Info_Add(&optDataPtr, batteryChragingCurrent, "batteryChragingCurrent", CURRENT_MULTIPLIER, "uA");
 
-  // set batteryVoltage variable
   #ifdef ENABLE_INA226
     uint8_t batteryVoltage = Power_Control_Get_Battery_Voltage() * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #else
     uint8_t batteryVoltage = 4.02 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #endif
-  memcpy(optDataPtr, &batteryVoltage, sizeof(uint8_t));
-  optDataPtr += sizeof(uint8_t);
-  FOSSASAT_DEBUG_PRINT(batteryVoltage);
-  FOSSASAT_DEBUG_PRINT('*');
-  FOSSASAT_DEBUG_PRINT(VOLTAGE_MULTIPLIER);
-  FOSSASAT_DEBUG_PRINTLN(F(" mV"));
+  Communication_System_Info_Add(&optDataPtr, batteryVoltage, "batteryVoltage", VOLTAGE_MULTIPLIER, "mV");
 
-  // set solarCellAVoltage variable
   uint8_t solarCellAVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-  memcpy(optDataPtr, &solarCellAVoltage, sizeof(uint8_t));
-  optDataPtr += sizeof(uint8_t);
-  FOSSASAT_DEBUG_PRINT(solarCellAVoltage);
-  FOSSASAT_DEBUG_PRINT('*');
-  FOSSASAT_DEBUG_PRINT(VOLTAGE_MULTIPLIER);
-  FOSSASAT_DEBUG_PRINTLN(F(" mV"));
+  Communication_System_Info_Add(&optDataPtr, solarCellAVoltage, "solarCellAVoltage", VOLTAGE_MULTIPLIER, "mV");
 
   // set solarCellBVoltage variable
   uint8_t solarCellBVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-  memcpy(optDataPtr, &solarCellBVoltage, sizeof(uint8_t));
-  optDataPtr += sizeof(uint8_t);
-  FOSSASAT_DEBUG_PRINT(solarCellBVoltage);
-  FOSSASAT_DEBUG_PRINT('*');
-  FOSSASAT_DEBUG_PRINT(VOLTAGE_MULTIPLIER);
-  FOSSASAT_DEBUG_PRINTLN(F(" mV"));
+  Communication_System_Info_Add(&optDataPtr, solarCellBVoltage, "solarCellBVoltage", VOLTAGE_MULTIPLIER, "mV");
 
   // set solarCellCVoltage variable
   uint8_t solarCellCVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-  memcpy(optDataPtr, &solarCellCVoltage, sizeof(uint8_t));
-  optDataPtr += sizeof(uint8_t);
-  FOSSASAT_DEBUG_PRINT(solarCellCVoltage);
-  FOSSASAT_DEBUG_PRINT('*');
-  FOSSASAT_DEBUG_PRINT(VOLTAGE_MULTIPLIER);
-  FOSSASAT_DEBUG_PRINTLN(F(" mV"));
+  Communication_System_Info_Add(&optDataPtr, solarCellCVoltage, "solarCellCVoltage", VOLTAGE_MULTIPLIER, "mV");
 
   // set batteryTemperature variable
   int16_t batteryTemperature = Pin_Interface_Read_Temperature(BATTERY_TEMP_SENSOR_ADDR) * (TEMPERATURE_UNIT / TEMPERATURE_MULTIPLIER);
-  memcpy(optDataPtr, &batteryTemperature, sizeof(int16_t));
-  optDataPtr += sizeof(int16_t);
-  FOSSASAT_DEBUG_PRINT(batteryTemperature);
-  FOSSASAT_DEBUG_PRINT('*');
-  FOSSASAT_DEBUG_PRINT(TEMPERATURE_MULTIPLIER);
-  FOSSASAT_DEBUG_PRINTLN(F(" mdeg C"));
+  Communication_System_Info_Add(&optDataPtr, batteryTemperature, "batteryTemperature", TEMPERATURE_MULTIPLIER, "mdeg C");
 
   // set boardTemperature variable
   int16_t boardTemperature = Pin_Interface_Read_Temperature(BOARD_TEMP_SENSOR_ADDR) * (TEMPERATURE_UNIT / TEMPERATURE_MULTIPLIER);
-  memcpy(optDataPtr, &boardTemperature, sizeof(int16_t));
-  optDataPtr += sizeof(int16_t);
-  FOSSASAT_DEBUG_PRINT(boardTemperature);
-  FOSSASAT_DEBUG_PRINT('*');
-  FOSSASAT_DEBUG_PRINT(TEMPERATURE_MULTIPLIER);
-  FOSSASAT_DEBUG_PRINTLN(F(" mdeg C"));
+  Communication_System_Info_Add(&optDataPtr, boardTemperature, "boardTemperature", TEMPERATURE_MULTIPLIER, "mdeg C");
 
   // set mcuTemperature variable (read twice since first value is often nonsense)
   Pin_Interface_Read_Temperature_Internal();
   int8_t mcuTemperature = Pin_Interface_Read_Temperature_Internal();
-  memcpy(optDataPtr, &mcuTemperature, sizeof(int8_t));
-  optDataPtr += sizeof(int8_t);
-  FOSSASAT_DEBUG_PRINTLN(mcuTemperature);
+  Communication_System_Info_Add(&optDataPtr, mcuTemperature, "mcuTemperature", 1, "deg C");
 
   // set resetCounter variable
   uint16_t resetCounter = Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR);
-  memcpy(optDataPtr, &resetCounter, sizeof(uint16_t));
-  optDataPtr += sizeof(uint16_t);
-  FOSSASAT_DEBUG_PRINTLN(resetCounter);
+  Communication_System_Info_Add(&optDataPtr, resetCounter, "resetCounter", 1, "");
 
   // set powerConfig variable
   Power_Control_Load_Configuration();
