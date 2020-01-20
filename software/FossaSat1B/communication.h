@@ -113,6 +113,21 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData = NULL,
  * 
  */
 int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData = NULL, size_t optDataLen = 0, bool overrideModem = true);
+
+/**
+ * @brief Responds to a given private function id execution (internally used).
+ *
+ * @test (ID COMMS_H_T12) (SEV 1) Test that each response transmits correctly.
+ *
+ * @param respId Function ID to respond with.
+ * @param optData The data to respond with.
+ * @param optDataLen  The length of the data to respond with.
+ * @param overrideModem  Override the modem to use default LoRa modem and settings.
+ * @return int16_t The status code of the Communication_Transmit() function.
+ *
+ */
+int16_t Communication_Send_Response_Encrypted(uint8_t respId, uint8_t* optData, size_t optDataLen, bool overrideModem = true);
+
 /**
  * @brief Transmits the given data.
  * 
