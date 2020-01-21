@@ -414,7 +414,7 @@
 #define FSK_CARRIER_FREQUENCY                           436.7       /*!< MHz */
 #define FSK_BIT_RATE                                    9.6         /*!< kbps nominal */
 #define FSK_FREQUENCY_DEVIATION                         5.0         /*!< kHz single-sideband */
-#define FSK_RX_BANDWIDTH                                19.5        /*!< kHz single-sideband */
+#define FSK_RX_BANDWIDTH                                39.0        /*!< kHz single-sideband */
 #define FSK_OUTPUT_POWER                                20          /*!< dBm */
 #define FSK_PREAMBLE_LENGTH                             16          /*!< bits */
 #define FSK_DATA_SHAPING                                0.5         /*!< GFSK filter BT product */
