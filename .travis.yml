@@ -23,7 +23,7 @@ deploy:
   - provider: releases
     skip_cleanup: true
     file_glob: true
-    file: software/FossaSat1B/*.hex
+    file: software/**/*.hex
     token: $GH_REPO_TOKEN
     draft: true
     on:
