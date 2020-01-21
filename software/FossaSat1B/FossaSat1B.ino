@@ -1,8 +1,8 @@
 /**
  * @file FossaSat1B.ino
  * @author FOSSA Systems
- * @brief 
- * 
+ * @brief
+ *
  */
 
 #include "FossaSat1B.h"
@@ -92,7 +92,7 @@ void setup() {
           #ifdef ENABLE_INA226
             FOSSASAT_DEBUG_PORT.print(F("Charging [V]:\t"));
             FOSSASAT_DEBUG_PORT.println(Power_Control_Get_Charging_Voltage(), 2);
-  
+
             FOSSASAT_DEBUG_PORT.print(F("Charging [mA]:\t"));
             FOSSASAT_DEBUG_PORT.println(Power_Control_Get_Charging_Current(), 3);
 
@@ -137,7 +137,7 @@ void setup() {
 
       // increment deployment counter
       Persistent_Storage_Write<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR, attemptNumber + 1);
-      
+
     } else if(Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR) <= DEPLOYMENT_ATTEMPTS) {
       // sleep before deployment
       FOSSASAT_DEBUG_PRINT(F("Pre-deploy sleep "));
@@ -148,19 +148,20 @@ void setup() {
       // deploy
       Deployment_Deploy();
     }
-    
+
   #endif
 }
 
 // cppcheck-suppress unusedFunction
 void loop() {
   // check battery voltage
-  FOSSASAT_DEBUG_PRINTLN(F("Battery check"));
+  FOSSASAT_DEBUG_PRINT(F("Battery check: "));
   #ifdef ENABLE_INA226
   float battVoltage = Power_Control_Get_Battery_Voltage();
   #else
   float battVoltage = 3.99;
   #endif
+  FOSSASAT_DEBUG_PRINTLN(battVoltage, 2);
 
   // load power configuration from EEPROM
   Power_Control_Load_Configuration();
@@ -216,12 +217,14 @@ void loop() {
   Power_Control_Delay(500, true, true);
 
   // LoRa receive
-  FOSSASAT_DEBUG_PRINTLN(F("LoRa Rx"));
+  uint8_t windowLen = Persistent_Storage_Read<uint8_t>(EEPROM_LORA_RECEIVE_LEN_ADDR);
+  FOSSASAT_DEBUG_PRINT(F("LoRa Rx "));
+  FOSSASAT_DEBUG_PRINTLN(windowLen);
   FOSSASAT_DEBUG_DELAY(10);
   radio.setDio1Action(Communication_Receive_Interrupt);
   radio.startReceive();
 
-  for(uint8_t i = 0; i < LORA_RECEIVE_WINDOW_LENGTH * SLEEP_LENGTH_CONSTANT; i++) {
+  for(uint8_t i = 0; i < windowLen * SLEEP_LENGTH_CONSTANT; i++) {
     Power_Control_Delay(1000, true);
     if(dataReceived) {
       radio.standby();
@@ -231,13 +234,15 @@ void loop() {
   }
 
   // GFSK receive
+  windowLen = Persistent_Storage_Read<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR);
   Communication_Set_Modem(MODEM_FSK);
-  FOSSASAT_DEBUG_PRINTLN(F("FSK Rx"));
+  FOSSASAT_DEBUG_PRINT(F("FSK Rx "));
+  FOSSASAT_DEBUG_PRINTLN(windowLen);
   FOSSASAT_DEBUG_DELAY(10);
   radio.setDio1Action(Communication_Receive_Interrupt);
   radio.startReceive();
-
-  for(uint8_t i = 0; i < FSK_RECEIVE_WINDOW_LENGTH * SLEEP_LENGTH_CONSTANT; i++) {
+  
+  for(uint8_t i = 0; i < windowLen * SLEEP_LENGTH_CONSTANT; i++) {
     Power_Control_Delay(1000, true);
     if(dataReceived) {
       radio.standby();

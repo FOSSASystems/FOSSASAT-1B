@@ -44,6 +44,10 @@ void Persistent_Storage_Wipe() {
   // set reset counter to 0
   Persistent_Storage_Write<uint16_t>(EEPROM_RESTART_COUNTER_ADDR, 0);
 
+  // set default receive window lengths
+  Persistent_Storage_Write<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR, FSK_RECEIVE_WINDOW_LENGTH);
+  Persistent_Storage_Write<uint8_t>(EEPROM_LORA_RECEIVE_LEN_ADDR, LORA_RECEIVE_WINDOW_LENGTH);
+
   // set default callsign
   System_Info_Set_Callsign((char*)"FOSSASAT-1B");
 }

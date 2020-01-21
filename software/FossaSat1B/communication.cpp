@@ -552,6 +552,21 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
           Power_Control_Save_Configuration();
         }
       } break;
+
+    case CMD_SET_RECEIVE_WINDOWS: {
+      // check optional data is exactly 2 bytes
+      if(Communication_Check_OptDataLen(2, optDataLen)) {
+        // set FSK receive length
+        Persistent_Storage_Write<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR, optData[0]);
+        FOSSASAT_DEBUG_PRINT(F("fskRxLen="));
+        FOSSASAT_DEBUG_PRINTLN(optData[0]);
+
+        // set LoRa receive length
+        Persistent_Storage_Write<uint8_t>(EEPROM_LORA_RECEIVE_LEN_ADDR, optData[1]);
+        FOSSASAT_DEBUG_PRINT(F("loraRxLen="));
+        FOSSASAT_DEBUG_PRINTLN(optData[1]);
+      }
+    } break;
   }
 }
 
