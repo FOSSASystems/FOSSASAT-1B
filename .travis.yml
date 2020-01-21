@@ -20,16 +20,16 @@ script:
   - cppcheck --version && cppcheck --language=c++ -f -DRADIOLIB_VERSION=0x03010000 -DRADIOLIB_STATIC_ONLY --enable=all --suppress=missingIncludeSystem --inconclusive --inline-suppr --error-exitcode=1 -IFossaSat1B FossaSat1B FossaSat1B/FossaSat1B.ino
   - doxygen Doxyfile
 deploy:
-  - provider: pages
-    skip_cleanup: true
-    local_dir: software/Doxygen/html
-    token: $GH_REPO_TOKEN
-    on:
-      branch: master
   - provider: releases
     skip_cleanup: true
     file: software/*.hex
     token: $GH_REPO_TOKEN
     draft: true
+    on:
+      branch: master
+  - provider: pages
+    skip_cleanup: true
+    local_dir: software/Doxygen/html
+    token: $GH_REPO_TOKEN
     on:
       branch: master
