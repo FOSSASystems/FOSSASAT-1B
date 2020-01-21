@@ -21,6 +21,7 @@ script:
   - echo $PWD/FossaSat1B && ls -al FossaSat1B/
   - cppcheck --version && cppcheck --language=c++ -f -DRADIOLIB_VERSION=0x03010000 -DRADIOLIB_STATIC_ONLY --enable=all --suppress=missingIncludeSystem --inconclusive --inline-suppr --error-exitcode=1 -IFossaSat1B FossaSat1B FossaSat1B/FossaSat1B.ino
   - doxygen Doxyfile
+  - echo $PWD/FossaSat1B && ls -al FossaSat1B/
 deploy:
   - provider: releases
     skip_cleanup: true
