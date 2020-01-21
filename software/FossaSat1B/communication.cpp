@@ -157,11 +157,11 @@ void Communication_Send_Morse_Beacon(float battVoltage) {
   Pin_Interface_Watchdog_Heartbeat();
 }
 
-void Communication_CW_Beep() {
+void Communication_CW_Beep(uint32_t len) {
   FOSSASAT_DEBUG_PRINTLN(F("beep"));
   FOSSASAT_DEBUG_DELAY(10);
   radio.transmitDirect();
-  LowPower.powerDown(SLEEP_500MS, ADC_OFF, BOD_OFF);
+  Power_Control_Delay(len, true);
   radio.standby();
 }
 

@@ -65,8 +65,9 @@ void Communication_Send_Morse_Beacon(float battVoltage);
  *
  * @test (ID COMMS_H_T7) (SEV 2) Test that the CW beep is received ok.
  *
+ * @param len Length of the beep in ms, with 500 ms resolution
  */
-void Communication_CW_Beep();
+void Communication_CW_Beep(uint32_t len);
 
 /**
  * @brief This function adds system info entry to the system info frame.

@@ -190,8 +190,8 @@ void loop() {
   } else {
     // battery is low, transmit CW beeps
     for(uint8_t i = 0; i < NUM_CW_BEEPS; i++) {
-      Communication_CW_Beep();
-      LowPower.powerDown(SLEEP_500MS, ADC_OFF, BOD_OFF);
+      Communication_CW_Beep(500 * SLEEP_LENGTH_CONSTANT);
+      Power_Control_Delay(500 * SLEEP_LENGTH_CONSTANT, true);
     }
   }
 
