@@ -651,7 +651,14 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
   }
 
   // get timeout
-  uint32_t timeout = (float)radio.getTimeOnAir(len) * 1.5;
+  uint32_t timeout = 0;
+  if(currentModem == MODEM_FSK) {
+    timeout = (float)radio.getTimeOnAir(len) * 5.0;
+  } else {
+    timeout = (float)radio.getTimeOnAir(len) * 1.5;
+  }
+  FOSSASAT_DEBUG_PRINT(F("Timeout in: "));
+  FOSSASAT_DEBUG_PRINTLN(timeout);
 
   // start transmitting
   int16_t state = radio.startTransmit(data, len);
@@ -680,6 +687,9 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
       return(ERR_TX_TIMEOUT);
     }
   }
+
+  FOSSASAT_DEBUG_PRINT(F("Tx done in: "));
+  FOSSASAT_DEBUG_PRINTLN(micros() - start);
 
   // transmission done, set mode standby
   state = radio.standby();
