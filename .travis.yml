@@ -14,10 +14,7 @@ jobs:
     - stage: cppcheck
       script: docker run -t -i -v $PWD/software:/src -w /src peterus/fossasat /bin/bash cppcheck.sh
     - stage: doxygen
-      script:
-        - sudo apt-get update
-        - sudo apt-get install -y doxygen
-        - doxygen software/Doxyfile
+      script: sudo apt-get update && sudo apt-get install -y doxygen && doxygen software/Doxyfile
         deploy:
           provider: pages
           skip_cleanup: true
