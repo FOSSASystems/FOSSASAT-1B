@@ -258,6 +258,8 @@ void Communication_Process_Packet() {
 
   // read data
   size_t len = radio.getPacketLength();
+  FOSSASAT_DEBUG_PRINT(F("Packet length: "));
+  FOSSASAT_DEBUG_PRINTLN(len);
   if(len == 0) {
     dataReceived = false;
     interruptsEnabled = true;
@@ -310,7 +312,8 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 
   // check encryption
   int16_t optDataLen = 0;
-  uint8_t optData[MAX_OPT_DATA_LENGTH];
+  //uint8_t optData[MAX_OPT_DATA_LENGTH];
+  uint8_t* optData = NULL;
   if(functionId >= PRIVATE_OFFSET) {
     // frame contains encrypted data, decrypt
     FOSSASAT_DEBUG_PRINTLN(F("Decrypting"));
@@ -327,7 +330,8 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 
         // build frame
         uint8_t encSectionLen = len - callsignLen;
-        uint8_t encSection[MAX_OPT_DATA_LENGTH];
+        //uint8_t encSection[MAX_OPT_DATA_LENGTH];
+        uint8_t* encSection = new uint8_t[encSectionLen];
 
         // copy encrypted section
         memcpy(encSection, frame + callsignLen, encSectionLen);
@@ -347,9 +351,17 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
           // if we exceed allowed number of AES128 blocks, decryption probably failed due to wrong key
           failedOptDataLen = maxLen;
         }
+        /*uint8_t* failedOptData = new uint8_t[failedOptDataLen];  
+        memcpy(failedOptData, encSection + 1, failedOptDataLen);
+        delete[] encSection;*/
 
         // send response
         Communication_Send_Response(RESP_INCORRECT_PASSWORD, encSection + 1, failedOptDataLen, true);
+        //Communication_Send_Response(RESP_INCORRECT_PASSWORD, failedOptData, failedOptDataLen, true);
+
+        // deallocate memory
+        //delete[] failedOptData;
+        delete[] encSection;
       }
 
       // decryption failed, return
@@ -358,6 +370,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 
     // get optional data
     if(optDataLen > 0) {
+      optData = new uint8_t[optDataLen];
       FCP_Get_OptData(callsign, frame, len, optData, encryptionKey, password);
     }
 
@@ -375,6 +388,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 
     // get optional data
     if(optDataLen > 0) {
+      optData = new uint8_t[optDataLen];
       FCP_Get_OptData(callsign, frame, len, optData);
     }
   }
@@ -391,6 +405,9 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
     // execute without optional data
     Communication_Execute_Function(functionId);
   }
+
+  // deallocate memory  
+  delete[] optData;
 }
 
 void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t optDataLen) {
@@ -541,12 +558,13 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t optDataLen, bool encrypt, bool overrideModem) {
   // get callsign from EEPROM
   uint8_t callsignLen = Persistent_Storage_Read<uint8_t>(EEPROM_CALLSIGN_LEN_ADDR);
-  char callsign[MAX_STRING_LENGTH];
+  char callsign[MAX_STRING_LENGTH + 1];
   System_Info_Get_Callsign(callsign, callsignLen);
 
   // build response frame
   uint8_t len = 0;
-  uint8_t frame[MAX_RADIO_BUFFER_LENGTH];
+  //uint8_t frame[MAX_RADIO_BUFFER_LENGTH];
+  uint8_t* frame = new uint8_t[len];
   if(encrypt) {
     len = FCP_Get_Frame_Length(callsign, optDataLen, password);
     FCP_Encode(frame, callsign, respId, optDataLen, optData, encryptionKey, password);
@@ -556,7 +574,13 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
   }
 
   // send response
-  return(Communication_Transmit(frame, len, overrideModem));
+  //return(Communication_Transmit(frame, len, overrideModem));
+  int16_t state = Communication_Transmit(frame, len, overrideModem);
+  
+  // deallocate memory  
+  delete[] frame; 
+
+  return(state);
 }
 
 int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
