@@ -6,7 +6,7 @@ before_install:
   - cd /tmp/cppcheck-1.90
   - make -j8 MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function"
   - sudo make install -j8 MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function"
-  - sudo curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/bin sh
+  - curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/bin sudo sh
 install:
   - arduino-cli core update-index && arduino-cli core install arduino:avr && arduino-cli lib install RadioLib "Adafruit INA260 Library" && echo "#define RADIOLIB_STATIC_ONLY" >> /root/Arduino/libraries/RadioLib/src/TypeDef.h
   - git clone https://github.com/FOSSASystems/FOSSA-Comms.git /root/Arduino/libraries/FOSSA-Comms
