@@ -133,9 +133,11 @@
  * |Power configuration (bit set).|0x0001|0x0001|1|
  * |First run (boolean).|0x0002|0x0002|1|
  * |Restart counter (number).|0x0003|0x0004|2|
- * |Length of callsign (number).|0x0005|0x0005|1|
- * |Callsign (string).|0x0006|0x0026|32|
- * |Total|||38|
+ * |FSK receive window length (number).|0x0005|0x0005|1|
+ * |LoRa receive window length (number).|0x0006|0x0006|1|
+ * |Length of callsign (number).|0x0007|0x0007|1|
+ * |Callsign (string).|0x0008|0x0028|32|
+ * |Total|||40|
  *
  *
  * @test (ID CONF_EEPROM_ADDR_MAP_T0) (SEV 1) Check that EEPROM_DEPLOYMENT_COUNTER_ADDR is functional, including restarts.
@@ -182,14 +184,28 @@
  * |--|--|
  * |0x0005|0x0005|
  */
-#define EEPROM_CALLSIGN_LEN_ADDR                        0x0005
+#define EEPROM_FSK_RECEIVE_LEN_ADDR                     0x0005
 /**
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x0006|0x0026|
+ * |0x0006|0x0006|
  */
-#define EEPROM_CALLSIGN_ADDR                            0x0006
+#define EEPROM_LORA_RECEIVE_LEN_ADDR                    0x0006
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x0007|0x0007|
+ */
+#define EEPROM_CALLSIGN_LEN_ADDR                        0x0007
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x0008|0x0028|
+ */
+#define EEPROM_CALLSIGN_ADDR                            0x0008
 /**
  * @}
  */
@@ -470,8 +486,8 @@ extern uint32_t lastHeartbeat;                                      /*!< Timesta
 extern INA226 ina;                                                  /*!< INA226 object. */
 extern SX1268 radio;                                                /*!< SX1268 object. */
 extern MorseClient morse;                                           /*!< MorseClient object. */
-extern const char* password;										/*!< Transmission password (AES). */
-extern const uint8_t encryptionKey[];								/*!< Encryption key (AES). */
+extern const char* password;										                    /*!< Transmission password (AES). */
+extern const uint8_t encryptionKey[];								                /*!< Encryption key (AES). */
 /**
  * @}
  */
