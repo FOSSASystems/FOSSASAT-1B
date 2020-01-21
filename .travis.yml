@@ -8,11 +8,11 @@ before_install:
   - sudo make install -j8 MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function"
   - curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/bin sudo sh
 install:
-  - arduino-cli core update-index && arduino-cli core install arduino:avr && arduino-cli lib install RadioLib "Adafruit INA260 Library" && echo "#define RADIOLIB_STATIC_ONLY" >> /root/Arduino/libraries/RadioLib/src/TypeDef.h
-  - git clone https://github.com/FOSSASystems/FOSSA-Comms.git /root/Arduino/libraries/FOSSA-Comms
-  - git clone https://github.com/FOSSASystems/tiny-AES-c.git /root/Arduino/libraries/tiny-AES-c
-  - git clone https://github.com/jarzebski/Arduino-INA226.git /root/Arduino/libraries/Arduino-INA226
-  - git clone https://github.com/rocketscream/Low-Power.git /root/Arduino/libraries/Low-Power
+  - arduino-cli core update-index && arduino-cli core install arduino:avr && arduino-cli lib install RadioLib "Adafruit INA260 Library" && echo "#define RADIOLIB_STATIC_ONLY" >> $HOME/Arduino/libraries/RadioLib/src/TypeDef.h
+  - git clone https://github.com/FOSSASystems/FOSSA-Comms.git $HOME/Arduino/libraries/FOSSA-Comms
+  - git clone https://github.com/FOSSASystems/tiny-AES-c.git $HOME/Arduino/libraries/tiny-AES-c
+  - git clone https://github.com/jarzebski/Arduino-INA226.git $HOME/Arduino/libraries/Arduino-INA226
+  - git clone https://github.com/rocketscream/Low-Power.git $HOME/Arduino/libraries/Low-Power
 script:
   - cd software
   - arduino-cli version && arduino-cli compile -v --fqbn arduino:avr:uno FossaSat1B
