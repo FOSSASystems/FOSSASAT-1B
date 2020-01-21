@@ -53,7 +53,8 @@ float Pin_Interface_Read_Voltage(uint8_t pin) {
 }
 
 void Pin_Interface_Watchdog_Heartbeat() {
-  //FOSSASAT_DEBUG_PRINTLN("WD");
+  FOSSASAT_VERBOSE_PRINTLN("WD");
+  FOSSASAT_DEBUG_DELAY(10);
   
   // toggle watchdog pin
   digitalWrite(DIGITAL_OUT_WATCHDOG_HEARTBEAT, !digitalRead(DIGITAL_OUT_WATCHDOG_HEARTBEAT));
