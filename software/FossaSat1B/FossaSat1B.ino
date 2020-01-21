@@ -12,7 +12,7 @@
   #error "Unsupported RadioLib version (< 3.1.0)!"
 #endif
 
-#ifndef RADIOLIB_STATIC_ONLY
+#if defined(FOSSASAT_STATIC_ONLY) && (!defined(RADIOLIB_STATIC_ONLY))
   #error "RadioLib is using dynamic memory management, enable static only in RadioLib/src/TypeDef.h"
 #endif
 

@@ -265,7 +265,11 @@ void Communication_Process_Packet() {
     interruptsEnabled = true;
     return;
   }
+  #ifdef FOSSASAT_STATIC_ONLY
   uint8_t frame[MAX_RADIO_BUFFER_LENGTH];
+  #else
+  uint8_t* frame = new uint8_t[len];
+  #endif
   int16_t state = radio.readData(frame, len);
 
   // check reception state
@@ -286,6 +290,10 @@ void Communication_Process_Packet() {
     }
 
   }
+
+  #ifndef FOSSASAT_STATIC_ONLY
+    delete[] frame;
+  #endif
 
   // reset flag
   dataReceived = false;
@@ -312,8 +320,11 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 
   // check encryption
   int16_t optDataLen = 0;
-  //uint8_t optData[MAX_OPT_DATA_LENGTH];
-  uint8_t* optData = NULL;
+  #ifdef FOSSASAT_STATIC_ONLY
+    uint8_t optData[MAX_OPT_DATA_LENGTH];
+  #else
+    uint8_t* optData = NULL;
+  #endif
   if(functionId >= PRIVATE_OFFSET) {
     // frame contains encrypted data, decrypt
     FOSSASAT_DEBUG_PRINTLN(F("Decrypting"));
@@ -330,8 +341,11 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 
         // build frame
         uint8_t encSectionLen = len - callsignLen;
-        //uint8_t encSection[MAX_OPT_DATA_LENGTH];
-        uint8_t* encSection = new uint8_t[encSectionLen];
+        #ifdef FOSSASAT_STATIC_ONLY
+          uint8_t encSection[MAX_OPT_DATA_LENGTH];
+        #else
+          uint8_t* encSection = new uint8_t[encSectionLen];
+        #endif
 
         // copy encrypted section
         memcpy(encSection, frame + callsignLen, encSectionLen);
@@ -351,17 +365,14 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
           // if we exceed allowed number of AES128 blocks, decryption probably failed due to wrong key
           failedOptDataLen = maxLen;
         }
-        /*uint8_t* failedOptData = new uint8_t[failedOptDataLen];  
-        memcpy(failedOptData, encSection + 1, failedOptDataLen);
-        delete[] encSection;*/
 
         // send response
         Communication_Send_Response(RESP_INCORRECT_PASSWORD, encSection + 1, failedOptDataLen, true);
-        //Communication_Send_Response(RESP_INCORRECT_PASSWORD, failedOptData, failedOptDataLen, true);
 
         // deallocate memory
-        //delete[] failedOptData;
-        delete[] encSection;
+        #ifndef FOSSASAT_STATIC_ONLY
+          delete[] encSection;
+        #endif
       }
 
       // decryption failed, return
@@ -370,7 +381,9 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 
     // get optional data
     if(optDataLen > 0) {
-      optData = new uint8_t[optDataLen];
+      #ifndef FOSSASAT_STATIC_ONLY
+        optData = new uint8_t[optDataLen];
+      #endif
       FCP_Get_OptData(callsign, frame, len, optData, encryptionKey, password);
     }
 
@@ -388,7 +401,9 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 
     // get optional data
     if(optDataLen > 0) {
-      optData = new uint8_t[optDataLen];
+      #ifndef FOSSASAT_STATIC_ONLY
+        optData = new uint8_t[optDataLen];
+      #endif
       FCP_Get_OptData(callsign, frame, len, optData);
     }
   }
@@ -406,8 +421,10 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
     Communication_Execute_Function(functionId);
   }
 
-  // deallocate memory  
-  delete[] optData;
+  // deallocate memory
+  #ifndef FOSSASAT_STATIC_ONLY
+    delete[] optData;
+  #endif
 }
 
 void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t optDataLen) {
@@ -578,8 +595,11 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
 
   // build response frame
   uint8_t len = 0;
-  //uint8_t frame[MAX_RADIO_BUFFER_LENGTH];
+  #ifdef FOSSASAT_STATIC_ONLY
+  uint8_t frame[MAX_RADIO_BUFFER_LENGTH];
+  #else
   uint8_t* frame = new uint8_t[len];
+  #endif
   if(encrypt) {
     len = FCP_Get_Frame_Length(callsign, optDataLen, password);
     FCP_Encode(frame, callsign, respId, optDataLen, optData, encryptionKey, password);
@@ -593,7 +613,9 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
   int16_t state = Communication_Transmit(frame, len, overrideModem);
   
   // deallocate memory  
-  delete[] frame; 
+  #ifndef FOSSASAT_STATIC_ONLY
+    delete[] frame;
+  #endif
 
   return(state);
 }

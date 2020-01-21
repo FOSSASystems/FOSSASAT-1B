@@ -26,9 +26,9 @@
  * @defgroup defines_string_memory_limits String Limits
  * @{
  */
-#define MAX_STRING_LENGTH                               32			/*!< String length limit (bytes). */
-#define MAX_OPT_DATA_LENGTH                             64			/*!< Optional data length limit (bytes). */
-#define MAX_RADIO_BUFFER_LENGTH                         96     /*!< Radio buffer length limit. */
+#define MAX_STRING_LENGTH                               16			/*!< String length limit (bytes). */
+#define MAX_OPT_DATA_LENGTH                             16			/*!< Optional data length limit (bytes). */
+#define MAX_RADIO_BUFFER_LENGTH                         64     /*!< Radio buffer length limit. */
 
 /**
  * @}
@@ -48,6 +48,7 @@
 #define ENABLE_TRANSMISSION_CONTROL                                 /*!< Comment out to disable transmission control (transmission disable and no transmissions in low power mode) */
 #define ENABLE_DEPLOYMENT_SEQUENCE                                  /*!< Comment out to disable deployment sequence */
 #define ENABLE_INTERVAL_CONTROL                                     /*!< Comment out to disable automatic sleep interval control */
+//#define FOSSASAT_STATIC_ONLY                                        /*!< Comment out to use dynamic memory management */
 #define ENABLE_INA226                                               /*!< Comment out to skip INA226 reading */
 //#define EEPROM_WIPE                                               /*!< Uncomment to wipe EEPROM on start (will also set all EEPROM variables to defaults) */
 /**
