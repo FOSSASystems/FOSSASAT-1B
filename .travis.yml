@@ -17,11 +17,13 @@ install:
 script:
   - cd software
   - arduino-cli version && arduino-cli compile -v --fqbn arduino:avr:uno FossaSat1B
+  - tree
   - cppcheck --version && cppcheck --language=c++ -f -DRADIOLIB_VERSION=0x03010000 -DRADIOLIB_STATIC_ONLY --enable=all --suppress=missingIncludeSystem --inconclusive --inline-suppr --error-exitcode=1 -IFossaSat1B FossaSat1B FossaSat1B/FossaSat1B.ino
   - doxygen Doxyfile
 deploy:
   - provider: releases
     skip_cleanup: true
+    file_glob: true
     file: software/FossaSat1B/*.hex
     token: $GH_REPO_TOKEN
     draft: true
