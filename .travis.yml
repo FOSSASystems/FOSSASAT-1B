@@ -15,10 +15,10 @@ jobs:
       script: docker run -t -i -v $PWD/software:/src -w /src peterus/fossasat /bin/bash cppcheck.sh
     - stage: doxygen
       script: sudo apt-get update && sudo apt-get install -y doxygen && doxygen software/Doxyfile
-        deploy:
-          provider: pages
-          skip_cleanup: true
-          local_dir: Doxygen/html
-          token: $GH_REPO_TOKEN
-          on:
-            branch: master
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        local_dir: Doxygen/html
+        token: $GH_REPO_TOKEN
+        on:
+          branch: master
