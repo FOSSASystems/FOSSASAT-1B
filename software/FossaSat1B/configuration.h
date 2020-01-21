@@ -28,7 +28,7 @@
  */
 #define MAX_STRING_LENGTH                               32			/*!< String length limit (bytes). */
 #define MAX_OPT_DATA_LENGTH                             64			/*!< Optional data length limit (bytes). */
-#define MAX_RADIO_BUFFER_LENGTH                         256     /*!< Radio buffer length limit. */
+#define MAX_RADIO_BUFFER_LENGTH                         96     /*!< Radio buffer length limit. */
 
 /**
  * @}
