@@ -1,27 +1,13 @@
 os: linux
+services:
+  - docker
 before_install:
-  - sudo apt-get -y install build-essential libpcre3 libpcre3-dev python wget git curl doxygen graphviz
-  - wget -O /tmp/cppcheck-1.90.tar.gz https://github.com/danmar/cppcheck/archive/1.90.tar.gz
-  - cd /tmp/ && tar xvzf cppcheck-1.90.tar.gz
-  - cd /tmp/cppcheck-1.90
-  - make -j8 MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function"
-  - sudo make install -j8 MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function"
-  - curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/bin sudo sh
-  - cd $TRAVIS_BUILD_DIR
-install:
-  - arduino-cli core update-index && arduino-cli core install arduino:avr && arduino-cli lib install RadioLib "Adafruit INA260 Library" && echo "#define RADIOLIB_STATIC_ONLY" >> $HOME/Arduino/libraries/RadioLib/src/TypeDef.h
-  - git clone https://github.com/FOSSASystems/FOSSA-Comms.git $HOME/Arduino/libraries/FOSSA-Comms
-  - git clone https://github.com/FOSSASystems/tiny-AES-c.git $HOME/Arduino/libraries/tiny-AES-c
-  - git clone https://github.com/jarzebski/Arduino-INA226.git $HOME/Arduino/libraries/Arduino-INA226
-  - git clone https://github.com/rocketscream/Low-Power.git $HOME/Arduino/libraries/Low-Power
+  - docker pull peterus/fossasat
 script:
   - cd software
-  - arduino-cli version && arduino-cli compile -v --fqbn arduino:avr:uno FossaSat1B
-  - echo $PWD && ls -al
-  - echo $PWD/FossaSat1B && ls -al FossaSat1B/
-  - cppcheck --version && cppcheck --language=c++ -f -DRADIOLIB_VERSION=0x03010000 -DRADIOLIB_STATIC_ONLY --enable=all --suppress=missingIncludeSystem --inconclusive --inline-suppr --error-exitcode=1 -IFossaSat1B FossaSat1B FossaSat1B/FossaSat1B.ino
-  - doxygen Doxyfile
-  - echo $PWD/FossaSat1B && ls -al FossaSat1B/
+  - docker run -t -i -v $PWD:/src -w /src peterus/fossasat /bin/bash compile.sh
+  - docker run -t -i -v $PWD:/src -w /src peterus/fossasat /bin/bash cppcheck.sh
+  - docker run -t -i -v $PWD:/src -w /src peterus/fossasat /bin/bash doxygen Doxyfile
 deploy:
   - provider: releases
     skip_cleanup: true
@@ -30,7 +16,7 @@ deploy:
       - FossaSat1B/FossaSat1B.arduino.avr.uno.with_bootloader.hex
       - FossaSat1B/FossaSat1B.arduino.avr.uno.elf
     token: $GH_REPO_TOKEN
-    draft: true
+    name: Build $(date +'%d.%m.%Y %R')
     on:
       branch: master
   - provider: pages
