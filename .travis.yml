@@ -7,7 +7,7 @@ script:
   - cd software
   - docker run -t -i -v $PWD:/src -w /src peterus/fossasat /bin/bash compile.sh
   - docker run -t -i -v $PWD:/src -w /src peterus/fossasat /bin/bash cppcheck.sh
-  - docker run -t -i -v $PWD:/src -w /src peterus/fossasat /bin/bash doxygen Doxyfile
+  - docker run -t -i -v $PWD:/src -w /src peterus/fossasat /bin/bash doxygen.sh
 deploy:
   - provider: releases
     skip_cleanup: true
