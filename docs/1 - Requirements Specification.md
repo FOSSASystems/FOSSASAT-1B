@@ -19,7 +19,7 @@
 |HREQ4|The satellite must protect sensitive commands with encryption|RB|Y||
 |HREQ5|The satellite must be able to operate from a battery.|RB|Y||
 |HREQ6|The satellite must be able to re-charge the battery using solar panels.|RB|Y||
-|HREQ7|The satellite must deploy its solar panels.|RB|Y||
+|HREQ7|The satellite must deploy its antenna|RB|Y||
 |HREQ8|The satellite must be able to give a ground station its system information on command.|RB|Y||
 |HREQ9|The radio power and operation shall not exceed or violate the regulated standards.|RB|Y||
 |HREQ10|The radio communications shall not harm other radio communicating devices.|RB|Y||
@@ -44,7 +44,7 @@
 |Requirement ID|Description|Functional (Y/N)|Author|Reference IDs|
 |--|--|--|--|--|
 |LREQ1|The satellite must be able to trasmit using CW|Y|RB||
-|LREQ2|The satellite must be able to trasmit using FSK|Y|RB||
+|LREQ2|The satellite must be able to trasmit using GFSK|Y|RB||
 |LREQ3|The battery must stop charging if the temperature goes below 0 degrees Celsius.|Y|RB||
 |LREQ4|The satellite must enter a low power mode when not in use.|Y|RB||
 |LREQ5|Low power mode must be saved and retrieved from EEPROM|Y|RB||
