@@ -10,6 +10,7 @@
 ## On The Ground
 
 See document 3. for testing to be carried out on the satellite before integration procedure.
+
 |Name|Description|
 |--|--|
 |Integration Test|Satellite must be programmed, tested and charged beforehand, if neccesary due to time; check battery voltage via EGSE and serial output, antenna must not deploy in duration of test (3 minutes)|
