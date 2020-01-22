@@ -10,4 +10,9 @@ FOSSASAT-1B is slightly modified second iteration of the FOSSASAT-1 satellite la
 - Diodes added in MPPT
 - DRF1268 has RST and SW connections modified
 - Added Watchdog external connection for programming
+- Passive attitude control re-designed
 
+
+## Hardware
+
+PCBs and Schematics are designed using EasyEDA, Java files are available for using them in said interface. 
