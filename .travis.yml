@@ -17,6 +17,7 @@ deploy:
       - FossaSat1B/FossaSat1B.arduino.avr.uno.elf
     token: $GH_REPO_TOKEN
     name: Build $(date +'%d.%m.%Y %R')
+    draft: true
     on:
       branch: master
   - provider: pages
