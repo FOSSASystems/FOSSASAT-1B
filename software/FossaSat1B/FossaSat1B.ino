@@ -162,22 +162,7 @@ void loop() {
   float battVoltage = 3.99;
   #endif
   FOSSASAT_DEBUG_PRINTLN(battVoltage, 2);
-
-  // load power configuration from EEPROM
-  Power_Control_Load_Configuration();
-
-  // check battery voltage
-  if((battVoltage <= BATTERY_VOLTAGE_LIMIT) && powerConfig.bits.lowPowerModeEnabled) {
-    // activate low power mode
-    powerConfig.bits.lowPowerModeActive = 1;
-  } else {
-    // deactivate low power mode
-    powerConfig.bits.lowPowerModeActive = 0;
-  }
-  FOSSASAT_DEBUG_PRINTLN(powerConfig.val, BIN);
-
-  // save power configuration to EEPROM
-  Power_Control_Save_Configuration();
+  Power_Control_Check_Battery_Limit();
 
   // try to switch MPPT on (may be overridden by temperature check)
   Power_Control_Charge(true);
@@ -241,7 +226,7 @@ void loop() {
   FOSSASAT_DEBUG_DELAY(10);
   radio.setDio1Action(Communication_Receive_Interrupt);
   radio.startReceive();
-  
+
   for(uint8_t i = 0; i < windowLen * SLEEP_LENGTH_CONSTANT; i++) {
     Power_Control_Delay(1000, true);
     if(dataReceived) {
