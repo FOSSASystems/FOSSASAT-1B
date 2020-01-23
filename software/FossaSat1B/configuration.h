@@ -446,18 +446,6 @@
  * @}
  */
 
-
-/**
- * @defgroup defines_radio_configuraiton  Radio Configuration
- *
- * @todo Ensure the sync word is compatable with all devices. SYNC_WORD
- * @todo LOW_POWER_LEVEL is not used in the code.
- *
- * @test (ID CONF_RADIO_T0) (SEV 1) Check that the RTTY can be enabled and disabled using RTTY_ENABLED.
- * @{
- */
-#define RTTY_ENABLED                                                /*!< Comment out to disable RTTY */
-
 /**
  * @defgroup defines_radio_common_configuraiton  Common Radio Configuration
  *
@@ -473,7 +461,6 @@
  */
 #define SYNC_WORD                                       0x12        /*!< Ensure this sync word is compatable with all devices. */
 #define TCXO_VOLTAGE                                    1.6         /*!< Sets the radio's TCX0 voltage. (V) */
-#define LOW_POWER_LEVEL                                 10          /*!< Sets the low power level. (NOT USED?). (dBm) */
 #define MAX_NUM_OF_BLOCKS                               3           /*!< maximum number of AES128 blocks that will be accepted */
 #define LORA_RECEIVE_WINDOW_LENGTH                      40          /*!< How long to listen out for LoRa transmissions for (s) */
 #define FSK_RECEIVE_WINDOW_LENGTH                       20          /*!< How long to listen out for FSK transmissions for (s) */
