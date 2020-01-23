@@ -638,6 +638,8 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
   uint8_t callsignLen = Persistent_Storage_Read<uint8_t>(EEPROM_CALLSIGN_LEN_ADDR);
   char callsign[MAX_STRING_LENGTH + 1];
   System_Info_Get_Callsign(callsign, callsignLen);
+  FOSSASAT_DEBUG_PRINT_BUFF(optData, optDataLen);
+  FOSSASAT_DEBUG_DELAY(10);
 
   // build response frame
   uint8_t len = 0;
