@@ -88,8 +88,6 @@
 /**
  * @defgroup defines_default_power_configuration Default Power Configuration
  *
- * @todo Is LOW_POWER_MODE_ACTIVE even used? Can't find any low power implementation. (RESOLVED 19/01/2020)
- *
  * @test (ID CONF_POWER_CONF_T0) (SEV 1) Check that the low power mode works.
  * @test (ID CONF_POWER_CONF_T1) (SEV 1) Check that the low power mode can be disabled using LOW_POWER_MODE_ENABLED.
  * @test (ID CONF_POWER_CONF_T3) (SEV 1) Check that the MPPT is controlled by the temperature using MPPT_TEMP_SWITCH_ENABLED.
