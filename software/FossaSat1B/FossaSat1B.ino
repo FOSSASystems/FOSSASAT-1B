@@ -163,6 +163,8 @@ void loop() {
   #endif
   FOSSASAT_DEBUG_PRINTLN(battVoltage, 2);
   Power_Control_Check_Battery_Limit();
+  FOSSASAT_DEBUG_PRINT(F("Power config: 0b"));
+  FOSSASAT_DEBUG_PRINTLN(powerConfig.val, BIN);
 
   // try to switch MPPT on (may be overridden by temperature check)
   Power_Control_Charge(true);

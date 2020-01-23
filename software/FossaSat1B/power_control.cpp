@@ -185,7 +185,6 @@ void Power_Control_Check_Battery_Limit() {
     // deactivate low power mode
     powerConfig.bits.lowPowerModeActive = 0;
   }
-  FOSSASAT_DEBUG_PRINTLN(powerConfig.val, BIN);
 
   // save power configuration to EEPROM
   Power_Control_Save_Configuration();
