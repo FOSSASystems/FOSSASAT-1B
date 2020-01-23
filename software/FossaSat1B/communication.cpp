@@ -52,7 +52,7 @@ int16_t Communication_Set_Modem(uint8_t modem) {
   // handle possible error codes
   FOSSASAT_DEBUG_PRINT(F("Radio init "));
   FOSSASAT_DEBUG_PRINTLN(state);
-  FOSSASAT_DEBUG_DELAY(100);
+  FOSSASAT_DEBUG_DELAY(10);
   if (state != ERR_NONE) {
     // radio chip failed, restart
     Pin_Interface_Watchdog_Restart();
@@ -151,9 +151,10 @@ void Communication_Send_Morse_Beacon(float battVoltage) {
   FOSSASAT_DEBUG_PRINT(' ');
   Pin_Interface_Watchdog_Heartbeat();
 
-  // send battery voltage
-  morse.println(battVoltage, 2);
-  FOSSASAT_DEBUG_PRINTLN(battVoltage, 2);
+  // send battery voltage code
+  char code = 'A' + (uint8_t)((battVoltage - MORSE_BATTERY_MIN) / MORSE_BATTERY_STEP);
+  morse.println(code);
+  FOSSASAT_DEBUG_PRINTLN(code);
   Pin_Interface_Watchdog_Heartbeat();
 }
 
@@ -167,7 +168,7 @@ void Communication_CW_Beep(uint32_t len) {
 
 template <class T>
 // cppcheck-suppress unusedFunction
-void Communication_System_Info_Add(uint8_t** buffPtr, T val, const char* name, uint32_t mult, const char* unit) {
+void Communication_Frame_Add(uint8_t** buffPtr, T val, const char* name, uint32_t mult, const char* unit) {
   memcpy(*buffPtr, &val, sizeof(val));
   (*buffPtr) += sizeof(val);
   FOSSASAT_DEBUG_PRINT(name);
@@ -179,10 +180,10 @@ void Communication_System_Info_Add(uint8_t** buffPtr, T val, const char* name, u
   FOSSASAT_DEBUG_PRINTLN(unit);
 }
 
-template void Communication_System_Info_Add<int8_t>(uint8_t**, int8_t, const char*, uint32_t, const char*);
-template void Communication_System_Info_Add<uint8_t>(uint8_t**, uint8_t, const char*, uint32_t, const char*);
-template void Communication_System_Info_Add<int16_t>(uint8_t**, int16_t, const char*, uint32_t, const char*);
-template void Communication_System_Info_Add<uint16_t>(uint8_t**, uint16_t, const char*, uint32_t, const char*);
+template void Communication_Frame_Add<int8_t>(uint8_t**, int8_t, const char*, uint32_t, const char*);
+template void Communication_Frame_Add<uint8_t>(uint8_t**, uint8_t, const char*, uint32_t, const char*);
+template void Communication_Frame_Add<int16_t>(uint8_t**, int16_t, const char*, uint32_t, const char*);
+template void Communication_Frame_Add<uint16_t>(uint8_t**, uint16_t, const char*, uint32_t, const char*);
 
 void Communication_Send_System_Info() {
   // build response frame
@@ -197,49 +198,49 @@ void Communication_Send_System_Info() {
   #else
     uint8_t batteryChargingVoltage = 3.82 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #endif
-  Communication_System_Info_Add(&optDataPtr, batteryChargingVoltage, "batteryChargingVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Communication_Frame_Add(&optDataPtr, batteryChargingVoltage, "batteryChargingVoltage", VOLTAGE_MULTIPLIER, "mV");
 
   #ifdef ENABLE_INA226
     int16_t batteryChragingCurrent = Power_Control_Get_Charging_Current() * (CURRENT_UNIT / CURRENT_MULTIPLIER);
   #else
     int16_t batteryChragingCurrent = 0.056 * (CURRENT_UNIT / CURRENT_MULTIPLIER);
   #endif
-  Communication_System_Info_Add(&optDataPtr, batteryChragingCurrent, "batteryChragingCurrent", CURRENT_MULTIPLIER, "uA");
+  Communication_Frame_Add(&optDataPtr, batteryChragingCurrent, "batteryChragingCurrent", CURRENT_MULTIPLIER, "uA");
 
   #ifdef ENABLE_INA226
     uint8_t batteryVoltage = Power_Control_Get_Battery_Voltage() * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #else
     uint8_t batteryVoltage = 4.02 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #endif
-  Communication_System_Info_Add(&optDataPtr, batteryVoltage, "batteryVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Communication_Frame_Add(&optDataPtr, batteryVoltage, "batteryVoltage", VOLTAGE_MULTIPLIER, "mV");
 
   uint8_t solarCellAVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-  Communication_System_Info_Add(&optDataPtr, solarCellAVoltage, "solarCellAVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Communication_Frame_Add(&optDataPtr, solarCellAVoltage, "solarCellAVoltage", VOLTAGE_MULTIPLIER, "mV");
 
   // set solarCellBVoltage variable
   uint8_t solarCellBVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-  Communication_System_Info_Add(&optDataPtr, solarCellBVoltage, "solarCellBVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Communication_Frame_Add(&optDataPtr, solarCellBVoltage, "solarCellBVoltage", VOLTAGE_MULTIPLIER, "mV");
 
   // set solarCellCVoltage variable
   uint8_t solarCellCVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-  Communication_System_Info_Add(&optDataPtr, solarCellCVoltage, "solarCellCVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Communication_Frame_Add(&optDataPtr, solarCellCVoltage, "solarCellCVoltage", VOLTAGE_MULTIPLIER, "mV");
 
   // set batteryTemperature variable
   int16_t batteryTemperature = Pin_Interface_Read_Temperature(BATTERY_TEMP_SENSOR_ADDR) * (TEMPERATURE_UNIT / TEMPERATURE_MULTIPLIER);
-  Communication_System_Info_Add(&optDataPtr, batteryTemperature, "batteryTemperature", TEMPERATURE_MULTIPLIER, "mdeg C");
+  Communication_Frame_Add(&optDataPtr, batteryTemperature, "batteryTemperature", TEMPERATURE_MULTIPLIER, "mdeg C");
 
   // set boardTemperature variable
   int16_t boardTemperature = Pin_Interface_Read_Temperature(BOARD_TEMP_SENSOR_ADDR) * (TEMPERATURE_UNIT / TEMPERATURE_MULTIPLIER);
-  Communication_System_Info_Add(&optDataPtr, boardTemperature, "boardTemperature", TEMPERATURE_MULTIPLIER, "mdeg C");
+  Communication_Frame_Add(&optDataPtr, boardTemperature, "boardTemperature", TEMPERATURE_MULTIPLIER, "mdeg C");
 
   // set mcuTemperature variable (read twice since first value is often nonsense)
   Pin_Interface_Read_Temperature_Internal();
   int8_t mcuTemperature = Pin_Interface_Read_Temperature_Internal();
-  Communication_System_Info_Add(&optDataPtr, mcuTemperature, "mcuTemperature", 1, "deg C");
+  Communication_Frame_Add(&optDataPtr, mcuTemperature, "mcuTemperature", 1, "deg C");
 
   // set resetCounter variable
   uint16_t resetCounter = Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR);
-  Communication_System_Info_Add(&optDataPtr, resetCounter, "resetCounter", 1, "");
+  Communication_Frame_Add(&optDataPtr, resetCounter, "resetCounter", 1, "");
 
   // set powerConfig variable
   Power_Control_Load_Configuration();
@@ -287,8 +288,13 @@ void Communication_Process_Packet() {
       Comunication_Parse_Frame(frame, len);
     } else {
       FOSSASAT_DEBUG_PRINTLN(F("Callsign mismatch!"));
+      Persistent_Storage_Increment_Frame_Counter(false);
     }
 
+  } else {
+    FOSSASAT_DEBUG_PRINT(F("Reception failed, code "));
+    FOSSASAT_DEBUG_PRINT(state);
+    Persistent_Storage_Increment_Frame_Counter(false);
   }
 
   #ifndef FOSSASAT_STATIC_ONLY
@@ -313,6 +319,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
   if(functionId < 0) {
     FOSSASAT_DEBUG_PRINT(F("Unable to get func. ID "));
     FOSSASAT_DEBUG_PRINTLN(functionId);
+    Persistent_Storage_Increment_Frame_Counter(false);
     return;
   }
   FOSSASAT_DEBUG_PRINT(F("Func. ID = 0x"));
@@ -375,7 +382,8 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
         #endif
       }
 
-      // decryption failed, return
+      // decryption failed, increment invalid frame counter and return
+      Persistent_Storage_Increment_Frame_Counter(false);
       return;
     }
 
@@ -396,6 +404,9 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
       // optional data extraction failed,
       FOSSASAT_DEBUG_PRINT(F("Failed to get optDataLen "));
       FOSSASAT_DEBUG_PRINTLN(optDataLen);
+
+      // increment invalid frame counter
+      Persistent_Storage_Increment_Frame_Counter(false);
       return;
     }
 
@@ -428,6 +439,9 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 }
 
 void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t optDataLen) {
+  // increment valid frame counter
+  Persistent_Storage_Increment_Frame_Counter(true);
+
   // delay before responding
   FOSSASAT_DEBUG_DELAY(100);
   Power_Control_Delay(RESPONSE_DELAY, true);
@@ -471,8 +485,30 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
     case CMD_GET_LAST_PACKET_INFO: {
         // get last packet info and send it
-        uint8_t respOptData[] = {(uint8_t)(radio.getSNR() * 4.0), (uint8_t)(radio.getRSSI() * -2.0)};
-        Communication_Send_Response(RESP_LAST_PACKET_INFO, respOptData, 2);
+        uint8_t respOptData[10];
+        uint8_t* respOptDataPtr = respOptData;
+
+        // SNR
+        uint8_t snr = (uint8_t)(radio.getSNR() * 4.0);
+        Communication_Frame_Add(&respOptDataPtr, snr, "SNR", 4, "dB");
+
+        // RSSI
+        uint8_t rssi = (uint8_t)(radio.getRSSI() * -2.0);
+        Communication_Frame_Add(&respOptDataPtr, rssi, "RSSI", 2, "dBm");
+
+        uint16_t loraValid = Persistent_Storage_Read<uint16_t>(EEPROM_LORA_VALID_COUNTER_ADDR);
+        Communication_Frame_Add(&respOptDataPtr, loraValid, "LoRa valid", 1, "");
+
+        uint16_t loraInvalid = Persistent_Storage_Read<uint16_t>(EEPROM_LORA_INVALID_COUNTER_ADDR);
+        Communication_Frame_Add(&respOptDataPtr, loraInvalid, "LoRa invalid", 1, "");
+
+        uint16_t fskValid = Persistent_Storage_Read<uint16_t>(EEPROM_FSK_VALID_COUNTER_ADDR);
+        Communication_Frame_Add(&respOptDataPtr, fskValid, "FSK valid", 1, "");
+
+        uint16_t fskInvalid = Persistent_Storage_Read<uint16_t>(EEPROM_FSK_INVALID_COUNTER_ADDR);
+        Communication_Frame_Add(&respOptDataPtr, fskInvalid, "FSK invalid", 1, "");
+
+        Communication_Send_Response(RESP_LAST_PACKET_INFO, respOptData, 10);
       } break;
 
     case CMD_DEPLOY: {
@@ -584,6 +620,49 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
         FOSSASAT_DEBUG_PRINTLN(optData[1]);
       }
     } break;
+
+    case CMD_RECORD_SOLAR_CELLS: {
+      // check optional data is exactly 3 bytes
+      if(Communication_Check_OptDataLen(3, optDataLen)) {
+        uint16_t numSamples = optData[0];
+        FOSSASAT_DEBUG_PRINT(F("numSamples="));
+        FOSSASAT_DEBUG_PRINTLN(numSamples);
+
+        // check number of samples is less than limit
+        if(numSamples > 60) {
+          FOSSASAT_DEBUG_PRINT(F("too much!"));
+          break;
+        }
+
+        // get sample period
+        uint16_t period = 0;
+        memcpy(&period, optData + 1, 2);
+        FOSSASAT_DEBUG_PRINT(F("period="));
+        FOSSASAT_DEBUG_PRINTLN(period);
+
+        // record all data
+        uint8_t* respOptData = new uint8_t[3 * numSamples];
+        for(uint16_t i = 0; i < 3 * numSamples; i += 3) {
+          respOptData[i] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
+          respOptData[i + 1] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
+          respOptData[i + 2] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
+
+          FOSSASAT_DEBUG_PRINT(respOptData[i])
+          FOSSASAT_DEBUG_PRINT('\t')
+          FOSSASAT_DEBUG_PRINT(respOptData[i+1])
+          FOSSASAT_DEBUG_PRINT('\t')
+          FOSSASAT_DEBUG_PRINTLN(respOptData[i+2])
+
+          Power_Control_Delay(period * SLEEP_LENGTH_CONSTANT, true, true);
+        }
+
+        // send response
+        Communication_Send_Response(RESP_RECORDED_SOLAR_CELLS, respOptData, 3 * numSamples);
+
+        // deallocate memory
+        delete[] respOptData;
+      }
+    } break;
   }
 }
 
@@ -611,8 +690,8 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
   // send response
   //return(Communication_Transmit(frame, len, overrideModem));
   int16_t state = Communication_Transmit(frame, len, overrideModem);
-  
-  // deallocate memory  
+
+  // deallocate memory
   #ifndef FOSSASAT_STATIC_ONLY
     delete[] frame;
   #endif
@@ -675,6 +754,17 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
     // pet watchdog every second
     if(micros() - lastBeat > (uint32_t)WATCHDOG_LOOP_HEARTBEAT_PERIOD * (uint32_t)1000) {
       Pin_Interface_Watchdog_Heartbeat();
+
+      // check whether voltage dropped below low power level
+      #ifdef ENABLE_INTERVAL_CONTROL
+      if(powerConfig.bits.lowPowerModeActive) {
+        // we're below low power level, stop the transmission
+        FOSSASAT_DEBUG_PRINTLN(F("Battery too low, Tx stopped"));
+        radio.standby();
+        return(ERR_INVALID_DATA_RATE);
+      }
+      #endif
+
       lastBeat = micros();
     }
 

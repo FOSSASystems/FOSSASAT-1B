@@ -172,3 +172,21 @@ float Power_Control_Get_Charging_Current() {
   }
   return(ina.readShuntCurrent());
 }
+
+void Power_Control_Check_Battery_Limit() {
+  // load power configuration from EEPROM
+  Power_Control_Load_Configuration();
+
+  // check battery voltage
+  if((Power_Control_Get_Battery_Voltage() <= BATTERY_VOLTAGE_LIMIT) && powerConfig.bits.lowPowerModeEnabled) {
+    // activate low power mode
+    powerConfig.bits.lowPowerModeActive = 1;
+  } else {
+    // deactivate low power mode
+    powerConfig.bits.lowPowerModeActive = 0;
+  }
+  FOSSASAT_DEBUG_PRINTLN(powerConfig.val, BIN);
+
+  // save power configuration to EEPROM
+  Power_Control_Save_Configuration();
+}

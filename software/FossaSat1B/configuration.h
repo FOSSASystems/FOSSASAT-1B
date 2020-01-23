@@ -68,10 +68,12 @@
  * @test (ID CONF_POWER_MANAGEMENT_T6) (SEV 1) Check that the satellite waits for this amount of time before the deploy sequence starts, this is for jettison.
  * @test (ID CONF_POWER_MANAGEMENT_T7) (SEV 5) Check that each debug print waits DEPLOYMENT_DEBUG_SAMPLE_PERIOD amount of time between each print.
  *
+ * @todo Set appropriate BATTERY_VOLTAGE_LIMIT 
+ *
  * @{
  */
 #define BATTERY_VOLTAGE_LIMIT                           3.8f        /*!< Battery voltage limit to enable low power mode (V). */
-#define BATTERY_CW_BEEP_VOLTAGE_LIMIT                   3.8f        /*!< Battery voltage limit to enable low power mode (V). */
+#define BATTERY_CW_BEEP_VOLTAGE_LIMIT                   3.8f        /*!< Battery voltage limit to switch into morse beep (V). */
 #define BATTERY_TEMPERATURE_LIMIT                       -0.7f       /*!< Battery charging temperature limit (deg. C). */
 #define WATCHDOG_LOOP_HEARTBEAT_PERIOD                  1000        /*!< Watchdog heartbeat period in loop() (ms). */
 #define SLEEP_LENGTH_CONSTANT                           0.9         /*!< Sleep times are multiplied by this constant to compensate for the LowPower libraries overhead. */
@@ -85,8 +87,6 @@
 
 /**
  * @defgroup defines_default_power_configuration Default Power Configuration
- *
- * @todo Is LOW_POWER_MODE_ACTIVE even used? Can't find any low power implementation. (RESOLVED 19/01/2020)
  *
  * @test (ID CONF_POWER_CONF_T0) (SEV 1) Check that the low power mode works.
  * @test (ID CONF_POWER_CONF_T1) (SEV 1) Check that the low power mode can be disabled using LOW_POWER_MODE_ENABLED.
@@ -130,15 +130,20 @@
  * @brief
  * |Description|Start Address|End Address|Length (bytes)|
  * |--|--|--|--|
- * |Deployment counter (number).|0x0000|0x0000|1|
- * |Power configuration (bit set).|0x0001|0x0001|1|
- * |First run (boolean).|0x0002|0x0002|1|
- * |Restart counter (number).|0x0003|0x0004|2|
- * |FSK receive window length (number).|0x0005|0x0005|1|
- * |LoRa receive window length (number).|0x0006|0x0006|1|
- * |Length of callsign (number).|0x0007|0x0007|1|
- * |Callsign (string).|0x0008|0x0028|32|
- * |Total|||40|
+ * |Deployment counter (uint8_t).|0x0000|0x0000|1|
+ * |Power configuration (powerConfig_t).|0x0001|0x0001|1|
+ * |First run (uint8_t).|0x0002|0x0002|1|
+ * |Restart counter (uint16_t).|0x0003|0x0004|2|
+ * |FSK receive window length (uint8_t).|0x0005|0x0005|1|
+ * |LoRa receive window length (uint8_t).|0x0006|0x0006|1|
+ * |Seconds elapsed since last reset (uint32_t).|0x0007|0x000A|4|
+ * |Number of received valid LoRa frames (uint16_t).|0x000B|0x000C|2|
+ * |Number of received invalid LoRa frames (uint16_t).|0x000D|0x000E|2|
+ * |Number of received valid FSK frames (uint16_t).|0x000F|0x0010|2|
+ * |Number of received invalid FSK frames (uint16_t).|0x0011|0x0012|2|
+ * |Length of callsign (uint8_t).|0x0013|0x0013|1|
+ * |Callsign (C-string, max MAX_STRING_LENGTH bytes).|0x00014|0x0024|MAX_STRING_LENGTH|
+ * |Total|||36|
  *
  *
  * @test (ID CONF_EEPROM_ADDR_MAP_T0) (SEV 1) Check that EEPROM_DEPLOYMENT_COUNTER_ADDR is functional, including restarts.
@@ -158,6 +163,7 @@
  * |0x0000|0x0000|
  */
 #define EEPROM_DEPLOYMENT_COUNTER_ADDR                  0x0000
+
 /**
  * @brief
  * |Start Address|End Address|
@@ -165,6 +171,7 @@
  * |0x0001|0x0001|
  */
 #define EEPROM_POWER_CONFIG_ADDR                        0x0001
+
 /**
  * @brief
  * |Start Address|End Address|
@@ -172,6 +179,7 @@
  * |0x0002|0x0002|
  */
 #define EEPROM_FIRST_RUN_ADDR                           0x0002
+
 /**
  * @brief
  * |Start Address|End Address|
@@ -179,6 +187,7 @@
  * |0x0003|0x0004|
  */
 #define EEPROM_RESTART_COUNTER_ADDR                     0x0003
+
 /**
  * @brief
  * |Start Address|End Address|
@@ -186,6 +195,7 @@
  * |0x0005|0x0005|
  */
 #define EEPROM_FSK_RECEIVE_LEN_ADDR                     0x0005
+
 /**
  * @brief
  * |Start Address|End Address|
@@ -193,20 +203,63 @@
  * |0x0006|0x0006|
  */
 #define EEPROM_LORA_RECEIVE_LEN_ADDR                    0x0006
+
 /**
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x0007|0x0007|
+ * |0x0007|0x000A|
  */
-#define EEPROM_CALLSIGN_LEN_ADDR                        0x0007
+#define EEPROM_UPTIME_COUNTER_ADDR                      0x0007
+
 /**
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x0008|0x0028|
+ * |0x000B|0x000C|
  */
-#define EEPROM_CALLSIGN_ADDR                            0x0008
+#define EEPROM_LORA_VALID_COUNTER_ADDR                  0x000B
+
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x000D|0x000E|
+ */
+#define EEPROM_LORA_INVALID_COUNTER_ADDR                0x000D
+
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x000F|0x0010|
+ */
+#define EEPROM_FSK_VALID_COUNTER_ADDR                   0x000F
+
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x0011|0x0012|
+ */
+#define EEPROM_FSK_INVALID_COUNTER_ADDR                 0x0011
+
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x00013|0x00013|
+ */
+#define EEPROM_CALLSIGN_LEN_ADDR                        0x0013
+
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x0014|0x0024|
+ */
+#define EEPROM_CALLSIGN_ADDR                            0x0014
+
 /**
  * @}
  */
@@ -435,7 +488,9 @@
  */
 #define NUM_CW_BEEPS                                    3           /*!< number of CW sync beeps in low power mode */
 #define MORSE_PREAMBLE_LENGTH                           3           /*!< number of start signal repetitions */
-#define MORSE_SPEED                                     40          /*!< words per minute */
+#define MORSE_SPEED                                     20          /*!< words per minute */
+#define MORSE_BATTERY_MIN                               3.2         /*!< minimum voltage value that can be send via Morse (corresponds to 'A'), volts*/
+#define MORSE_BATTERY_STEP                              0.05        /*!< voltage step in Morse, volts*/
 /**
  * @}
  */

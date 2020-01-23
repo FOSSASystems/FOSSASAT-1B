@@ -70,11 +70,11 @@ void Communication_Send_Morse_Beacon(float battVoltage);
 void Communication_CW_Beep(uint32_t len);
 
 /**
- * @brief This function adds system info entry to the system info frame.
+ * @brief This function adds frame entry to a frame.
  *
  * @test (ID COMMS_H_T8) (SEV 1) Test that the system information is received correctly.
  *
- * @param buffPtr Pointer to the system info frame buffer.
+ * @param buffPtr Pointer to the frame buffer.
  * @param val Value to be added.
  * @param name Name of the parameter (debug only);
  * @param mult Multiplier of the parameter (debug only);
@@ -82,7 +82,7 @@ void Communication_CW_Beep(uint32_t len);
  *
  */
 template <class T>
-void Communication_System_Info_Add(uint8_t** buffPtr, T val, const char* name, uint32_t mult, const char* unit);
+void Communication_Frame_Add(uint8_t** buffPtr, T val, const char* name, uint32_t mult, const char* unit);
 
 /**
  * @brief Send the satellite's information via the configured radio settings.
