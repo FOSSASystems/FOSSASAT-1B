@@ -68,7 +68,7 @@
  * @test (ID CONF_POWER_MANAGEMENT_T6) (SEV 1) Check that the satellite waits for this amount of time before the deploy sequence starts, this is for jettison.
  * @test (ID CONF_POWER_MANAGEMENT_T7) (SEV 5) Check that each debug print waits DEPLOYMENT_DEBUG_SAMPLE_PERIOD amount of time between each print.
  *
- * @todo Set appropriate BATTERY_VOLTAGE_LIMIT 
+ * @todo Set appropriate BATTERY_VOLTAGE_LIMIT
  *
  * @{
  */
@@ -143,7 +143,16 @@
  * |Number of received invalid FSK frames (uint16_t).|0x0011|0x0012|2|
  * |Length of callsign (uint8_t).|0x0013|0x0013|1|
  * |Callsign (C-string, max MAX_STRING_LENGTH bytes).|0x00014|0x0024|MAX_STRING_LENGTH|
- * |Total|||36|
+ * |Charging voltage stats (min - avg - max, 3x float).|0x0040|0x004B|12|
+ * |Charging current stats (min - avg - max, 3x float).|0x004C|0x0057|12|
+ * |Battery voltage stats (min - avg - max, 3x float).|0x0058|0x0063|12|
+ * |Solar cell A voltage stats (min - avg - max, 3x float).|0x0064|0x006F|12|
+ * |Solar cell B voltage stats (min - avg - max, 3x float).|0x0070|0x007B|12|
+ * |Solar cell C voltage stats (min - avg - max, 3x float).|0x007C|0x0087|12|
+ * |Battery temperature stats (min - avg - max, 3x float).|0x0088|0x0093|12|
+ * |Board temperature stats (min - avg - max, 3x float).|0x0094|0x009F|12|
+ * |MCU temperature stats (min - avg - max, 3x int8_t).|0x00A0|0x00A2|3|
+ * |Total|||135|
  *
  *
  * @test (ID CONF_EEPROM_ADDR_MAP_T0) (SEV 1) Check that EEPROM_DEPLOYMENT_COUNTER_ADDR is functional, including restarts.
@@ -259,6 +268,78 @@
  * |0x0014|0x0024|
  */
 #define EEPROM_CALLSIGN_ADDR                            0x0014
+
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x0040|0x004B|
+ */
+#define EEPROM_CHARGING_VOLTAGE_STATS_ADDR              0x0040
+
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x004C|0x0057|
+ */
+#define EEPROM_CHARGING_CURRENT_STATS_ADDR              0x004C
+
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x0058|0x0063|
+ */
+#define EEPROM_BATTERY_COLTAGE_STATS_ADDR               0x0058
+
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x0064|0x006F|
+ */
+#define EEPROM_CELL_A_VOLTAGE_STATS_ADDR                0x0064
+
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x0070|0x007B|
+ */
+#define EEPROM_CELL_B_VOLTAGE_STATS_ADDR                0x0070
+
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x007C|0x0087|
+ */
+#define EEPROM_CELL_C_VOLTAGE_STATS_ADDR                0x007C
+
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x0088|0x0093|
+ */
+#define EEPROM_BATTERY_TEMP_STATS_ADDR                  0x0088
+
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x0094|0x009F|
+ */
+#define EEPROM_BOARD_TEMP_STATS_ADDR                    0x0094
+
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x00A0|0x00A2|
+ */
+#define EEPROM_MCU_TEMP_STATS_ADDR                      0x00A0
 
 /**
  * @}
