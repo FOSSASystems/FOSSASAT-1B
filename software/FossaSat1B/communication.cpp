@@ -684,7 +684,7 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
       #ifdef ENABLE_INTERVAL_CONTROL
       if(powerConfig.bits.lowPowerModeActive) {
         // we're below low power level, stop the transmission
-        OSSASAT_DEBUG_PRINTLN(F("Battery too low, Tx stopped"));
+        FOSSASAT_DEBUG_PRINTLN(F("Battery too low, Tx stopped"));
         radio.standby();
         return(ERR_INVALID_DATA_RATE);
       }
