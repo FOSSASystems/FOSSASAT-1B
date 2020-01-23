@@ -195,9 +195,15 @@ void loop() {
   FOSSASAT_DEBUG_DELAY(10);
   Power_Control_Delay(500, true, true);
 
-  // send LoRa system info
+  // send LoRa system info if not in low power mode
   Communication_Set_Modem(MODEM_LORA);
-  Communication_Send_System_Info();
+  #ifdef ENABLE_INTERVAL_CONTROL
+  if(!powerConfig.bits.lowPowerModeActive) {
+    Communication_Send_System_Info();
+  }
+  #else
+    Communication_Send_System_Info();
+  #endif
 
   // wait for a bit
   FOSSASAT_DEBUG_DELAY(10);
