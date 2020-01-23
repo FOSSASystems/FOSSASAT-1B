@@ -642,13 +642,12 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
   FOSSASAT_DEBUG_DELAY(10);
 
   // build response frame
-  uint8_t len = 0;
+  uint8_t len = FCP_Get_Frame_Length(callsign, optDataLen);
   #ifdef FOSSASAT_STATIC_ONLY
   uint8_t frame[MAX_RADIO_BUFFER_LENGTH];
   #else
   uint8_t* frame = new uint8_t[len];
   #endif
-  len = FCP_Get_Frame_Length(callsign, optDataLen);
   FCP_Encode(frame, callsign, respId, optDataLen, optData);
 
   // send response
