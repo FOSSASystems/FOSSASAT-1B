@@ -250,7 +250,7 @@ void Communication_Send_System_Info() {
   optDataPtr += sizeof(uint8_t);
 
   // send as raw bytes
-  Communication_Send_Response(RESP_SYSTEM_INFO, optData, optDataLen, false);
+  Communication_Send_Response(RESP_SYSTEM_INFO, optData, optDataLen);
 }
 
 void Communication_Process_Packet() {
@@ -439,7 +439,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
             FOSSASAT_DEBUG_PRINTLN(state);
           } else {
             // configuration changed successfully, transmit response
-            Communication_Send_Response(RESP_REPEATED_MESSAGE_CUSTOM, optData + 7, optDataLen - 7, false, true);
+            Communication_Send_Response(RESP_REPEATED_MESSAGE_CUSTOM, optData + 7, optDataLen - 7, true);
           }
         }
       } break;
@@ -449,7 +449,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
       Communication_Send_System_Info();
       break;
 
-    case CMD_GET_LAST_PACKET_INFO: {
+    case CMD_GET_PACKET_INFO: {
         // get last packet info and send it
         static const uint8_t respOptDataLen = 2*sizeof(uint8_t) + 4*sizeof(uint16_t);
         uint8_t respOptData[respOptDataLen];
@@ -475,7 +475,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
         uint16_t fskInvalid = Persistent_Storage_Read<uint16_t>(EEPROM_FSK_INVALID_COUNTER_ADDR);
         Communication_Frame_Add(&respOptDataPtr, fskInvalid, "FSK invalid", 1, "");
 
-        Communication_Send_Response(RESP_LAST_PACKET_INFO, respOptData, respOptDataLen);
+        Communication_Send_Response(RESP_PACKET_INFO, respOptData, respOptDataLen);
       } break;
 
     case CMD_DEPLOY: {
@@ -483,8 +483,8 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
         Deployment_Deploy();
 
         // get deployment counter value and send it
-        /*uint8_t counter = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
-        Communication_Send_Response(RESP_DEPLOYMENT_STATE, &counter, 1, true);*/
+        uint8_t counter = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
+        Communication_Send_Response(RESP_DEPLOYMENT_STATE, &counter, 1);
       } break;
 
     case CMD_RESTART:
@@ -633,7 +633,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
   }
 }
 
-int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t optDataLen, bool encrypt, bool overrideModem) {
+int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t optDataLen, bool overrideModem) {
   // get callsign from EEPROM
   uint8_t callsignLen = Persistent_Storage_Read<uint8_t>(EEPROM_CALLSIGN_LEN_ADDR);
   char callsign[MAX_STRING_LENGTH + 1];
@@ -648,13 +648,8 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
   #else
   uint8_t* frame = new uint8_t[len];
   #endif
-  if(encrypt) {
-    len = FCP_Get_Frame_Length(callsign, optDataLen, password);
-    FCP_Encode(frame, callsign, respId, optDataLen, optData, encryptionKey, password);
-  } else {
-    len = FCP_Get_Frame_Length(callsign, optDataLen);
-    FCP_Encode(frame, callsign, respId, optDataLen, optData);
-  }
+  len = FCP_Get_Frame_Length(callsign, optDataLen);
+  FCP_Encode(frame, callsign, respId, optDataLen, optData);
 
   // send response
   int16_t state = Communication_Transmit(frame, len, overrideModem);
