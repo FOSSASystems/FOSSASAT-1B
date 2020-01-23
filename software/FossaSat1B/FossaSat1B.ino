@@ -25,7 +25,7 @@ void setup() {
   // increment reset counter
   FOSSASAT_DEBUG_PORT.print(F("Restart #"));
   FOSSASAT_DEBUG_PORT.println(Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR));
-  Persistent_Storage_Write<uint16_t>(EEPROM_RESTART_COUNTER_ADDR, Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR) + 1);
+  Persistent_Storage_Increment_Counter(EEPROM_RESTART_COUNTER_ADDR);
 
   // setup pins
   Configuration_Setup_Pins();

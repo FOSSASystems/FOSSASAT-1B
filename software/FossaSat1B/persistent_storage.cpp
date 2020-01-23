@@ -48,12 +48,44 @@ void Persistent_Storage_Wipe() {
   Persistent_Storage_Write<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR, FSK_RECEIVE_WINDOW_LENGTH);
   Persistent_Storage_Write<uint8_t>(EEPROM_LORA_RECEIVE_LEN_ADDR, LORA_RECEIVE_WINDOW_LENGTH);
 
+  // reset uptime counter
+  Persistent_Storage_Write<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR, 0);
+
+  // reset frame counters
+  Persistent_Storage_Write<uint16_t>(EEPROM_LORA_VALID_COUNTER_ADDR, 0);
+  Persistent_Storage_Write<uint16_t>(EEPROM_LORA_INVALID_COUNTER_ADDR, 0);
+  Persistent_Storage_Write<uint16_t>(EEPROM_FSK_VALID_COUNTER_ADDR, 0);
+  Persistent_Storage_Write<uint16_t>(EEPROM_FSK_INVALID_COUNTER_ADDR, 0);
+
   // set default callsign
   System_Info_Set_Callsign((char*)"FOSSASAT-1B");
+}
+
+void Persistent_Storage_Increment_Counter(uint16_t addr) {
+  Persistent_Storage_Write<uint16_t>(addr, Persistent_Storage_Read<uint16_t>(addr) + 1);
+}
+
+void Persistent_Storage_Increment_Frame_Counter(bool valid) {
+  uint16_t addr = EEPROM_LORA_VALID_COUNTER_ADDR;
+  if(currentModem == MODEM_LORA) {
+    if(!valid) {
+      addr += 2;
+    }
+  } else {
+    if(valid) {
+      addr += 4;
+    } else {
+      addr += 6;
+    }
+  }
+
+  Persistent_Storage_Increment_Counter(addr);
 }
 
 // explicitly instantiate templates
 template uint8_t Persistent_Storage_Read<uint8_t>(uint16_t);
 template uint16_t Persistent_Storage_Read<uint16_t>(uint16_t);
+template uint32_t Persistent_Storage_Read<uint32_t>(uint16_t);
 template void Persistent_Storage_Write<uint8_t>(uint16_t, uint8_t);
 template void Persistent_Storage_Write<uint16_t>(uint16_t, uint16_t);
+template void Persistent_Storage_Write<uint32_t>(uint16_t, uint32_t);
