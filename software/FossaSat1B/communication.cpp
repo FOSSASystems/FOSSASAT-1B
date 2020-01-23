@@ -451,7 +451,8 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
     case CMD_GET_LAST_PACKET_INFO: {
         // get last packet info and send it
-        uint8_t respOptData[10];
+        static const uint8_t respOptDataLen = 2*sizeof(uint8_t) + 4*sizeof(uint16_t);
+        uint8_t respOptData[respOptDataLen];
         uint8_t* respOptDataPtr = respOptData;
 
         // SNR
@@ -474,7 +475,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
         uint16_t fskInvalid = Persistent_Storage_Read<uint16_t>(EEPROM_FSK_INVALID_COUNTER_ADDR);
         Communication_Frame_Add(&respOptDataPtr, fskInvalid, "FSK invalid", 1, "");
 
-        Communication_Send_Response(RESP_LAST_PACKET_INFO, respOptData, 10);
+        Communication_Send_Response(RESP_LAST_PACKET_INFO, respOptData, respOptDataLen);
       } break;
 
     case CMD_DEPLOY: {
