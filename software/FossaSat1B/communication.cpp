@@ -652,6 +652,9 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
         // send response
         Communication_Send_Response(RESP_RECORDED_SOLAR_CELLS, respOptData, 3 * numSamples);
+
+        // deallocate memory
+        delete[] respOptData;
       }
     } break;
   }
