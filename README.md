@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.com/FOSSASystems/FOSSASAT-1B.svg?token=oTDDePyoDp2t3LxYnUYz&branch=master)](https://travis-ci.com/FOSSASystems/FOSSASAT-1B)
 
+[Doxygen Documentation](https://fossasystems.github.io/FOSSASAT-1B)
+
 FOSSASAT-1B is slightly modified second iteration of the FOSSASAT-1 satellite launched in December of 2019 Second generation 1P Satellite. It is set to launch with FOSSASAT-2 aboard the Alpha Firefly rocket in Q2-3 2020 into a 300km LEO orbit. The following differences are listed:
 
 - Use of IXYS Cells instead of TrisolX
