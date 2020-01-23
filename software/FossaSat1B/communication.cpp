@@ -288,11 +288,13 @@ void Communication_Process_Packet() {
       Comunication_Parse_Frame(frame, len);
     } else {
       FOSSASAT_DEBUG_PRINTLN(F("Callsign mismatch!"));
+      Persistent_Storage_Increment_Frame_Counter(false);
     }
 
   } else {
     FOSSASAT_DEBUG_PRINT(F("Reception failed, code "));
     FOSSASAT_DEBUG_PRINT(state);
+    Persistent_Storage_Increment_Frame_Counter(false);
   }
 
   #ifndef FOSSASAT_STATIC_ONLY
@@ -317,6 +319,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
   if(functionId < 0) {
     FOSSASAT_DEBUG_PRINT(F("Unable to get func. ID "));
     FOSSASAT_DEBUG_PRINTLN(functionId);
+    Persistent_Storage_Increment_Frame_Counter(false);
     return;
   }
   FOSSASAT_DEBUG_PRINT(F("Func. ID = 0x"));
@@ -379,7 +382,8 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
         #endif
       }
 
-      // decryption failed, return
+      // decryption failed, increment invalid frame counter and return
+      Persistent_Storage_Increment_Frame_Counter(false);
       return;
     }
 
@@ -400,6 +404,9 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
       // optional data extraction failed,
       FOSSASAT_DEBUG_PRINT(F("Failed to get optDataLen "));
       FOSSASAT_DEBUG_PRINTLN(optDataLen);
+
+      // increment invalid frame counter
+      Persistent_Storage_Increment_Frame_Counter(false);
       return;
     }
 
@@ -432,6 +439,9 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 }
 
 void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t optDataLen) {
+  // increment valid frame counter
+  Persistent_Storage_Increment_Frame_Counter(true);
+
   // delay before responding
   FOSSASAT_DEBUG_DELAY(100);
   Power_Control_Delay(RESPONSE_DELAY, true);
