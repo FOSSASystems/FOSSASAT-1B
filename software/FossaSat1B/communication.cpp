@@ -52,7 +52,7 @@ int16_t Communication_Set_Modem(uint8_t modem) {
   // handle possible error codes
   FOSSASAT_DEBUG_PRINT(F("Radio init "));
   FOSSASAT_DEBUG_PRINTLN(state);
-  FOSSASAT_DEBUG_DELAY(100);
+  FOSSASAT_DEBUG_DELAY(10);
   if (state != ERR_NONE) {
     // radio chip failed, restart
     Pin_Interface_Watchdog_Restart();
@@ -151,9 +151,10 @@ void Communication_Send_Morse_Beacon(float battVoltage) {
   FOSSASAT_DEBUG_PRINT(' ');
   Pin_Interface_Watchdog_Heartbeat();
 
-  // send battery voltage
-  morse.println(battVoltage, 2);
-  FOSSASAT_DEBUG_PRINTLN(battVoltage, 2);
+  // send battery voltage code
+  char code = 'A' + (uint8_t)((battVoltage - MORSE_BATTERY_MIN) / MORSE_BATTERY_STEP);
+  morse.println(code);
+  FOSSASAT_DEBUG_PRINTLN(code);
   Pin_Interface_Watchdog_Heartbeat();
 }
 
@@ -289,6 +290,9 @@ void Communication_Process_Packet() {
       FOSSASAT_DEBUG_PRINTLN(F("Callsign mismatch!"));
     }
 
+  } else {
+    FOSSASAT_DEBUG_PRINT(F("Reception failed, code "));
+    FOSSASAT_DEBUG_PRINT(state);
   }
 
   #ifndef FOSSASAT_STATIC_ONLY
@@ -611,8 +615,8 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
   // send response
   //return(Communication_Transmit(frame, len, overrideModem));
   int16_t state = Communication_Transmit(frame, len, overrideModem);
-  
-  // deallocate memory  
+
+  // deallocate memory
   #ifndef FOSSASAT_STATIC_ONLY
     delete[] frame;
   #endif
