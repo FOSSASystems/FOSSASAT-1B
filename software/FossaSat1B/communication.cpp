@@ -620,6 +620,40 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
         FOSSASAT_DEBUG_PRINTLN(optData[1]);
       }
     } break;
+
+    case CMD_RECORD_SOLAR_CELLS: {
+      // check optional data is exactly 3 bytes
+      if(Communication_Check_OptDataLen(3, optDataLen)) {
+        uint16_t numSamples = optData[0];
+        FOSSASAT_DEBUG_PRINT(F("numSamples="));
+        FOSSASAT_DEBUG_PRINTLN(numSamples);
+
+        // check number of samples is less than limit
+        if(numSamples > 60) {
+          FOSSASAT_DEBUG_PRINT(F("too much!"));
+          break;
+        }
+
+        // get sample period
+        uint16_t period = 0;
+        memcpy(&period, optData + 1, 2);
+        FOSSASAT_DEBUG_PRINT(F("period="));
+        FOSSASAT_DEBUG_PRINTLN(period);
+
+        // record all data
+        uint8_t* respOptData = new uint8_t[3 * numSamples];
+        for(uint16_t i = 0; i < 3 * numSamples; i += 3) {
+          respOptData[i] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
+          respOptData[i + 1] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
+          respOptData[i + 2] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
+
+          Power_Control_Delay(period * SLEEP_LENGTH_CONSTANT, true, true);
+        }
+
+        // send response
+        Communication_Send_Response(RESP_RECORDED_SOLAR_CELLS, respOptData, 3 * numSamples);
+      }
+    } break;
   }
 }
 
