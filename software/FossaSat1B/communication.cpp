@@ -332,7 +332,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
   #else
     uint8_t* optData = NULL;
   #endif
-  if(functionId >= PRIVATE_OFFSET) {
+  if((functionId >= CMD_DEPLOY) && (functionId <= CMD_RECORD_SOLAR_CELLS)) {
     // frame contains encrypted data, decrypt
     FOSSASAT_DEBUG_PRINTLN(F("Decrypting"));
 
@@ -355,7 +355,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
       FCP_Get_OptData(callsign, frame, len, optData, encryptionKey, password);
     }
 
-  } else {
+  } else if(functionId < CMD_DEPLOY) {
     // no decryption necessary
 
     // get optional data length
@@ -377,6 +377,12 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
       #endif
       FCP_Get_OptData(callsign, frame, len, optData);
     }
+  } else {
+    // unknown function ID
+    FOSSASAT_DEBUG_PRINT(F("Unknown function ID, 0x"));
+    FOSSASAT_DEBUG_PRINTLN(functionId, HEX);
+    Persistent_Storage_Increment_Frame_Counter(false);
+    return;
   }
 
   // check optional data presence
