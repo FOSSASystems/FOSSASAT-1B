@@ -342,46 +342,6 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
       FOSSASAT_DEBUG_PRINT(F("Decrypt failed "));
       FOSSASAT_DEBUG_PRINTLN(optDataLen);
 
-      // incorrect password, report to ground
-      if(optDataLen == ERR_INCORRECT_PASSWORD) {
-        FOSSASAT_DEBUG_PRINTLN(F("Wrong password!"));
-
-        // build frame
-        uint8_t encSectionLen = len - callsignLen;
-        #ifdef FOSSASAT_STATIC_ONLY
-          uint8_t encSection[MAX_OPT_DATA_LENGTH];
-        #else
-          uint8_t* encSection = new uint8_t[encSectionLen];
-        #endif
-
-        // copy encrypted section
-        memcpy(encSection, frame + callsignLen, encSectionLen);
-
-        // decrypt
-        struct AES_ctx ctx;
-        AES_init_ctx(&ctx, encryptionKey);
-        uint8_t numBlocks = encSectionLen / 16;
-        for(uint8_t i = 0; i < numBlocks; i++) {
-          AES_ECB_decrypt(&ctx, encSection + (i * 16));
-        }
-
-        // copy into the response frame
-        uint8_t failedOptDataLen = encSection[0];
-        uint8_t maxLen = 16 * MAX_NUM_OF_BLOCKS;
-        if(failedOptDataLen > maxLen) {
-          // if we exceed allowed number of AES128 blocks, decryption probably failed due to wrong key
-          failedOptDataLen = maxLen;
-        }
-
-        // send response
-        Communication_Send_Response(RESP_INCORRECT_PASSWORD, encSection + 1, failedOptDataLen, true);
-
-        // deallocate memory
-        #ifndef FOSSASAT_STATIC_ONLY
-          delete[] encSection;
-        #endif
-      }
-
       // decryption failed, increment invalid frame counter and return
       Persistent_Storage_Increment_Frame_Counter(false);
       return;
