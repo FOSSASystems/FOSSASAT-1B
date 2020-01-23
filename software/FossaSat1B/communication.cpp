@@ -679,6 +679,17 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
     // pet watchdog every second
     if(micros() - lastBeat > (uint32_t)WATCHDOG_LOOP_HEARTBEAT_PERIOD * (uint32_t)1000) {
       Pin_Interface_Watchdog_Heartbeat();
+
+      // check whether voltage dropped below low power level
+      #ifdef ENABLE_INTERVAL_CONTROL
+      if(powerConfig.bits.lowPowerModeActive) {
+        // we're below low power level, stop the transmission
+        OSSASAT_DEBUG_PRINTLN(F("Battery too low, Tx stopped"));
+        radio.standby();
+        return(ERR_INVALID_DATA_RATE);
+      }
+      #endif
+
       lastBeat = micros();
     }
 
