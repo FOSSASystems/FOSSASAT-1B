@@ -647,6 +647,12 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
           respOptData[i + 1] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
           respOptData[i + 2] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
 
+          FOSSASAT_DEBUG_PRINT(respOptData[i])
+          FOSSASAT_DEBUG_PRINT('\t')
+          FOSSASAT_DEBUG_PRINT(respOptData[i+1])
+          FOSSASAT_DEBUG_PRINT('\t')
+          FOSSASAT_DEBUG_PRINTLN(respOptData[i+2])
+
           Power_Control_Delay(period * SLEEP_LENGTH_CONSTANT, true, true);
         }
 
