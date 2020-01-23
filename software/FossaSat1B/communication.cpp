@@ -483,8 +483,8 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
         Deployment_Deploy();
 
         // get deployment counter value and send it
-        uint8_t counter = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
-        Communication_Send_Response(RESP_DEPLOYMENT_STATE, &counter, 1, true);
+        /*uint8_t counter = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
+        Communication_Send_Response(RESP_DEPLOYMENT_STATE, &counter, 1, true);*/
       } break;
 
     case CMD_RESTART:
