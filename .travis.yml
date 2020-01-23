@@ -2,12 +2,13 @@ os: linux
 services:
   - docker
 before_install:
-  - docker pull peterus/fossasat
+  - docker pull fossasystems/fossasat
 script:
   - cd software
-  - docker run -t -i -v $PWD:/src -w /src peterus/fossasat /bin/bash compile.sh
-  - docker run -t -i -v $PWD:/src -w /src peterus/fossasat /bin/bash cppcheck.sh
-  - docker run -t -i -v $PWD:/src -w /src peterus/fossasat /bin/bash doxygen.sh
+  - docker run -t -i -v $PWD:/src -v $PWD/Arduino:/root/Arduino -w /src fossasystems/fossasat /bin/bash scripts/prepare.sh
+  - docker run -t -i -v $PWD:/src -v $PWD/Arduino:/root/Arduino -w /src fossasystems/fossasat /bin/bash scripts/compile.sh
+  - docker run -t -i -v $PWD:/src -v $PWD/Arduino:/root/Arduino -w /src fossasystems/fossasat /bin/bash scripts/cppcheck.sh
+  - docker run -t -i -v $PWD:/src -v $PWD/Arduino:/root/Arduino -w /src fossasystems/fossasat /bin/bash scripts/doxygen.sh
 deploy:
   - provider: releases
     skip_cleanup: true

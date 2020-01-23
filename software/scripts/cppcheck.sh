@@ -9,4 +9,4 @@ cppcheck --language=c++ -f \
     -IFossaSat1B FossaSat1B FossaSat1B/FossaSat1B.ino
     #--platform=avr8
 
-# docker run -t -i -v $PWD:/src -w /src peterus/fossasat /bin/bash cppcheck.sh
+# docker run -t -i -v $PWD:/src -v $PWD/Arduino:/root/Arduino -w /src fossasystems/fossasat /bin/bash scripts/cppcheck.sh

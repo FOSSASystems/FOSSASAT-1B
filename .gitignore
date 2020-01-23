@@ -8,3 +8,10 @@
 # binaries
 *.elf
 *.hex
+
+# buildstuff
+/software/Arduino/
+
+# other files
+.DS_Store
+
