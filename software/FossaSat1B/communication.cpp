@@ -655,7 +655,6 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
   }
 
   // send response
-  //return(Communication_Transmit(frame, len, overrideModem));
   int16_t state = Communication_Transmit(frame, len, overrideModem);
 
   // deallocate memory
