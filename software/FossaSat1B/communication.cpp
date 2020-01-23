@@ -201,11 +201,11 @@ void Communication_Send_System_Info() {
   Communication_Frame_Add(&optDataPtr, batteryChargingVoltage, "batteryChargingVoltage", VOLTAGE_MULTIPLIER, "mV");
 
   #ifdef ENABLE_INA226
-    int16_t batteryChragingCurrent = Power_Control_Get_Charging_Current() * (CURRENT_UNIT / CURRENT_MULTIPLIER);
+    int16_t batteryChargingCurrent = Power_Control_Get_Charging_Current() * (CURRENT_UNIT / CURRENT_MULTIPLIER);
   #else
-    int16_t batteryChragingCurrent = 0.056 * (CURRENT_UNIT / CURRENT_MULTIPLIER);
+    int16_t batteryChargingCurrent = 0.056 * (CURRENT_UNIT / CURRENT_MULTIPLIER);
   #endif
-  Communication_Frame_Add(&optDataPtr, batteryChragingCurrent, "batteryChragingCurrent", CURRENT_MULTIPLIER, "uA");
+  Communication_Frame_Add(&optDataPtr, batteryChargingCurrent, "batteryChragingCurrent", CURRENT_MULTIPLIER, "uA");
 
   #ifdef ENABLE_INA226
     uint8_t batteryVoltage = Power_Control_Get_Battery_Voltage() * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
