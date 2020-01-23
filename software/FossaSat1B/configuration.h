@@ -435,7 +435,7 @@
  */
 #define NUM_CW_BEEPS                                    3           /*!< number of CW sync beeps in low power mode */
 #define MORSE_PREAMBLE_LENGTH                           3           /*!< number of start signal repetitions */
-#define MORSE_SPEED                                     40          /*!< words per minute */
+#define MORSE_SPEED                                     20          /*!< words per minute */
 /**
  * @}
  */
