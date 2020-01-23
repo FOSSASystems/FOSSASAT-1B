@@ -168,7 +168,7 @@ void Communication_CW_Beep(uint32_t len) {
 
 template <class T>
 // cppcheck-suppress unusedFunction
-void Communication_System_Info_Add(uint8_t** buffPtr, T val, const char* name, uint32_t mult, const char* unit) {
+void Communication_Frame_Add(uint8_t** buffPtr, T val, const char* name, uint32_t mult, const char* unit) {
   memcpy(*buffPtr, &val, sizeof(val));
   (*buffPtr) += sizeof(val);
   FOSSASAT_DEBUG_PRINT(name);
@@ -180,10 +180,10 @@ void Communication_System_Info_Add(uint8_t** buffPtr, T val, const char* name, u
   FOSSASAT_DEBUG_PRINTLN(unit);
 }
 
-template void Communication_System_Info_Add<int8_t>(uint8_t**, int8_t, const char*, uint32_t, const char*);
-template void Communication_System_Info_Add<uint8_t>(uint8_t**, uint8_t, const char*, uint32_t, const char*);
-template void Communication_System_Info_Add<int16_t>(uint8_t**, int16_t, const char*, uint32_t, const char*);
-template void Communication_System_Info_Add<uint16_t>(uint8_t**, uint16_t, const char*, uint32_t, const char*);
+template void Communication_Frame_Add<int8_t>(uint8_t**, int8_t, const char*, uint32_t, const char*);
+template void Communication_Frame_Add<uint8_t>(uint8_t**, uint8_t, const char*, uint32_t, const char*);
+template void Communication_Frame_Add<int16_t>(uint8_t**, int16_t, const char*, uint32_t, const char*);
+template void Communication_Frame_Add<uint16_t>(uint8_t**, uint16_t, const char*, uint32_t, const char*);
 
 void Communication_Send_System_Info() {
   // build response frame
@@ -198,49 +198,49 @@ void Communication_Send_System_Info() {
   #else
     uint8_t batteryChargingVoltage = 3.82 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #endif
-  Communication_System_Info_Add(&optDataPtr, batteryChargingVoltage, "batteryChargingVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Communication_Frame_Add(&optDataPtr, batteryChargingVoltage, "batteryChargingVoltage", VOLTAGE_MULTIPLIER, "mV");
 
   #ifdef ENABLE_INA226
     int16_t batteryChragingCurrent = Power_Control_Get_Charging_Current() * (CURRENT_UNIT / CURRENT_MULTIPLIER);
   #else
     int16_t batteryChragingCurrent = 0.056 * (CURRENT_UNIT / CURRENT_MULTIPLIER);
   #endif
-  Communication_System_Info_Add(&optDataPtr, batteryChragingCurrent, "batteryChragingCurrent", CURRENT_MULTIPLIER, "uA");
+  Communication_Frame_Add(&optDataPtr, batteryChragingCurrent, "batteryChragingCurrent", CURRENT_MULTIPLIER, "uA");
 
   #ifdef ENABLE_INA226
     uint8_t batteryVoltage = Power_Control_Get_Battery_Voltage() * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #else
     uint8_t batteryVoltage = 4.02 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #endif
-  Communication_System_Info_Add(&optDataPtr, batteryVoltage, "batteryVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Communication_Frame_Add(&optDataPtr, batteryVoltage, "batteryVoltage", VOLTAGE_MULTIPLIER, "mV");
 
   uint8_t solarCellAVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-  Communication_System_Info_Add(&optDataPtr, solarCellAVoltage, "solarCellAVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Communication_Frame_Add(&optDataPtr, solarCellAVoltage, "solarCellAVoltage", VOLTAGE_MULTIPLIER, "mV");
 
   // set solarCellBVoltage variable
   uint8_t solarCellBVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-  Communication_System_Info_Add(&optDataPtr, solarCellBVoltage, "solarCellBVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Communication_Frame_Add(&optDataPtr, solarCellBVoltage, "solarCellBVoltage", VOLTAGE_MULTIPLIER, "mV");
 
   // set solarCellCVoltage variable
   uint8_t solarCellCVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-  Communication_System_Info_Add(&optDataPtr, solarCellCVoltage, "solarCellCVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Communication_Frame_Add(&optDataPtr, solarCellCVoltage, "solarCellCVoltage", VOLTAGE_MULTIPLIER, "mV");
 
   // set batteryTemperature variable
   int16_t batteryTemperature = Pin_Interface_Read_Temperature(BATTERY_TEMP_SENSOR_ADDR) * (TEMPERATURE_UNIT / TEMPERATURE_MULTIPLIER);
-  Communication_System_Info_Add(&optDataPtr, batteryTemperature, "batteryTemperature", TEMPERATURE_MULTIPLIER, "mdeg C");
+  Communication_Frame_Add(&optDataPtr, batteryTemperature, "batteryTemperature", TEMPERATURE_MULTIPLIER, "mdeg C");
 
   // set boardTemperature variable
   int16_t boardTemperature = Pin_Interface_Read_Temperature(BOARD_TEMP_SENSOR_ADDR) * (TEMPERATURE_UNIT / TEMPERATURE_MULTIPLIER);
-  Communication_System_Info_Add(&optDataPtr, boardTemperature, "boardTemperature", TEMPERATURE_MULTIPLIER, "mdeg C");
+  Communication_Frame_Add(&optDataPtr, boardTemperature, "boardTemperature", TEMPERATURE_MULTIPLIER, "mdeg C");
 
   // set mcuTemperature variable (read twice since first value is often nonsense)
   Pin_Interface_Read_Temperature_Internal();
   int8_t mcuTemperature = Pin_Interface_Read_Temperature_Internal();
-  Communication_System_Info_Add(&optDataPtr, mcuTemperature, "mcuTemperature", 1, "deg C");
+  Communication_Frame_Add(&optDataPtr, mcuTemperature, "mcuTemperature", 1, "deg C");
 
   // set resetCounter variable
   uint16_t resetCounter = Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR);
-  Communication_System_Info_Add(&optDataPtr, resetCounter, "resetCounter", 1, "");
+  Communication_Frame_Add(&optDataPtr, resetCounter, "resetCounter", 1, "");
 
   // set powerConfig variable
   Power_Control_Load_Configuration();
@@ -485,8 +485,30 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
     case CMD_GET_LAST_PACKET_INFO: {
         // get last packet info and send it
-        uint8_t respOptData[] = {(uint8_t)(radio.getSNR() * 4.0), (uint8_t)(radio.getRSSI() * -2.0)};
-        Communication_Send_Response(RESP_LAST_PACKET_INFO, respOptData, 2);
+        uint8_t respOptData[10];
+        uint8_t* respOptDataPtr = respOptData;
+
+        // SNR
+        uint8_t snr = (uint8_t)(radio.getSNR() * 4.0);
+        Communication_Frame_Add(&respOptDataPtr, snr, "SNR", 4, "dB");
+
+        // RSSI
+        uint8_t rssi = (uint8_t)(radio.getRSSI() * -2.0);
+        Communication_Frame_Add(&respOptDataPtr, rssi, "RSSI", 2, "dBm");
+
+        uint16_t loraValid = Persistent_Storage_Read<uint16_t>(EEPROM_LORA_VALID_COUNTER_ADDR);
+        Communication_Frame_Add(&respOptDataPtr, loraValid, "LoRa valid", 1, "");
+
+        uint16_t loraInvalid = Persistent_Storage_Read<uint16_t>(EEPROM_LORA_INVALID_COUNTER_ADDR);
+        Communication_Frame_Add(&respOptDataPtr, loraInvalid, "LoRa invalid", 1, "");
+
+        uint16_t fskValid = Persistent_Storage_Read<uint16_t>(EEPROM_FSK_VALID_COUNTER_ADDR);
+        Communication_Frame_Add(&respOptDataPtr, fskValid, "FSK valid", 1, "");
+
+        uint16_t fskInvalid = Persistent_Storage_Read<uint16_t>(EEPROM_FSK_INVALID_COUNTER_ADDR);
+        Communication_Frame_Add(&respOptDataPtr, fskInvalid, "FSK invalid", 1, "");
+
+        Communication_Send_Response(RESP_LAST_PACKET_INFO, respOptData, 10);
       } break;
 
     case CMD_DEPLOY: {
