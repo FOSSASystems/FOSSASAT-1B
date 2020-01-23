@@ -209,6 +209,9 @@ void loop() {
   radio.setDio1Action(Communication_Receive_Interrupt);
   radio.startReceive();
 
+  /**
+   * @todo Shorten receive windows in low power mode -jgromes
+   */
   for(uint8_t i = 0; i < windowLen * SLEEP_LENGTH_CONSTANT; i++) {
     Power_Control_Delay(1000, true);
     if(dataReceived) {
