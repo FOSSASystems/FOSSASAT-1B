@@ -68,10 +68,12 @@
  * @test (ID CONF_POWER_MANAGEMENT_T6) (SEV 1) Check that the satellite waits for this amount of time before the deploy sequence starts, this is for jettison.
  * @test (ID CONF_POWER_MANAGEMENT_T7) (SEV 5) Check that each debug print waits DEPLOYMENT_DEBUG_SAMPLE_PERIOD amount of time between each print.
  *
+ * @todo Set appropriate BATTERY_VOLTAGE_LIMIT 
+ *
  * @{
  */
 #define BATTERY_VOLTAGE_LIMIT                           3.8f        /*!< Battery voltage limit to enable low power mode (V). */
-#define BATTERY_CW_BEEP_VOLTAGE_LIMIT                   3.8f        /*!< Battery voltage limit to enable low power mode (V). */
+#define BATTERY_CW_BEEP_VOLTAGE_LIMIT                   3.8f        /*!< Battery voltage limit to switch into morse beep (V). */
 #define BATTERY_TEMPERATURE_LIMIT                       -0.7f       /*!< Battery charging temperature limit (deg. C). */
 #define WATCHDOG_LOOP_HEARTBEAT_PERIOD                  1000        /*!< Watchdog heartbeat period in loop() (ms). */
 #define SLEEP_LENGTH_CONSTANT                           0.9         /*!< Sleep times are multiplied by this constant to compensate for the LowPower libraries overhead. */
