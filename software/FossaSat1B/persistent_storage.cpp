@@ -89,6 +89,7 @@ void Persistent_Storage_Increment_Frame_Counter(bool valid) {
 }
 
 template <class T>
+// cppcheck-suppress unusedFunction
 void Persistent_Storage_Update_Stats(uint16_t addr, T val) {
   T min = Persistent_Storage_Read<T>(addr);
   T avg = Persistent_Storage_Read<T>(addr + sizeof(val));
