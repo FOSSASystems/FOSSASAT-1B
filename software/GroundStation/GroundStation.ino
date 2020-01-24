@@ -362,12 +362,12 @@ void requestPacketInfo() {
 
 void requestRetransmit() {
   Serial.println(F("Enter message to be sent:"));
-  Serial.println(F("(max 16 characters, end with LF or CR+LF)"));
+  Serial.println(F("(max 32 characters, end with LF or CR+LF)"));
 
   // get data to be retransmited
-  char optData[16];
+  char optData[32];
   uint8_t bufferPos = 0;
-  while (bufferPos < 16) {
+  while (bufferPos < 32) {
     while (!Serial.available());
     char c = Serial.read();
     Serial.print(c);
@@ -398,10 +398,10 @@ void requestRetransmit() {
 
 void requestRetransmitCustom() {
   Serial.println(F("Enter message to be sent:"));
-  Serial.println(F("(max 16 characters, end with LF or CR+LF)"));
+  Serial.println(F("(max 32 characters, end with LF or CR+LF)"));
 
   // get data to be retransmited
-  uint8_t optData[16 + 7];
+  uint8_t optData[32 + 7];
   optData[0] = 0x07;
   optData[1] = 0x06;
   optData[2] = 0x08;
@@ -410,7 +410,7 @@ void requestRetransmitCustom() {
   optData[5] = 0x01;
   optData[6] = 20;
   uint8_t bufferPos = 7;
-  while (bufferPos < 16) {
+  while (bufferPos < 32 + 7) {
     while (!Serial.available());
     char c = Serial.read();
     Serial.print(c);
@@ -434,7 +434,6 @@ void requestRetransmitCustom() {
   Serial.print(F("Requesting retransmission ... "));
 
   // send the frame
-  optData[bufferPos] = '\0';
   uint8_t optDataLen = bufferPos - 1;
   sendFrame(CMD_RETRANSMIT_CUSTOM, optDataLen, optData);
 }
