@@ -142,7 +142,7 @@
  * |Number of received valid FSK frames (uint16_t).|0x000F|0x0010|2|
  * |Number of received invalid FSK frames (uint16_t).|0x0011|0x0012|2|
  * |Length of callsign (uint8_t).|0x0013|0x0013|1|
- * |Callsign (C-string, max MAX_STRING_LENGTH bytes).|0x00014|0x0024|MAX_STRING_LENGTH|
+ * |Callsign (C-string, max MAX_STRING_LENGTH bytes).|0x00014|0x0034|MAX_STRING_LENGTH|
  * |Charging voltage stats (min - avg - max, 3x uint8_t).|0x0040|0x0042|3|
  * |Charging current stats (min - avg - max, 3x int16_t).|0x0043|0x0048|6|
  * |Battery voltage stats (min - avg - max, 3x uint8_t).|0x0049|0x004B|3|
