@@ -1,8 +1,8 @@
 /*
    FOSSA Ground Station Example
 
-   Tested on Arduino Uno and SX1278, can be used with any LoRa radio
-   from the SX127x or SX126x series. Make sure radio type (line 21)
+   Tested on Arduino Uno and SX1268, can be used with any LoRa radio
+   from the SX127x or SX126x series. Make sure radio type (line 23)
    and pin mapping (lines 26 - 29) match your hardware!
 
    References:
@@ -10,8 +10,7 @@
    RadioLib error codes:
    https://jgromes.github.io/RadioLib/group__status__codes.html
 
-   FOSSASAT-1 Communication Guide:
-   https://github.com/FOSSASystems/FOSSASAT-1/blob/master/FOSSA%20Documents/FOSSASAT-1%20Comms%20Guide.pdf
+   FOSSASAT-1B Communication Guide:
 
 */
 
@@ -221,8 +220,8 @@ void decode(uint8_t* respFrame, uint8_t respLen) {
       Serial.println(FCP_Get_Power_Configuration(respOptData), BIN);
       break;
 
-    case RESP_LAST_PACKET_INFO:
-      Serial.println(F("Last packet info:"));
+    case RESP_PACKET_INFO: {
+      Serial.println(F("Packet info:"));
 
       Serial.print(F("SNR = "));
       Serial.print(respOptData[0] / 4.0);
@@ -231,7 +230,24 @@ void decode(uint8_t* respFrame, uint8_t respLen) {
       Serial.print(F("RSSI = "));
       Serial.print(respOptData[1] / -2.0);
       Serial.println(F(" dBm"));
-      break;
+
+      uint16_t counter = 0;
+      Serial.print(F("valid LoRa frames = "));
+      memcpy(&counter, respOptData + 2, sizeof(uint16_t));
+      Serial.println(counter);
+      
+      Serial.print(F("invalid LoRa frames = "));
+      memcpy(&counter, respOptData + 4, sizeof(uint16_t));
+      Serial.println(counter);
+      
+      Serial.print(F("valid FSK frames = "));
+      memcpy(&counter, respOptData + 6, sizeof(uint16_t));
+      Serial.println(counter);
+      
+      Serial.print(F("invalid FSK frames = "));
+      memcpy(&counter, respOptData + 8, sizeof(uint16_t));
+      Serial.println(counter);
+    } break;
 
     case RESP_REPEATED_MESSAGE:
       Serial.println(F("Got repeated message:"));
@@ -341,7 +357,7 @@ void requestPacketInfo() {
   Serial.print(F("Requesting last packet info ... "));
 
   // send the frame
-  sendFrame(CMD_GET_LAST_PACKET_INFO);
+  sendFrame(CMD_GET_PACKET_INFO);
 }
 
 void requestRetransmit() {
@@ -569,6 +585,7 @@ void loop() {
       case 'o':
         break;
       case 'u':
+        Serial.print(F("Sending unknown frame ... "));
         sendFrame(0xFF);
         break;
       default:
