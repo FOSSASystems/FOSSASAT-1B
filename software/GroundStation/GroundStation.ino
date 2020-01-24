@@ -219,6 +219,9 @@ void decode(uint8_t* respFrame, uint8_t respLen) {
 
       Serial.print(F("powerConfig = 0b"));
       Serial.println(FCP_Get_Power_Configuration(respOptData), BIN);
+
+      Serial.print(F("uptimeCounter = "));
+      Serial.println(FCP_Get_Uptime_Counter(respOptData));
       break;
 
     case RESP_PACKET_INFO: {

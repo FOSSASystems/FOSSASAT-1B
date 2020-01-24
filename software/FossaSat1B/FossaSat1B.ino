@@ -150,10 +150,16 @@ void setup() {
     }
 
   #endif
+
+  // reset uptime counter
+  Persistent_Storage_Write<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR, 0);
 }
 
 // cppcheck-suppress unusedFunction
 void loop() {
+  // variable to measure time when not in sleep mode
+  uint32_t activeStart = millis();
+
   // check battery voltage
   FOSSASAT_DEBUG_PRINT(F("Battery check: "));
   #ifdef ENABLE_INA226
@@ -210,9 +216,9 @@ void loop() {
   Power_Control_Delay(500, true, true);
 
   // LoRa receive
-  uint8_t windowLen = Persistent_Storage_Read<uint8_t>(EEPROM_LORA_RECEIVE_LEN_ADDR);
+  uint8_t windowLenLoRa = Persistent_Storage_Read<uint8_t>(EEPROM_LORA_RECEIVE_LEN_ADDR);
   FOSSASAT_DEBUG_PRINT(F("LoRa Rx "));
-  FOSSASAT_DEBUG_PRINTLN(windowLen);
+  FOSSASAT_DEBUG_PRINTLN(windowLenLoRa);
   FOSSASAT_DEBUG_DELAY(10);
   radio.setDio1Action(Communication_Receive_Interrupt);
   radio.startReceive();
@@ -220,7 +226,7 @@ void loop() {
   /**
    * @todo Shorten receive windows in low power mode -jgromes
    */
-  for(uint8_t i = 0; i < windowLen * SLEEP_LENGTH_CONSTANT; i++) {
+  for(uint8_t i = 0; i < windowLenLoRa * SLEEP_LENGTH_CONSTANT; i++) {
     Power_Control_Delay(1000, true);
     if(dataReceived) {
       radio.standby();
@@ -230,15 +236,15 @@ void loop() {
   }
 
   // GFSK receive
-  windowLen = Persistent_Storage_Read<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR);
+  uint8_t windowLenFsk = Persistent_Storage_Read<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR);
   Communication_Set_Modem(MODEM_FSK);
   FOSSASAT_DEBUG_PRINT(F("FSK Rx "));
-  FOSSASAT_DEBUG_PRINTLN(windowLen);
+  FOSSASAT_DEBUG_PRINTLN(windowLenFsk);
   FOSSASAT_DEBUG_DELAY(10);
   radio.setDio1Action(Communication_Receive_Interrupt);
   radio.startReceive();
 
-  for(uint8_t i = 0; i < windowLen * SLEEP_LENGTH_CONSTANT; i++) {
+  for(uint8_t i = 0; i < windowLenFsk * SLEEP_LENGTH_CONSTANT; i++) {
     Power_Control_Delay(1000, true);
     if(dataReceived) {
       radio.standby();
@@ -255,4 +261,15 @@ void loop() {
   FOSSASAT_DEBUG_PRINTLN(interval);
   FOSSASAT_DEBUG_DELAY(10);
   Power_Control_Delay(interval * SLEEP_LENGTH_CONSTANT, true, true);
+
+  // update uptime counter
+  uint32_t activeElapsed = (millis() - activeStart + 500)/1000;
+  FOSSASAT_DEBUG_PRINT(activeElapsed);
+  FOSSASAT_DEBUG_PRINTLN(F("s elapsed in active mode"))
+
+  uint32_t elapsedTotal = NUM_CW_BEEPS + 2 + windowLenLoRa + windowLenFsk + activeElapsed + interval;
+  FOSSASAT_DEBUG_PRINT(elapsedTotal);
+  FOSSASAT_DEBUG_PRINTLN(F("s elapsed total"))
+
+  Persistent_Storage_Write<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR, Persistent_Storage_Read<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR) + elapsedTotal);
 }

@@ -187,7 +187,7 @@ template void Communication_Frame_Add<uint16_t>(uint8_t**, uint16_t, const char*
 
 void Communication_Send_System_Info() {
   // build response frame
-  static const uint8_t optDataLen = 6*sizeof(uint8_t) + 3*sizeof(int16_t) + sizeof(uint16_t) + sizeof(int8_t);
+  static const uint8_t optDataLen = 6*sizeof(uint8_t) + 3*sizeof(int16_t) + sizeof(uint16_t) + sizeof(int8_t) + sizeof(uint32_t);
   uint8_t optData[optDataLen];
   uint8_t* optDataPtr = optData;
 
@@ -258,6 +258,10 @@ void Communication_Send_System_Info() {
   FOSSASAT_DEBUG_PRINTLN(powerConfig.val, BIN);
   memcpy(optDataPtr, &powerConfig.val, sizeof(uint8_t));
   optDataPtr += sizeof(uint8_t);
+
+  // set uptimeCounter
+  uint32_t uptimeCounter = Persistent_Storage_Read<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR);
+  Communication_Frame_Add(&optDataPtr, uptimeCounter, "uptimeCounter", 1, "");
 
   // send as raw bytes
   Communication_Send_Response(RESP_SYSTEM_INFO, optData, optDataLen);
