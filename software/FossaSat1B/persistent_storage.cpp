@@ -64,7 +64,7 @@ void Persistent_Storage_Wipe() {
   for(uint16_t addr = EEPROM_CHARGING_VOLTAGE_STATS_ADDR; addr <= EEPROM_MCU_TEMP_STATS_ADDR + 2; addr += sizeof(uint32_t)) {
     Persistent_Storage_Write<uint32_t>(addr, 0);
   }
-  
+
 }
 
 void Persistent_Storage_Increment_Counter(uint16_t addr) {
@@ -88,6 +88,23 @@ void Persistent_Storage_Increment_Frame_Counter(bool valid) {
   Persistent_Storage_Increment_Counter(addr);
 }
 
+template <class T>
+void Persistent_Storage_Update_Stats(uint16_t addr, T val) {
+  T min = Persistent_Storage_Read<T>(addr);
+  T avg = Persistent_Storage_Read<T>(addr + sizeof(val));
+  T max = Persistent_Storage_Read<T>(addr + 2*sizeof(val));
+
+  if(val < min) {
+    Persistent_Storage_Write<T>(addr, val);
+  }
+
+  Persistent_Storage_Write<T>(addr + sizeof(val), (avg + val)/2);
+
+  if(val > max) {
+    Persistent_Storage_Write<T>(addr + 2*sizeof(val), val);
+  }
+}
+
 // explicitly instantiate templates
 template uint8_t Persistent_Storage_Read<uint8_t>(uint16_t);
 template uint16_t Persistent_Storage_Read<uint16_t>(uint16_t);
@@ -98,3 +115,7 @@ template void Persistent_Storage_Write<uint8_t>(uint16_t, uint8_t);
 template void Persistent_Storage_Write<uint16_t>(uint16_t, uint16_t);
 template void Persistent_Storage_Write<int16_t>(uint16_t, int16_t);
 template void Persistent_Storage_Write<uint32_t>(uint16_t, uint32_t);
+
+template void Persistent_Storage_Update_Stats<int8_t>(uint16_t, int8_t);
+template void Persistent_Storage_Update_Stats<uint8_t>(uint16_t, uint8_t);
+template void Persistent_Storage_Update_Stats<int16_t>(uint16_t, int16_t);

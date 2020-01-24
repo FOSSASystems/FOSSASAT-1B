@@ -52,4 +52,15 @@ void Persistent_Storage_Increment_Counter(uint16_t addr);
  */
 void Persistent_Storage_Increment_Frame_Counter(bool valid);
 
+/**
+ * @brief Updates minimum, average and maximum stats in EEPROM
+ *
+ * @tparam T
+ * @param addr Memory address.
+ * @param val
+ *
+ */
+template <class T>
+void Persistent_Storage_Update_Stats(uint16_t addr, T val);
+
 #endif
