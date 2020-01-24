@@ -26,8 +26,8 @@
  * @defgroup defines_string_memory_limits String Limits
  * @{
  */
-#define MAX_STRING_LENGTH                               16			/*!< String length limit (bytes). */
-#define MAX_OPT_DATA_LENGTH                             48			/*!< Optional data length limit (bytes). */
+#define MAX_STRING_LENGTH                               32			/*!< String length limit (bytes). */
+#define MAX_OPT_DATA_LENGTH                             128			/*!< Optional data length limit (bytes). */
 #define MAX_RADIO_BUFFER_LENGTH                         MAX_STRING_LENGTH + 2 + MAX_OPT_DATA_LENGTH     /*!< Radio buffer length limit. */
 
 /**
@@ -143,16 +143,16 @@
  * |Number of received invalid FSK frames (uint16_t).|0x0011|0x0012|2|
  * |Length of callsign (uint8_t).|0x0013|0x0013|1|
  * |Callsign (C-string, max MAX_STRING_LENGTH bytes).|0x00014|0x0024|MAX_STRING_LENGTH|
- * |Charging voltage stats (min - avg - max, 3x float).|0x0040|0x004B|12|
- * |Charging current stats (min - avg - max, 3x float).|0x004C|0x0057|12|
- * |Battery voltage stats (min - avg - max, 3x float).|0x0058|0x0063|12|
- * |Solar cell A voltage stats (min - avg - max, 3x float).|0x0064|0x006F|12|
- * |Solar cell B voltage stats (min - avg - max, 3x float).|0x0070|0x007B|12|
- * |Solar cell C voltage stats (min - avg - max, 3x float).|0x007C|0x0087|12|
- * |Battery temperature stats (min - avg - max, 3x float).|0x0088|0x0093|12|
- * |Board temperature stats (min - avg - max, 3x float).|0x0094|0x009F|12|
- * |MCU temperature stats (min - avg - max, 3x int8_t).|0x00A0|0x00A2|3|
- * |Total|||135|
+ * |Charging voltage stats (min - avg - max, 3x uint8_t).|0x0040|0x0042|3|
+ * |Charging current stats (min - avg - max, 3x int16_t).|0x0043|0x0048|6|
+ * |Battery voltage stats (min - avg - max, 3x uint8_t).|0x0049|0x004B|3|
+ * |Solar cell A voltage stats (min - avg - max, 3x uint8_t).|0x004C|0x004E|3|
+ * |Solar cell B voltage stats (min - avg - max, 3x uint8_t).|0x004F|0x0051|3|
+ * |Solar cell C voltage stats (min - avg - max, 3x uint8_t).|0x0052|0x0054|3|
+ * |Battery temperature stats (min - avg - max, 3x int16_t).|0x0055|0x005A|6|
+ * |Board temperature stats (min - avg - max, 3x int16_t).|0x005B|0x0060|6|
+ * |MCU temperature stats (min - avg - max, 3x int8_t).|0x0061|0x0063|3|
+ * |Total|||72|
  *
  *
  * @test (ID CONF_EEPROM_ADDR_MAP_T0) (SEV 1) Check that EEPROM_DEPLOYMENT_COUNTER_ADDR is functional, including restarts.
@@ -273,7 +273,7 @@
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x0040|0x004B|
+ * |0x0040|0x0042|
  */
 #define EEPROM_CHARGING_VOLTAGE_STATS_ADDR              0x0040
 
@@ -281,65 +281,65 @@
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x004C|0x0057|
+ * |0x0043|0x0048|
  */
-#define EEPROM_CHARGING_CURRENT_STATS_ADDR              0x004C
+#define EEPROM_CHARGING_CURRENT_STATS_ADDR              0x0043
 
 /**
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x0058|0x0063|
+ * |0x0049|0x004B|
  */
-#define EEPROM_BATTERY_COLTAGE_STATS_ADDR               0x0058
+#define EEPROM_BATTERY_VOLTAGE_STATS_ADDR               0x0049
 
 /**
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x0064|0x006F|
+ * |0x004C|0x004E|
  */
-#define EEPROM_CELL_A_VOLTAGE_STATS_ADDR                0x0064
+#define EEPROM_CELL_A_VOLTAGE_STATS_ADDR                0x004C
 
 /**
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x0070|0x007B|
+ * |0x004F|0x0051|
  */
-#define EEPROM_CELL_B_VOLTAGE_STATS_ADDR                0x0070
+#define EEPROM_CELL_B_VOLTAGE_STATS_ADDR                0x004F
 
 /**
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x007C|0x0087|
+ * |0x0052|0x0054|
  */
-#define EEPROM_CELL_C_VOLTAGE_STATS_ADDR                0x007C
+#define EEPROM_CELL_C_VOLTAGE_STATS_ADDR                0x0052
 
 /**
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x0088|0x0093|
+ * |0x0055|0x005A|
  */
-#define EEPROM_BATTERY_TEMP_STATS_ADDR                  0x0088
+#define EEPROM_BATTERY_TEMP_STATS_ADDR                  0x0055
 
 /**
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x0094|0x009F|
+ * |0x005B|0x0060|
  */
-#define EEPROM_BOARD_TEMP_STATS_ADDR                    0x0094
+#define EEPROM_BOARD_TEMP_STATS_ADDR                    0x005B
 
 /**
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x00A0|0x00A2|
+ * |0x0061|0x0063|
  */
-#define EEPROM_MCU_TEMP_STATS_ADDR                      0x00A0
+#define EEPROM_MCU_TEMP_STATS_ADDR                      0x0061
 
 /**
  * @}
