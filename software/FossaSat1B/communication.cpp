@@ -478,6 +478,85 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
         Communication_Send_Response(RESP_PACKET_INFO, respOptData, respOptDataLen);
       } break;
 
+    case CMD_GET_STATISTICS: {
+        // check optional data is exactly 1 byte
+        if(Communication_Check_OptDataLen(1, optDataLen)) {
+          // response will have maximum of 36 bytes if all stats are included
+          uint8_t respOptData[36];
+          uint8_t respOptDataLen = 0;
+          uint8_t* respOptDataPtr = respOptData;
+
+          // get required stats from EEPROM
+          if(optData[0] & 0x01) {
+            // charging voltage
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CHARGING_VOLTAGE_STATS_ADDR), "", VOLTAGE_MULTIPLIER, "mV");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CHARGING_VOLTAGE_STATS_ADDR + 1), "", VOLTAGE_MULTIPLIER, "mV");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CHARGING_VOLTAGE_STATS_ADDR + 2), "", VOLTAGE_MULTIPLIER, "mV");
+            respOptDataLen += 3;
+          }
+          
+          if(optData[0] & 0x02) {
+            // charging current
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_CHARGING_CURRENT_STATS_ADDR), "", CURRENT_MULTIPLIER, "uA");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_CHARGING_CURRENT_STATS_ADDR + 2), "", CURRENT_MULTIPLIER, "uA");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_CHARGING_CURRENT_STATS_ADDR + 4), "", CURRENT_MULTIPLIER, "uA");
+            respOptDataLen += 6;
+          }
+          
+          if(optData[0] & 0x04) {
+            // battery voltage
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_BATTERY_VOLTAGE_STATS_ADDR), "", VOLTAGE_MULTIPLIER, "mV");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_BATTERY_VOLTAGE_STATS_ADDR + 1), "", VOLTAGE_MULTIPLIER, "mV");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_BATTERY_VOLTAGE_STATS_ADDR + 2), "", VOLTAGE_MULTIPLIER, "mV");
+            respOptDataLen += 3;
+          }
+          
+          if(optData[0] & 0x08) {
+            // cell A voltage
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CELL_A_VOLTAGE_STATS_ADDR), "", VOLTAGE_MULTIPLIER, "mV");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CELL_A_VOLTAGE_STATS_ADDR + 1), "", VOLTAGE_MULTIPLIER, "mV");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CELL_A_VOLTAGE_STATS_ADDR + 2), "", VOLTAGE_MULTIPLIER, "mV");
+            respOptDataLen += 3;
+          }
+          
+          if(optData[0] & 0x10) {
+            // cell B voltage
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CELL_B_VOLTAGE_STATS_ADDR), "", VOLTAGE_MULTIPLIER, "mV");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CELL_B_VOLTAGE_STATS_ADDR + 1), "", VOLTAGE_MULTIPLIER, "mV");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CELL_B_VOLTAGE_STATS_ADDR + 2), "", VOLTAGE_MULTIPLIER, "mV");
+            respOptDataLen += 3;
+          }
+          
+          if(optData[0] & 0x20) {
+            // cell C voltage
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CELL_C_VOLTAGE_STATS_ADDR), "", VOLTAGE_MULTIPLIER, "mV");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CELL_C_VOLTAGE_STATS_ADDR + 1), "", VOLTAGE_MULTIPLIER, "mV");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CELL_C_VOLTAGE_STATS_ADDR + 2), "", VOLTAGE_MULTIPLIER, "mV");
+            respOptDataLen += 3;
+          }
+          
+          if(optData[0] & 0x40) {
+            // battery temperature
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BATTERY_TEMP_STATS_ADDR), "", TEMPERATURE_MULTIPLIER, "mdeg C");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BATTERY_TEMP_STATS_ADDR + 2), "", TEMPERATURE_MULTIPLIER, "mdeg C");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BATTERY_TEMP_STATS_ADDR + 4), "", TEMPERATURE_MULTIPLIER, "mdeg C");
+            respOptDataLen += 6;
+          }
+          
+          if(optData[0] & 0x80) {
+            // board temperature
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR), "", TEMPERATURE_MULTIPLIER, "mdeg C");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR + 2), "", TEMPERATURE_MULTIPLIER, "mdeg C");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR + 4), "", TEMPERATURE_MULTIPLIER, "mdeg C");
+            respOptDataLen += 6;
+          }
+
+          // send response
+          Communication_Send_Response(RESP_STATISTICS, respOptData, respOptDataLen);
+        }
+      } break;
+
+    // private function IDs
     case CMD_DEPLOY: {
         // run deployment sequence
         Deployment_Deploy();

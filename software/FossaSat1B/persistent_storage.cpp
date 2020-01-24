@@ -59,6 +59,12 @@ void Persistent_Storage_Wipe() {
 
   // set default callsign
   System_Info_Set_Callsign((char*)"FOSSASAT-1B");
+
+  // reset stats
+  for(uint16_t addr = EEPROM_CHARGING_VOLTAGE_STATS_ADDR; addr <= EEPROM_MCU_TEMP_STATS_ADDR + 2; addr += sizeof(uint32_t)) {
+    Persistent_Storage_Write<uint32_t>(addr, 0);
+  }
+  
 }
 
 void Persistent_Storage_Increment_Counter(uint16_t addr) {
@@ -85,7 +91,10 @@ void Persistent_Storage_Increment_Frame_Counter(bool valid) {
 // explicitly instantiate templates
 template uint8_t Persistent_Storage_Read<uint8_t>(uint16_t);
 template uint16_t Persistent_Storage_Read<uint16_t>(uint16_t);
+template int16_t Persistent_Storage_Read<int16_t>(uint16_t);
 template uint32_t Persistent_Storage_Read<uint32_t>(uint16_t);
+
 template void Persistent_Storage_Write<uint8_t>(uint16_t, uint8_t);
 template void Persistent_Storage_Write<uint16_t>(uint16_t, uint16_t);
+template void Persistent_Storage_Write<int16_t>(uint16_t, int16_t);
 template void Persistent_Storage_Write<uint32_t>(uint16_t, uint32_t);

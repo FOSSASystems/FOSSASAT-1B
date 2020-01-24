@@ -128,6 +128,7 @@ void printControls() {
   Serial.println(F("R - retransmit custom"));
   Serial.println(F("o - get rotation data"));
   Serial.println(F("u - send packet with unknown function ID"));
+  Serial.println(F("s - get stats"));
   Serial.println(F("------------------------------------"));
 }
 
@@ -483,6 +484,11 @@ void sendUnknownFrame() {
   radio.explicitHeader();
 }
 
+void getStats(uint8_t mask) {
+  Serial.print(F("Sending stats request ... "));
+  sendFrame(CMD_GET_STATISTICS, 1, &mask);
+}
+
 void setup() {
   Serial.begin(9600);
   Serial.println(F("FOSSA Ground Station Demo Code"));
@@ -586,6 +592,9 @@ void loop() {
       case 'u':
         Serial.print(F("Sending unknown frame ... "));
         sendFrame(0xFF);
+        break;
+      case 's':
+        getStats(0xFF);
         break;
       default:
         Serial.print(F("Unknown command: "));
