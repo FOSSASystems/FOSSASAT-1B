@@ -166,25 +166,6 @@ void Communication_CW_Beep(uint32_t len) {
   radio.standby();
 }
 
-template <class T>
-// cppcheck-suppress unusedFunction
-void Communication_Frame_Add(uint8_t** buffPtr, T val, const char* name, uint32_t mult, const char* unit) {
-  memcpy(*buffPtr, &val, sizeof(val));
-  (*buffPtr) += sizeof(val);
-  FOSSASAT_DEBUG_PRINT(name);
-  FOSSASAT_DEBUG_PRINT(F(" = "));
-  FOSSASAT_DEBUG_PRINT(val);
-  FOSSASAT_DEBUG_PRINT('*');
-  FOSSASAT_DEBUG_PRINT(mult);
-  FOSSASAT_DEBUG_PRINT(' ');
-  FOSSASAT_DEBUG_PRINTLN(unit);
-}
-
-template void Communication_Frame_Add<int8_t>(uint8_t**, int8_t, const char*, uint32_t, const char*);
-template void Communication_Frame_Add<uint8_t>(uint8_t**, uint8_t, const char*, uint32_t, const char*);
-template void Communication_Frame_Add<int16_t>(uint8_t**, int16_t, const char*, uint32_t, const char*);
-template void Communication_Frame_Add<uint16_t>(uint8_t**, uint16_t, const char*, uint32_t, const char*);
-
 void Communication_Send_System_Info() {
   // build response frame
   static const uint8_t optDataLen = 6*sizeof(uint8_t) + 3*sizeof(int16_t) + sizeof(uint16_t) + sizeof(int8_t) + sizeof(uint32_t);

@@ -79,9 +79,18 @@ void Communication_CW_Beep(uint32_t len);
  * @param unit Unit of the parameter (debug only);
  *
  */
-template <class T>
-void Communication_Frame_Add(uint8_t** buffPtr, T val, const char* name, uint32_t mult, const char* unit);
-
+ template <typename T>
+ void Communication_Frame_Add(uint8_t** buffPtr, T val, const char* name, uint32_t mult, const char* unit) {
+   memcpy(*buffPtr, &val, sizeof(val));
+   (*buffPtr) += sizeof(val);
+   FOSSASAT_DEBUG_PRINT(name);
+   FOSSASAT_DEBUG_PRINT(F(" = "));
+   FOSSASAT_DEBUG_PRINT(val);
+   FOSSASAT_DEBUG_PRINT('*');
+   FOSSASAT_DEBUG_PRINT(mult);
+   FOSSASAT_DEBUG_PRINT(' ');
+   FOSSASAT_DEBUG_PRINTLN(unit);
+ }
 /**
  * @brief Send the satellite's information via the configured radio settings.
  *
