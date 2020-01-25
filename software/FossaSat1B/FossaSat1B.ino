@@ -232,7 +232,7 @@ void loop() {
   if(powerConfig.bits.lowPowerModeActive) {
     // use only half of the interval in low power mode
     windowLenLoRa /= 2;
-    FOSSASAT_DEBUG_PRINT(F("(halved due to LP mode)"));
+    FOSSASAT_DEBUG_PRINT(F("(halved due to LP mode) "));
   }
   FOSSASAT_DEBUG_PRINTLN(windowLenLoRa);
   FOSSASAT_DEBUG_DELAY(10);
@@ -255,7 +255,7 @@ void loop() {
   if(powerConfig.bits.lowPowerModeActive) {
     // use only half of the interval in low power mode
     windowLenFsk /= 2;
-    FOSSASAT_DEBUG_PRINT(F("(halved due to LP mode)"));
+    FOSSASAT_DEBUG_PRINT(F("(halved due to LP mode) "));
   }
   FOSSASAT_DEBUG_PRINTLN(windowLenFsk);
   FOSSASAT_DEBUG_DELAY(10);
