@@ -3,6 +3,9 @@
 
 #include "FossaSat1B.h"
 
+// EEPROM only included once to suppress unused variable warning
+#include <EEPROM.h>
+
 /**
  * @file persistent_storage.h
  * @brief This module controls access to the EEPROM.
@@ -15,8 +18,12 @@
  * @param addr Memory address.
  * @return T
  */
-template <class T>
-T Persistent_Storage_Read(uint16_t addr);
+template <typename T>
+T Persistent_Storage_Read(uint16_t addr) {
+  T val;
+  EEPROM.get(addr, val);
+  return(val);
+}
 
 /**
  * @brief This function writes a value of type T to the eerom.
@@ -25,8 +32,10 @@ T Persistent_Storage_Read(uint16_t addr);
  * @param addr Memory address.
  * @param val
  */
-template <class T>
-void Persistent_Storage_Write(uint16_t addr, T val);
+template <typename T>
+void Persistent_Storage_Write(uint16_t addr, T val) {
+  EEPROM.put(addr, val);
+}
 
 /**
  * @brief This functions clears the EEPROM by writing EEPROM_RESET_VALUE to each memory addres.
@@ -51,5 +60,30 @@ void Persistent_Storage_Increment_Counter(uint16_t addr);
  *
  */
 void Persistent_Storage_Increment_Frame_Counter(bool valid);
+
+/**
+ * @brief Updates minimum, average and maximum stats in EEPROM
+ *
+ * @tparam T
+ * @param addr Memory address.
+ * @param val
+ *
+ */
+template <typename T>
+void Persistent_Storage_Update_Stats(uint16_t addr, T val) {
+  T min = Persistent_Storage_Read<T>(addr);
+  T avg = Persistent_Storage_Read<T>(addr + sizeof(val));
+  T max = Persistent_Storage_Read<T>(addr + 2*sizeof(val));
+
+  if(val < min) {
+    Persistent_Storage_Write<T>(addr, val);
+  }
+
+  Persistent_Storage_Write<T>(addr + sizeof(val), (avg + val)/2);
+
+  if(val > max) {
+    Persistent_Storage_Write<T>(addr + 2*sizeof(val), val);
+  }
+}
 
 #endif
