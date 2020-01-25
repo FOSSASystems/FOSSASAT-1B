@@ -507,8 +507,6 @@
 /**
  * @defgroup defines_radio_non_ism_band_fsk_configuraiton  FSK Radio Configuration
  *
- * @todo Is 9.6 a valid value for the FSK_BIT_RATE?
- *
  * @brief
  * |Description|Value|Units|
  * |--|--|--|
@@ -573,22 +571,6 @@
  */
 #define MODEM_LORA                                      'L'
 #define MODEM_FSK                                       'F'
-/**
- * @}
- */
-
-/**
- * @defgroup defines_radio_sf_modes_configuration Spreading Factor Modes
- *
- * @todo SPREADING_FACTOR_STANDARD is not used ?
- * @todo SPREADING_FACTOR_ALTERNATIVE is not used ?
- *
- * @test (ID CONF_SF_T0) Check that SPREAD_FACTOR_STANDARD is suitable.
- * @test (ID CONF_SF_T1) Check that SPREADING_FACTOR_ALTERNATIVE is suitable.
- * @{
- */
-#define SPREADING_FACTOR_STANDARD                       0
-#define SPREADING_FACTOR_ALTERNATIVE                    1
 /**
  * @}
  */

@@ -9,9 +9,7 @@
  */
 
 /**
- * @brief The power configuration is 4 bytes long.
- *
- * @todo memory alignment?
+ * @brief Power configuration strutcture, each entry is one bit long. Total 1 byte, lowPowerModeActive is the least significant bit.
  *
  */
 struct powerConfigBits_t {
@@ -23,9 +21,7 @@ struct powerConfigBits_t {
 };
 
 /**
- * @brief
- *
- * @todo Requires documentation and explanation.
+ * @brief Union to quickly access power configuration bits or the entire single-byte value.
  */
 union powerConfig_t {
   struct powerConfigBits_t bits;

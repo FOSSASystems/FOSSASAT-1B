@@ -4,13 +4,13 @@
 #include "FossaSat1B.h"
 
 /**
- * @file debugging_utilities.h 
- * 
+ * @file debugging_utilities.h
+ *
  */
 
 /**
  * @defgroup debugging_h_defines Debugging Utility
- * 
+ *
  * @{
  */
 
@@ -55,6 +55,6 @@
 
 /**
  * @}
- * 
+ *
  */
 #endif

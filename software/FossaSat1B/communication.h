@@ -51,8 +51,6 @@ int16_t Communication_Set_SpreadingFactor(uint8_t sfMode);
 /**
  * @brief This function transmits a morse beacon message.
  *
- * @todo battVoltage is NOT OPTIONAL?
- *
  * @test (ID COMMS_H_T5) (SEV 1) Test that the beacon message can be received properly.
  * @test (ID COMMS_H_T6) (SEV 1) Test that the beacon messages battery voltage is received ok.
  *
