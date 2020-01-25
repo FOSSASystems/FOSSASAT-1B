@@ -68,7 +68,7 @@
  * @test (ID CONF_POWER_MANAGEMENT_T6) (SEV 1) Check that the satellite waits for this amount of time before the deploy sequence starts, this is for jettison.
  * @test (ID CONF_POWER_MANAGEMENT_T7) (SEV 5) Check that each debug print waits DEPLOYMENT_DEBUG_SAMPLE_PERIOD amount of time between each print.
  *
- * @todo Set appropriate BATTERY_VOLTAGE_LIMIT
+ * @todo Julian -> Set appropriate BATTERY_VOLTAGE_LIMIT and BATTERY_CW_BEEP_VOLTAGE_LIMIT
  *
  * @{
  */
@@ -108,14 +108,11 @@
 /**
  * @defgroup defines_ina226_configuration INA226 Configuration
  *
- * @todo Implement INA timeout (18/01/2020 RGB).
- *
  * @test (ID CONF_INA226_CONF_T0) (SEV 1) Check that the INA226 can be connected to and gives the correct values.
  *
  * @{
  */
 #define INA_ADDR                                        0x40        /*!< The I2C address of the INA226 module. */
-#define INA_TIMEOUT                                     2000        /*!< INA Timeout (ms) (not implemented).  */
 #define INA_RSHUNT                                      0.1         /*!< Shunt resistor value (Ohm).  */
 #define INA_MAX_CURRENT                                 0.5         /*!< Maximum Current allowed (A).  */
 #define INA_REG_MANUFACTURER_ID                         0xFE        /*!< INA Reg Manufacturer Identification Number (254). */
