@@ -178,6 +178,12 @@ void loop() {
   // CW beacon
   Communication_Set_Modem(MODEM_FSK);
   FOSSASAT_DEBUG_DELAY(10);
+  #ifdef ENABLE_TRANSMISSION_CONTROL
+  if(!powerConfig.bits.transmitEnabled) {
+    FOSSASAT_DEBUG_PRINTLN(F("Tx off by cmd"));
+  } else {
+  #endif
+
   if(battVoltage >= BATTERY_CW_BEEP_VOLTAGE_LIMIT) {
     // transmit full Morse beacon
     Communication_Send_Morse_Beacon(battVoltage);
@@ -188,6 +194,11 @@ void loop() {
       Power_Control_Delay(500 * SLEEP_LENGTH_CONSTANT, true);
     }
   }
+
+  #ifdef ENABLE_TRANSMISSION_CONTROL
+  }
+  #endif
+
 
   // wait for a bit
   FOSSASAT_DEBUG_DELAY(10);
