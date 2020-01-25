@@ -1,23 +1,5 @@
 #include "persistent_storage.h"
 
-// EEPROM only included once to supress unused variable warning
-#include <EEPROM.h>
-
-// EEPROM reading template
-template <class T>
-// cppcheck-suppress unusedFunction
-T Persistent_Storage_Read(uint16_t addr) {
-  T val;
-  EEPROM.get(addr, val);
-  return(val);
-}
-
-// EEPROM writing template
-template <class T>
-void Persistent_Storage_Write(uint16_t addr, T val) {
-  EEPROM.put(addr, val);
-}
-
 void Persistent_Storage_Wipe() {
   // wipe EEPROM
   FOSSASAT_DEBUG_PRINTLN(F("Wiping"));
@@ -87,36 +69,3 @@ void Persistent_Storage_Increment_Frame_Counter(bool valid) {
 
   Persistent_Storage_Increment_Counter(addr);
 }
-
-template <class T>
-// cppcheck-suppress unusedFunction
-void Persistent_Storage_Update_Stats(uint16_t addr, T val) {
-  T min = Persistent_Storage_Read<T>(addr);
-  T avg = Persistent_Storage_Read<T>(addr + sizeof(val));
-  T max = Persistent_Storage_Read<T>(addr + 2*sizeof(val));
-
-  if(val < min) {
-    Persistent_Storage_Write<T>(addr, val);
-  }
-
-  Persistent_Storage_Write<T>(addr + sizeof(val), (avg + val)/2);
-
-  if(val > max) {
-    Persistent_Storage_Write<T>(addr + 2*sizeof(val), val);
-  }
-}
-
-// explicitly instantiate templates
-template uint8_t Persistent_Storage_Read<uint8_t>(uint16_t);
-template uint16_t Persistent_Storage_Read<uint16_t>(uint16_t);
-template int16_t Persistent_Storage_Read<int16_t>(uint16_t);
-template uint32_t Persistent_Storage_Read<uint32_t>(uint16_t);
-
-template void Persistent_Storage_Write<uint8_t>(uint16_t, uint8_t);
-template void Persistent_Storage_Write<uint16_t>(uint16_t, uint16_t);
-template void Persistent_Storage_Write<int16_t>(uint16_t, int16_t);
-template void Persistent_Storage_Write<uint32_t>(uint16_t, uint32_t);
-
-template void Persistent_Storage_Update_Stats<int8_t>(uint16_t, int8_t);
-template void Persistent_Storage_Update_Stats<uint8_t>(uint16_t, uint8_t);
-template void Persistent_Storage_Update_Stats<int16_t>(uint16_t, int16_t);
