@@ -201,7 +201,6 @@ void Communication_Send_System_Info() {
   Communication_Frame_Add<uint8_t>(&optDataPtr, batteryChargingVoltage, "batteryChargingVoltage", VOLTAGE_MULTIPLIER, "mV");
   Persistent_Storage_Update_Stats<uint8_t>(EEPROM_CHARGING_VOLTAGE_STATS_ADDR, batteryChargingVoltage);
 
-
   #ifdef ENABLE_INA226
     int16_t batteryChargingCurrent = Power_Control_Get_Charging_Current() * (CURRENT_UNIT / CURRENT_MULTIPLIER);
   #else
@@ -627,7 +626,8 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
           // update spreading factor mode
           spreadingFactorMode = optData[0];
           FOSSASAT_DEBUG_PRINT(F("spreadingFactorMode="));
-          FOSSASAT_DEBUG_PRINTLN(optData[0]);
+          FOSSASAT_DEBUG_PRINTLN(spreadingFactorMode);
+          Communication_Set_SpreadingFactor(spreadingFactorMode);
         }
       } break;
 
