@@ -443,7 +443,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
     case CMD_RETRANSMIT_CUSTOM: {
         // check message length
-        if(optDataLen <= MAX_OPT_DATA_LENGTH + 7) {
+        if((optDataLen >= 8) && (optDataLen <= MAX_STRING_LENGTH + 7)) {
           // change modem configuration
           int16_t state = Communication_Set_Configuration(optData, optDataLen);
 
