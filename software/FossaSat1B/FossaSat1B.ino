@@ -218,14 +218,16 @@ void loop() {
   // LoRa receive
   uint8_t windowLenLoRa = Persistent_Storage_Read<uint8_t>(EEPROM_LORA_RECEIVE_LEN_ADDR);
   FOSSASAT_DEBUG_PRINT(F("LoRa Rx "));
+  if(powerConfig.bits.lowPowerModeActive) {
+    // use only half of the interval in low power mode
+    windowLenLoRa /= 2;
+    FOSSASAT_DEBUG_PRINT(F("(halved due to LP mode)"));
+  }
   FOSSASAT_DEBUG_PRINTLN(windowLenLoRa);
   FOSSASAT_DEBUG_DELAY(10);
   radio.setDio1Action(Communication_Receive_Interrupt);
   radio.startReceive();
 
-  /**
-   * @todo Shorten receive windows in low power mode -jgromes
-   */
   for(uint8_t i = 0; i < windowLenLoRa * SLEEP_LENGTH_CONSTANT; i++) {
     Power_Control_Delay(1000, true);
     if(dataReceived) {
@@ -239,6 +241,11 @@ void loop() {
   uint8_t windowLenFsk = Persistent_Storage_Read<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR);
   Communication_Set_Modem(MODEM_FSK);
   FOSSASAT_DEBUG_PRINT(F("FSK Rx "));
+  if(powerConfig.bits.lowPowerModeActive) {
+    // use only half of the interval in low power mode
+    windowLenFsk /= 2;
+    FOSSASAT_DEBUG_PRINT(F("(halved due to LP mode)"));
+  }
   FOSSASAT_DEBUG_PRINTLN(windowLenFsk);
   FOSSASAT_DEBUG_DELAY(10);
   radio.setDio1Action(Communication_Receive_Interrupt);
