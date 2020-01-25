@@ -8,6 +8,8 @@
 # binaries
 *.elf
 *.hex
+*.lst
+*.nm
 
 # buildstuff
 /software/Arduino/
