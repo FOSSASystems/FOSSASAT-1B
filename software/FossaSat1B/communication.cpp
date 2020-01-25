@@ -175,12 +175,12 @@ void Communication_Send_System_Info() {
   FOSSASAT_DEBUG_PRINTLN(F("System info:"));
 
   #ifdef ENABLE_INA226
-    uint8_t batteryChargingVoltage = Power_Control_Get_Charging_Voltage() * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
+    uint8_t batteryVoltage = Power_Control_Get_Battery_Voltage() * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #else
-    uint8_t batteryChargingVoltage = 3.82 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
+    uint8_t batteryVoltage = 4.02 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #endif
-  Communication_Frame_Add<uint8_t>(&optDataPtr, batteryChargingVoltage, "batteryChargingVoltage", VOLTAGE_MULTIPLIER, "mV");
-  Persistent_Storage_Update_Stats<uint8_t>(EEPROM_CHARGING_VOLTAGE_STATS_ADDR, batteryChargingVoltage);
+  Communication_Frame_Add<uint8_t>(&optDataPtr, batteryVoltage, "batteryVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Persistent_Storage_Update_Stats<uint8_t>(EEPROM_BATTERY_VOLTAGE_STATS_ADDR, batteryVoltage);
 
   #ifdef ENABLE_INA226
     int16_t batteryChargingCurrent = Power_Control_Get_Charging_Current() * (CURRENT_UNIT / CURRENT_MULTIPLIER);
@@ -191,12 +191,27 @@ void Communication_Send_System_Info() {
   Persistent_Storage_Update_Stats<int16_t>(EEPROM_CHARGING_CURRENT_STATS_ADDR, batteryChargingCurrent);
 
   #ifdef ENABLE_INA226
-    uint8_t batteryVoltage = Power_Control_Get_Battery_Voltage() * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
+    uint8_t batteryChargingVoltage = Power_Control_Get_Charging_Voltage() * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #else
-    uint8_t batteryVoltage = 4.02 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
+    uint8_t batteryChargingVoltage = 3.82 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #endif
-  Communication_Frame_Add<uint8_t>(&optDataPtr, batteryVoltage, "batteryVoltage", VOLTAGE_MULTIPLIER, "mV");
-  Persistent_Storage_Update_Stats<uint8_t>(EEPROM_BATTERY_VOLTAGE_STATS_ADDR, batteryVoltage);
+  Communication_Frame_Add<uint8_t>(&optDataPtr, batteryChargingVoltage, "batteryChargingVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Persistent_Storage_Update_Stats<uint8_t>(EEPROM_CHARGING_VOLTAGE_STATS_ADDR, batteryChargingVoltage);
+
+  // set uptimeCounter
+  uint32_t uptimeCounter = Persistent_Storage_Read<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR);
+  Communication_Frame_Add(&optDataPtr, uptimeCounter, "uptimeCounter", 1, "");
+
+  // set powerConfig variable
+  Power_Control_Load_Configuration();
+  FOSSASAT_DEBUG_PRINT(F("Config: 0b"));
+  FOSSASAT_DEBUG_PRINTLN(powerConfig.val, BIN);
+  memcpy(optDataPtr, &powerConfig.val, sizeof(uint8_t));
+  optDataPtr += sizeof(uint8_t);
+
+  // set resetCounter variable
+  uint16_t resetCounter = Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR);
+  Communication_Frame_Add(&optDataPtr, resetCounter, "resetCounter", 1, "");
 
   uint8_t solarCellAVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   Communication_Frame_Add<uint8_t>(&optDataPtr, solarCellAVoltage, "solarCellAVoltage", VOLTAGE_MULTIPLIER, "mV");
@@ -227,21 +242,6 @@ void Communication_Send_System_Info() {
   int8_t mcuTemperature = Pin_Interface_Read_Temperature_Internal();
   Communication_Frame_Add<int8_t>(&optDataPtr, mcuTemperature, "mcuTemperature", 1, "deg C");
   Persistent_Storage_Update_Stats<int8_t>(EEPROM_MCU_TEMP_STATS_ADDR, mcuTemperature);
-
-  // set resetCounter variable
-  uint16_t resetCounter = Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR);
-  Communication_Frame_Add(&optDataPtr, resetCounter, "resetCounter", 1, "");
-
-  // set powerConfig variable
-  Power_Control_Load_Configuration();
-  FOSSASAT_DEBUG_PRINT(F("Config: 0b"));
-  FOSSASAT_DEBUG_PRINTLN(powerConfig.val, BIN);
-  memcpy(optDataPtr, &powerConfig.val, sizeof(uint8_t));
-  optDataPtr += sizeof(uint8_t);
-
-  // set uptimeCounter
-  uint32_t uptimeCounter = Persistent_Storage_Read<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR);
-  Communication_Frame_Add(&optDataPtr, uptimeCounter, "uptimeCounter", 1, "");
 
   // send as raw bytes
   Communication_Send_Response(RESP_SYSTEM_INFO, optData, optDataLen);
