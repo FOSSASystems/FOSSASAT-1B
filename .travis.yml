@@ -18,6 +18,11 @@ deploy:
       - FossaSat1B/FossaSat1B.arduino.avr.pro.elf
       - FossaSat1B/FossaSat1B.arduino.avr.pro.nm.txt
       - FossaSat1B/FossaSat1B.arduino.avr.pro.lst.txt
+      - FossaSat1B/FossaSat1B.MiniCore.avr.328.hex
+      - FossaSat1B/FossaSat1B.MiniCore.avr.328.with_bootloader.hex
+      - FossaSat1B/FossaSat1B.MiniCore.avr.328.elf
+      - FossaSat1B/FossaSat1B.MiniCore.avr.328.nm.txt
+      - FossaSat1B/FossaSat1B.MiniCore.avr.328.lst.txt
     token: $GH_REPO_TOKEN
     name: Build $(date +'%d.%m.%Y %R')
     draft: true
