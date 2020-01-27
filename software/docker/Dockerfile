@@ -11,5 +11,6 @@ RUN wget -O /tmp/cppcheck-1.90.tar.gz https://github.com/danmar/cppcheck/archive
 
 RUN curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/bin sh
 
-RUN arduino-cli core update-index \
-    && arduino-cli core install arduino:avr
+RUN arduino-cli core update-index --additional-urls https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json \
+    && arduino-cli core install arduino:avr --additional-urls https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json \
+    && arduino-cli core install MiniCore:avr --additional-urls https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
