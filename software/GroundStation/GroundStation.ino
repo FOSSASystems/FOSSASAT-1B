@@ -34,7 +34,7 @@
 #define CODING_RATE           8       // 4/8
 #define SYNC_WORD             0x12    // used as LoRa "sync word", or twice repeated as FSK sync word (0x1212)
 #define OUTPUT_POWER          20      // dBm
-#define CURRENT_LIMIT         160     // mA
+#define CURRENT_LIMIT         140     // mA
 #define LORA_PREAMBLE_LEN     8       // symbols
 #define BIT_RATE              9.6     // kbps
 #define FREQ_DEV              5.0     // kHz SSB
@@ -275,6 +275,119 @@ void decode(uint8_t* respFrame, uint8_t respLen) {
       Serial.println(respOptData[0]);
       break;
 
+    case RESP_STATISTICS: {
+      Serial.println(F("Got stats:\t\tunit\tmin\tavg\tmax"));
+      uint8_t flags = respOptData[0];
+      uint8_t pos = 1;
+      if(flags & 0x01) {
+        // charging voltage
+        Serial.print(F("batteryChargingVoltage\t[V]"));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Voltage(respOptData, pos));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Voltage(respOptData, pos + 1));
+        Serial.print('\t');
+        Serial.println(FCP_System_Info_Get_Voltage(respOptData, pos + 2));
+        pos += 3;
+      }
+
+      if(flags& 0x02) {
+        // charging current
+        Serial.print(F("batteryChargingCurrent\t[mA]"));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Current(respOptData, pos));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Current(respOptData, pos + 2));
+        Serial.print('\t');
+        Serial.println(FCP_System_Info_Get_Current(respOptData, pos + 4));
+        pos += 6;
+      }
+
+      if(flags & 0x04) {
+        // battery voltage
+        Serial.print(F("batteryVoltage\t\t[V]"));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Voltage(respOptData, pos));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Voltage(respOptData, pos + 1));
+        Serial.print('\t');
+        Serial.println(FCP_System_Info_Get_Voltage(respOptData, pos + 2));
+        pos += 3;
+      }
+
+      if(flags & 0x08) {
+        // cell A voltage
+        Serial.print(F("solarCellAVoltage\t[V]"));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Voltage(respOptData, pos));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Voltage(respOptData, pos + 1));
+        Serial.print('\t');
+        Serial.println(FCP_System_Info_Get_Voltage(respOptData, pos + 2));
+        pos += 3;
+      }
+
+      if(flags & 0x10) {
+        // cell B voltage
+        Serial.print(F("solarCellBVoltage\t[V]"));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Voltage(respOptData, pos));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Voltage(respOptData, pos + 1));
+        Serial.print('\t');
+        Serial.println(FCP_System_Info_Get_Voltage(respOptData, pos + 2));
+        pos += 3;
+      }
+
+      if(flags & 0x20) {
+        // cell C voltage
+        Serial.print(F("solarCellCVoltage\t[V]"));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Voltage(respOptData, pos));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Voltage(respOptData, pos + 1));
+        Serial.print('\t');
+        Serial.println(FCP_System_Info_Get_Voltage(respOptData, pos + 2));
+        pos += 3;
+      }
+
+      if(flags & 0x40) {
+        // battery temperature
+        Serial.print(F("batteryTemperature\t[deg C]"));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Temperature(respOptData, pos));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Temperature(respOptData, pos + 2));
+        Serial.print('\t');
+        Serial.println(FCP_System_Info_Get_Temperature(respOptData, pos + 4));
+        pos += 6;
+      }
+
+      if(flags & 0x80) {
+        // board temperature
+        Serial.print(F("boardTemperature\t[deg C]"));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Temperature(respOptData, pos));
+        Serial.print('\t');
+        Serial.print(FCP_System_Info_Get_Temperature(respOptData, pos + 2));
+        Serial.print('\t');
+        Serial.println(FCP_System_Info_Get_Temperature(respOptData, pos + 4));
+        pos += 6;
+      }
+    } break;
+
+    case RESP_RECORDED_SOLAR_CELLS:
+      Serial.println(F("Got recorded cells:"));
+      Serial.println(F("A\tB\tC"));
+      for(uint8_t i = 0; i < respOptDataLen; i += 3) {
+        Serial.print(respOptData[i]);
+        Serial.print('\t');
+        Serial.print(respOptData[i+1]);
+        Serial.print('\t');
+        Serial.println(respOptData[i+2]);
+      }
+      break;
+
     default:
       Serial.println(F("Unknown function ID!"));
       break;
@@ -461,6 +574,7 @@ int16_t setLoRa() {
                           CURRENT_LIMIT,
                           LORA_PREAMBLE_LEN);
   radio.setCRC(true);
+  return(state);
 }
 
 int16_t setGFSK() {
@@ -501,8 +615,16 @@ void getStats(uint8_t mask) {
   sendFrame(CMD_GET_STATISTICS, 1, &mask);
 }
 
+void recordSolarCells(uint8_t samples, uint16_t period) {
+  Serial.print(F("Sending record cells request ... "));
+  uint8_t optData[3];
+  optData[0] = samples;
+  memcpy(optData + 1, &period, 2);
+  sendFrameEncrypted(CMD_RECORD_SOLAR_CELLS, 3, optData);
+}
+
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println(F("FOSSA Ground Station Demo Code"));
 
   // initialize the radio
@@ -522,7 +644,6 @@ void setup() {
 
   #ifdef USE_SX126X
     radio.setDio1Action(onInterrupt);
-    radio.setDio2AsRfSwitch(true);
   #else
     radio.setDio0Action(onInterrupt);
   #endif
@@ -600,6 +721,7 @@ void loop() {
         requestRetransmitCustom();
         break;
       case 'o':
+        recordSolarCells(40, 1000);
         break;
       case 'u':
         Serial.print(F("Sending unknown frame ... "));

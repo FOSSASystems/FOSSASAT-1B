@@ -44,10 +44,6 @@ void Power_Control_Charge(bool charge) {
   }
 }
 
-/**
-* @todo Julian -> The sleep intervals should be updated to match the new CW-synced communications.
-*/
-
 uint32_t Power_Control_Get_Sleep_Interval() {
   // sleep interval in ms (default for battery > 3.7 V)
   uint32_t interval = 0;
@@ -173,19 +169,23 @@ float Power_Control_Get_Charging_Current() {
   return(ina.readShuntCurrent());
 }
 
-void Power_Control_Check_Battery_Limit() {
+bool Power_Control_Check_Battery_Limit() {
   // load power configuration from EEPROM
   Power_Control_Load_Configuration();
 
   // check battery voltage
+  bool checkPassed = true;
   if((Power_Control_Get_Battery_Voltage() <= BATTERY_VOLTAGE_LIMIT) && powerConfig.bits.lowPowerModeEnabled) {
     // activate low power mode
     powerConfig.bits.lowPowerModeActive = 1;
+    checkPassed = false;
   } else {
     // deactivate low power mode
     powerConfig.bits.lowPowerModeActive = 0;
+    checkPassed = true;
   }
 
   // save power configuration to EEPROM
   Power_Control_Save_Configuration();
+  return(checkPassed);
 }

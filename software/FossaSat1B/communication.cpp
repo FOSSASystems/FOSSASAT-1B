@@ -475,13 +475,18 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
     case CMD_GET_STATISTICS: {
         // check optional data is exactly 1 byte
         if(Communication_Check_OptDataLen(1, optDataLen)) {
-          // response will have maximum of 36 bytes if all stats are included
-          uint8_t respOptData[36];
-          uint8_t respOptDataLen = 0;
+          // response will have maximum of 37 bytes if all stats are included
+          uint8_t respOptData[37];
+          uint8_t respOptDataLen = 1;
           uint8_t* respOptDataPtr = respOptData;
 
+          // copy stat flags
+          uint8_t flags = optData[0];
+          memcpy(respOptDataPtr, &flags, sizeof(uint8_t));
+          respOptDataPtr += sizeof(uint8_t);
+
           // get required stats from EEPROM
-          if(optData[0] & 0x01) {
+          if(flags & 0x01) {
             // charging voltage
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CHARGING_VOLTAGE_STATS_ADDR), "", VOLTAGE_MULTIPLIER, "mV");
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CHARGING_VOLTAGE_STATS_ADDR + 1), "", VOLTAGE_MULTIPLIER, "mV");
@@ -489,7 +494,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
             respOptDataLen += 3;
           }
 
-          if(optData[0] & 0x02) {
+          if(flags& 0x02) {
             // charging current
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_CHARGING_CURRENT_STATS_ADDR), "", CURRENT_MULTIPLIER, "uA");
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_CHARGING_CURRENT_STATS_ADDR + 2), "", CURRENT_MULTIPLIER, "uA");
@@ -497,7 +502,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
             respOptDataLen += 6;
           }
 
-          if(optData[0] & 0x04) {
+          if(flags & 0x04) {
             // battery voltage
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_BATTERY_VOLTAGE_STATS_ADDR), "", VOLTAGE_MULTIPLIER, "mV");
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_BATTERY_VOLTAGE_STATS_ADDR + 1), "", VOLTAGE_MULTIPLIER, "mV");
@@ -505,7 +510,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
             respOptDataLen += 3;
           }
 
-          if(optData[0] & 0x08) {
+          if(flags & 0x08) {
             // cell A voltage
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CELL_A_VOLTAGE_STATS_ADDR), "", VOLTAGE_MULTIPLIER, "mV");
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CELL_A_VOLTAGE_STATS_ADDR + 1), "", VOLTAGE_MULTIPLIER, "mV");
@@ -513,7 +518,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
             respOptDataLen += 3;
           }
 
-          if(optData[0] & 0x10) {
+          if(flags & 0x10) {
             // cell B voltage
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CELL_B_VOLTAGE_STATS_ADDR), "", VOLTAGE_MULTIPLIER, "mV");
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CELL_B_VOLTAGE_STATS_ADDR + 1), "", VOLTAGE_MULTIPLIER, "mV");
@@ -521,7 +526,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
             respOptDataLen += 3;
           }
 
-          if(optData[0] & 0x20) {
+          if(flags & 0x20) {
             // cell C voltage
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CELL_C_VOLTAGE_STATS_ADDR), "", VOLTAGE_MULTIPLIER, "mV");
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<uint8_t>(EEPROM_CELL_C_VOLTAGE_STATS_ADDR + 1), "", VOLTAGE_MULTIPLIER, "mV");
@@ -529,7 +534,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
             respOptDataLen += 3;
           }
 
-          if(optData[0] & 0x40) {
+          if(flags & 0x40) {
             // battery temperature
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BATTERY_TEMP_STATS_ADDR), "", TEMPERATURE_MULTIPLIER, "mdeg C");
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BATTERY_TEMP_STATS_ADDR + 2), "", TEMPERATURE_MULTIPLIER, "mdeg C");
@@ -537,7 +542,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
             respOptDataLen += 6;
           }
 
-          if(optData[0] & 0x80) {
+          if(flags & 0x80) {
             // board temperature
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR), "", TEMPERATURE_MULTIPLIER, "mdeg C");
             Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR + 2), "", TEMPERATURE_MULTIPLIER, "mdeg C");
@@ -670,7 +675,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
         FOSSASAT_DEBUG_PRINTLN(numSamples);
 
         // check number of samples is less than limit
-        if(numSamples > 60) {
+        if(numSamples > 40) {
           FOSSASAT_DEBUG_PRINT(F("too much!"));
           break;
         }
@@ -682,8 +687,23 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
         FOSSASAT_DEBUG_PRINTLN(period);
 
         // record all data
-        uint8_t* respOptData = new uint8_t[3 * numSamples];
+        uint8_t respoOptDataLen = 3 * numSamples;
+        #ifdef FOSSASAT_STATIC_ONLY
+        uint8_t respOptData[MAX_OPT_DATA_LENGTH];
+        #else
+        uint8_t* respOptData = new uint8_t[respoOptDataLen];
+        #endif
         for(uint16_t i = 0; i < 3 * numSamples; i += 3) {
+          // check if the battery is good enough to continue
+          #ifdef ENABLE_INTERVAL_CONTROL
+          if(!Power_Control_Check_Battery_Limit()) {
+             // battery check failed, stop measurement and send what we have
+             respoOptDataLen = i;
+             break;
+          }
+          #endif
+          
+          // read voltages
           respOptData[i] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
           respOptData[i + 1] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
           respOptData[i + 2] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
@@ -694,14 +714,17 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
           FOSSASAT_DEBUG_PRINT('\t')
           FOSSASAT_DEBUG_PRINTLN(respOptData[i+2])
 
+          // wait for for the next measurement
           Power_Control_Delay(period * SLEEP_LENGTH_CONSTANT, true, true);
         }
 
         // send response
-        Communication_Send_Response(RESP_RECORDED_SOLAR_CELLS, respOptData, 3 * numSamples);
+        Communication_Send_Response(RESP_RECORDED_SOLAR_CELLS, respOptData, respoOptDataLen);
 
         // deallocate memory
+        #ifndef FOSSASAT_STATIC_ONLY
         delete[] respOptData;
+        #endif
       }
     } break;
   }
