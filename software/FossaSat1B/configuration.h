@@ -499,7 +499,7 @@
 #define LORA_SPREADING_FACTOR_ALT                       10
 #define LORA_CODING_RATE                                8           /*!< 4/8, Extended Hamming */
 #define LORA_OUTPUT_POWER                               20          /*!< dBm */
-#define LORA_CURRENT_LIMIT                              160.0       /*!< mA */
+#define LORA_CURRENT_LIMIT                              140.0       /*!< mA */
 
 /**
  * @defgroup defines_radio_non_ism_band_fsk_configuraiton  FSK Radio Configuration
@@ -534,7 +534,7 @@
 #define FSK_OUTPUT_POWER                                20          /*!< dBm */
 #define FSK_PREAMBLE_LENGTH                             16          /*!< bits */
 #define FSK_DATA_SHAPING                                0.5         /*!< GFSK filter BT product */
-#define FSK_CURRENT_LIMIT                               160.0       /*!< mA */
+#define FSK_CURRENT_LIMIT                               140.0       /*!< mA */
 /**
  * @}
  */
