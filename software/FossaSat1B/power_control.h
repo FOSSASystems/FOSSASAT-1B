@@ -66,6 +66,8 @@ void Power_Control_Charge(bool charge);
 
 /**
  * @brief Get the amount of seconds to sleep for given the battery voltage.
+ * 
+ * @todo Julian -> The sleep intervals should be updated to match the new CW-synced communications.
  *
  * @test (ID POWER_CONT_H_T7) (SEV 1) Check what interval is returned at the designated voltages.
  *
@@ -132,7 +134,9 @@ float Power_Control_Get_Charging_Current();
 
 /**
  * @brief Checks whether battery voltage is below low power limit. Will enable low power mode if that is the case.
+ * 
+ * @return bool Whether battery check passed or not.
  */
-void Power_Control_Check_Battery_Limit();
+bool Power_Control_Check_Battery_Limit();
 
 #endif
