@@ -1,14 +1,30 @@
 os: linux
-services:
-  - docker
 before_install:
-  - docker pull fossasystems/fossasat
+  - sudo apt-get -y install build-essential libpcre3 libpcre3-dev python wget git curl doxygen graphviz
+  - wget -O cppcheck-1.90.tar.gz https://github.com/danmar/cppcheck/archive/1.90.tar.gz
+  - tar xvzf cppcheck-1.90.tar.gz
+  - cd cppcheck-1.90
+  - make -j8 MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function"
+  - sudo make install -j8 MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function"
+  - cd ..
+  - curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/bin sudo sh
+  - cd $TRAVIS_BUILD_DIR
+install:
+  - arduino-cli core update-index --additional-urls https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
+  - arduino-cli core install arduino:avr --additional-urls https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
+  - arduino-cli core install MiniCore:avr --additional-urls https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
+  - arduino-cli lib install RadioLib
+  - git clone https://github.com/FOSSASystems/FOSSA-Comms.git $HOME/Arduino/libraries/FOSSA-Comms
+  - git clone https://github.com/FOSSASystems/tiny-AES-c.git $HOME/Arduino/libraries/tiny-AES-c
+  - git clone https://github.com/jarzebski/Arduino-INA226.git $HOME/Arduino/libraries/Arduino-INA226
+  - git clone https://github.com/canique/Low-Power-Canique.git $HOME/Arduino/libraries/Low-Power
 script:
   - cd software
-  - docker run -t --user 1000:1000 -v $PWD:/home/newuser/src -v $PWD/../Arduino:/home/newuser/Arduino -w /home/newuser/src fossasystems/fossasat /bin/bash scripts/prepare.sh
-  - docker run -t --user 1000:1000 -v $PWD:/home/newuser/src -v $PWD/../Arduino:/home/newuser/Arduino -w /home/newuser/src fossasystems/fossasat /bin/bash scripts/compile.sh
-  - docker run -t --user 1000:1000 -v $PWD:/home/newuser/src -v $PWD/../Arduino:/home/newuser/Arduino -w /home/newuser/src fossasystems/fossasat /bin/bash scripts/cppcheck.sh
-  - docker run -t --user 1000:1000 -v $PWD:/home/newuser/src -v $PWD/../Arduino:/home/newuser/Arduino -w /home/newuser/src fossasystems/fossasat /bin/bash scripts/doxygen.sh
+  - arduino-cli compile -v --fqbn MiniCore:avr:328:bootloader=uart0,variant=modelPB,BOD=1v8,LTO=Os_flto,clock=8MHz_internal FossaSat1B --warnings=all --build-path=$PWD/avr-build/
+  - arduino-cli compile -v --fqbn arduino:avr:pro:cpu=8MHzatmega328 FossaSat1B --warnings=all --build-path=$PWD/avr-build/
+  - cppcheck --version
+  - cppcheck --language=c++ -f -DRADIOLIB_VERSION=0x03010000 -DRADIOLIB_STATIC_ONLY --enable=all --suppress=missingIncludeSystem --inconclusive --inline-suppr --error-exitcode=1 -IFossaSat1B FossaSat1B FossaSat1B/FossaSat1B.ino
+  - doxygen Doxyfile
 deploy:
   - provider: releases
     skip_cleanup: true
@@ -16,13 +32,9 @@ deploy:
       - FossaSat1B/FossaSat1B.arduino.avr.pro.hex
       - FossaSat1B/FossaSat1B.arduino.avr.pro.with_bootloader.hex
       - FossaSat1B/FossaSat1B.arduino.avr.pro.elf
-      - FossaSat1B/FossaSat1B.arduino.avr.pro.nm.txt
-      - FossaSat1B/FossaSat1B.arduino.avr.pro.lst.txt
       - FossaSat1B/FossaSat1B.MiniCore.avr.328.hex
       - FossaSat1B/FossaSat1B.MiniCore.avr.328.with_bootloader.hex
       - FossaSat1B/FossaSat1B.MiniCore.avr.328.elf
-      - FossaSat1B/FossaSat1B.MiniCore.avr.328.nm.txt
-      - FossaSat1B/FossaSat1B.MiniCore.avr.328.lst.txt
     token: $GH_REPO_TOKEN
     name: Build $(date +'%d.%m.%Y %R')
     draft: true
