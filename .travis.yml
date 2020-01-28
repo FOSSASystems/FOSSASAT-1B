@@ -5,10 +5,10 @@ before_install:
   - docker pull fossasystems/fossasat
 script:
   - cd software
-  - docker run -t -i -v $PWD:/src -v $PWD/Arduino:/root/Arduino -w /src fossasystems/fossasat /bin/bash scripts/prepare.sh
-  - docker run -t -i -v $PWD:/src -v $PWD/Arduino:/root/Arduino -w /src fossasystems/fossasat /bin/bash scripts/compile.sh
-  - docker run -t -i -v $PWD:/src -v $PWD/Arduino:/root/Arduino -w /src fossasystems/fossasat /bin/bash scripts/cppcheck.sh
-  - docker run -t -i -v $PWD:/src -v $PWD/Arduino:/root/Arduino -w /src fossasystems/fossasat /bin/bash scripts/doxygen.sh
+  - docker run -t --user 1000:1000 -v $PWD:/home/newuser/src -v $PWD/../Arduino:/home/newuser/Arduino -w /home/newuser/src fossasystems/fossasat /bin/bash scripts/prepare.sh
+  - docker run -t --user 1000:1000 -v $PWD:/home/newuser/src -v $PWD/../Arduino:/home/newuser/Arduino -w /home/newuser/src fossasystems/fossasat /bin/bash scripts/compile.sh
+  - docker run -t --user 1000:1000 -v $PWD:/home/newuser/src -v $PWD/../Arduino:/home/newuser/Arduino -w /home/newuser/src fossasystems/fossasat /bin/bash scripts/cppcheck.sh
+  - docker run -t --user 1000:1000 -v $PWD:/home/newuser/src -v $PWD/../Arduino:/home/newuser/Arduino -w /home/newuser/src fossasystems/fossasat /bin/bash scripts/doxygen.sh
 deploy:
   - provider: releases
     skip_cleanup: true

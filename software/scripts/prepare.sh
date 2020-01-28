@@ -10,4 +10,4 @@ git clone https://github.com/jarzebski/Arduino-INA226.git $HOME/Arduino/librarie
 git clone https://github.com/canique/Low-Power-Canique.git $HOME/Arduino/libraries/Low-Power
 
 
-# docker run -t -i -v $PWD:/src -v $PWD/Arduino:/root/Arduino -w /src fossasystems/fossasat /bin/bash scripts/prepare.sh
+# docker run -t --user 1000:1000 -v $PWD:/home/newuser/src -v $PWD/../Arduino:/home/newuser/Arduino -w /home/newuser/src fossasystems/fossasat /bin/bash scripts/prepare.sh
