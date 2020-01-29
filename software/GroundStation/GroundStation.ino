@@ -41,6 +41,7 @@
 #define RX_BANDWIDTH          39.0    // kHz SSB
 #define FSK_PREAMBLE_LEN      16      // bits
 #define DATA_SHAPING          0.5     // BT product
+#define TCXO_VOLTAGE          1.6     // volts
 
 // set up radio module
 #ifdef USE_SX126X
@@ -100,7 +101,7 @@ void sendFrameEncrypted(uint8_t functionId, uint8_t optDataLen = 0, uint8_t* opt
   // send data
   int state = radio.transmit(frame, len);
   delete[] frame;
-  
+
   // check transmission success
   if (state == ERR_NONE) {
     Serial.println(F("sent successfully!"));
@@ -248,15 +249,15 @@ void decode(uint8_t* respFrame, uint8_t respLen) {
       Serial.print(F("valid LoRa frames = "));
       memcpy(&counter, respOptData + 2, sizeof(uint16_t));
       Serial.println(counter);
-      
+
       Serial.print(F("invalid LoRa frames = "));
       memcpy(&counter, respOptData + 4, sizeof(uint16_t));
       Serial.println(counter);
-      
+
       Serial.print(F("valid FSK frames = "));
       memcpy(&counter, respOptData + 6, sizeof(uint16_t));
       Serial.println(counter);
-      
+
       Serial.print(F("invalid FSK frames = "));
       memcpy(&counter, respOptData + 8, sizeof(uint16_t));
       Serial.println(counter);
@@ -572,7 +573,8 @@ int16_t setLoRa() {
                           SYNC_WORD,
                           OUTPUT_POWER,
                           CURRENT_LIMIT,
-                          LORA_PREAMBLE_LEN);
+                          LORA_PREAMBLE_LEN,
+                          TCXO_VOLTAGE);
   radio.setCRC(true);
   return(state);
 }
@@ -584,8 +586,9 @@ int16_t setGFSK() {
                              RX_BANDWIDTH,
                              OUTPUT_POWER,
                              CURRENT_LIMIT,
-                             FSK_PREAMBLE_LEN);
-  radio.setDataShaping(DATA_SHAPING);
+                             FSK_PREAMBLE_LEN,
+                             DATA_SHAPING,
+                             TCXO_VOLTAGE);
   uint8_t syncWordFSK[2] = {SYNC_WORD, SYNC_WORD};
   radio.setSyncWord(syncWordFSK, 2);
   #ifdef USE_SX126X
@@ -647,7 +650,7 @@ void setup() {
   #else
     radio.setDio0Action(onInterrupt);
   #endif
-  
+
   // begin listening for packets
   radio.startReceive();
 
@@ -736,7 +739,7 @@ void loop() {
         break;
     }
 
-    // for some reason, when using SX126x GFSK and listening after transmission, 
+    // for some reason, when using SX126x GFSK and listening after transmission,
     // the next packet received will have bad CRC,
     // and the data will be the transmitted packet
     // the only workaround seems to be resetting the module
