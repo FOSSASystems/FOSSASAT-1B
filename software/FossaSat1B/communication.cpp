@@ -326,7 +326,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
   #else
     uint8_t* optData = NULL;
   #endif
-  if((functionId >= CMD_DEPLOY) && (functionId <= CMD_RECORD_SOLAR_CELLS)) {
+  if((functionId >= PRIVATE_OFFSET) && (functionId < (PRIVATE_OFFSET + NUM_PRIVATE_COMMANDS))) {
     // frame contains encrypted data, decrypt
     FOSSASAT_DEBUG_PRINTLN(F("Decrypting"));
 
@@ -349,7 +349,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
       FCP_Get_OptData(callsign, frame, len, optData, encryptionKey, password);
     }
 
-  } else if(functionId < CMD_DEPLOY) {
+  } else if(functionId < PRIVATE_OFFSET) {
     // no decryption necessary
 
     // get optional data length
@@ -702,7 +702,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
              break;
           }
           #endif
-          
+
           // read voltages
           respOptData[i] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
           respOptData[i + 1] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
