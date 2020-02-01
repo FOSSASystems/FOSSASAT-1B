@@ -504,6 +504,8 @@
 /**
  * @defgroup defines_radio_non_ism_band_fsk_configuraiton  FSK Radio Configuration
  *
+ * @todo check FSK_RX_BANDWIDTH value
+ *
  * @brief
  * |Description|Value|Units|
  * |--|--|--|
