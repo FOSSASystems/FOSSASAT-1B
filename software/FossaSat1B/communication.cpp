@@ -326,7 +326,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
   #else
     uint8_t* optData = NULL;
   #endif
-  if((functionId >= PRIVATE_OFFSET) && (functionId < (PRIVATE_OFFSET + NUM_PRIVATE_COMMANDS))) {
+  if((functionId >= PRIVATE_OFFSET) && (functionId <= (PRIVATE_OFFSET + NUM_PRIVATE_COMMANDS))) {
     // frame contains encrypted data, decrypt
     FOSSASAT_DEBUG_PRINTLN(F("Decrypting"));
 
