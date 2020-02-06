@@ -666,7 +666,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
         FOSSASAT_DEBUG_PRINTLN(optData[1]);
 
         // check if there will be still some receive window open
-        if((PersistentStorage_Read<uint8_t>(EEPROM_LORA_RECEIVE_LEN_ADDR) == 0) && (PersistentStorage_Read<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR) == 0)) {
+        if((Persistent_Storage_Read<uint8_t>(EEPROM_LORA_RECEIVE_LEN_ADDR) == 0) && (Persistent_Storage_Read<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR) == 0)) {
           FOSSASAT_DEBUG_PRINT(F("Request to set both lengths to 0, restoring FSK default."));
           Persistent_Storage_Write<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR, FSK_RECEIVE_WINDOW_LENGTH);
         }
