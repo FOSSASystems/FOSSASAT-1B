@@ -733,6 +733,11 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
         #endif
       }
     } break;
+
+    case CMD_ROUTE:
+      // just transmit the optional data
+      Communication_Transmit(optData, optDataLen);
+      break;
   }
 }
 
