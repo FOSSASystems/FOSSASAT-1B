@@ -1,0 +1,11 @@
+<map id="Deployment_Deploy" name="Deployment_Deploy">
+<area shape="rect" id="node2" href="$power__control_8h.html#a3bff1402f7ac79b23628326e3fd7b560" title="This function delays the program execution for the given number of milliseconds, while maintaining th..." alt="" coords="204,71,360,98"/>
+<area shape="rect" id="node3" href="$pin__interface_8h.html#ac725bca91aea7264c8bd6e7cfba58ff1" title="This function toggles the signal to the watchdog and writes it to the pin. " alt="" coords="408,64,581,105"/>
+<area shape="rect" id="node4" href="$power__control_8h.html#a3dcf47e9ee8d130075c4466692810370" title="Checks whether battery voltage is below low power limit. Will enable low power mode if that is the ca..." alt="" coords="629,64,788,105"/>
+<area shape="rect" id="node5" href="$power__control_8h.html#a67027a313959753703a50352ee41b109" title="Load the configuration bytes from the EEPROM into RAM. " alt="" coords="1304,5,1455,47"/>
+<area shape="rect" id="node6" href="$power__control_8h.html#a6e2a22c1b8940caf3a89cf6f5e21e120" title="Get the battery voltage by switching the MPPT off and then on again after reading is taken..." alt="" coords="836,64,1033,105"/>
+<area shape="rect" id="node10" href="$power__control_8h.html#a18bd8cf80280cfba12636778283abf78" title="Saves the configuration bytes from RAM into EEPROM. " alt="" coords="859,129,1011,171"/>
+<area shape="rect" id="node7" href="$power__control_8h.html#a4e4e7a68a32a2d3fc0b7c0b14b391975" title="This function ensures that the battery is charging. &quot;set MPPT to input which enables battery charging..." alt="" coords="1085,67,1252,94"/>
+<area shape="rect" id="node9" href="$power__control_8h.html#a9fbadbeff1c82c6268c5b6ed878aedc7" title="Check that the INA2256 is valid. " alt="" coords="1081,119,1256,160"/>
+<area shape="rect" id="node8" href="$pin__interface_8h.html#a19d8eea2c4cc2711fb370569770ea4e7" title="This function reads the TMP100&#39;s value from its wire address. " alt="" coords="1308,71,1451,112"/>
+</map>

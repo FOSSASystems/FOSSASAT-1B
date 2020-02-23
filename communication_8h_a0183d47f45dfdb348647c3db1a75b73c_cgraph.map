@@ -1,0 +1,4 @@
+<map id="Communication_Set_Modem" name="Communication_Set_Modem">
+<area shape="rect" id="node2" href="$pin__interface_8h.html#a016ad19733549152625049452a9c01ca" title="Restarts the watchdog. " alt="" coords="285,5,459,47"/>
+<area shape="rect" id="node3" href="$communication_8h.html#ad184c979eb82cc1c8d4fc32a802cb758" title="This function sets the spreading factor of the radio. " alt="" coords="260,71,484,112"/>
+</map>

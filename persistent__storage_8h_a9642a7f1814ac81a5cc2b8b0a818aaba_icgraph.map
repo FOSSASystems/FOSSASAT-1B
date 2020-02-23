@@ -1,0 +1,9 @@
+<map id="Persistent_Storage_Increment_Counter" name="Persistent_Storage_Increment_Counter">
+<area shape="rect" id="node2" href="$persistent__storage_8h.html#a7ca0126c55391f2e2c48dc1bd4af4c9a" title="This functions increments one of frame counters of the currently active modem in EEPROM. " alt="" coords="205,278,404,319"/>
+<area shape="rect" id="node8" href="$persistent__storage_8h.html#aca7da667eec4409f7001ef618fa2c4b9" title="This function writes a value of type T to the eerom. " alt="" coords="470,337,614,378"/>
+<area shape="rect" id="node3" href="$communication_8h.html#ad5052f7320724c62bfab348ea62c66ce" title="This function reads the contents of the radio when it receives a transmission. " alt="" coords="452,145,632,186"/>
+<area shape="rect" id="node6" href="$communication_8h.html#a834526d017e482716c6061772d644d5b" title="This function executes the given function id provided with the given data. " alt="" coords="1141,215,1323,257"/>
+<area shape="rect" id="node7" href="$communication_8h.html#ab6495de804d5d54d071fe8b4dd408aba" title="This function parses the internal contents of the message using the FOSSA COMMS Protocol. " alt="" coords="1371,61,1523,102"/>
+<area shape="rect" id="node4" href="$communication_8h.html#a980dd25e42aaeac1620dc7f9b42859a2" title="This function adds frame entry to a frame. " alt="" coords="680,152,883,179"/>
+<area shape="rect" id="node5" href="$communication_8h.html#ae4e350e62342431fda2184ff0dc47a65" title="Send the satellite&#39;s information via the configured radio settings. " alt="" coords="931,145,1093,186"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Power_Control_Get_Battery_Voltage" name="Power_Control_Get_Battery_Voltage">
+<area shape="rect" id="node2" href="$power__control_8h.html#a4e4e7a68a32a2d3fc0b7c0b14b391975" title="This function ensures that the battery is charging. &quot;set MPPT to input which enables battery charging..." alt="" coords="255,46,421,73"/>
+<area shape="rect" id="node5" href="$power__control_8h.html#a9fbadbeff1c82c6268c5b6ed878aedc7" title="Check that the INA2256 is valid. " alt="" coords="251,97,425,139"/>
+<area shape="rect" id="node3" href="$power__control_8h.html#a67027a313959753703a50352ee41b109" title="Load the configuration bytes from the EEPROM into RAM. " alt="" coords="473,5,624,47"/>
+<area shape="rect" id="node4" href="$pin__interface_8h.html#a19d8eea2c4cc2711fb370569770ea4e7" title="This function reads the TMP100&#39;s value from its wire address. " alt="" coords="477,71,620,112"/>
+</map>

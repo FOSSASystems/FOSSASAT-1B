@@ -1,0 +1,16 @@
+<map id="Communication_Send_Response" name="Communication_Send_Response">
+<area shape="rect" id="node2" href="$system__info_8h.html#a4ba2aee682a65d201b020b7fcf20939c" title="Gets the callsign which is current set in EEPROM. " alt="" coords="216,61,403,88"/>
+<area shape="rect" id="node3" href="$communication_8h.html#a46802cdf83e9de4cab3ebd4a00256aeb" title="Transmits the given data. " alt="" coords="217,112,401,139"/>
+<area shape="rect" id="node4" href="$power__control_8h.html#a67027a313959753703a50352ee41b109" title="Load the configuration bytes from the EEPROM into RAM. " alt="" coords="1445,51,1596,93"/>
+<area shape="rect" id="node5" href="$communication_8h.html#a0183d47f45dfdb348647c3db1a75b73c" title="This function configures the radio to the given modem. " alt="" coords="451,83,657,109"/>
+<area shape="rect" id="node8" href="$pin__interface_8h.html#ac725bca91aea7264c8bd6e7cfba58ff1" title="This function toggles the signal to the watchdog and writes it to the pin. " alt="" coords="467,134,641,175"/>
+<area shape="rect" id="node15" href="$communication_8h.html#aaadcd86dea525de318e35078c63b3149" title="This function is called by the ISR when a transmission is received. " alt="" coords="465,199,643,241"/>
+<area shape="rect" id="node6" href="$pin__interface_8h.html#a016ad19733549152625049452a9c01ca" title="Restarts the watchdog. " alt="" coords="731,43,904,85"/>
+<area shape="rect" id="node7" href="$communication_8h.html#ad184c979eb82cc1c8d4fc32a802cb758" title="This function sets the spreading factor of the radio. " alt="" coords="705,109,929,150"/>
+<area shape="rect" id="node9" href="$power__control_8h.html#a3dcf47e9ee8d130075c4466692810370" title="Checks whether battery voltage is below low power limit. Will enable low power mode if that is the ca..." alt="" coords="738,174,897,215"/>
+<area shape="rect" id="node10" href="$power__control_8h.html#a6e2a22c1b8940caf3a89cf6f5e21e120" title="Get the battery voltage by switching the MPPT off and then on again after reading is taken..." alt="" coords="977,154,1175,195"/>
+<area shape="rect" id="node14" href="$power__control_8h.html#a18bd8cf80280cfba12636778283abf78" title="Saves the configuration bytes from RAM into EEPROM. " alt="" coords="1000,219,1152,261"/>
+<area shape="rect" id="node11" href="$power__control_8h.html#a4e4e7a68a32a2d3fc0b7c0b14b391975" title="This function ensures that the battery is charging. &quot;set MPPT to input which enables battery charging..." alt="" coords="1227,120,1393,147"/>
+<area shape="rect" id="node13" href="$power__control_8h.html#a9fbadbeff1c82c6268c5b6ed878aedc7" title="Check that the INA2256 is valid. " alt="" coords="1223,171,1397,213"/>
+<area shape="rect" id="node12" href="$pin__interface_8h.html#a19d8eea2c4cc2711fb370569770ea4e7" title="This function reads the TMP100&#39;s value from its wire address. " alt="" coords="1449,117,1592,158"/>
+</map>

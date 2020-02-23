@@ -1,0 +1,6 @@
+<map id="Communication_Send_System_Info" name="Communication_Send_System_Info">
+<area shape="rect" id="node2" href="$communication_8h.html#a834526d017e482716c6061772d644d5b" title="This function executes the given function id provided with the given data. " alt="" coords="216,127,397,168"/>
+<area shape="rect" id="node5" href="$communication_8h.html#a980dd25e42aaeac1620dc7f9b42859a2" title="This function adds frame entry to a frame. " alt="" coords="873,134,1076,161"/>
+<area shape="rect" id="node3" href="$communication_8h.html#ab6495de804d5d54d071fe8b4dd408aba" title="This function parses the internal contents of the message using the FOSSA COMMS Protocol. " alt="" coords="445,56,597,97"/>
+<area shape="rect" id="node4" href="$communication_8h.html#ad5052f7320724c62bfab348ea62c66ce" title="This function reads the contents of the radio when it receives a transmission. " alt="" coords="645,5,825,47"/>
+</map>

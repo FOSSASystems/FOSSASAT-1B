@@ -1,0 +1,9 @@
+<map id="System_Info_Set_Callsign" name="System_Info_Set_Callsign">
+<area shape="rect" id="node2" href="$communication_8h.html#a834526d017e482716c6061772d644d5b" title="This function executes the given function id provided with the given data. " alt="" coords="469,127,651,168"/>
+<area shape="rect" id="node7" href="$persistent__storage_8h.html#a639d33b8a97eee3ccfaf9b7c00537cac" title="This functions clears the EEPROM by writing EEPROM_RESET_VALUE to each memory addres. " alt="" coords="240,185,421,211"/>
+<area shape="rect" id="node3" href="$communication_8h.html#ab6495de804d5d54d071fe8b4dd408aba" title="This function parses the internal contents of the message using the FOSSA COMMS Protocol. " alt="" coords="699,56,851,97"/>
+<area shape="rect" id="node5" href="$communication_8h.html#a980dd25e42aaeac1620dc7f9b42859a2" title="This function adds frame entry to a frame. " alt="" coords="1127,134,1329,161"/>
+<area shape="rect" id="node4" href="$communication_8h.html#ad5052f7320724c62bfab348ea62c66ce" title="This function reads the contents of the radio when it receives a transmission. " alt="" coords="899,5,1079,47"/>
+<area shape="rect" id="node6" href="$communication_8h.html#ae4e350e62342431fda2184ff0dc47a65" title="Send the satellite&#39;s information via the configured radio settings. " alt="" coords="1377,127,1540,168"/>
+<area shape="rect" id="node8" href="$persistent__storage_8h.html#aca7da667eec4409f7001ef618fa2c4b9" title="This function writes a value of type T to the eerom. " alt="" coords="488,192,632,233"/>
+</map>

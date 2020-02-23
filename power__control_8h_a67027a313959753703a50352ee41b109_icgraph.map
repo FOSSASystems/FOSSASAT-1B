@@ -1,0 +1,18 @@
+<map id="Power_Control_Load_Configuration" name="Power_Control_Load_Configuration">
+<area shape="rect" id="node2" href="$communication_8h.html#ae4e350e62342431fda2184ff0dc47a65" title="Send the satellite&#39;s information via the configured radio settings. " alt="" coords="1577,34,1739,75"/>
+<area shape="rect" id="node3" href="$communication_8h.html#a834526d017e482716c6061772d644d5b" title="This function executes the given function id provided with the given data. " alt="" coords="1801,262,1983,303"/>
+<area shape="rect" id="node7" href="$communication_8h.html#a46802cdf83e9de4cab3ebd4a00256aeb" title="Transmits the given data. " alt="" coords="1120,160,1304,187"/>
+<area shape="rect" id="node9" href="$power__control_8h.html#a4e4e7a68a32a2d3fc0b7c0b14b391975" title="This function ensures that the battery is charging. &quot;set MPPT to input which enables battery charging..." alt="" coords="204,203,371,229"/>
+<area shape="rect" id="node12" href="$power__control_8h.html#a3dcf47e9ee8d130075c4466692810370" title="Checks whether battery voltage is below low power limit. Will enable low power mode if that is the ca..." alt="" coords="678,261,837,302"/>
+<area shape="rect" id="node6" href="$communication_8h.html#a980dd25e42aaeac1620dc7f9b42859a2" title="This function adds frame entry to a frame. " alt="" coords="2459,184,2661,211"/>
+<area shape="rect" id="node4" href="$communication_8h.html#ab6495de804d5d54d071fe8b4dd408aba" title="This function parses the internal contents of the message using the FOSSA COMMS Protocol. " alt="" coords="2031,278,2183,319"/>
+<area shape="rect" id="node5" href="$communication_8h.html#ad5052f7320724c62bfab348ea62c66ce" title="This function reads the contents of the radio when it receives a transmission. " alt="" coords="2231,329,2411,370"/>
+<area shape="rect" id="node8" href="$communication_8h.html#af86331e2820ea70a7928919915937077" title="Responds to a given function id execution (internally used). " alt="" coords="1352,94,1515,135"/>
+<area shape="rect" id="node10" href="$power__control_8h.html#a6e2a22c1b8940caf3a89cf6f5e21e120" title="Get the battery voltage by switching the MPPT off and then on again after reading is taken..." alt="" coords="419,195,616,237"/>
+<area shape="rect" id="node11" href="$power__control_8h.html#aa26e5dcfde1aecf602a3a41ef6e205b8" title="Get the amount of seconds to sleep for given the battery voltage. " alt="" coords="664,195,851,237"/>
+<area shape="rect" id="node13" href="$pin__interface_8h.html#ac725bca91aea7264c8bd6e7cfba58ff1" title="This function toggles the signal to the watchdog and writes it to the pin. " alt="" coords="899,261,1072,302"/>
+<area shape="rect" id="node14" href="$communication_8h.html#a5db7440be24bedc9c14f12db46029968" title="This function transmits a morse beacon message. " alt="" coords="1131,261,1293,302"/>
+<area shape="rect" id="node15" href="$power__control_8h.html#a3bff1402f7ac79b23628326e3fd7b560" title="This function delays the program execution for the given number of milliseconds, while maintaining th..." alt="" coords="1355,348,1511,375"/>
+<area shape="rect" id="node16" href="$communication_8h.html#aee0a3df78da4459c808120a803c65b61" title="This function transmits a continous wave &quot;BEEP&quot;&quot;. " alt="" coords="1563,405,1753,432"/>
+<area shape="rect" id="node17" href="$deployment_8h.html#acf81803b5f0482964a9c550f249fc3cf" title="This function deploys the antenna by powering the MOSFET1/2 for 1200 seconds. " alt="" coords="1583,355,1733,381"/>
+</map>

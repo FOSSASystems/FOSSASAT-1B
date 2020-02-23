@@ -1,0 +1,6 @@
+<map id="Communication_Process_Packet" name="Communication_Process_Packet">
+<area shape="rect" id="node2" href="$communication_8h.html#a980dd25e42aaeac1620dc7f9b42859a2" title="This function adds frame entry to a frame. " alt="" coords="233,83,436,110"/>
+<area shape="rect" id="node3" href="$communication_8h.html#ae4e350e62342431fda2184ff0dc47a65" title="Send the satellite&#39;s information via the configured radio settings. " alt="" coords="484,5,647,47"/>
+<area shape="rect" id="node4" href="$communication_8h.html#a834526d017e482716c6061772d644d5b" title="This function executes the given function id provided with the given data. " alt="" coords="695,76,876,117"/>
+<area shape="rect" id="node5" href="$communication_8h.html#ab6495de804d5d54d071fe8b4dd408aba" title="This function parses the internal contents of the message using the FOSSA COMMS Protocol. " alt="" coords="924,139,1076,180"/>
+</map>

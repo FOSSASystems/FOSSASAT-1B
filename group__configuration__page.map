@@ -1,0 +1,15 @@
+<map id="Configuration" name="Configuration">
+<area shape="rect" id="node1" href="$group__defines__eeprom__address__map.html" title="DescriptionStart AddressEnd AddressLength (bytes) &#160;Deployment counter (uint8_t).0x00000x00001 Power c..." alt="" coords="198,5,361,32"/>
+<area shape="rect" id="node2" href="$group__defines__default__power__configuration.html" title="Default Power Configuration" alt="" coords="180,56,379,83"/>
+<area shape="rect" id="node3" href="$group__defines__ina226__configuration.html" title="INA226 Configuration" alt="" coords="201,107,358,133"/>
+<area shape="rect" id="node4" href="$group__defines__radio__common__configuraiton.html" title="Common Radio Configuration" alt="" coords="175,157,384,184"/>
+<area shape="rect" id="node5" href="$group__defines__mcu__temperature__configuration.html" title="MCU Temperature Sensor\l Configuration" alt="" coords="186,209,373,250"/>
+<area shape="rect" id="node6" href="$group__defines__debug__macros.html" title="Debug Macros (only\l comment out for debug\l usage.)" alt="" coords="190,273,369,329"/>
+<area shape="rect" id="node7" href="$group__defines__pin__map.html" title="DescriptionArduino core pinPhysical pinModeDirection &#160;Solar Cell A Voltage.A0PC0ANALOGIN Solar Cell B..." alt="" coords="243,353,315,380"/>
+<area shape="rect" id="node8" href="$group__defines__tmp100__configuration.html" title="TMP100 Temperature\l Sensor Configuration" alt="" coords="199,405,359,446"/>
+<area shape="rect" id="node9" href="$group__defines__power__management__configuration.html" title="Power Management Configuration" alt="" coords="160,471,399,497"/>
+<area shape="rect" id="node10" href="$group__defines__global__variables.html" title="Global Variables" alt="" coords="217,521,341,548"/>
+<area shape="rect" id="node11" href="$group__defines__eeprom__variables.html" title="EEPROM Variables" alt="" coords="211,572,348,599"/>
+<area shape="rect" id="node12" href="$group__defines__radio__lora__configuration.html" title="DescriptionValueUnits &#160;Carrier Frequency.436.7MHz Bandwidth.125.0KHz dual sideband Spreading Factor..." alt="" coords="189,623,370,649"/>
+<area shape="rect" id="node13" href="$group__defines__string__memory__limits.html" title="String Limits" alt="" coords="228,673,331,700"/>
+</map>

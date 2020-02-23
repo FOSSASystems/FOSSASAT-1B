@@ -1,0 +1,25 @@
+var group__defines__eeprom__address__map =
+[
+    [ "EEPROM_BATTERY_TEMP_STATS_ADDR", "group__defines__eeprom__address__map.html#ga8c5548d7c7e72c9974dbc3a4e670e1cf", null ],
+    [ "EEPROM_BATTERY_VOLTAGE_STATS_ADDR", "group__defines__eeprom__address__map.html#ga3f624256f4e308657f4c4053c64f0feb", null ],
+    [ "EEPROM_BOARD_TEMP_STATS_ADDR", "group__defines__eeprom__address__map.html#ga400ff3c988dbb629cd17e1e7befee3bc", null ],
+    [ "EEPROM_CALLSIGN_ADDR", "group__defines__eeprom__address__map.html#ga914e5eca76c425eef3794078a440ef89", null ],
+    [ "EEPROM_CALLSIGN_LEN_ADDR", "group__defines__eeprom__address__map.html#ga84c346e7353930c5977017a1efa4ff55", null ],
+    [ "EEPROM_CELL_A_VOLTAGE_STATS_ADDR", "group__defines__eeprom__address__map.html#gaa84e17318d3dbe0d8d14ce87c2157774", null ],
+    [ "EEPROM_CELL_B_VOLTAGE_STATS_ADDR", "group__defines__eeprom__address__map.html#ga94346f859875a8ba8b32e579633678cc", null ],
+    [ "EEPROM_CELL_C_VOLTAGE_STATS_ADDR", "group__defines__eeprom__address__map.html#gaed59c9e0cd2b68c47afd39ec1954b5e6", null ],
+    [ "EEPROM_CHARGING_CURRENT_STATS_ADDR", "group__defines__eeprom__address__map.html#gaded138a94dfe781c99f664d6ce3be8d0", null ],
+    [ "EEPROM_CHARGING_VOLTAGE_STATS_ADDR", "group__defines__eeprom__address__map.html#ga18497ed096651b6d9fb7d0cb0afc43d7", null ],
+    [ "EEPROM_DEPLOYMENT_COUNTER_ADDR", "group__defines__eeprom__address__map.html#gaf8c8716a907b10b7d07c1d05f925915b", null ],
+    [ "EEPROM_FIRST_RUN_ADDR", "group__defines__eeprom__address__map.html#gaaef7c132060420925a4b03f0763d1c19", null ],
+    [ "EEPROM_FSK_INVALID_COUNTER_ADDR", "group__defines__eeprom__address__map.html#ga6fb56c8041b356cfc0e4de4731eeb4fd", null ],
+    [ "EEPROM_FSK_RECEIVE_LEN_ADDR", "group__defines__eeprom__address__map.html#gab989de4b765c220d4eaaa36c0d182fd5", null ],
+    [ "EEPROM_FSK_VALID_COUNTER_ADDR", "group__defines__eeprom__address__map.html#gae0a7ddd98b2a6e5c878c65c223e8d1d9", null ],
+    [ "EEPROM_LORA_INVALID_COUNTER_ADDR", "group__defines__eeprom__address__map.html#ga09e7db19ac65e0c28bae5b46f25ffe36", null ],
+    [ "EEPROM_LORA_RECEIVE_LEN_ADDR", "group__defines__eeprom__address__map.html#ga110fef28d82a0c77f7134cef20b16008", null ],
+    [ "EEPROM_LORA_VALID_COUNTER_ADDR", "group__defines__eeprom__address__map.html#gaa877b7e655f92a71a256bfb4406d4be7", null ],
+    [ "EEPROM_MCU_TEMP_STATS_ADDR", "group__defines__eeprom__address__map.html#gaf3993737bc8bdb1ee7aac5a636fc6936", null ],
+    [ "EEPROM_POWER_CONFIG_ADDR", "group__defines__eeprom__address__map.html#gad0b4d3e4a81df862dfe961caaa6432c2", null ],
+    [ "EEPROM_RESTART_COUNTER_ADDR", "group__defines__eeprom__address__map.html#gad9936577552bbcc87b8a57b75759f01f", null ],
+    [ "EEPROM_UPTIME_COUNTER_ADDR", "group__defines__eeprom__address__map.html#ga8bd2bb8a04777f7fb9c24db8027e9a51", null ]
+];
