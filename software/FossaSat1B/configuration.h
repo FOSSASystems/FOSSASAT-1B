@@ -462,6 +462,7 @@
 #define LORA_RECEIVE_WINDOW_LENGTH                      40          /*!< How long to listen out for LoRa transmissions for (s) */
 #define FSK_RECEIVE_WINDOW_LENGTH                       20          /*!< How long to listen out for FSK transmissions for (s) */
 #define RESPONSE_DELAY                                  1000        /*!< How long to wait for before responding/processing a transmission (ms) */
+#define WHITENING_INITIAL                               0x1FF       /*!< Whitening LFSR initial value, to ensure SX127x compatibility */
 /**
  * @}
  */

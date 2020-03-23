@@ -42,6 +42,7 @@
 #define FSK_PREAMBLE_LEN      16      // bits
 #define DATA_SHAPING          0.5     // BT product
 #define TCXO_VOLTAGE          1.6     // volts
+#define WHITENING_INITIAL     0x1FF   // initial whitening LFSR value
 
 // set up radio module
 #ifdef USE_SX126X
@@ -576,6 +577,9 @@ int16_t setLoRa() {
                           LORA_PREAMBLE_LEN,
                           TCXO_VOLTAGE);
   radio.setCRC(true);
+  #ifdef USE_SX126X
+  radio.setWhitening(true, WHITENING_INITIAL);
+  #endif
   return(state);
 }
 
@@ -593,6 +597,7 @@ int16_t setGFSK() {
   radio.setSyncWord(syncWordFSK, 2);
   #ifdef USE_SX126X
     radio.setCRC(2);
+    radio.setWhitening(true, WHITENING_INITIAL);
   #else
     radio.setCRC(true);
   #endif

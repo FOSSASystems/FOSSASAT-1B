@@ -48,6 +48,7 @@ int16_t Communication_Set_Modem(uint8_t modem) {
   }
 
   radio.setDio2AsRfSwitch(true);
+  radio.setWhitening(true, WHITENING_INITIAL);
 
   // handle possible error codes
   FOSSASAT_DEBUG_PRINT(F("Radio init "));
