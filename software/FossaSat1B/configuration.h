@@ -403,7 +403,7 @@
 #define RADIO_NSS                                       7           /*!< PD7 */
 #define RADIO_DIO1                                      2           /*!< PD2 */
 #define RADIO_BUSY                                      6           /*!< PD6 */
-#define RADIO_NRST                                      NC          /*!< Not connected*/
+#define RADIO_NRST                                      RADIOLIB_NC /*!< Not connected*/
 /**
  * @}
  */
