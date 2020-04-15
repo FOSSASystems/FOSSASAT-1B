@@ -1,4 +1,4 @@
-# i think we can remove this script...
+# i think we can remove this script!
 
 os: linux
 before_install:
