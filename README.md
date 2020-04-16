@@ -1,6 +1,6 @@
 # FOSSASAT-1B
 
-[![Build Status](https://travis-ci.com/FOSSASystems/FOSSASAT-1B.svg?token=oTDDePyoDp2t3LxYnUYz&branch=master)](https://travis-ci.com/FOSSASystems/FOSSASAT-1B)
+[![Build Status](https://buildbot.fossa.systems/badges/FossaSat-1B.svg)](https://buildbot.fossa.systems/#/builders/1)
 
 [Doxygen Documentation](https://fossasystems.github.io/FOSSASAT-1B)
 
