@@ -6,7 +6,6 @@ void System_Info_Set_Callsign(char* newCallsign) {
 
   // check new callsign length
   if(newCallsignLen > MAX_STRING_LENGTH) {
-    FOSSASAT_DEBUG_PRINTLN(F("New callsign too long!"));
     return;
   }
 

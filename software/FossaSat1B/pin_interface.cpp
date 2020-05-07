@@ -14,9 +14,6 @@ void Pin_Interface_Set_Temp_Resolution(uint8_t sensorAddr, uint8_t res) {
 }
 
 float Pin_Interface_Read_Temperature(uint8_t sensorAddr) {
-  FOSSASAT_VERBOSE_PRINT(F("Temp sensor 0b"));
-  FOSSASAT_VERBOSE_PRINTLN(sensorAddr, BIN);
-
   // read data from I2C sensor
   Wire.requestFrom(sensorAddr, (uint8_t)2);
   uint8_t msb = Wire.read();
@@ -25,7 +22,6 @@ float Pin_Interface_Read_Temperature(uint8_t sensorAddr) {
   // convert raw data to temperature
   int16_t tempRaw = ((msb << 8) | lsb) >> 4;
   float temp = tempRaw * 0.0625f;
-  FOSSASAT_VERBOSE_PRINTLN(temp);
   return(temp);
 }
 
@@ -41,9 +37,6 @@ int8_t Pin_Interface_Read_Temperature_Internal() {
 
   // convert to real temperature
   int8_t temp = (int8_t)(((float)raw - MCU_TEMP_OFFSET) / MCU_TEMP_COEFFICIENT);
-
-  FOSSASAT_VERBOSE_PRINT(F("MCU temp: "));
-  FOSSASAT_VERBOSE_PRINTLN(temp);
   return(temp);
 }
 
@@ -53,9 +46,6 @@ float Pin_Interface_Read_Voltage(uint8_t pin) {
 }
 
 void Pin_Interface_Watchdog_Heartbeat() {
-  FOSSASAT_VERBOSE_PRINTLN("WD");
-  FOSSASAT_DEBUG_DELAY(10);
-
   // toggle watchdog pin
   digitalWrite(DIGITAL_OUT_WATCHDOG_HEARTBEAT, !digitalRead(DIGITAL_OUT_WATCHDOG_HEARTBEAT));
 
@@ -64,7 +54,7 @@ void Pin_Interface_Watchdog_Heartbeat() {
 }
 
 void Pin_Interface_Watchdog_Restart() {
-  FOSSASAT_DEBUG_PRINTLN(F("Restarting"));
+  FOSSASAT_DEBUG_PRINTLN(F("Rst"));
   // do not pet watchdog for more than 15 seconds to restart
   LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
   LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);

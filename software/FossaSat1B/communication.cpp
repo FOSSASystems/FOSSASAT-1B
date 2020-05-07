@@ -12,9 +12,8 @@ void Communication_Receive_Interrupt() {
 
 int16_t Communication_Set_Modem(uint8_t modem) {
   int16_t state = ERR_NONE;
-  FOSSASAT_DEBUG_PRINT(F("Set modem "));
-  FOSSASAT_DEBUG_WRITE(modem);
-  FOSSASAT_DEBUG_PRINTLN();
+  FOSSASAT_DEBUG_PRINT(F("Modem "));
+  FOSSASAT_DEBUG_PRINTLN(modem);
 
   // initialize requested modem
   switch (modem) {
@@ -92,14 +91,11 @@ int16_t Communication_Set_SpreadingFactor(uint8_t sfMode) {
 int16_t Communication_Set_Configuration(uint8_t* optData, uint8_t optDataLen) {
   // check optDataLen
   if(!((optDataLen >= 7 + 1) && (optDataLen <= 7 + MAX_STRING_LENGTH))) {
-    FOSSASAT_DEBUG_PRINT(F("Invalid optDataLen: "));
-    FOSSASAT_DEBUG_PRINTLN(optDataLen);
     return(ERR_PACKET_TOO_LONG);
   }
 
   // check bandwidth value (loaded from array - rest of settings are checked by library)
   if(optData[0] > 7) {
-    FOSSASAT_DEBUG_PRINTLN(F("Invalid BW!"));
     return(ERR_INVALID_BANDWIDTH);
   }
 
@@ -136,32 +132,26 @@ void Communication_Send_Morse_Beacon(float battVoltage) {
   // send start signals
   for(uint8_t i = 0; i < MORSE_PREAMBLE_LENGTH; i++) {
     morse.startSignal();
-    FOSSASAT_DEBUG_PRINT('*');
     Pin_Interface_Watchdog_Heartbeat();
   }
 
   // send callsign
   for(uint8_t i = 0; i < callsignLen - 1; i++) {
     morse.print(callsign[i]);
-    FOSSASAT_DEBUG_PRINT(callsign[i]);
     Pin_Interface_Watchdog_Heartbeat();
   }
 
   // space
   morse.print(' ');
-  FOSSASAT_DEBUG_PRINT(' ');
   Pin_Interface_Watchdog_Heartbeat();
 
   // send battery voltage code
   char code = 'A' + (uint8_t)((battVoltage - MORSE_BATTERY_MIN) / MORSE_BATTERY_STEP);
   morse.println(code);
-  FOSSASAT_DEBUG_PRINTLN(code);
   Pin_Interface_Watchdog_Heartbeat();
 }
 
 void Communication_CW_Beep(uint32_t len) {
-  FOSSASAT_DEBUG_PRINTLN(F("beep"));
-  FOSSASAT_DEBUG_DELAY(10);
   radio.transmitDirect();
   Power_Control_Delay(len, true);
   radio.standby();
@@ -172,8 +162,6 @@ void Communication_Send_System_Info() {
   static const uint8_t optDataLen = 6*sizeof(uint8_t) + 3*sizeof(int16_t) + sizeof(uint16_t) + sizeof(int8_t) + sizeof(uint32_t);
   uint8_t optData[optDataLen];
   uint8_t* optDataPtr = optData;
-
-  FOSSASAT_DEBUG_PRINTLN(F("System info:"));
 
   #ifdef ENABLE_INA226
     uint8_t batteryVoltage = Power_Control_Get_Battery_Voltage() * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
@@ -205,7 +193,6 @@ void Communication_Send_System_Info() {
 
   // set powerConfig variable
   Power_Control_Load_Configuration();
-  FOSSASAT_DEBUG_PRINT(F("Config: 0b"));
   FOSSASAT_DEBUG_PRINTLN(powerConfig.val, BIN);
   memcpy(optDataPtr, &powerConfig.val, sizeof(uint8_t));
   optDataPtr += sizeof(uint8_t);
@@ -259,8 +246,6 @@ void Communication_Process_Packet() {
 
   // read data
   size_t len = radio.getPacketLength();
-  FOSSASAT_DEBUG_PRINT(F("Packet length: "));
-  FOSSASAT_DEBUG_PRINTLN(len);
   if(len == 0) {
     dataReceived = false;
     interruptsEnabled = true;
@@ -287,14 +272,16 @@ void Communication_Process_Packet() {
       // check passed
       Comunication_Parse_Frame(frame, len);
     } else {
-      FOSSASAT_DEBUG_PRINTLN(F("Callsign mismatch!"));
+      FOSSASAT_DEBUG_PRINTLN(F("Callsign err!"));
       Persistent_Storage_Increment_Frame_Counter(false);
+      Communication_Acknowledge(0xFF, 0x01);
     }
 
   } else {
-    FOSSASAT_DEBUG_PRINT(F("Reception failed, code "));
+    FOSSASAT_DEBUG_PRINT(F("Rx failed "));
     FOSSASAT_DEBUG_PRINT(state);
     Persistent_Storage_Increment_Frame_Counter(false);
+    Communication_Acknowledge(0xFF, 0x02);
   }
 
   #ifndef FOSSASAT_STATIC_ONLY
@@ -317,9 +304,10 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
   // get functionID
   int16_t functionId = FCP_Get_FunctionID(callsign, frame, len);
   if(functionId < 0) {
-    FOSSASAT_DEBUG_PRINT(F("Unable to get func. ID "));
+    FOSSASAT_DEBUG_PRINT(F("Func. ID get fail "));
     FOSSASAT_DEBUG_PRINTLN(functionId);
     Persistent_Storage_Increment_Frame_Counter(false);
+    Communication_Acknowledge(0xFF, 0x03);
     return;
   }
   FOSSASAT_DEBUG_PRINT(F("Func. ID = 0x"));
@@ -334,16 +322,17 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
   #endif
   if((functionId >= PRIVATE_OFFSET) && (functionId <= (PRIVATE_OFFSET + NUM_PRIVATE_COMMANDS))) {
     // frame contains encrypted data, decrypt
-    FOSSASAT_DEBUG_PRINTLN(F("Decrypting"));
+    FOSSASAT_DEBUG_PRINTLN(F("Decrypt"));
 
     // get optional data length
     optDataLen = FCP_Get_OptData_Length(callsign, frame, len, encryptionKey, password);
     if(optDataLen < 0) {
-      FOSSASAT_DEBUG_PRINT(F("Decrypt failed "));
+      FOSSASAT_DEBUG_PRINT(F("Failed "));
       FOSSASAT_DEBUG_PRINTLN(optDataLen);
 
       // decryption failed, increment invalid frame counter and return
       Persistent_Storage_Increment_Frame_Counter(false);
+      Communication_Acknowledge(0xFF, 0x04);
       return;
     }
 
@@ -362,11 +351,12 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
     optDataLen = FCP_Get_OptData_Length(callsign, frame, len);
     if(optDataLen < 0) {
       // optional data extraction failed,
-      FOSSASAT_DEBUG_PRINT(F("Failed to get optDataLen "));
+      FOSSASAT_DEBUG_PRINT(F("optDataLen get failed "));
       FOSSASAT_DEBUG_PRINTLN(optDataLen);
 
       // increment invalid frame counter
       Persistent_Storage_Increment_Frame_Counter(false);
+      Communication_Acknowledge(0xFF, 0x05);
       return;
     }
 
@@ -382,6 +372,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
     FOSSASAT_DEBUG_PRINT(F("Unknown function ID, 0x"));
     FOSSASAT_DEBUG_PRINTLN(functionId, HEX);
     Persistent_Storage_Increment_Frame_Counter(false);
+    Communication_Acknowledge(0xFF, 0x06);
     return;
   }
 
@@ -434,7 +425,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
           // check if the change was successful
           if(state != ERR_NONE) {
-            FOSSASAT_DEBUG_PRINT(F("Custom config failed "));
+            FOSSASAT_DEBUG_PRINT(F("Custom cfg failed "));
             FOSSASAT_DEBUG_PRINTLN(state);
           } else {
             // configuration changed successfully, transmit response
@@ -588,8 +579,6 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
           // update transmit enable flag
           powerConfig.bits.transmitEnabled = optData[0];
-          FOSSASAT_DEBUG_PRINT(F("transmitEnabled="));
-          FOSSASAT_DEBUG_PRINTLN(optData[0]);
 
           // save power config from EEPROM
           Power_Control_Save_Configuration();
@@ -606,7 +595,6 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
           // update callsign
           System_Info_Set_Callsign(newCallsign);
-          FOSSASAT_DEBUG_PRINT(F("newCallsign="));
           FOSSASAT_DEBUG_PRINTLN(newCallsign);
         }
       } break;
@@ -616,8 +604,6 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
         if(Communication_Check_OptDataLen(1, optDataLen)) {
           // update spreading factor mode
           spreadingFactorMode = optData[0];
-          FOSSASAT_DEBUG_PRINT(F("spreadingFactorMode="));
-          FOSSASAT_DEBUG_PRINTLN(spreadingFactorMode);
           Communication_Set_SpreadingFactor(spreadingFactorMode);
         }
       } break;
@@ -631,10 +617,6 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
           // update MPPT mode
           powerConfig.bits.mpptTempSwitchEnabled = optData[0];
           powerConfig.bits.mpptKeepAliveEnabled = optData[1];
-          FOSSASAT_DEBUG_PRINT(F("mpptTempSwitchEnabled="));
-          FOSSASAT_DEBUG_PRINTLN(optData[0]);
-          FOSSASAT_DEBUG_PRINT(F("mpptKeepAliveEnabled="));
-          FOSSASAT_DEBUG_PRINTLN(optData[1]);
 
           // save power config from EEPROM
           Power_Control_Save_Configuration();
@@ -649,8 +631,6 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
           // update low power enable flag
           powerConfig.bits.lowPowerModeEnabled = optData[0];
-          FOSSASAT_DEBUG_PRINT(F("lowPowerModeEnabled="));
-          FOSSASAT_DEBUG_PRINTLN(optData[0]);
 
           // save power config from EEPROM
           Power_Control_Save_Configuration();
@@ -662,17 +642,13 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
       if(Communication_Check_OptDataLen(2, optDataLen)) {
         // set FSK receive length
         Persistent_Storage_Write<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR, optData[0]);
-        FOSSASAT_DEBUG_PRINT(F("fskRxLen="));
-        FOSSASAT_DEBUG_PRINTLN(optData[0]);
 
         // set LoRa receive length
         Persistent_Storage_Write<uint8_t>(EEPROM_LORA_RECEIVE_LEN_ADDR, optData[1]);
-        FOSSASAT_DEBUG_PRINT(F("loraRxLen="));
-        FOSSASAT_DEBUG_PRINTLN(optData[1]);
 
         // check if there will be still some receive window open
         if((Persistent_Storage_Read<uint8_t>(EEPROM_LORA_RECEIVE_LEN_ADDR) == 0) && (Persistent_Storage_Read<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR) == 0)) {
-          FOSSASAT_DEBUG_PRINT(F("Request to set both lengths to 0, restoring FSK default."));
+          FOSSASAT_DEBUG_PRINT(F("No Rx left, restore FSK"));
           Persistent_Storage_Write<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR, FSK_RECEIVE_WINDOW_LENGTH);
         }
       }
@@ -682,20 +658,16 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
       // check optional data is exactly 3 bytes
       if(Communication_Check_OptDataLen(3, optDataLen)) {
         uint16_t numSamples = optData[0];
-        FOSSASAT_DEBUG_PRINT(F("numSamples="));
-        FOSSASAT_DEBUG_PRINTLN(numSamples);
 
         // check number of samples is less than limit
         if(numSamples > 40) {
-          FOSSASAT_DEBUG_PRINT(F("too much!"));
+          FOSSASAT_DEBUG_PRINT(F("Too many!"));
           break;
         }
 
         // get sample period
         uint16_t period = 0;
         memcpy(&period, optData + 1, 2);
-        FOSSASAT_DEBUG_PRINT(F("period="));
-        FOSSASAT_DEBUG_PRINTLN(period);
 
         // record all data
         uint8_t respoOptDataLen = 3 * numSamples;
@@ -718,12 +690,6 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
           respOptData[i] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
           respOptData[i + 1] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
           respOptData[i + 2] = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-
-          FOSSASAT_DEBUG_PRINT(respOptData[i])
-          FOSSASAT_DEBUG_PRINT('\t')
-          FOSSASAT_DEBUG_PRINT(respOptData[i+1])
-          FOSSASAT_DEBUG_PRINT('\t')
-          FOSSASAT_DEBUG_PRINTLN(respOptData[i+2])
 
           // wait for for the next measurement
           Power_Control_Delay(period * SLEEP_LENGTH_CONSTANT, true, true);
@@ -752,7 +718,6 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
   char callsign[MAX_STRING_LENGTH + 1];
   System_Info_Get_Callsign(callsign, callsignLen);
   FOSSASAT_DEBUG_PRINT_BUFF(optData, optDataLen);
-  FOSSASAT_DEBUG_DELAY(10);
 
   // build response frame
   uint8_t len = FCP_Get_Frame_Length(callsign, optDataLen);
@@ -838,7 +803,7 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
       #ifdef ENABLE_INTERVAL_CONTROL
       if(powerConfig.bits.lowPowerModeActive) {
         // we're below low power level, stop the transmission
-        FOSSASAT_DEBUG_PRINTLN(F("Battery too low, Tx stopped"));
+        FOSSASAT_DEBUG_PRINTLN(F("Batt low, Tx off"));
         radio.standby();
         return(ERR_INVALID_DATA_RATE);
       }
@@ -856,10 +821,7 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
       return(ERR_TX_TIMEOUT);
     }
   }
-
-  FOSSASAT_DEBUG_PRINT(F("Tx done in: "));
-  FOSSASAT_DEBUG_PRINTLN(micros() - start);
-
+  
   // transmission done, set mode standby
   state = radio.standby();
 
@@ -871,18 +833,12 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
   // set receive ISR
   radio.setDio1Action(Communication_Receive_Interrupt);
 
-  FOSSASAT_DEBUG_PRINTLN(F("done"));
-
   return(state);
 }
 
 bool Communication_Check_OptDataLen(uint8_t expected, uint8_t actual) {
   if(expected != actual) {
     // received length of optional data does not match expected
-    FOSSASAT_DEBUG_PRINT(F("optDataLen mismatch, exp. "));
-    FOSSASAT_DEBUG_PRINT(expected);
-    FOSSASAT_DEBUG_PRINT(F(" got "));
-    FOSSASAT_DEBUG_PRINTLN(actual);
     return(false);
   }
 

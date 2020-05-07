@@ -107,8 +107,6 @@ void Power_Control_Delay(uint32_t ms, bool sleep, bool sleepRadio) {
 }
 
 void Power_Control_Setup_INA226() {
-  FOSSASAT_VERBOSE_PRINTLN(F("INA setup"));
-
   ina.begin(INA_ADDR);
   ina.configure(INA226_AVERAGES_1, INA226_BUS_CONV_TIME_1100US, INA226_SHUNT_CONV_TIME_1100US, INA226_MODE_SHUNT_BUS_CONT);
   ina.calibrate(INA_RSHUNT, INA_MAX_CURRENT);
