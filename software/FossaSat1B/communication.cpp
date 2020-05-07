@@ -248,6 +248,11 @@ void Communication_Send_System_Info() {
   Communication_Send_Response(RESP_SYSTEM_INFO, optData, optDataLen);
 }
 
+void Communication_Acknowledge(uint8_t functionId, uint8_t result) {
+  uint8_t optData[] = { functionId, result };
+  Communication_Send_Response(RESP_ACKNOWLEDGE, optData, 2);
+}
+
 void Communication_Process_Packet() {
   // disable interrupts
   interruptsEnabled = false;
@@ -403,9 +408,8 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
   // increment valid frame counter
   Persistent_Storage_Increment_Frame_Counter(true);
 
-  // delay before responding
-  FOSSASAT_DEBUG_DELAY(100);
-  Power_Control_Delay(RESPONSE_DELAY, true);
+  // acknowledge frame
+  Communication_Acknowledge(functionId, 0x00);
 
   // execute function based on ID
   switch(functionId) {
@@ -758,6 +762,10 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
   uint8_t* frame = new uint8_t[len];
   #endif
   FCP_Encode(frame, callsign, respId, optDataLen, optData);
+  
+  // delay before responding
+  FOSSASAT_DEBUG_DELAY(100);
+  Power_Control_Delay(RESPONSE_DELAY, true);
 
   // send response
   int16_t state = Communication_Transmit(frame, len, overrideModem);

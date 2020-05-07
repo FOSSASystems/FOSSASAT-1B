@@ -24,7 +24,7 @@
 // pin definitions
 #define CS                    10      // SPI chip select
 #define DIO                   2       // DIO0 for SX127x, DIO1 for SX126x
-#define NRST                  NC      // NRST pin (optional)
+#define NRST                  RADIOLIB_NC      // NRST pin (optional)
 #define BUSY                  9       // BUSY pin (SX126x-only)
 
 // modem configuration
@@ -48,7 +48,7 @@
 #ifdef USE_SX126X
 SX1268 radio = new Module(CS, DIO, NRST, BUSY);
 #else
-SX1278 radio = new Module(CS, DIO, NRST, NC);
+SX1278 radio = new Module(CS, DIO, NRST, RADIOLIB_NC);
 #endif
 
 // flags
@@ -389,6 +389,13 @@ void decode(uint8_t* respFrame, uint8_t respLen) {
         Serial.println(respOptData[i+2]);
       }
       break;
+
+    case RESP_ACKNOWLEDGE: {
+      Serial.print(F("Frame ACK, functionId = 0x"));
+      Serial.print(respOptData[0], HEX);
+      Serial.print(F(", result = 0x"));
+      Serial.println(respOptData[1], HEX);
+    } break;
 
     default:
       Serial.println(F("Unknown function ID!"));

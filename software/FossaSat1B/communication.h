@@ -100,6 +100,16 @@ void Communication_CW_Beep(uint32_t len);
 void Communication_Send_System_Info();
 
 /**
+ * @brief This function sends acknowledge for a received frame.
+ *
+ * @test (ID COMMS_H_T10) (SEV 1) Test that each command/packet is processed correctly.
+ *
+ * @param functionId Function ID to acknowledge.
+ * @param result Result of frame processing.
+ */
+void Communication_Acknowledge(uint8_t functionId, uint8_t result);
+
+/**
  * @brief This function reads the contents of the radio when it receives a transmission.
  *
  * @test (ID COMMS_H_T9) (SEV 1) Test that each command/packet is processed correctly.
