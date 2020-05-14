@@ -47,7 +47,7 @@ void setup() {
   }
 
   // print power configuration
-  FOSSASAT_DEBUG_PORT.print(F("Config: 0b"));
+  FOSSASAT_DEBUG_PORT.print(F("0b"));
   FOSSASAT_DEBUG_PORT.println(powerConfig.val, BIN);
 
   // set temperature sensor resolution
@@ -60,9 +60,9 @@ void setup() {
   #endif
 
   // setup radio
-  FOSSASAT_DEBUG_PORT.print(F("LoRa init: "));
+  FOSSASAT_DEBUG_PORT.print(F("LoRa: "));
   FOSSASAT_DEBUG_PORT.println(Communication_Set_Modem(MODEM_LORA));
-  FOSSASAT_DEBUG_PORT.print(F("FSK init:\t"));
+  FOSSASAT_DEBUG_PORT.print(F("FSK:\t"));
   FOSSASAT_DEBUG_PORT.println(Communication_Set_Modem(MODEM_FSK));
 
   #ifdef ENABLE_INA226
@@ -121,7 +121,7 @@ void setup() {
           FOSSASAT_DEBUG_PORT.print(F("RST:\t\t"));
           FOSSASAT_DEBUG_PORT.println(Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR));
 
-          FOSSASAT_DEBUG_PORT.print(F("Pwr cfg:\t0b"));
+          FOSSASAT_DEBUG_PORT.print(F("Pwr:\t\t0b"));
           Power_Control_Load_Configuration();
           FOSSASAT_DEBUG_PORT.println(powerConfig.val, BIN);
 
