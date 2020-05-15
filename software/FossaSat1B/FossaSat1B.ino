@@ -8,12 +8,12 @@
 #include "FossaSat1B.h"
 
 // compile-time checks
-#if (!defined RADIOLIB_VERSION) || (RADIOLIB_VERSION < 0x03060000)
+#if (!defined(RADIOLIB_VERSION)) || (RADIOLIB_VERSION < 0x03060000)
   #error "Unsupported RadioLib version (< 3.6.0)!"
 #endif
 
 #if defined(FOSSASAT_STATIC_ONLY) && (!defined(RADIOLIB_STATIC_ONLY))
-  #error "RadioLib is using dynamic memory management, enable static only in RadioLib/src/TypeDef.h"
+  #error "RadioLib is using dynamic memory management, make sure static only is enabled in FossaSat1B.h"
 #endif
 
 // cppcheck-suppress unusedFunction

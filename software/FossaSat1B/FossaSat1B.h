@@ -11,6 +11,9 @@
 #include <aes.h>
 #include <INA226.h>
 #include <LowPower.h>
+
+// RadioLib
+#define RADIOLIB_STATIC_ONLY
 #include <RadioLib.h>
 
 // files
