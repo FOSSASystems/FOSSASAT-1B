@@ -160,6 +160,9 @@ void loop() {
   // variable to measure time when not in sleep mode
   uint32_t activeStart = millis();
 
+  // get loop number
+  uint8_t numLoops = Persistent_Storage_Read<uint8_t>(EEPROM_LOOP_COUNTER);
+
   // check battery voltage
   FOSSASAT_DEBUG_PRINT(F("Batt: "));
   #ifdef ENABLE_INA226
@@ -184,11 +187,11 @@ void loop() {
   } else {
   #endif
 
-  if(battVoltage >= BATTERY_CW_BEEP_VOLTAGE_LIMIT) {
+  if((battVoltage >= BATTERY_CW_BEEP_VOLTAGE_LIMIT) && (numLoops % MORSE_BEACON_LOOP_FREQ == 0)) {
     // transmit full Morse beacon
     Communication_Send_Morse_Beacon(battVoltage);
   } else {
-    // battery is low, transmit CW beeps
+    // this isn't the loop to transmit full Morse beacon, or the battery is low, transmit CW beeps
     for(uint8_t i = 0; i < NUM_CW_BEEPS; i++) {
       Communication_CW_Beep(500 * SLEEP_LENGTH_CONSTANT);
       Power_Control_Delay(500 * SLEEP_LENGTH_CONSTANT, true);
@@ -285,4 +288,8 @@ void loop() {
   FOSSASAT_DEBUG_PRINTLN(F(" total"))
 
   Persistent_Storage_Write<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR, Persistent_Storage_Read<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR) + elapsedTotal);
+
+  // update loop counter
+  numLoops++;
+  Persistent_Storage_Write<uint8_t>(EEPROM_LOOP_COUNTER, numLoops);
 }
