@@ -180,7 +180,7 @@ void loop() {
   FOSSASAT_DEBUG_DELAY(10);
   #ifdef ENABLE_TRANSMISSION_CONTROL
   if(!powerConfig.bits.transmitEnabled) {
-    FOSSASAT_DEBUG_PRINTLN(F("Tx off by cmd"));
+    FOSSASAT_DEBUG_PRINTLN(F("Tx off"));
   } else {
   #endif
 
@@ -198,7 +198,6 @@ void loop() {
   #ifdef ENABLE_TRANSMISSION_CONTROL
   }
   #endif
-
 
   // wait for a bit
   FOSSASAT_DEBUG_DELAY(10);

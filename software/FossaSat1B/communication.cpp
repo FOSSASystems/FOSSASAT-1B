@@ -41,7 +41,7 @@ int16_t Communication_Set_Modem(uint8_t modem) {
         radio.setCRC(2);
       } break;
     default:
-      FOSSASAT_DEBUG_PRINT(F("Unkown modem "));
+      FOSSASAT_DEBUG_PRINT(F("Unkown "));
       FOSSASAT_DEBUG_PRINTLN(modem);
       return(ERR_UNKNOWN);
   }
@@ -272,13 +272,13 @@ void Communication_Process_Packet() {
       // check passed
       Comunication_Parse_Frame(frame, len);
     } else {
-      FOSSASAT_DEBUG_PRINTLN(F("Callsign err!"));
+      FOSSASAT_DEBUG_PRINTLN(F("Call err!"));
       Persistent_Storage_Increment_Frame_Counter(false);
       Communication_Acknowledge(0xFF, 0x01);
     }
 
   } else {
-    FOSSASAT_DEBUG_PRINT(F("Rx failed "));
+    FOSSASAT_DEBUG_PRINT(F("Rx fail "));
     FOSSASAT_DEBUG_PRINT(state);
     Persistent_Storage_Increment_Frame_Counter(false);
     Communication_Acknowledge(0xFF, 0x02);
@@ -304,7 +304,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
   // get functionID
   int16_t functionId = FCP_Get_FunctionID(callsign, frame, len);
   if(functionId < 0) {
-    FOSSASAT_DEBUG_PRINT(F("Func. ID get fail "));
+    FOSSASAT_DEBUG_PRINT(F("Func. ID fail "));
     FOSSASAT_DEBUG_PRINTLN(functionId);
     Persistent_Storage_Increment_Frame_Counter(false);
     Communication_Acknowledge(0xFF, 0x03);
@@ -351,7 +351,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
     optDataLen = FCP_Get_OptData_Length(callsign, frame, len);
     if(optDataLen < 0) {
       // optional data extraction failed,
-      FOSSASAT_DEBUG_PRINT(F("optDataLen get failed "));
+      FOSSASAT_DEBUG_PRINT(F("len get fail "));
       FOSSASAT_DEBUG_PRINTLN(optDataLen);
 
       // increment invalid frame counter
@@ -369,7 +369,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
     }
   } else {
     // unknown function ID
-    FOSSASAT_DEBUG_PRINT(F("Unknown function ID, 0x"));
+    FOSSASAT_DEBUG_PRINT(F("Unknown ID 0x"));
     FOSSASAT_DEBUG_PRINTLN(functionId, HEX);
     Persistent_Storage_Increment_Frame_Counter(false);
     Communication_Acknowledge(0xFF, 0x06);
@@ -425,7 +425,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
           // check if the change was successful
           if(state != ERR_NONE) {
-            FOSSASAT_DEBUG_PRINT(F("Custom cfg failed "));
+            FOSSASAT_DEBUG_PRINT(F("Custom cfg fail "));
             FOSSASAT_DEBUG_PRINTLN(state);
           } else {
             // configuration changed successfully, transmit response
