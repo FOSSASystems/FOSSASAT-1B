@@ -130,7 +130,7 @@ void Communication_Send_Morse_Beacon(float battVoltage) {
   System_Info_Get_Callsign(callsign, callsignLen);
 
   // send start signals
-  for(uint8_t i = 0; i < MORSE_PREAMBLE_LENGTH; i++) {
+  for(int8_t i = 0; i < MORSE_PREAMBLE_LENGTH; i++) {
     morse.startSignal();
     Pin_Interface_Watchdog_Heartbeat();
   }
@@ -727,7 +727,7 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
   uint8_t* frame = new uint8_t[len];
   #endif
   FCP_Encode(frame, callsign, respId, optDataLen, optData);
-  
+
   // delay before responding
   FOSSASAT_DEBUG_DELAY(100);
   Power_Control_Delay(RESPONSE_DELAY, true);
@@ -821,7 +821,7 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
       return(ERR_TX_TIMEOUT);
     }
   }
-  
+
   // transmission done, set mode standby
   state = radio.standby();
 
