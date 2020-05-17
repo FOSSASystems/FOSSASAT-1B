@@ -76,6 +76,7 @@
 #define BATTERY_CW_BEEP_VOLTAGE_LIMIT                   3.8f        /*!< Battery voltage limit to switch into morse beep (V). */
 #define BATTERY_TEMPERATURE_LIMIT                       -0.7f       /*!< Battery charging temperature limit (deg. C). */
 #define WATCHDOG_LOOP_HEARTBEAT_PERIOD                  1000        /*!< Watchdog heartbeat period in loop() (ms). */
+#define WATCHDOG_RESET_NUM_SLEEP_CYCLES                 4           /*!< Number of 8-second sleep cycles to reset watchdog */
 #define SLEEP_LENGTH_CONSTANT                           0.9         /*!< Sleep times are multiplied by this constant to compensate for the LowPower libraries overhead. */
 #define DEPLOYMENT_ATTEMPTS                             2           /*!< Number of deployment attempts. */
 #define DEPLOYMENT_SLEEP_LENGTH                         180000      /*!< Sleep for this period of time before deployment (ms) */

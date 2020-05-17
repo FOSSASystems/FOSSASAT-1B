@@ -55,7 +55,9 @@ void Pin_Interface_Watchdog_Heartbeat() {
 
 void Pin_Interface_Watchdog_Restart() {
   FOSSASAT_DEBUG_PRINTLN(F("Rst"));
-  // do not pet watchdog for more than 15 seconds to restart
-  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
-  LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
+  
+  // do not pet watchdog for more than 30 seconds to restart
+  for(uint8_t i = 0; i < WATCHDOG_RESET_NUM_SLEEP_CYCLES; i++) {
+    LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
+  }
 }
