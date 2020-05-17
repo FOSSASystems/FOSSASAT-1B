@@ -103,7 +103,7 @@ void Power_Control_Setup_INA226();
  * @return true The INA226 is working correctly.
  * @return false The INA226 is not working correctly.
  */
-bool Power_Control_INA2256_Check();
+bool Power_Control_INA226_Check();
 
 /**
  * @brief Get the battery voltage by switching the MPPT off and then on again after reading is taken.

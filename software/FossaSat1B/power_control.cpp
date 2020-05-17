@@ -112,7 +112,7 @@ void Power_Control_Setup_INA226() {
   ina.calibrate(INA_RSHUNT, INA_MAX_CURRENT);
 }
 
-bool Power_Control_INA2256_Check() {
+bool Power_Control_INA226_Check() {
   // attempt to read manufacturer ID register
   Wire.beginTransmission(INA_ADDR);
   Wire.write(INA_REG_MANUFACTURER_ID);
@@ -143,7 +143,7 @@ float Power_Control_Get_Battery_Voltage() {
 
   // get voltage
   float val = -999;
-  if(Power_Control_INA2256_Check()) {
+  if(Power_Control_INA226_Check()) {
     val = ina.readBusVoltage();
   }
 
@@ -154,14 +154,14 @@ float Power_Control_Get_Battery_Voltage() {
 }
 
 float Power_Control_Get_Charging_Voltage() {
-  if(!Power_Control_INA2256_Check()) {
+  if(!Power_Control_INA226_Check()) {
     return(-999.0);
   }
   return(ina.readBusVoltage());
 }
 
 float Power_Control_Get_Charging_Current() {
-  if(!Power_Control_INA2256_Check()) {
+  if(!Power_Control_INA226_Check()) {
     return(-999.0);
   }
   return(ina.readShuntCurrent());

@@ -67,7 +67,7 @@ void setup() {
 
   #ifdef ENABLE_INA226
     FOSSASAT_DEBUG_PORT.print(F("INA226:\t"));
-    FOSSASAT_DEBUG_PORT.println(Power_Control_INA2256_Check());
+    FOSSASAT_DEBUG_PORT.println(Power_Control_INA226_Check());
   #endif
 
   // check deployment
