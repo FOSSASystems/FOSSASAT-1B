@@ -33,6 +33,9 @@ void Persistent_Storage_Wipe() {
   // reset uptime counter
   Persistent_Storage_Write<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR, 0);
 
+  // reset loop counter
+  Persistent_Storage_Write<uint8_t>(EEPROM_LOOP_COUNTER, 0);
+
   // reset frame counters
   Persistent_Storage_Write<uint16_t>(EEPROM_LORA_VALID_COUNTER_ADDR, 0);
   Persistent_Storage_Write<uint16_t>(EEPROM_LORA_INVALID_COUNTER_ADDR, 0);

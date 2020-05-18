@@ -48,12 +48,13 @@
  * |FSK receive window length (uint8_t).|0x0005|0x0005|1|
  * |LoRa receive window length (uint8_t).|0x0006|0x0006|1|
  * |Seconds elapsed since last reset (uint32_t).|0x0007|0x000A|4|
- * |Number of received valid LoRa frames (uint16_t).|0x000B|0x000C|2|
- * |Number of received invalid LoRa frames (uint16_t).|0x000D|0x000E|2|
- * |Number of received valid FSK frames (uint16_t).|0x000F|0x0010|2|
- * |Number of received invalid FSK frames (uint16_t).|0x0011|0x0012|2|
- * |Length of callsign (uint8_t).|0x0013|0x0013|1|
- * |Callsign (C-string, max MAX_STRING_LENGTH bytes).|0x00014|0x0034|MAX_STRING_LENGTH|
+ * |Number of main loop iterations (uint8_t).|0x000B|0x000B|1|
+ * |Number of received valid LoRa frames (uint16_t).|0x000C|0x000D|2|
+ * |Number of received invalid LoRa frames (uint16_t).|0x000E|0x000F|2|
+ * |Number of received valid FSK frames (uint16_t).|0x0010|0x0011|2|
+ * |Number of received invalid FSK frames (uint16_t).|0x0012|0x0013|2|
+ * |Length of callsign (uint8_t).|0x0014|0x0014|1|
+ * |Callsign (C-string, max MAX_STRING_LENGTH bytes).|0x00015|0x0035|MAX_STRING_LENGTH|
  * |Charging voltage stats (min - avg - max, 3x uint8_t).|0x0040|0x0042|3|
  * |Charging current stats (min - avg - max, 3x int16_t).|0x0043|0x0048|6|
  * |Battery voltage stats (min - avg - max, 3x uint8_t).|0x0049|0x004B|3|
@@ -133,52 +134,61 @@
 #define EEPROM_UPTIME_COUNTER_ADDR                      0x0007
 
 /**
- * @brief
+ * @brief Loop counter - only used to determine when to transmit full Morse beacon, so it doesn't matter when it overflows.
  * |Start Address|End Address|
  * |--|--|
- * |0x000B|0x000C|
+ * |0x000B|0x000B|
  */
-#define EEPROM_LORA_VALID_COUNTER_ADDR                  0x000B
+#define EEPROM_LOOP_COUNTER                             0x000B
+
 
 /**
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x000D|0x000E|
+ * |0x000C|0x000D|
  */
-#define EEPROM_LORA_INVALID_COUNTER_ADDR                0x000D
+#define EEPROM_LORA_VALID_COUNTER_ADDR                  0x000C
 
 /**
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x000F|0x0010|
+ * |0x000E|0x000F|
  */
-#define EEPROM_FSK_VALID_COUNTER_ADDR                   0x000F
+#define EEPROM_LORA_INVALID_COUNTER_ADDR                0x000E
 
 /**
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x0011|0x0012|
+ * |0x0010|0x0011|
  */
-#define EEPROM_FSK_INVALID_COUNTER_ADDR                 0x0011
+#define EEPROM_FSK_VALID_COUNTER_ADDR                   0x0010
 
 /**
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x00013|0x00013|
+ * |0x0012|0x0013|
  */
-#define EEPROM_CALLSIGN_LEN_ADDR                        0x0013
+#define EEPROM_FSK_INVALID_COUNTER_ADDR                 0x0012
 
 /**
  * @brief
  * |Start Address|End Address|
  * |--|--|
- * |0x0014|0x0024|
+ * |0x00014|0x00014|
  */
-#define EEPROM_CALLSIGN_ADDR                            0x0014
+#define EEPROM_CALLSIGN_LEN_ADDR                        0x0014
+
+/**
+ * @brief
+ * |Start Address|End Address|
+ * |--|--|
+ * |0x0015|0x0035|
+ */
+#define EEPROM_CALLSIGN_ADDR                            0x0015
 
 /**
  * @brief
