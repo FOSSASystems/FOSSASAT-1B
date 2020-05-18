@@ -12,7 +12,7 @@
   #error "Unsupported RadioLib version (< 3.6.2)!"
 #endif
 
-#if defined(FOSSASAT_STATIC_ONLY) && (!defined(RADIOLIB_STATIC_ONLY))
+#if !defined(RADIOLIB_STATIC_ONLY)
   #error "RadioLib is using dynamic memory management, make sure static only is enabled in FossaSat1B.h"
 #endif
 
@@ -57,7 +57,7 @@ void setup() {
   // setup radio
   FOSSASAT_DEBUG_PORT.print(F("LoRa: "));
   FOSSASAT_DEBUG_PORT.println(Communication_Set_Modem(MODEM_LORA));
-  FOSSASAT_DEBUG_PORT.print(F("FSK:\t"));
+  FOSSASAT_DEBUG_PORT.print(F("FSK: "));
   FOSSASAT_DEBUG_PORT.println(Communication_Set_Modem(MODEM_FSK));
 
   #ifdef ENABLE_INA226

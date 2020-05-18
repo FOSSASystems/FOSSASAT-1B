@@ -12,8 +12,8 @@ void Communication_Receive_Interrupt() {
 
 int16_t Communication_Set_Modem(uint8_t modem) {
   int16_t state = ERR_NONE;
-  FOSSASAT_DEBUG_PRINT(F("Modem "));
-  FOSSASAT_DEBUG_PRINTLN(modem);
+  FOSSASAT_DEBUG_WRITE(modem);
+  FOSSASAT_DEBUG_PRINTLN(F(" modem"));
 
   // initialize requested modem
   switch (modem) {
@@ -251,11 +251,7 @@ void Communication_Process_Packet() {
     interruptsEnabled = true;
     return;
   }
-  #ifdef FOSSASAT_STATIC_ONLY
   uint8_t frame[MAX_RADIO_BUFFER_LENGTH];
-  #else
-  uint8_t* frame = new uint8_t[len];
-  #endif
   int16_t state = radio.readData(frame, len);
 
   // check reception state
@@ -284,10 +280,6 @@ void Communication_Process_Packet() {
     Communication_Acknowledge(0xFF, 0x02);
   }
 
-  #ifndef FOSSASAT_STATIC_ONLY
-    delete[] frame;
-  #endif
-
   // reset flag
   dataReceived = false;
 
@@ -315,11 +307,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 
   // check encryption
   int16_t optDataLen = 0;
-  #ifdef FOSSASAT_STATIC_ONLY
-    uint8_t optData[MAX_OPT_DATA_LENGTH];
-  #else
-    uint8_t* optData = NULL;
-  #endif
+  uint8_t optData[MAX_OPT_DATA_LENGTH];
   if((functionId >= PRIVATE_OFFSET) && (functionId <= (PRIVATE_OFFSET + NUM_PRIVATE_COMMANDS))) {
     // frame contains encrypted data, decrypt
     FOSSASAT_DEBUG_PRINTLN(F("Decrypt"));
@@ -338,9 +326,6 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 
     // get optional data
     if(optDataLen > 0) {
-      #ifndef FOSSASAT_STATIC_ONLY
-        optData = new uint8_t[optDataLen];
-      #endif
       FCP_Get_OptData(callsign, frame, len, optData, encryptionKey, password);
     }
 
@@ -362,9 +347,6 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
 
     // get optional data
     if(optDataLen > 0) {
-      #ifndef FOSSASAT_STATIC_ONLY
-        optData = new uint8_t[optDataLen];
-      #endif
       FCP_Get_OptData(callsign, frame, len, optData);
     }
   } else {
@@ -388,11 +370,6 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
     // execute without optional data
     Communication_Execute_Function(functionId);
   }
-
-  // deallocate memory
-  #ifndef FOSSASAT_STATIC_ONLY
-    delete[] optData;
-  #endif
 }
 
 void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t optDataLen) {
@@ -668,14 +645,11 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
         // get sample period
         uint16_t period = 0;
         memcpy(&period, optData + 1, 2);
+        FOSSASAT_DEBUG_PRINT(F("Rec"));
 
         // record all data
         uint8_t respoOptDataLen = 3 * numSamples;
-        #ifdef FOSSASAT_STATIC_ONLY
         uint8_t respOptData[MAX_OPT_DATA_LENGTH];
-        #else
-        uint8_t* respOptData = new uint8_t[respoOptDataLen];
-        #endif
         for(uint16_t i = 0; i < 3 * numSamples; i += 3) {
           // check if the battery is good enough to continue
           #ifdef ENABLE_INTERVAL_CONTROL
@@ -697,11 +671,6 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
         // send response
         Communication_Send_Response(RESP_RECORDED_SOLAR_CELLS, respOptData, respoOptDataLen);
-
-        // deallocate memory
-        #ifndef FOSSASAT_STATIC_ONLY
-        delete[] respOptData;
-        #endif
       }
     } break;
 
@@ -717,15 +686,10 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
   uint8_t callsignLen = Persistent_Storage_Read<uint8_t>(EEPROM_CALLSIGN_LEN_ADDR);
   char callsign[MAX_STRING_LENGTH + 1];
   System_Info_Get_Callsign(callsign, callsignLen);
-  FOSSASAT_DEBUG_PRINT_BUFF(optData, optDataLen);
 
   // build response frame
   uint8_t len = FCP_Get_Frame_Length(callsign, optDataLen);
-  #ifdef FOSSASAT_STATIC_ONLY
   uint8_t frame[MAX_RADIO_BUFFER_LENGTH];
-  #else
-  uint8_t* frame = new uint8_t[len];
-  #endif
   FCP_Encode(frame, callsign, respId, optDataLen, optData);
 
   // delay before responding
@@ -734,11 +698,6 @@ int16_t Communication_Send_Response(uint8_t respId, uint8_t* optData, size_t opt
 
   // send response
   int16_t state = Communication_Transmit(frame, len, overrideModem);
-
-  // deallocate memory
-  #ifndef FOSSASAT_STATIC_ONLY
-    delete[] frame;
-  #endif
 
   return(state);
 }
@@ -817,7 +776,7 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
       // timed out while transmitting
       radio.standby();
       Communication_Set_Modem(modem);
-      FOSSASAT_DEBUG_PRINT(F("Tx timeout"));
+      FOSSASAT_DEBUG_PRINTLN(F("Tx timeout"));
       return(ERR_TX_TIMEOUT);
     }
   }

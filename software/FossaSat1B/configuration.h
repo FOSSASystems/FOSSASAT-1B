@@ -44,7 +44,6 @@
  *
  * @{
  */
-#define FOSSASAT_STATIC_ONLY                                        /*!< Comment out to use dynamic memory management */
 #define ENABLE_TRANSMISSION_CONTROL                                 /*!< Comment out to disable transmission control (transmission disable and no transmissions in low power mode) */
 #define ENABLE_DEPLOYMENT_SEQUENCE                                  /*!< Comment out to disable deployment sequence */
 #define ENABLE_INTERVAL_CONTROL                                     /*!< Comment out to disable automatic sleep interval and transmission control */
