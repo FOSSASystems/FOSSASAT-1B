@@ -41,7 +41,6 @@
  * @test (ID CONF_DEBUG_MACROS_T1) (SEV 1) Uncomment ENABLE_DEPLOYMENT_SEQUENCE, test no deployment sequence ran (this define is for debugging purposes).
  * @test (ID CONF_DEBUG_MACROS_T2) (SEV 1) Uncomment ENABLE_INTERVAL_CONTROL, test that the battery voltages have no affect on the sleep duration.
  * @test (ID CONF_DEBUG_MACROS_T3) (SEV 1) Uncomment ENABLE_INA226, test that the current readings are correct.
- * @test (ID CONF_DEBUG_MACROS_T4) (SEV 1) Uncomment EEPROM_WIPE, test that the EEPROM clears and writes defaults correctly.
  *
  * @{
  */
@@ -50,7 +49,6 @@
 #define ENABLE_DEPLOYMENT_SEQUENCE                                  /*!< Comment out to disable deployment sequence */
 #define ENABLE_INTERVAL_CONTROL                                     /*!< Comment out to disable automatic sleep interval and transmission control */
 #define ENABLE_INA226                                               /*!< Comment out to skip INA226 reading */
-//#define EEPROM_WIPE                                               /*!< Uncomment to wipe EEPROM on start (will also set all EEPROM variables to defaults) */
 /**
  * @}
  */

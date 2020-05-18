@@ -30,11 +30,6 @@ void setup() {
   // setup pins
   Configuration_Setup_Pins();
 
-  #ifdef EEPROM_WIPE
-    // wipe EEPROM
-    Persistent_Storage_Wipe();
-  #endif
-
   // check if this is the first run
   if(Persistent_Storage_Read<uint8_t>(EEPROM_FIRST_RUN_ADDR) != EEPROM_CONSECUTIVE_RUN) {
     // first run, set EEPROM flag
