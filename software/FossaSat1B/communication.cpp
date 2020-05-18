@@ -471,8 +471,8 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
     case CMD_GET_STATISTICS: {
         // check optional data is exactly 1 byte
         if(Communication_Check_OptDataLen(1, optDataLen)) {
-          // response will have maximum of 37 bytes if all stats are included
-          uint8_t respOptData[37];
+          // response will have maximum of 34 bytes if all stats are included
+          uint8_t respOptData[34];
           uint8_t respOptDataLen = 1;
           uint8_t* respOptDataPtr = respOptData;
 
