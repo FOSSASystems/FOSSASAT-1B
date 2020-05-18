@@ -174,6 +174,7 @@ void loop() {
   Power_Control_Charge(true);
 
   // CW beacon
+  bool beaconSent = false;
   Communication_Set_Modem(MODEM_FSK);
   FOSSASAT_DEBUG_DELAY(10);
   #ifdef ENABLE_TRANSMISSION_CONTROL
@@ -185,6 +186,7 @@ void loop() {
   if((battVoltage >= BATTERY_CW_BEEP_VOLTAGE_LIMIT) && (numLoops % MORSE_BEACON_LOOP_FREQ == 0)) {
     // transmit full Morse beacon
     Communication_Send_Morse_Beacon(battVoltage);
+    beaconSent = true;
   } else {
     // this isn't the loop to transmit full Morse beacon, or the battery is low, transmit CW beeps
     for(uint8_t i = 0; i < NUM_CW_BEEPS; i++) {
@@ -278,7 +280,12 @@ void loop() {
   FOSSASAT_DEBUG_PRINT(activeElapsed);
   FOSSASAT_DEBUG_PRINTLN(F(" active"))
 
-  uint32_t elapsedTotal = NUM_CW_BEEPS + 2 + windowLenLoRa + windowLenFsk + activeElapsed + interval;
+  uint32_t elapsedTotal = 2 + windowLenLoRa + windowLenFsk + activeElapsed + interval;
+  if(beaconSent) {
+    elapsedTotal += 9; // transmitting full Morse beacon takes about 9 seconds
+  } else {
+    elapsedTotal += NUM_CW_BEEPS;
+  }
   FOSSASAT_DEBUG_PRINT(elapsedTotal);
   FOSSASAT_DEBUG_PRINTLN(F(" total"))
 
