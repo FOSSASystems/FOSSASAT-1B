@@ -538,7 +538,7 @@
  *
  * @{
  */
-#define FSK_CARRIER_FREQUENCY                           436.7       /*!< MHz */
+#define FSK_CARRIER_FREQUENCY                           436.8       /*!< MHz */
 #define FSK_BIT_RATE                                    9.6         /*!< kbps nominal */
 #define FSK_FREQUENCY_DEVIATION                         5.0         /*!< kHz single-sideband */
 #define FSK_RX_BANDWIDTH                                39.0        /*!< kHz single-sideband */
