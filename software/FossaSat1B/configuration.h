@@ -404,7 +404,7 @@
 #define ANALOG_IN_SOLAR_B_VOLTAGE_PIN                   A7          /*!< ADC7 */
 #define ANALOG_IN_SOLAR_C_VOLTAGE_PIN                   A2          /*!< PC2 */
 #define ANALOG_IN_RANDOM_SEED                           A6          /*!< ADC6; used as source for randomSeed(), should be left floating */
-#define DIGITAL_OUT_MPPT_PIN                            5//10          /*!< PB2 */
+#define DIGITAL_OUT_MPPT_PIN                            5           /*!< PB2 */
 #define DIGITAL_OUT_MOSFET_1                            9           /*!< PB1 */
 #define DIGITAL_OUT_MOSFET_2                            8           /*!< PB0 */
 #define DIGITAL_OUT_WATCHDOG_HEARTBEAT                  4           /*!< PD4 */
