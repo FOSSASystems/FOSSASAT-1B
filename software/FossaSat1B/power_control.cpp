@@ -89,15 +89,14 @@ void Power_Control_Delay(uint32_t ms, bool sleep, bool sleepRadio) {
   }
 
   // perform all loops
-  Pin_Interface_Watchdog_Heartbeat();
   for(uint32_t i = 0; i < (uint32_t)numLoops; i++) {
+    Pin_Interface_Watchdog_Heartbeat();
     if(sleep) {
       LowPower.powerDown(SLEEP_500MS, ADC_OFF, BOD_OFF);
     } else {
       delay(50);
     }
 
-    Pin_Interface_Watchdog_Heartbeat();
   }
 
   // wake up radio

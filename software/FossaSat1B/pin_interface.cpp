@@ -45,12 +45,14 @@ float Pin_Interface_Read_Voltage(uint8_t pin) {
   return((analogRead(pin) * 3.3) / 1023.0);
 }
 
-void Pin_Interface_Watchdog_Heartbeat() {
+void Pin_Interface_Watchdog_Heartbeat(bool manageBattery) {
   // toggle watchdog pin
   digitalWrite(DIGITAL_OUT_WATCHDOG_HEARTBEAT, !digitalRead(DIGITAL_OUT_WATCHDOG_HEARTBEAT));
 
   // check voltage
-  Power_Control_Check_Battery_Limit();
+  if(manageBattery) {
+    Power_Control_Check_Battery_Limit();
+  }
 }
 
 void Pin_Interface_Watchdog_Restart() {

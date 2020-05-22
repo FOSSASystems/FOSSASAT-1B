@@ -54,8 +54,9 @@ float Pin_Interface_Read_Voltage(uint8_t pin);
  * 
  * @test (ID PIN_INTERF_H_T6) (SEV 1) Make sure this function keeps the satellite alive.
  * 
+ * @param manageBattery Whether to perform battery and power management.
  */
-void Pin_Interface_Watchdog_Heartbeat();
+void Pin_Interface_Watchdog_Heartbeat(bool manageBattery = false);
 /**
  * @brief Restarts the watchdog.
  * 
