@@ -75,10 +75,11 @@
 #define WATCHDOG_LOOP_HEARTBEAT_PERIOD                  1000        /*!< Watchdog heartbeat period in loop() (ms). */
 #define WATCHDOG_RESET_NUM_SLEEP_CYCLES                 4           /*!< Number of 8-second sleep cycles to reset watchdog */
 #define SLEEP_LENGTH_CONSTANT                           0.9         /*!< Sleep times are multiplied by this constant to compensate for the LowPower libraries overhead. */
-#define DEPLOYMENT_ATTEMPTS                             2           /*!< Number of deployment attempts. */
+#define DEPLOYMENT_ATTEMPTS                             4           /*!< Number of deployment attempts. */
 #define DEPLOYMENT_SLEEP_LENGTH                         180000      /*!< Sleep for this period of time before deployment (ms) */
 #define DEPLOYMENT_DEBUG_LENGTH                         60          /*!< How long to wait until the debugging print routine breaks (s). See: FossaSat1B.ino */
 #define DEPLOYMENT_DEBUG_SAMPLE_PERIOD                  1000        /*!< How long to wait between each debug parameter print (ms). See: FossaSat1B.ino */
+#define AUTODEPLOY_DELAY                                1200        /*!< How long to wait bevore attempting automated deployment in main loop (seconds). See: FossaSat1B.ino */
 /**
  * @}
  */

@@ -275,6 +275,18 @@ void loop() {
   FOSSASAT_DEBUG_DELAY(10);
   Power_Control_Delay(interval * SLEEP_LENGTH_CONSTANT, true, true);
 
+  // update loop counter
+  numLoops++;
+  Persistent_Storage_Write<uint8_t>(EEPROM_LOOP_COUNTER, numLoops);
+
+  // check automated deployment attempts
+  uint32_t uptimeCounter = Persistent_Storage_Read<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR);
+  uint8_t attempts = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
+  if((attempts <= DEPLOYMENT_ATTEMPTS) && (uptimeCounter >= AUTODEPLOY_DELAY)) {
+    // deployment attemp limit not reached yet, attempt more deployments
+    Deployment_Deploy();
+  }
+
   // update uptime counter
   uint32_t activeElapsed = (millis() - activeStart + 500)/1000;
   FOSSASAT_DEBUG_PRINT(activeElapsed);
@@ -288,10 +300,7 @@ void loop() {
   }
   FOSSASAT_DEBUG_PRINT(elapsedTotal);
   FOSSASAT_DEBUG_PRINTLN(F(" total"))
-
-  Persistent_Storage_Write<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR, Persistent_Storage_Read<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR) + elapsedTotal);
-
-  // update loop counter
-  numLoops++;
-  Persistent_Storage_Write<uint8_t>(EEPROM_LOOP_COUNTER, numLoops);
+  
+  uptimeCounter += elapsedTotal;
+  Persistent_Storage_Write<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR,  uptimeCounter);
 }
