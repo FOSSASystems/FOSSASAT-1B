@@ -564,9 +564,9 @@
 #define NUM_CW_BEEPS                                    3           /*!< number of CW sync beeps in low power mode */
 #define MORSE_PREAMBLE_LENGTH                           0           /*!< number of start signal repetitions */
 #define MORSE_SPEED                                     20          /*!< words per minute */
-#define MORSE_BATTERY_MIN                               3.2         /*!< minimum voltage value that can be send via Morse (corresponds to 'A'), volts*/
-#define MORSE_BATTERY_STEP                              0.05        /*!< voltage step in Morse, volts*/
-#define MORSE_BEACON_LOOP_FREQ                          2           /*!> how often to transmit full Morse code beacon (e.g. transmit every second main loop when set to 2)  */
+#define MORSE_BATTERY_MIN                               3.2         /*!< minimum voltage value that can be send via Morse (corresponds to 'A'), volts */
+#define MORSE_BATTERY_STEP                              0.05        /*!< voltage step in Morse, volts */
+#define MORSE_BEACON_LOOP_FREQ                          2           /*!< how often to transmit full Morse code beacon (e.g. transmit every second main loop when set to 2) */
 /**
  * @}
  */

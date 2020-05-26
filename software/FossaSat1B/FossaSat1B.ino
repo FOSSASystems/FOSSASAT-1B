@@ -75,6 +75,9 @@ void setup() {
 
     // check number of deployment attempts
     if (attemptNumber == 0) {
+      // integration, reset system info
+      Persistent_Storage_Wipe();
+    
       // print sensor data for integration purposes (independently of FOSSASAT_DEBUG macro!)
       uint32_t start = millis();
       uint32_t lastSample = 0;
