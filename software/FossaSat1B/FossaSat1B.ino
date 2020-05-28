@@ -61,7 +61,7 @@ void setup() {
   FOSSASAT_DEBUG_PORT.println(Communication_Set_Modem(MODEM_FSK));
 
   #ifdef ENABLE_INA226
-    FOSSASAT_DEBUG_PORT.print(F("INA226:\t"));
+    FOSSASAT_DEBUG_PORT.print(F("INA "));
     FOSSASAT_DEBUG_PORT.println(Power_Control_INA226_Check());
   #endif
 
@@ -77,7 +77,7 @@ void setup() {
     if (attemptNumber == 0) {
       // integration, reset system info
       Persistent_Storage_Wipe();
-    
+
       // print sensor data for integration purposes (independently of FOSSASAT_DEBUG macro!)
       uint32_t start = millis();
       uint32_t lastSample = 0;
@@ -88,32 +88,32 @@ void setup() {
           FOSSASAT_DEBUG_PORT.println();
 
           #ifdef ENABLE_INA226
-            FOSSASAT_DEBUG_PORT.print(F("Chrg [V]:\t"));
+            FOSSASAT_DEBUG_PORT.print(F("Chrg V:\t"));
             FOSSASAT_DEBUG_PORT.println(Power_Control_Get_Charging_Voltage(), 2);
 
-            FOSSASAT_DEBUG_PORT.print(F("Chrg [mA]:\t"));
+            FOSSASAT_DEBUG_PORT.print(F("Chrg mA:\t"));
             FOSSASAT_DEBUG_PORT.println(Power_Control_Get_Charging_Current(), 3);
 
-            FOSSASAT_DEBUG_PORT.print(F("Batt [V]:\t"));
+            FOSSASAT_DEBUG_PORT.print(F("Batt V:\t"));
             FOSSASAT_DEBUG_PORT.println(Power_Control_Get_Battery_Voltage(), 2);
           #endif
 
-          FOSSASAT_DEBUG_PORT.print(F("Sol A [V]:\t"));
+          FOSSASAT_DEBUG_PORT.print(F("Sol A V:\t"));
           FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN), 2);
 
-          FOSSASAT_DEBUG_PORT.print(F("Sol B [V]:\t"));
+          FOSSASAT_DEBUG_PORT.print(F("Sol B V:\t"));
           FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN), 2);
 
-          FOSSASAT_DEBUG_PORT.print(F("Sol C [V]:\t"));
+          FOSSASAT_DEBUG_PORT.print(F("Sol C V:\t"));
           FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN), 2);
 
-          FOSSASAT_DEBUG_PORT.print(F("Batt [°C]:\t"));
+          FOSSASAT_DEBUG_PORT.print(F("Batt C:\t"));
           FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Temperature(BATTERY_TEMP_SENSOR_ADDR), 2);
 
-          FOSSASAT_DEBUG_PORT.print(F("Brd [°C]:\t"));
+          FOSSASAT_DEBUG_PORT.print(F("Brd C:\t"));
           FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Temperature(BOARD_TEMP_SENSOR_ADDR), 2);
 
-          FOSSASAT_DEBUG_PORT.print(F("MCU [°C]:\t"));
+          FOSSASAT_DEBUG_PORT.print(F("MCU C:\t"));
           FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Temperature_Internal());
 
           FOSSASAT_DEBUG_PORT.print(F("RST:\t\t"));
@@ -138,7 +138,7 @@ void setup() {
 
     } else if(Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR) <= DEPLOYMENT_ATTEMPTS) {
       // sleep before deployment
-      FOSSASAT_DEBUG_PRINT(F("Dpl sleep "));
+      FOSSASAT_DEBUG_PRINT(F("Sleep "));
       FOSSASAT_DEBUG_PRINTLN(DEPLOYMENT_SLEEP_LENGTH);
       FOSSASAT_DEBUG_DELAY(10);
       Power_Control_Delay(DEPLOYMENT_SLEEP_LENGTH, true, true);
@@ -191,10 +191,16 @@ void loop() {
     Communication_Send_Morse_Beacon(battVoltage);
     beaconSent = true;
   } else {
+    // set delay between beeps according to battery voltage
+    float delayLen = battVoltage * 1000.0 - MORSE_BATTERY_MIN;
+    if(battVoltage < MORSE_BATTERY_MIN + MORSE_BATTERY_STEP) {
+      delayLen = MORSE_BATTERY_STEP;
+    }
+
     // this isn't the loop to transmit full Morse beacon, or the battery is low, transmit CW beeps
     for(uint8_t i = 0; i < NUM_CW_BEEPS; i++) {
       Communication_CW_Beep(500 * SLEEP_LENGTH_CONSTANT);
-      Power_Control_Delay(500 * SLEEP_LENGTH_CONSTANT, true);
+      Power_Control_Delay(delayLen * SLEEP_LENGTH_CONSTANT, true);
     }
   }
 
@@ -230,7 +236,7 @@ void loop() {
 
   // LoRa receive
   uint8_t windowLenLoRa = Persistent_Storage_Read<uint8_t>(EEPROM_LORA_RECEIVE_LEN_ADDR);
-  FOSSASAT_DEBUG_PRINT(F("LoRa Rx "));
+  FOSSASAT_DEBUG_PRINT(F("L Rx "));
   if(powerConfig.bits.lowPowerModeActive) {
     // use only half of the interval in low power mode
     windowLenLoRa /= 2;
@@ -251,7 +257,7 @@ void loop() {
   // GFSK receive
   uint8_t windowLenFsk = Persistent_Storage_Read<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR);
   Communication_Set_Modem(MODEM_FSK);
-  FOSSASAT_DEBUG_PRINT(F("FSK Rx "));
+  FOSSASAT_DEBUG_PRINT(F("F Rx "));
   if(powerConfig.bits.lowPowerModeActive) {
     // use only half of the interval in low power mode
     windowLenFsk /= 2;
@@ -303,7 +309,7 @@ void loop() {
   }
   FOSSASAT_DEBUG_PRINT(elapsedTotal);
   FOSSASAT_DEBUG_PRINTLN(F(" total"))
-  
+
   uptimeCounter += elapsedTotal;
   Persistent_Storage_Write<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR,  uptimeCounter);
 }
