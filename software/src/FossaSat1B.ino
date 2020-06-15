@@ -16,7 +16,7 @@
   #error "RadioLib is using dynamic memory management, make sure static only is enabled in FossaSat1B.h"
 #endif
 
-// cppcheck-suppress unusedFunction
+// cppcheck  -suppress unusedFunction
 void setup() {
   // initialize debug port
   FOSSASAT_DEBUG_PORT.begin(FOSSASAT_DEBUG_SPEED);
