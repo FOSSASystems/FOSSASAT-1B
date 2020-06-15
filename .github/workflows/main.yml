@@ -16,3 +16,12 @@ jobs:
       - uses: actions/checkout@v2
       - run: cd software && platformio check --fail-on-defect low --fail-on-defect medium --fail-on-defect high
       - run: cd software && platformio run
+
+  test:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: check for updates
+        run: platformio update
+      - name: compile
+        run: platformio run -e ATmega328PB
