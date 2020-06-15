@@ -21,7 +21,5 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
-      - name: check for updates
-        run: platformio update
-      - name: compile
-        run: platformio run -e ATmega328PB
+      - run: platformio update
+      - run: cd software && platformio run -e ATmega328PB
