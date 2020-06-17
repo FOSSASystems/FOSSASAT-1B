@@ -9,6 +9,7 @@ void check_response()
 
 void setup()
 {
+        delay(2000);
 	UNITY_BEGIN();
     RUN_TEST(check_response);
 	UNITY_END();
