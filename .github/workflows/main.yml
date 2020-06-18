@@ -22,4 +22,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: platformio update
-      - run: cd software && platformio test -e ATmega328PB
+      - run: cd software && platformio test -e ATmega328PB -v
