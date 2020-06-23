@@ -18,4 +18,3 @@ FOSSASAT-1B is slightly modified second iteration of the FOSSASAT-1 satellite la
 ## Hardware
 
 PCBs and Schematics are designed using EasyEDA, Java files are available for using them in said interface. 
-
