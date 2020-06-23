@@ -15,7 +15,7 @@ jobs:
       - run: echo "::add-path::~/.local/bin"
       - uses: actions/checkout@v2
       - run: cd software && platformio check --fail-on-defect low --fail-on-defect medium --fail-on-defect high
-      - run: cd software && platformio run
+      - run: cd software && platformio run -v
 
   test:
     runs-on: self-hosted
@@ -23,3 +23,4 @@ jobs:
       - uses: actions/checkout@v2
       - run: platformio update
       - run: cd software && platformio test -e ATmega328PB -v
+
