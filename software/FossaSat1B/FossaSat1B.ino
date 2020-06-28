@@ -303,7 +303,8 @@ void loop() {
 
   uint32_t elapsedTotal = 2 + windowLenLoRa + windowLenFsk + activeElapsed + interval;
   if(beaconSent) {
-    elapsedTotal += 9; // transmitting full Morse beacon takes about 9 seconds
+    // transmitting full Morse beacon takes about 9 seconds
+    elapsedTotal += 9;
   } else {
     elapsedTotal += NUM_CW_BEEPS;
   }
