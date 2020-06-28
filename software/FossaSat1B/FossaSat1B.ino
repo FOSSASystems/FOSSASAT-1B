@@ -309,7 +309,7 @@ void loop() {
     elapsedTotal += NUM_CW_BEEPS;
   }
   FOSSASAT_DEBUG_PRINT(elapsedTotal);
-  FOSSASAT_DEBUG_PRINTLN(F(" total"))
+  FOSSASAT_DEBUG_PRINTLN(F(" tot"))
 
   uptimeCounter += elapsedTotal;
   Persistent_Storage_Write<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR,  uptimeCounter);
