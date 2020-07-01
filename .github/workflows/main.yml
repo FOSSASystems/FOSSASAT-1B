@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  AtMega328P:
+  Arduino-AtMega328P:
     runs-on: ubuntu-latest
     steps:
       - run: mkdir -p ~/.local/bin
@@ -20,14 +20,14 @@ jobs:
       - uses: actions/checkout@v2
       - run: cd software && arduino-cli compile -v --fqbn arduino:avr:pro:cpu=8MHzatmega328 FossaSat1B --warnings=all --build-path=$PWD/avr-build/
 
-  AtMega328PB:
+  Arduino-AtMega328PB:
     runs-on: ubuntu-latest
     steps:
       - run: mkdir -p ~/.local/bin
       - run: echo "::add-path::~/.local/bin"
       - run: curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=~/.local/bin sh
       - run: arduino-cli core update-index --additional-urls https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
-      - run: arduino-cli core install MiniCore:avr arduino:avr@1.8.2 --additional-urls https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
+      - run: arduino-cli core install MiniCore:avr --additional-urls https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json
       - run: arduino-cli lib update-index
       - run: arduino-cli lib install RadioLib
       - run: git clone https://github.com/FOSSASystems/FOSSA-Comms.git $HOME/Arduino/libraries/FOSSA-Comms
@@ -36,4 +36,15 @@ jobs:
       - run: git clone https://github.com/canique/Low-Power-Canique.git $HOME/Arduino/libraries/Low-Power
       - uses: actions/checkout@v2
       - run: cd software && arduino-cli compile -v --fqbn MiniCore:avr:328:bootloader=uart0,variant=modelPB,BOD=1v8,LTO=Os_flto,clock=8MHz_internal FossaSat1B --warnings=all --build-path=$PWD/avr-build/
+
+  cppcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt-get install build-essential
+      - run: git clone git://github.com/danmar/cppcheck.git ~/cppcheck
+      - run: cd ~/cppcheck && mkdir build && cd build
+      - run: cmake ..
+      - run: cmake --build .
+      - run: ls -al && tree
+
 
