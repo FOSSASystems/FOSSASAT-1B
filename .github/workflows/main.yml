@@ -3,12 +3,12 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build:
+  AtMega328P:
     runs-on: ubuntu-latest
     steps:
       - run: mkdir -p ~/.local/bin
       - run: echo "::add-path::~/.local/bin"
-      - run: curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sudo BINDIR=~/.local/bin sh
+      - run: curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=~/.local/bin sh
       - run: arduino-cli core update-index
       - run: arduino-cli lib update-index
       - run: arduino-cli core install arduino:avr@1.8.2
