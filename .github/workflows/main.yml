@@ -1,0 +1,20 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sudo BINDIR=~/local/bin sh
+      - run: arduino-cli core update-index
+      - run: arduino-cli lib update-index
+      - run: arduino-cli core install arduino:avr@1.8.2
+      - run: arduino-cli lib install RadioLib
+      - run: git clone https://github.com/FOSSASystems/FOSSA-Comms.git $HOME/Arduino/libraries/FOSSA-Comms
+      - run: git clone https://github.com/FOSSASystems/tiny-AES-c.git $HOME/Arduino/libraries/tiny-AES-c
+      - run: git clone https://github.com/jarzebski/Arduino-INA226.git $HOME/Arduino/libraries/Arduino-INA226
+      - run: git clone https://github.com/canique/Low-Power-Canique.git $HOME/Arduino/libraries/Low-Power
+      - uses: actions/checkout@v2
+      - run: cd software && arduino-cli compile -v --fqbn arduino:avr:pro:cpu=8MHzatmega328 FossaSat1B --warnings=all --build-path=$PWD/avr-build/
+
