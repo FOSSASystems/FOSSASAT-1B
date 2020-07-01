@@ -42,9 +42,8 @@ jobs:
     steps:
       - run: sudo apt-get install build-essential
       - run: git clone git://github.com/danmar/cppcheck.git ~/cppcheck
-      - run: cd ~/cppcheck && mkdir build && cd build
-      - run: cmake ..
-      - run: cmake --build .
-      - run: ls -al && tree
+      - run: mkdir ~/cppcheck/build
+      - run: cd ~/cppcheck/build && cmake .. && cmake --build .
+      - run: cd ~/cppcheck/build && ls -al && tree
 
 
