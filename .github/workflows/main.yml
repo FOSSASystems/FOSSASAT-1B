@@ -35,4 +35,5 @@ jobs:
       - run: git clone https://github.com/jarzebski/Arduino-INA226.git $HOME/Arduino/libraries/Arduino-INA226
       - run: git clone https://github.com/canique/Low-Power-Canique.git $HOME/Arduino/libraries/Low-Power
       - uses: actions/checkout@v2
-      - run: cd software && arduino-cli compile -v --fqbn minicore:avr:328:bootloader=uart0,variant=modelPB,BOD=1v8,LTO=Os_flto,clock=8MHz_internal FossaSat1B --warnings=all --build-path=$PWD/avr-build/
+      - run: cd software && arduino-cli compile -v --fqbn MiniCore:avr:328:bootloader=uart0,variant=modelPB,BOD=1v8,LTO=Os_flto,clock=8MHz_internal FossaSat1B --warnings=all --build-path=$PWD/avr-build/
+
