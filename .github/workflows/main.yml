@@ -40,9 +40,8 @@ jobs:
   cppcheck:
     runs-on: ubuntu-latest
     steps:
-      - run: sudo apt-get install build-essential
-      - run: git clone git://github.com/danmar/cppcheck.git ~/cppcheck
-      - run: cd ~/cppcheck && sudo make install MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function" && cd $GITHUB_WORKSPACE
+      - run: sudo apt install snapd && sudo snap install cppcheck
+      - run: cppcheck --version
       - uses: actions/checkout@v2
       - run: cd software && cppcheck --language=c++ -f -DRADIOLIB_VERSION=0xF0000000 -DRADIOLIB_STATIC_ONLY --enable=all --suppress=missingIncludeSystem --inconclusive --inline-suppr --error-exitcode=1 -IFossaSat1B FossaSat1B FossaSat1B/FossaSat1B.ino
 
@@ -50,6 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get install --no-install-recommends doxygen graphviz
+      - run: doxygen --version
       - uses: actions/checkout@v2
       - run: cd software && doxygen Doxyfile
 
