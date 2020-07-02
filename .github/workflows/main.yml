@@ -45,7 +45,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: Arduino-AtMega328PB
-          path: software/avr-build/*.hex software/avr-build/*.elf
+          path: software/avr-build/FossaSat1B.ino.hex software/avr-build/FossaSat1B.ino.elf software/avr-build/FossaSat1B.ino.with_bootloader.hex
 
   cppcheck:
     runs-on: ubuntu-latest
