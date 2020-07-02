@@ -1,6 +1,6 @@
 # FOSSASAT-1B
 
-[![Build Status](https://buildbot.fossa.systems/badges/FossaSat-1B.svg)](https://buildbot.fossa.systems/#/builders/1)
+[![Build Status](https://github.com/FOSSASystems/FOSSASAT-1B/workflows/CI/badge.svg)](https://github.com/FOSSASystems/FOSSASAT-1B/actions)
 
 [Doxygen Documentation](https://fossasystems.github.io/FOSSASAT-1B)
 
