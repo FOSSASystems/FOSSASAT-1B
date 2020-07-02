@@ -9,7 +9,7 @@ var power__control_8h =
     [ "Power_Control_Get_Charging_Current", "power__control_8h.html#a38b1cf7d6af2bdccef1488666b05eda6", null ],
     [ "Power_Control_Get_Charging_Voltage", "power__control_8h.html#ae60f6f685745e08c9ffbd6b6fbc025b9", null ],
     [ "Power_Control_Get_Sleep_Interval", "power__control_8h.html#aa26e5dcfde1aecf602a3a41ef6e205b8", null ],
-    [ "Power_Control_INA2256_Check", "power__control_8h.html#a9fbadbeff1c82c6268c5b6ed878aedc7", null ],
+    [ "Power_Control_INA226_Check", "power__control_8h.html#ac78b055f83071530eb3844378654db5e", null ],
     [ "Power_Control_Load_Configuration", "power__control_8h.html#a67027a313959753703a50352ee41b109", null ],
     [ "Power_Control_Save_Configuration", "power__control_8h.html#a18bd8cf80280cfba12636778283abf78", null ],
     [ "Power_Control_Setup_INA226", "power__control_8h.html#af06e9b8ca5da269e5b0bf31debe17740", null ],

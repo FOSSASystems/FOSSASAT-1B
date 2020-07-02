@@ -19,6 +19,7 @@ var searchData=
   ['eeprom_5ffsk_5finvalid_5fcounter_5faddr',['EEPROM_FSK_INVALID_COUNTER_ADDR',['../group__defines__eeprom__address__map.html#ga6fb56c8041b356cfc0e4de4731eeb4fd',1,'configuration.h']]],
   ['eeprom_5ffsk_5freceive_5flen_5faddr',['EEPROM_FSK_RECEIVE_LEN_ADDR',['../group__defines__eeprom__address__map.html#gab989de4b765c220d4eaaa36c0d182fd5',1,'configuration.h']]],
   ['eeprom_5ffsk_5fvalid_5fcounter_5faddr',['EEPROM_FSK_VALID_COUNTER_ADDR',['../group__defines__eeprom__address__map.html#gae0a7ddd98b2a6e5c878c65c223e8d1d9',1,'configuration.h']]],
+  ['eeprom_5floop_5fcounter',['EEPROM_LOOP_COUNTER',['../group__defines__eeprom__address__map.html#gaa512d20cb045b2b6e27676f5d3c9547f',1,'configuration.h']]],
   ['eeprom_5flora_5finvalid_5fcounter_5faddr',['EEPROM_LORA_INVALID_COUNTER_ADDR',['../group__defines__eeprom__address__map.html#ga09e7db19ac65e0c28bae5b46f25ffe36',1,'configuration.h']]],
   ['eeprom_5flora_5freceive_5flen_5faddr',['EEPROM_LORA_RECEIVE_LEN_ADDR',['../group__defines__eeprom__address__map.html#ga110fef28d82a0c77f7134cef20b16008',1,'configuration.h']]],
   ['eeprom_5flora_5fvalid_5fcounter_5faddr',['EEPROM_LORA_VALID_COUNTER_ADDR',['../group__defines__eeprom__address__map.html#gaa877b7e655f92a71a256bfb4406d4be7',1,'configuration.h']]],

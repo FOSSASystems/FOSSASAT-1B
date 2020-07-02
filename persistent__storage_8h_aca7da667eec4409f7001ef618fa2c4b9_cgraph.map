@@ -1,7 +1,5 @@
 <map id="Persistent_Storage_Write" name="Persistent_Storage_Write">
-<area shape="rect" id="node2" href="$persistent__storage_8h.html#a639d33b8a97eee3ccfaf9b7c00537cac" title="This functions clears the EEPROM by writing EEPROM_RESET_VALUE to each memory addres. " alt="" coords="206,58,387,85"/>
-<area shape="rect" id="node5" href="$persistent__storage_8h.html#a9642a7f1814ac81a5cc2b8b0a818aaba" title="This functions increments 2&#45;byte counter in EEPROM. " alt="" coords="461,135,613,176"/>
-<area shape="rect" id="node6" href="$persistent__storage_8h.html#a7ca0126c55391f2e2c48dc1bd4af4c9a" title="This functions increments one of frame counters of the currently active modem in EEPROM. " alt="" coords="197,160,396,201"/>
-<area shape="rect" id="node3" href="$power__control_8h.html#a18bd8cf80280cfba12636778283abf78" title="Saves the configuration bytes from RAM into EEPROM. " alt="" coords="461,5,613,47"/>
-<area shape="rect" id="node4" href="$system__info_8h.html#a51295b55492a253ad9c695525c40d458" title="Set the callsign to be used for each transmission to EEPROM. " alt="" coords="444,71,631,98"/>
+<area shape="rect" id="node2" href="$persistent__storage_8h.html#a639d33b8a97eee3ccfaf9b7c00537cac" title="This functions clears the EEPROM by writing EEPROM_RESET_VALUE to each memory addres. " alt="" coords="193,5,364,32"/>
+<area shape="rect" id="node3" href="$persistent__storage_8h.html#a9642a7f1814ac81a5cc2b8b0a818aaba" title="This functions increments 2&#45;byte counter in EEPROM. " alt="" coords="209,57,349,98"/>
+<area shape="rect" id="node4" href="$persistent__storage_8h.html#a7ca0126c55391f2e2c48dc1bd4af4c9a" title="This functions increments one of frame counters of the currently active modem in EEPROM. " alt="" coords="187,122,371,163"/>
 </map>

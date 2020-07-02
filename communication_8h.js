@@ -1,5 +1,6 @@
 var communication_8h =
 [
+    [ "Communication_Acknowledge", "communication_8h.html#a03f49b9aabc52b55893829b7069efc7b", null ],
     [ "Communication_Check_OptDataLen", "communication_8h.html#abe2c8a0d33c8d6a33fe6fd33c729a5a9", null ],
     [ "Communication_CW_Beep", "communication_8h.html#aee0a3df78da4459c808120a803c65b61", null ],
     [ "Communication_Execute_Function", "communication_8h.html#a834526d017e482716c6061772d644d5b", null ],

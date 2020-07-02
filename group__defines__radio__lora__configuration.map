@@ -1,6 +1,6 @@
 <map id="LoRa Radio Configuration" name="LoRa Radio Configuration">
-<area shape="rect" id="node1" href="$group__defines__radio__morse__cw__configuration.html" title="Morse/CW Radio Configuration" alt="" coords="389,5,603,32"/>
-<area shape="rect" id="node3" href="$group__defines__radio__non__ism__band__fsk__configuraiton.html" title="DescriptionValueUnits &#160;Carrier Frequency.436.7MHz Bit Rate.9.6Kbps Frequency Deviation.5.0KHz single&#45;sideband RX Bandwidth.19.5KHz single&#45;sideband Output Power.20dBm Preamble Length.16bits Data Shaping.0.5GFSK filter BT product Current Limit.160.0mA " alt="" coords="409,56,583,83"/>
-<area shape="rect" id="node5" href="$group__defines__radio__modem__configuration.html" title="Modem Identifiers" alt="" coords="428,107,564,133"/>
-<area shape="rect" id="node4" href="$group__configuration__page.html" title="Configuration" alt="" coords="5,56,112,83"/>
+<area shape="rect" id="node1" href="$group__defines__radio__morse__cw__configuration.html" title="Morse/CW Radio Configuration" alt="" coords="372,5,576,32"/>
+<area shape="rect" id="node3" href="$group__defines__radio__non__ism__band__fsk__configuraiton.html" title="DescriptionValueUnits &#160;Carrier Frequency.436.7MHz Bit Rate.9.6Kbps Frequency Deviation.5.0KHz single&#45;sideband RX Bandwidth.19.5KHz single&#45;sideband Output Power.20dBm Preamble Length.16bits Data Shaping.0.5GFSK filter BT product Current Limit.160.0mA " alt="" coords="391,56,557,83"/>
+<area shape="rect" id="node5" href="$group__defines__radio__modem__configuration.html" title="Modem Identifiers" alt="" coords="411,107,537,133"/>
+<area shape="rect" id="node4" href="$group__configuration__page.html" title="Configuration" alt="" coords="5,56,104,83"/>
 </map>

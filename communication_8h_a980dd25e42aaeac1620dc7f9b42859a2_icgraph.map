@@ -1,6 +1,3 @@
 <map id="Communication_Frame_Add" name="Communication_Frame_Add">
-<area shape="rect" id="node2" href="$communication_8h.html#ae4e350e62342431fda2184ff0dc47a65" title="Send the satellite&#39;s information via the configured radio settings. " alt="" coords="256,5,419,47"/>
-<area shape="rect" id="node3" href="$communication_8h.html#a834526d017e482716c6061772d644d5b" title="This function executes the given function id provided with the given data. " alt="" coords="467,76,648,117"/>
-<area shape="rect" id="node4" href="$communication_8h.html#ab6495de804d5d54d071fe8b4dd408aba" title="This function parses the internal contents of the message using the FOSSA COMMS Protocol. " alt="" coords="696,131,848,172"/>
-<area shape="rect" id="node5" href="$communication_8h.html#ad5052f7320724c62bfab348ea62c66ce" title="This function reads the contents of the radio when it receives a transmission. " alt="" coords="896,160,1076,201"/>
+<area shape="rect" id="node2" href="$communication_8h.html#ae4e350e62342431fda2184ff0dc47a65" title="Send the satellite&#39;s information via the configured radio settings. " alt="" coords="240,5,391,47"/>
 </map>

@@ -6,6 +6,7 @@ var group__defines__pin__map =
     [ "ANALOG_IN_SOLAR_C_VOLTAGE_PIN", "group__defines__pin__map.html#ga0810e1baf8fee374bd20c12df8035bb3", null ],
     [ "DIGITAL_OUT_MOSFET_1", "group__defines__pin__map.html#gaf1e5e3b5dc8bce89eaae616ec0549f57", null ],
     [ "DIGITAL_OUT_MOSFET_2", "group__defines__pin__map.html#ga8ca8e1d48d4ef0197942b0595a418691", null ],
+    [ "DIGITAL_OUT_MPPT_PIN", "group__defines__pin__map.html#ga86d0364d62209e854ee7dc783255e2fe", null ],
     [ "DIGITAL_OUT_WATCHDOG_HEARTBEAT", "group__defines__pin__map.html#ga69f1b8867057ee6b56bdcb0263a0d862", null ],
     [ "RADIO_BUSY", "group__defines__pin__map.html#gaffafa27b50d931e6ffbe8e0622ac9658", null ],
     [ "RADIO_DIO1", "group__defines__pin__map.html#gac9a997955646825175329d152f768687", null ],
