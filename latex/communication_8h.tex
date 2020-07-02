@@ -1,0 +1,540 @@
+\hypertarget{communication_8h}{}\section{Fossa\+Sat1\+B/communication.h File Reference}
+\label{communication_8h}\index{Fossa\+Sat1\+B/communication.\+h@{Fossa\+Sat1\+B/communication.\+h}}
+
+
+This system is the main interface that is used to transmit message, configure the radio and process received transmissions.  
+
+
+{\ttfamily \#include \char`\"{}Fossa\+Sat1\+B.\+h\char`\"{}}\newline
+Include dependency graph for communication.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{communication_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{communication_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{communication_8h_aaadcd86dea525de318e35078c63b3149}{Communication\+\_\+\+Receive\+\_\+\+Interrupt} ()
+\begin{DoxyCompactList}\small\item\em This function is called by the I\+SR when a transmission is received. \end{DoxyCompactList}\item 
+int16\+\_\+t \hyperlink{communication_8h_a0183d47f45dfdb348647c3db1a75b73c}{Communication\+\_\+\+Set\+\_\+\+Modem} (uint8\+\_\+t modem)
+\begin{DoxyCompactList}\small\item\em This function configures the radio to the given modem. \end{DoxyCompactList}\item 
+int16\+\_\+t \hyperlink{communication_8h_a59478c57f2735f94bf2f19a272a75c02}{Communication\+\_\+\+Set\+\_\+\+Configuration} (uint8\+\_\+t $\ast$opt\+Data, uint8\+\_\+t opt\+Data\+Len)
+\begin{DoxyCompactList}\small\item\em This function sets the configuration of the radio, which is used to Radio.\+Begin(). \end{DoxyCompactList}\item 
+int16\+\_\+t \hyperlink{communication_8h_ad184c979eb82cc1c8d4fc32a802cb758}{Communication\+\_\+\+Set\+\_\+\+Spreading\+Factor} (uint8\+\_\+t sf\+Mode)
+\begin{DoxyCompactList}\small\item\em This function sets the spreading factor of the radio. \end{DoxyCompactList}\item 
+void \hyperlink{communication_8h_a5db7440be24bedc9c14f12db46029968}{Communication\+\_\+\+Send\+\_\+\+Morse\+\_\+\+Beacon} (float batt\+Voltage)
+\begin{DoxyCompactList}\small\item\em This function transmits a morse beacon message. \end{DoxyCompactList}\item 
+void \hyperlink{communication_8h_aee0a3df78da4459c808120a803c65b61}{Communication\+\_\+\+C\+W\+\_\+\+Beep} (uint32\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em This function transmits a continous wave \char`\"{}\+B\+E\+E\+P\char`\"{}". \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{communication_8h_a980dd25e42aaeac1620dc7f9b42859a2}{Communication\+\_\+\+Frame\+\_\+\+Add} (uint8\+\_\+t $\ast$$\ast$buff\+Ptr, T val, const char $\ast$name, uint32\+\_\+t mult, const char $\ast$unit)
+\begin{DoxyCompactList}\small\item\em This function adds frame entry to a frame. \end{DoxyCompactList}\item 
+void \hyperlink{communication_8h_ae4e350e62342431fda2184ff0dc47a65}{Communication\+\_\+\+Send\+\_\+\+System\+\_\+\+Info} ()
+\begin{DoxyCompactList}\small\item\em Send the satellite\textquotesingle{}s information via the configured radio settings. \end{DoxyCompactList}\item 
+void \hyperlink{communication_8h_a03f49b9aabc52b55893829b7069efc7b}{Communication\+\_\+\+Acknowledge} (uint8\+\_\+t function\+Id, uint8\+\_\+t result)
+\begin{DoxyCompactList}\small\item\em This function sends acknowledge for a received frame. \end{DoxyCompactList}\item 
+void \hyperlink{communication_8h_ad5052f7320724c62bfab348ea62c66ce}{Communication\+\_\+\+Process\+\_\+\+Packet} ()
+\begin{DoxyCompactList}\small\item\em This function reads the contents of the radio when it receives a transmission. \end{DoxyCompactList}\item 
+void \hyperlink{communication_8h_ab6495de804d5d54d071fe8b4dd408aba}{Comunication\+\_\+\+Parse\+\_\+\+Frame} (uint8\+\_\+t $\ast$frame, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em This function parses the internal contents of the message using the F\+O\+S\+SA C\+O\+M\+MS Protocol. \end{DoxyCompactList}\item 
+void \hyperlink{communication_8h_a834526d017e482716c6061772d644d5b}{Communication\+\_\+\+Execute\+\_\+\+Function} (uint8\+\_\+t function\+Id, uint8\+\_\+t $\ast$opt\+Data=N\+U\+LL, size\+\_\+t opt\+Data\+Len=0)
+\begin{DoxyCompactList}\small\item\em This function executes the given function id provided with the given data. \end{DoxyCompactList}\item 
+int16\+\_\+t \hyperlink{communication_8h_af86331e2820ea70a7928919915937077}{Communication\+\_\+\+Send\+\_\+\+Response} (uint8\+\_\+t resp\+Id, uint8\+\_\+t $\ast$opt\+Data=nullptr, size\+\_\+t opt\+Data\+Len=0, bool override\+Modem=false)
+\begin{DoxyCompactList}\small\item\em Responds to a given function id execution (internally used). \end{DoxyCompactList}\item 
+int16\+\_\+t \hyperlink{communication_8h_a46802cdf83e9de4cab3ebd4a00256aeb}{Communication\+\_\+\+Transmit} (uint8\+\_\+t $\ast$data, uint8\+\_\+t len, bool override\+Modem=true)
+\begin{DoxyCompactList}\small\item\em Transmits the given data. \end{DoxyCompactList}\item 
+bool \hyperlink{communication_8h_abe2c8a0d33c8d6a33fe6fd33c729a5a9}{Communication\+\_\+\+Check\+\_\+\+Opt\+Data\+Len} (uint8\+\_\+t expected, uint8\+\_\+t actual)
+\begin{DoxyCompactList}\small\item\em Helper functions to check two variables are equal, with debug prints. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This system is the main interface that is used to transmit message, configure the radio and process received transmissions. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{communication_8h_a03f49b9aabc52b55893829b7069efc7b}\label{communication_8h_a03f49b9aabc52b55893829b7069efc7b}} 
+\index{communication.\+h@{communication.\+h}!Communication\+\_\+\+Acknowledge@{Communication\+\_\+\+Acknowledge}}
+\index{Communication\+\_\+\+Acknowledge@{Communication\+\_\+\+Acknowledge}!communication.\+h@{communication.\+h}}
+\subsubsection{\texorpdfstring{Communication\+\_\+\+Acknowledge()}{Communication\_Acknowledge()}}
+{\footnotesize\ttfamily void Communication\+\_\+\+Acknowledge (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{function\+Id,  }\item[{uint8\+\_\+t}]{result }\end{DoxyParamCaption})}
+
+
+
+This function sends acknowledge for a received frame. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000009}{Test}](ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T10) (S\+EV 1) Test that each command/packet is processed correctly.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em function\+Id} & Function ID to acknowledge. \\
+\hline
+{\em result} & Result of frame processing. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 238 of file communication.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{communication_8h_a03f49b9aabc52b55893829b7069efc7b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{communication_8h_a03f49b9aabc52b55893829b7069efc7b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{communication_8h_abe2c8a0d33c8d6a33fe6fd33c729a5a9}\label{communication_8h_abe2c8a0d33c8d6a33fe6fd33c729a5a9}} 
+\index{communication.\+h@{communication.\+h}!Communication\+\_\+\+Check\+\_\+\+Opt\+Data\+Len@{Communication\+\_\+\+Check\+\_\+\+Opt\+Data\+Len}}
+\index{Communication\+\_\+\+Check\+\_\+\+Opt\+Data\+Len@{Communication\+\_\+\+Check\+\_\+\+Opt\+Data\+Len}!communication.\+h@{communication.\+h}}
+\subsubsection{\texorpdfstring{Communication\+\_\+\+Check\+\_\+\+Opt\+Data\+Len()}{Communication\_Check\_OptDataLen()}}
+{\footnotesize\ttfamily bool Communication\+\_\+\+Check\+\_\+\+Opt\+Data\+Len (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{expected,  }\item[{uint8\+\_\+t}]{actual }\end{DoxyParamCaption})}
+
+
+
+Helper functions to check two variables are equal, with debug prints. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000015}{Test}](ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T14) (S\+EV 1) Check that this function equates correctly.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em expected} & The expected value \\
+\hline
+{\em actual} & The given value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true They are the same value. 
+
+false They are not the same value. 
+\end{DoxyReturn}
+
+
+Definition at line 798 of file communication.\+cpp.
+
+\mbox{\Hypertarget{communication_8h_aee0a3df78da4459c808120a803c65b61}\label{communication_8h_aee0a3df78da4459c808120a803c65b61}} 
+\index{communication.\+h@{communication.\+h}!Communication\+\_\+\+C\+W\+\_\+\+Beep@{Communication\+\_\+\+C\+W\+\_\+\+Beep}}
+\index{Communication\+\_\+\+C\+W\+\_\+\+Beep@{Communication\+\_\+\+C\+W\+\_\+\+Beep}!communication.\+h@{communication.\+h}}
+\subsubsection{\texorpdfstring{Communication\+\_\+\+C\+W\+\_\+\+Beep()}{Communication\_CW\_Beep()}}
+{\footnotesize\ttfamily void Communication\+\_\+\+C\+W\+\_\+\+Beep (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+This function transmits a continous wave \char`\"{}\+B\+E\+E\+P\char`\"{}". 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000006}{Test}](ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T7) (S\+EV 2) Test that the CW beep is received ok.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em len} & Length of the beep in ms, with 500 ms resolution \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 154 of file communication.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{communication_8h_aee0a3df78da4459c808120a803c65b61_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{communication_8h_a834526d017e482716c6061772d644d5b}\label{communication_8h_a834526d017e482716c6061772d644d5b}} 
+\index{communication.\+h@{communication.\+h}!Communication\+\_\+\+Execute\+\_\+\+Function@{Communication\+\_\+\+Execute\+\_\+\+Function}}
+\index{Communication\+\_\+\+Execute\+\_\+\+Function@{Communication\+\_\+\+Execute\+\_\+\+Function}!communication.\+h@{communication.\+h}}
+\subsubsection{\texorpdfstring{Communication\+\_\+\+Execute\+\_\+\+Function()}{Communication\_Execute\_Function()}}
+{\footnotesize\ttfamily void Communication\+\_\+\+Execute\+\_\+\+Function (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{function\+Id,  }\item[{uint8\+\_\+t $\ast$}]{opt\+Data = {\ttfamily NULL},  }\item[{size\+\_\+t}]{opt\+Data\+Len = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+This function executes the given function id provided with the given data. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000012}{Test}](ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T11) (S\+EV 1) Test that each command is responded to with the correct function and data.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em function\+Id} & The function to execute. \\
+\hline
+{\em opt\+Data} & The data to give to the function. \\
+\hline
+{\em opt\+Data\+Len} & The length of the data that is given to the function. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 375 of file communication.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{communication_8h_a834526d017e482716c6061772d644d5b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{communication_8h_a980dd25e42aaeac1620dc7f9b42859a2}\label{communication_8h_a980dd25e42aaeac1620dc7f9b42859a2}} 
+\index{communication.\+h@{communication.\+h}!Communication\+\_\+\+Frame\+\_\+\+Add@{Communication\+\_\+\+Frame\+\_\+\+Add}}
+\index{Communication\+\_\+\+Frame\+\_\+\+Add@{Communication\+\_\+\+Frame\+\_\+\+Add}!communication.\+h@{communication.\+h}}
+\subsubsection{\texorpdfstring{Communication\+\_\+\+Frame\+\_\+\+Add()}{Communication\_Frame\_Add()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void Communication\+\_\+\+Frame\+\_\+\+Add (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$$\ast$}]{buff\+Ptr,  }\item[{T}]{val,  }\item[{const char $\ast$}]{name,  }\item[{uint32\+\_\+t}]{mult,  }\item[{const char $\ast$}]{unit }\end{DoxyParamCaption})}
+
+
+
+This function adds frame entry to a frame. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000007}{Test}](ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T8) (S\+EV 1) Test that the system information is received correctly.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em buff\+Ptr} & Pointer to the frame buffer. \\
+\hline
+{\em val} & Value to be added. \\
+\hline
+{\em name} & Name of the parameter (debug only); \\
+\hline
+{\em mult} & Multiplier of the parameter (debug only); \\
+\hline
+{\em unit} & Unit of the parameter (debug only); \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 83 of file communication.\+h.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{communication_8h_a980dd25e42aaeac1620dc7f9b42859a2_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{communication_8h_ad5052f7320724c62bfab348ea62c66ce}\label{communication_8h_ad5052f7320724c62bfab348ea62c66ce}} 
+\index{communication.\+h@{communication.\+h}!Communication\+\_\+\+Process\+\_\+\+Packet@{Communication\+\_\+\+Process\+\_\+\+Packet}}
+\index{Communication\+\_\+\+Process\+\_\+\+Packet@{Communication\+\_\+\+Process\+\_\+\+Packet}!communication.\+h@{communication.\+h}}
+\subsubsection{\texorpdfstring{Communication\+\_\+\+Process\+\_\+\+Packet()}{Communication\_Process\_Packet()}}
+{\footnotesize\ttfamily void Communication\+\_\+\+Process\+\_\+\+Packet (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function reads the contents of the radio when it receives a transmission. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000010}{Test}](ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T9) (S\+EV 1) Test that each command/packet is processed correctly.\end{DoxyRefDesc}
+
+
+Definition at line 243 of file communication.\+cpp.
+
+\mbox{\Hypertarget{communication_8h_aaadcd86dea525de318e35078c63b3149}\label{communication_8h_aaadcd86dea525de318e35078c63b3149}} 
+\index{communication.\+h@{communication.\+h}!Communication\+\_\+\+Receive\+\_\+\+Interrupt@{Communication\+\_\+\+Receive\+\_\+\+Interrupt}}
+\index{Communication\+\_\+\+Receive\+\_\+\+Interrupt@{Communication\+\_\+\+Receive\+\_\+\+Interrupt}!communication.\+h@{communication.\+h}}
+\subsubsection{\texorpdfstring{Communication\+\_\+\+Receive\+\_\+\+Interrupt()}{Communication\_Receive\_Interrupt()}}
+{\footnotesize\ttfamily void Communication\+\_\+\+Receive\+\_\+\+Interrupt (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function is called by the I\+SR when a transmission is received. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000001}{Test}](ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T0) (S\+EV 1) Make sure this function is called when the radio receives data.\end{DoxyRefDesc}
+
+
+Definition at line 3 of file communication.\+cpp.
+
+\mbox{\Hypertarget{communication_8h_a5db7440be24bedc9c14f12db46029968}\label{communication_8h_a5db7440be24bedc9c14f12db46029968}} 
+\index{communication.\+h@{communication.\+h}!Communication\+\_\+\+Send\+\_\+\+Morse\+\_\+\+Beacon@{Communication\+\_\+\+Send\+\_\+\+Morse\+\_\+\+Beacon}}
+\index{Communication\+\_\+\+Send\+\_\+\+Morse\+\_\+\+Beacon@{Communication\+\_\+\+Send\+\_\+\+Morse\+\_\+\+Beacon}!communication.\+h@{communication.\+h}}
+\subsubsection{\texorpdfstring{Communication\+\_\+\+Send\+\_\+\+Morse\+\_\+\+Beacon()}{Communication\_Send\_Morse\_Beacon()}}
+{\footnotesize\ttfamily void Communication\+\_\+\+Send\+\_\+\+Morse\+\_\+\+Beacon (\begin{DoxyParamCaption}\item[{float}]{batt\+Voltage }\end{DoxyParamCaption})}
+
+
+
+This function transmits a morse beacon message. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000005}{Test}](ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T5) (S\+EV 1) Test that the beacon message can be received properly. 
+
+(ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T6) (S\+EV 1) Test that the beacon messages battery voltage is received ok.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em batt\+Voltage} & The battery voltage to send via morse code. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 123 of file communication.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{communication_8h_a5db7440be24bedc9c14f12db46029968_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{communication_8h_af86331e2820ea70a7928919915937077}\label{communication_8h_af86331e2820ea70a7928919915937077}} 
+\index{communication.\+h@{communication.\+h}!Communication\+\_\+\+Send\+\_\+\+Response@{Communication\+\_\+\+Send\+\_\+\+Response}}
+\index{Communication\+\_\+\+Send\+\_\+\+Response@{Communication\+\_\+\+Send\+\_\+\+Response}!communication.\+h@{communication.\+h}}
+\subsubsection{\texorpdfstring{Communication\+\_\+\+Send\+\_\+\+Response()}{Communication\_Send\_Response()}}
+{\footnotesize\ttfamily int16\+\_\+t Communication\+\_\+\+Send\+\_\+\+Response (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{resp\+Id,  }\item[{uint8\+\_\+t $\ast$}]{opt\+Data = {\ttfamily nullptr},  }\item[{size\+\_\+t}]{opt\+Data\+Len = {\ttfamily 0},  }\item[{bool}]{override\+Modem = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Responds to a given function id execution (internally used). 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000013}{Test}](ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T12) (S\+EV 1) Test that each response transmits correctly.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em resp\+Id} & Function ID to respond with. \\
+\hline
+{\em opt\+Data} & The data to respond with. \\
+\hline
+{\em opt\+Data\+Len} & The length of the data to respond with. \\
+\hline
+{\em override\+Modem} & Override the modem to use default Lo\+Ra modem and settings. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int16\+\_\+t The status code of the \hyperlink{communication_8h_a46802cdf83e9de4cab3ebd4a00256aeb}{Communication\+\_\+\+Transmit()} function. 
+\end{DoxyReturn}
+
+
+Definition at line 684 of file communication.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{communication_8h_af86331e2820ea70a7928919915937077_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{communication_8h_af86331e2820ea70a7928919915937077_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{communication_8h_ae4e350e62342431fda2184ff0dc47a65}\label{communication_8h_ae4e350e62342431fda2184ff0dc47a65}} 
+\index{communication.\+h@{communication.\+h}!Communication\+\_\+\+Send\+\_\+\+System\+\_\+\+Info@{Communication\+\_\+\+Send\+\_\+\+System\+\_\+\+Info}}
+\index{Communication\+\_\+\+Send\+\_\+\+System\+\_\+\+Info@{Communication\+\_\+\+Send\+\_\+\+System\+\_\+\+Info}!communication.\+h@{communication.\+h}}
+\subsubsection{\texorpdfstring{Communication\+\_\+\+Send\+\_\+\+System\+\_\+\+Info()}{Communication\_Send\_System\_Info()}}
+{\footnotesize\ttfamily void Communication\+\_\+\+Send\+\_\+\+System\+\_\+\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Send the satellite\textquotesingle{}s information via the configured radio settings. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000008}{Test}](ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T8) (S\+EV 1) Test that the system information is received correctly.\end{DoxyRefDesc}
+
+
+Definition at line 160 of file communication.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{communication_8h_ae4e350e62342431fda2184ff0dc47a65_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{communication_8h_a59478c57f2735f94bf2f19a272a75c02}\label{communication_8h_a59478c57f2735f94bf2f19a272a75c02}} 
+\index{communication.\+h@{communication.\+h}!Communication\+\_\+\+Set\+\_\+\+Configuration@{Communication\+\_\+\+Set\+\_\+\+Configuration}}
+\index{Communication\+\_\+\+Set\+\_\+\+Configuration@{Communication\+\_\+\+Set\+\_\+\+Configuration}!communication.\+h@{communication.\+h}}
+\subsubsection{\texorpdfstring{Communication\+\_\+\+Set\+\_\+\+Configuration()}{Communication\_Set\_Configuration()}}
+{\footnotesize\ttfamily int16\+\_\+t Communication\+\_\+\+Set\+\_\+\+Configuration (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{opt\+Data,  }\item[{uint8\+\_\+t}]{opt\+Data\+Len }\end{DoxyParamCaption})}
+
+
+
+This function sets the configuration of the radio, which is used to Radio.\+Begin(). 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000003}{Test}](ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T2) (S\+EV 1) Make sure the modem mode is changed with no errors.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em opt\+Data} & The data which is used to configure the radio. \\
+\hline
+{\em opt\+Data\+Len} & The length of the byte string given. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int16\+\_\+t The status code returned by the radio.\+Begin() function. 
+\end{DoxyReturn}
+
+
+Definition at line 91 of file communication.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{communication_8h_a59478c57f2735f94bf2f19a272a75c02_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{communication_8h_a0183d47f45dfdb348647c3db1a75b73c}\label{communication_8h_a0183d47f45dfdb348647c3db1a75b73c}} 
+\index{communication.\+h@{communication.\+h}!Communication\+\_\+\+Set\+\_\+\+Modem@{Communication\+\_\+\+Set\+\_\+\+Modem}}
+\index{Communication\+\_\+\+Set\+\_\+\+Modem@{Communication\+\_\+\+Set\+\_\+\+Modem}!communication.\+h@{communication.\+h}}
+\subsubsection{\texorpdfstring{Communication\+\_\+\+Set\+\_\+\+Modem()}{Communication\_Set\_Modem()}}
+{\footnotesize\ttfamily int16\+\_\+t Communication\+\_\+\+Set\+\_\+\+Modem (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{modem }\end{DoxyParamCaption})}
+
+
+
+This function configures the radio to the given modem. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000002}{Test}](ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T1) (S\+EV 1) Make sure the modem mode is changed with no errors.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em modem} & see \hyperlink{group__defines__radio__modem__configuration}{Modem Identifiers} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int16\+\_\+t The Radio\+Lib status code for .Begin(). 
+\end{DoxyReturn}
+
+
+Definition at line 13 of file communication.\+cpp.
+
+\mbox{\Hypertarget{communication_8h_ad184c979eb82cc1c8d4fc32a802cb758}\label{communication_8h_ad184c979eb82cc1c8d4fc32a802cb758}} 
+\index{communication.\+h@{communication.\+h}!Communication\+\_\+\+Set\+\_\+\+Spreading\+Factor@{Communication\+\_\+\+Set\+\_\+\+Spreading\+Factor}}
+\index{Communication\+\_\+\+Set\+\_\+\+Spreading\+Factor@{Communication\+\_\+\+Set\+\_\+\+Spreading\+Factor}!communication.\+h@{communication.\+h}}
+\subsubsection{\texorpdfstring{Communication\+\_\+\+Set\+\_\+\+Spreading\+Factor()}{Communication\_Set\_SpreadingFactor()}}
+{\footnotesize\ttfamily int16\+\_\+t Communication\+\_\+\+Set\+\_\+\+Spreading\+Factor (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{sf\+Mode }\end{DoxyParamCaption})}
+
+
+
+This function sets the spreading factor of the radio. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000004}{Test}](ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T3) (S\+EV 1) Make sure the radio\textquotesingle{}s spreading factor can be changed with no errors. 
+
+(ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T4) (S\+EV 1) Make sure the radio\textquotesingle{}s spreading factors are compatable with generic radios.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em sf\+Mode} & See defines\+\_\+radio\+\_\+lora\+\_\+configuraiton \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int16\+\_\+t The status code returned by the radio.\+set\+Spreading\+Factor() function. 
+\end{DoxyReturn}
+
+
+Definition at line 72 of file communication.\+cpp.
+
+\mbox{\Hypertarget{communication_8h_a46802cdf83e9de4cab3ebd4a00256aeb}\label{communication_8h_a46802cdf83e9de4cab3ebd4a00256aeb}} 
+\index{communication.\+h@{communication.\+h}!Communication\+\_\+\+Transmit@{Communication\+\_\+\+Transmit}}
+\index{Communication\+\_\+\+Transmit@{Communication\+\_\+\+Transmit}!communication.\+h@{communication.\+h}}
+\subsubsection{\texorpdfstring{Communication\+\_\+\+Transmit()}{Communication\_Transmit()}}
+{\footnotesize\ttfamily int16\+\_\+t Communication\+\_\+\+Transmit (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{data,  }\item[{uint8\+\_\+t}]{len,  }\item[{bool}]{override\+Modem = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Transmits the given data. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000014}{Test}](ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T13) (S\+EV 1) Check that each function/command transmits correctly.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & The byte array to transmit. \\
+\hline
+{\em len} & The length of the byte array to transmit. \\
+\hline
+{\em override\+Modem} & Override the modem to use default Lo\+Ra modem and settings. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int16\+\_\+t The status code of the Radio.\+Tranmit() function. 
+\end{DoxyReturn}
+
+
+Definition at line 705 of file communication.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{communication_8h_a46802cdf83e9de4cab3ebd4a00256aeb_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{communication_8h_ab6495de804d5d54d071fe8b4dd408aba}\label{communication_8h_ab6495de804d5d54d071fe8b4dd408aba}} 
+\index{communication.\+h@{communication.\+h}!Comunication\+\_\+\+Parse\+\_\+\+Frame@{Comunication\+\_\+\+Parse\+\_\+\+Frame}}
+\index{Comunication\+\_\+\+Parse\+\_\+\+Frame@{Comunication\+\_\+\+Parse\+\_\+\+Frame}!communication.\+h@{communication.\+h}}
+\subsubsection{\texorpdfstring{Comunication\+\_\+\+Parse\+\_\+\+Frame()}{Comunication\_Parse\_Frame()}}
+{\footnotesize\ttfamily void Comunication\+\_\+\+Parse\+\_\+\+Frame (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{frame,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+This function parses the internal contents of the message using the F\+O\+S\+SA C\+O\+M\+MS Protocol. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000011}{Test}](ID C\+O\+M\+M\+S\+\_\+\+H\+\_\+\+T10) (S\+EV 1) Test that each command/packet is processed correctly.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em frame} & The raw data to process. \\
+\hline
+{\em len} & The length of the raw data. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 290 of file communication.\+cpp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{communication_8h_ab6495de804d5d54d071fe8b4dd408aba_cgraph}
+\end{center}
+\end{figure}

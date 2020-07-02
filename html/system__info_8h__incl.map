@@ -1,0 +1,10 @@
+<map id="FossaSat1B/system_info.h" name="FossaSat1B/system_info.h">
+<area shape="rect" id="node2" href="$_fossa_sat1_b_8h_source.html" title="FossaSat1B.h" alt="" coords="887,80,992,107"/>
+<area shape="rect" id="node10" href="$communication_8h.html" title="This system is the main interface that is used to transmit message, configure the radio and process r..." alt="" coords="740,155,861,181"/>
+<area shape="rect" id="node11" href="$configuration_8h_source.html" title="configuration.h" alt="" coords="886,155,993,181"/>
+<area shape="rect" id="node12" href="$debugging__utilities_8h.html" title="debugging_utilities.h" alt="" coords="1017,155,1157,181"/>
+<area shape="rect" id="node13" href="$deployment_8h.html" title="The deployment sequence is outlined in the source deployment.cpp. " alt="" coords="1181,155,1281,181"/>
+<area shape="rect" id="node14" href="$persistent__storage_8h.html" title="This module controls access to the EEPROM. " alt="" coords="1305,155,1445,181"/>
+<area shape="rect" id="node16" href="$pin__interface_8h.html" title="This module controls access to the components connect to via pins. " alt="" coords="1470,155,1577,181"/>
+<area shape="rect" id="node17" href="$power__control_8h.html" title="power_control.h" alt="" coords="1601,155,1715,181"/>
+</map>

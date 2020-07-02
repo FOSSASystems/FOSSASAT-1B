@@ -1,0 +1,234 @@
+\hypertarget{group__defines__pin__map}{}\section{Pin Map}
+\label{group__defines__pin__map}\index{Pin Map@{Pin Map}}
+
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{5}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Description}&\textbf{ Arduino core pin}&\textbf{ Physical pin}&\textbf{ Mode}&\textbf{ Direction  }\\\cline{1-5}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Description}&\textbf{ Arduino core pin}&\textbf{ Physical pin}&\textbf{ Mode}&\textbf{ Direction  }\\\cline{1-5}
+\endhead
+Solar Cell A Voltage.&A0&P\+C0&A\+N\+A\+L\+OG&IN \\\cline{1-5}
+Solar Cell B Voltage.&A7&A\+D\+C7&A\+N\+A\+L\+OG&IN \\\cline{1-5}
+Solar Cell C Voltage.&A2&P\+C2&A\+N\+A\+L\+OG&IN \\\cline{1-5}
+Analog source for the random number generator (should be left floating).&A6&A\+D\+C6&A\+N\+A\+L\+OG&IN \\\cline{1-5}
+M\+P\+PT power control pin.&10&P\+B2&D\+I\+G\+I\+T\+AL&O\+UT \\\cline{1-5}
+Deployment mosfet number 1 (controls nicrome wires).&9&P\+B2&D\+I\+G\+I\+T\+AL&O\+UT \\\cline{1-5}
+Deployment mosfet number 2 (controls nicrome wires).&8&P\+B0&D\+I\+G\+I\+T\+AL&O\+UT \\\cline{1-5}
+Watchdog signal pin.&4&P\+D4&D\+I\+G\+I\+T\+AL&O\+UT \\\cline{1-5}
+Radio chip select.&7&P\+D7&D\+I\+G\+I\+T\+AL&O\+UT \\\cline{1-5}
+Radio digital pin 1 for reading direct data.&2&P\+D2&D\+I\+G\+I\+T\+AL&IN \\\cline{1-5}
+Radio B\+U\+SY pin.&6&P\+D6&D\+I\+G\+I\+T\+AL&IN \\\cline{1-5}
+Radio N\+R\+ST pin.&NC&N/A&N/A&N/A \\\cline{1-5}
+\end{longtabu}
+ 
+
+
+Collaboration diagram for Pin Map\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=243pt]{group__defines__pin__map}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__defines__pin__map_gaab66db65014df66541ac9eaa673ca3a2}{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+A\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN}~A0
+\item 
+\#define \hyperlink{group__defines__pin__map_ga8c7edf17cc2aeb690516a5a191a4f3fc}{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+B\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN}~A7
+\item 
+\#define \hyperlink{group__defines__pin__map_ga0810e1baf8fee374bd20c12df8035bb3}{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+C\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN}~A2
+\item 
+\#define \hyperlink{group__defines__pin__map_ga2c37472ba18c707ade2c29026d3ae381}{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+R\+A\+N\+D\+O\+M\+\_\+\+S\+E\+ED}~A6
+\item 
+\#define \hyperlink{group__defines__pin__map_ga86d0364d62209e854ee7dc783255e2fe}{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+P\+P\+T\+\_\+\+P\+IN}~5
+\item 
+\#define \hyperlink{group__defines__pin__map_gaf1e5e3b5dc8bce89eaae616ec0549f57}{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+1}~9
+\item 
+\#define \hyperlink{group__defines__pin__map_ga8ca8e1d48d4ef0197942b0595a418691}{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+2}~8
+\item 
+\#define \hyperlink{group__defines__pin__map_ga69f1b8867057ee6b56bdcb0263a0d862}{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+H\+E\+A\+R\+T\+B\+E\+AT}~4
+\item 
+\#define \hyperlink{group__defines__pin__map_gaecada0a0e3aa3c8f32ce02c1c55e2479}{R\+A\+D\+I\+O\+\_\+\+N\+SS}~7
+\item 
+\#define \hyperlink{group__defines__pin__map_gac9a997955646825175329d152f768687}{R\+A\+D\+I\+O\+\_\+\+D\+I\+O1}~2
+\item 
+\#define \hyperlink{group__defines__pin__map_gaffafa27b50d931e6ffbe8e0622ac9658}{R\+A\+D\+I\+O\+\_\+\+B\+U\+SY}~6
+\item 
+\#define \hyperlink{group__defines__pin__map_ga3cc20f8473f1a75e9957b05d5e220e36}{R\+A\+D\+I\+O\+\_\+\+N\+R\+ST}~R\+A\+D\+I\+O\+L\+I\+B\+\_\+\+NC
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{5}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Description}&\textbf{ Arduino core pin}&\textbf{ Physical pin}&\textbf{ Mode}&\textbf{ Direction  }\\\cline{1-5}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Description}&\textbf{ Arduino core pin}&\textbf{ Physical pin}&\textbf{ Mode}&\textbf{ Direction  }\\\cline{1-5}
+\endhead
+Solar Cell A Voltage.&A0&P\+C0&A\+N\+A\+L\+OG&IN \\\cline{1-5}
+Solar Cell B Voltage.&A7&A\+D\+C7&A\+N\+A\+L\+OG&IN \\\cline{1-5}
+Solar Cell C Voltage.&A2&P\+C2&A\+N\+A\+L\+OG&IN \\\cline{1-5}
+Analog source for the random number generator (should be left floating).&A6&A\+D\+C6&A\+N\+A\+L\+OG&IN \\\cline{1-5}
+M\+P\+PT power control pin.&10&P\+B2&D\+I\+G\+I\+T\+AL&O\+UT \\\cline{1-5}
+Deployment mosfet number 1 (controls nicrome wires).&9&P\+B2&D\+I\+G\+I\+T\+AL&O\+UT \\\cline{1-5}
+Deployment mosfet number 2 (controls nicrome wires).&8&P\+B0&D\+I\+G\+I\+T\+AL&O\+UT \\\cline{1-5}
+Watchdog signal pin.&4&P\+D4&D\+I\+G\+I\+T\+AL&O\+UT \\\cline{1-5}
+Radio chip select.&7&P\+D7&D\+I\+G\+I\+T\+AL&O\+UT \\\cline{1-5}
+Radio digital pin 1 for reading direct data.&2&P\+D2&D\+I\+G\+I\+T\+AL&IN \\\cline{1-5}
+Radio B\+U\+SY pin.&6&P\+D6&D\+I\+G\+I\+T\+AL&IN \\\cline{1-5}
+Radio N\+R\+ST pin.&NC&N/A&N/A&N/A \\\cline{1-5}
+\end{longtabu}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000002}{Todo}]Julian -\/$>$ Please check M\+P\+PT pin, seems to be connected to P\+D5 on some versions.\end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000022}{Test}](ID C\+O\+N\+F\+\_\+\+P\+I\+N\+\_\+\+M\+A\+P\+\_\+\+T0) (S\+EV 1) Check that solar panel A voltage can be read from A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+A\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN. 
+
+(ID C\+O\+N\+F\+\_\+\+P\+I\+N\+\_\+\+M\+A\+P\+\_\+\+T1) (S\+EV 1) Check that solar panel B voltage can be read from A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+B\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN. 
+
+(ID C\+O\+N\+F\+\_\+\+P\+I\+N\+\_\+\+M\+A\+P\+\_\+\+T2) (S\+EV 1) Check that solar panel C voltage can be read from A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+C\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN. 
+
+(ID C\+O\+N\+F\+\_\+\+P\+I\+N\+\_\+\+M\+A\+P\+\_\+\+T3) (S\+EV 1) Check that the random seed analog pin is suitable from A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+R\+A\+N\+D\+O\+M\+\_\+\+S\+E\+ED. 
+
+(ID C\+O\+N\+F\+\_\+\+P\+I\+N\+\_\+\+M\+A\+P\+\_\+\+T4) (S\+EV 1) Check that the M\+P\+PT circuit is controlled correctly using D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+P\+P\+T\+\_\+\+P\+IN. 
+
+(ID C\+O\+N\+F\+\_\+\+P\+I\+N\+\_\+\+M\+A\+P\+\_\+\+T5) (S\+EV 1) Check that the deployment hardware deploys when D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+1 and D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+2 are brought high. 
+
+(ID C\+O\+N\+F\+\_\+\+P\+I\+N\+\_\+\+M\+A\+P\+\_\+\+T6) (S\+EV 1) Check that the radio can be communicated with using pins R\+A\+D\+I\+O\+\_\+\+N\+SS, R\+A\+D\+I\+O\+\_\+\+D\+I\+O1, R\+A\+D\+I\+O\+\_\+\+B\+U\+SY and R\+A\+D\+I\+O\+\_\+\+N\+R\+ST.\end{DoxyRefDesc}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{group__defines__pin__map_ga2c37472ba18c707ade2c29026d3ae381}\label{group__defines__pin__map_ga2c37472ba18c707ade2c29026d3ae381}} 
+\index{Pin Map@{Pin Map}!A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+R\+A\+N\+D\+O\+M\+\_\+\+S\+E\+ED@{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+R\+A\+N\+D\+O\+M\+\_\+\+S\+E\+ED}}
+\index{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+R\+A\+N\+D\+O\+M\+\_\+\+S\+E\+ED@{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+R\+A\+N\+D\+O\+M\+\_\+\+S\+E\+ED}!Pin Map@{Pin Map}}
+\subsubsection{\texorpdfstring{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+R\+A\+N\+D\+O\+M\+\_\+\+S\+E\+ED}{ANALOG\_IN\_RANDOM\_SEED}}
+{\footnotesize\ttfamily \#define A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+R\+A\+N\+D\+O\+M\+\_\+\+S\+E\+ED~A6}
+
+A\+D\+C6; used as source for random\+Seed(), should be left floating 
+
+Definition at line 407 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__pin__map_gaab66db65014df66541ac9eaa673ca3a2}\label{group__defines__pin__map_gaab66db65014df66541ac9eaa673ca3a2}} 
+\index{Pin Map@{Pin Map}!A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+A\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN@{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+A\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN}}
+\index{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+A\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN@{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+A\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN}!Pin Map@{Pin Map}}
+\subsubsection{\texorpdfstring{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+A\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN}{ANALOG\_IN\_SOLAR\_A\_VOLTAGE\_PIN}}
+{\footnotesize\ttfamily \#define A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+A\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN~A0}
+
+P\+C0 
+
+Definition at line 404 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__pin__map_ga8c7edf17cc2aeb690516a5a191a4f3fc}\label{group__defines__pin__map_ga8c7edf17cc2aeb690516a5a191a4f3fc}} 
+\index{Pin Map@{Pin Map}!A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+B\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN@{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+B\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN}}
+\index{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+B\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN@{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+B\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN}!Pin Map@{Pin Map}}
+\subsubsection{\texorpdfstring{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+B\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN}{ANALOG\_IN\_SOLAR\_B\_VOLTAGE\_PIN}}
+{\footnotesize\ttfamily \#define A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+B\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN~A7}
+
+A\+D\+C7 
+
+Definition at line 405 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__pin__map_ga0810e1baf8fee374bd20c12df8035bb3}\label{group__defines__pin__map_ga0810e1baf8fee374bd20c12df8035bb3}} 
+\index{Pin Map@{Pin Map}!A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+C\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN@{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+C\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN}}
+\index{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+C\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN@{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+C\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN}!Pin Map@{Pin Map}}
+\subsubsection{\texorpdfstring{A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+C\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN}{ANALOG\_IN\_SOLAR\_C\_VOLTAGE\_PIN}}
+{\footnotesize\ttfamily \#define A\+N\+A\+L\+O\+G\+\_\+\+I\+N\+\_\+\+S\+O\+L\+A\+R\+\_\+\+C\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+P\+IN~A2}
+
+P\+C2 
+
+Definition at line 406 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__pin__map_gaf1e5e3b5dc8bce89eaae616ec0549f57}\label{group__defines__pin__map_gaf1e5e3b5dc8bce89eaae616ec0549f57}} 
+\index{Pin Map@{Pin Map}!D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+1@{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+1}}
+\index{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+1@{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+1}!Pin Map@{Pin Map}}
+\subsubsection{\texorpdfstring{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+1}{DIGITAL\_OUT\_MOSFET\_1}}
+{\footnotesize\ttfamily \#define D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+1~9}
+
+P\+B1 
+
+Definition at line 409 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__pin__map_ga8ca8e1d48d4ef0197942b0595a418691}\label{group__defines__pin__map_ga8ca8e1d48d4ef0197942b0595a418691}} 
+\index{Pin Map@{Pin Map}!D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+2@{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+2}}
+\index{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+2@{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+2}!Pin Map@{Pin Map}}
+\subsubsection{\texorpdfstring{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+2}{DIGITAL\_OUT\_MOSFET\_2}}
+{\footnotesize\ttfamily \#define D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+O\+S\+F\+E\+T\+\_\+2~8}
+
+P\+B0 
+
+Definition at line 410 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__pin__map_ga86d0364d62209e854ee7dc783255e2fe}\label{group__defines__pin__map_ga86d0364d62209e854ee7dc783255e2fe}} 
+\index{Pin Map@{Pin Map}!D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+P\+P\+T\+\_\+\+P\+IN@{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+P\+P\+T\+\_\+\+P\+IN}}
+\index{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+P\+P\+T\+\_\+\+P\+IN@{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+P\+P\+T\+\_\+\+P\+IN}!Pin Map@{Pin Map}}
+\subsubsection{\texorpdfstring{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+P\+P\+T\+\_\+\+P\+IN}{DIGITAL\_OUT\_MPPT\_PIN}}
+{\footnotesize\ttfamily \#define D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+M\+P\+P\+T\+\_\+\+P\+IN~5}
+
+P\+B2 
+
+Definition at line 408 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__pin__map_ga69f1b8867057ee6b56bdcb0263a0d862}\label{group__defines__pin__map_ga69f1b8867057ee6b56bdcb0263a0d862}} 
+\index{Pin Map@{Pin Map}!D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+H\+E\+A\+R\+T\+B\+E\+AT@{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+H\+E\+A\+R\+T\+B\+E\+AT}}
+\index{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+H\+E\+A\+R\+T\+B\+E\+AT@{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+H\+E\+A\+R\+T\+B\+E\+AT}!Pin Map@{Pin Map}}
+\subsubsection{\texorpdfstring{D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+H\+E\+A\+R\+T\+B\+E\+AT}{DIGITAL\_OUT\_WATCHDOG\_HEARTBEAT}}
+{\footnotesize\ttfamily \#define D\+I\+G\+I\+T\+A\+L\+\_\+\+O\+U\+T\+\_\+\+W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+H\+E\+A\+R\+T\+B\+E\+AT~4}
+
+P\+D4 
+
+Definition at line 411 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__pin__map_gaffafa27b50d931e6ffbe8e0622ac9658}\label{group__defines__pin__map_gaffafa27b50d931e6ffbe8e0622ac9658}} 
+\index{Pin Map@{Pin Map}!R\+A\+D\+I\+O\+\_\+\+B\+U\+SY@{R\+A\+D\+I\+O\+\_\+\+B\+U\+SY}}
+\index{R\+A\+D\+I\+O\+\_\+\+B\+U\+SY@{R\+A\+D\+I\+O\+\_\+\+B\+U\+SY}!Pin Map@{Pin Map}}
+\subsubsection{\texorpdfstring{R\+A\+D\+I\+O\+\_\+\+B\+U\+SY}{RADIO\_BUSY}}
+{\footnotesize\ttfamily \#define R\+A\+D\+I\+O\+\_\+\+B\+U\+SY~6}
+
+P\+D6 
+
+Definition at line 414 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__pin__map_gac9a997955646825175329d152f768687}\label{group__defines__pin__map_gac9a997955646825175329d152f768687}} 
+\index{Pin Map@{Pin Map}!R\+A\+D\+I\+O\+\_\+\+D\+I\+O1@{R\+A\+D\+I\+O\+\_\+\+D\+I\+O1}}
+\index{R\+A\+D\+I\+O\+\_\+\+D\+I\+O1@{R\+A\+D\+I\+O\+\_\+\+D\+I\+O1}!Pin Map@{Pin Map}}
+\subsubsection{\texorpdfstring{R\+A\+D\+I\+O\+\_\+\+D\+I\+O1}{RADIO\_DIO1}}
+{\footnotesize\ttfamily \#define R\+A\+D\+I\+O\+\_\+\+D\+I\+O1~2}
+
+P\+D2 
+
+Definition at line 413 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__pin__map_ga3cc20f8473f1a75e9957b05d5e220e36}\label{group__defines__pin__map_ga3cc20f8473f1a75e9957b05d5e220e36}} 
+\index{Pin Map@{Pin Map}!R\+A\+D\+I\+O\+\_\+\+N\+R\+ST@{R\+A\+D\+I\+O\+\_\+\+N\+R\+ST}}
+\index{R\+A\+D\+I\+O\+\_\+\+N\+R\+ST@{R\+A\+D\+I\+O\+\_\+\+N\+R\+ST}!Pin Map@{Pin Map}}
+\subsubsection{\texorpdfstring{R\+A\+D\+I\+O\+\_\+\+N\+R\+ST}{RADIO\_NRST}}
+{\footnotesize\ttfamily \#define R\+A\+D\+I\+O\+\_\+\+N\+R\+ST~R\+A\+D\+I\+O\+L\+I\+B\+\_\+\+NC}
+
+Not connected 
+
+Definition at line 415 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__pin__map_gaecada0a0e3aa3c8f32ce02c1c55e2479}\label{group__defines__pin__map_gaecada0a0e3aa3c8f32ce02c1c55e2479}} 
+\index{Pin Map@{Pin Map}!R\+A\+D\+I\+O\+\_\+\+N\+SS@{R\+A\+D\+I\+O\+\_\+\+N\+SS}}
+\index{R\+A\+D\+I\+O\+\_\+\+N\+SS@{R\+A\+D\+I\+O\+\_\+\+N\+SS}!Pin Map@{Pin Map}}
+\subsubsection{\texorpdfstring{R\+A\+D\+I\+O\+\_\+\+N\+SS}{RADIO\_NSS}}
+{\footnotesize\ttfamily \#define R\+A\+D\+I\+O\+\_\+\+N\+SS~7}
+
+P\+D7 
+
+Definition at line 412 of file configuration.\+h.
+

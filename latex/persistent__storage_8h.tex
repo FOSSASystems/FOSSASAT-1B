@@ -1,0 +1,216 @@
+\hypertarget{persistent__storage_8h}{}\section{Fossa\+Sat1\+B/persistent\+\_\+storage.h File Reference}
+\label{persistent__storage_8h}\index{Fossa\+Sat1\+B/persistent\+\_\+storage.\+h@{Fossa\+Sat1\+B/persistent\+\_\+storage.\+h}}
+
+
+This module controls access to the E\+E\+P\+R\+OM.  
+
+
+{\ttfamily \#include \char`\"{}Fossa\+Sat1\+B.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$E\+E\+P\+R\+O\+M.\+h$>$}\newline
+Include dependency graph for persistent\+\_\+storage.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{persistent__storage_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{persistent__storage_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\T \hyperlink{persistent__storage_8h_a188438a1c042e8a73932cab87f5b66ec}{Persistent\+\_\+\+Storage\+\_\+\+Read} (uint16\+\_\+t addr)
+\begin{DoxyCompactList}\small\item\em This function reads a value of type T from E\+E\+P\+R\+OM. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{persistent__storage_8h_aca7da667eec4409f7001ef618fa2c4b9}{Persistent\+\_\+\+Storage\+\_\+\+Write} (uint16\+\_\+t addr, T val)
+\begin{DoxyCompactList}\small\item\em This function writes a value of type T to the eerom. \end{DoxyCompactList}\item 
+void \hyperlink{persistent__storage_8h_a639d33b8a97eee3ccfaf9b7c00537cac}{Persistent\+\_\+\+Storage\+\_\+\+Wipe} ()
+\begin{DoxyCompactList}\small\item\em This functions clears the E\+E\+P\+R\+OM by writing E\+E\+P\+R\+O\+M\+\_\+\+R\+E\+S\+E\+T\+\_\+\+V\+A\+L\+UE to each memory addres. \end{DoxyCompactList}\item 
+void \hyperlink{persistent__storage_8h_a9642a7f1814ac81a5cc2b8b0a818aaba}{Persistent\+\_\+\+Storage\+\_\+\+Increment\+\_\+\+Counter} (uint16\+\_\+t addr)
+\begin{DoxyCompactList}\small\item\em This functions increments 2-\/byte counter in E\+E\+P\+R\+OM. \end{DoxyCompactList}\item 
+void \hyperlink{persistent__storage_8h_a7ca0126c55391f2e2c48dc1bd4af4c9a}{Persistent\+\_\+\+Storage\+\_\+\+Increment\+\_\+\+Frame\+\_\+\+Counter} (bool valid)
+\begin{DoxyCompactList}\small\item\em This functions increments one of frame counters of the currently active modem in E\+E\+P\+R\+OM. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{persistent__storage_8h_aa4b2798d95c617815859a53d38b20f16}{Persistent\+\_\+\+Storage\+\_\+\+Update\+\_\+\+Stats} (uint16\+\_\+t addr, T val)
+\begin{DoxyCompactList}\small\item\em Updates minimum, average and maximum stats in E\+E\+P\+R\+OM. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This module controls access to the E\+E\+P\+R\+OM. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{persistent__storage_8h_a9642a7f1814ac81a5cc2b8b0a818aaba}\label{persistent__storage_8h_a9642a7f1814ac81a5cc2b8b0a818aaba}} 
+\index{persistent\+\_\+storage.\+h@{persistent\+\_\+storage.\+h}!Persistent\+\_\+\+Storage\+\_\+\+Increment\+\_\+\+Counter@{Persistent\+\_\+\+Storage\+\_\+\+Increment\+\_\+\+Counter}}
+\index{Persistent\+\_\+\+Storage\+\_\+\+Increment\+\_\+\+Counter@{Persistent\+\_\+\+Storage\+\_\+\+Increment\+\_\+\+Counter}!persistent\+\_\+storage.\+h@{persistent\+\_\+storage.\+h}}
+\subsubsection{\texorpdfstring{Persistent\+\_\+\+Storage\+\_\+\+Increment\+\_\+\+Counter()}{Persistent\_Storage\_Increment\_Counter()}}
+{\footnotesize\ttfamily void Persistent\+\_\+\+Storage\+\_\+\+Increment\+\_\+\+Counter (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{addr }\end{DoxyParamCaption})}
+
+
+
+This functions increments 2-\/byte counter in E\+E\+P\+R\+OM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & The address of counter to increment \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 55 of file persistent\+\_\+storage.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=321pt]{persistent__storage_8h_a9642a7f1814ac81a5cc2b8b0a818aaba_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{persistent__storage_8h_a7ca0126c55391f2e2c48dc1bd4af4c9a}\label{persistent__storage_8h_a7ca0126c55391f2e2c48dc1bd4af4c9a}} 
+\index{persistent\+\_\+storage.\+h@{persistent\+\_\+storage.\+h}!Persistent\+\_\+\+Storage\+\_\+\+Increment\+\_\+\+Frame\+\_\+\+Counter@{Persistent\+\_\+\+Storage\+\_\+\+Increment\+\_\+\+Frame\+\_\+\+Counter}}
+\index{Persistent\+\_\+\+Storage\+\_\+\+Increment\+\_\+\+Frame\+\_\+\+Counter@{Persistent\+\_\+\+Storage\+\_\+\+Increment\+\_\+\+Frame\+\_\+\+Counter}!persistent\+\_\+storage.\+h@{persistent\+\_\+storage.\+h}}
+\subsubsection{\texorpdfstring{Persistent\+\_\+\+Storage\+\_\+\+Increment\+\_\+\+Frame\+\_\+\+Counter()}{Persistent\_Storage\_Increment\_Frame\_Counter()}}
+{\footnotesize\ttfamily void Persistent\+\_\+\+Storage\+\_\+\+Increment\+\_\+\+Frame\+\_\+\+Counter (\begin{DoxyParamCaption}\item[{bool}]{valid }\end{DoxyParamCaption})}
+
+
+
+This functions increments one of frame counters of the currently active modem in E\+E\+P\+R\+OM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em valid} & Whether to increment valid or invalid counter \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 59 of file persistent\+\_\+storage.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{persistent__storage_8h_a7ca0126c55391f2e2c48dc1bd4af4c9a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{persistent__storage_8h_a188438a1c042e8a73932cab87f5b66ec}\label{persistent__storage_8h_a188438a1c042e8a73932cab87f5b66ec}} 
+\index{persistent\+\_\+storage.\+h@{persistent\+\_\+storage.\+h}!Persistent\+\_\+\+Storage\+\_\+\+Read@{Persistent\+\_\+\+Storage\+\_\+\+Read}}
+\index{Persistent\+\_\+\+Storage\+\_\+\+Read@{Persistent\+\_\+\+Storage\+\_\+\+Read}!persistent\+\_\+storage.\+h@{persistent\+\_\+storage.\+h}}
+\subsubsection{\texorpdfstring{Persistent\+\_\+\+Storage\+\_\+\+Read()}{Persistent\_Storage\_Read()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T Persistent\+\_\+\+Storage\+\_\+\+Read (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{addr }\end{DoxyParamCaption})}
+
+
+
+This function reads a value of type T from E\+E\+P\+R\+OM. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & Memory address. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T 
+\end{DoxyReturn}
+
+
+Definition at line 22 of file persistent\+\_\+storage.\+h.
+
+\mbox{\Hypertarget{persistent__storage_8h_aa4b2798d95c617815859a53d38b20f16}\label{persistent__storage_8h_aa4b2798d95c617815859a53d38b20f16}} 
+\index{persistent\+\_\+storage.\+h@{persistent\+\_\+storage.\+h}!Persistent\+\_\+\+Storage\+\_\+\+Update\+\_\+\+Stats@{Persistent\+\_\+\+Storage\+\_\+\+Update\+\_\+\+Stats}}
+\index{Persistent\+\_\+\+Storage\+\_\+\+Update\+\_\+\+Stats@{Persistent\+\_\+\+Storage\+\_\+\+Update\+\_\+\+Stats}!persistent\+\_\+storage.\+h@{persistent\+\_\+storage.\+h}}
+\subsubsection{\texorpdfstring{Persistent\+\_\+\+Storage\+\_\+\+Update\+\_\+\+Stats()}{Persistent\_Storage\_Update\_Stats()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void Persistent\+\_\+\+Storage\+\_\+\+Update\+\_\+\+Stats (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{addr,  }\item[{T}]{val }\end{DoxyParamCaption})}
+
+
+
+Updates minimum, average and maximum stats in E\+E\+P\+R\+OM. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & Memory address. \\
+\hline
+{\em val} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 73 of file persistent\+\_\+storage.\+h.
+
+\mbox{\Hypertarget{persistent__storage_8h_a639d33b8a97eee3ccfaf9b7c00537cac}\label{persistent__storage_8h_a639d33b8a97eee3ccfaf9b7c00537cac}} 
+\index{persistent\+\_\+storage.\+h@{persistent\+\_\+storage.\+h}!Persistent\+\_\+\+Storage\+\_\+\+Wipe@{Persistent\+\_\+\+Storage\+\_\+\+Wipe}}
+\index{Persistent\+\_\+\+Storage\+\_\+\+Wipe@{Persistent\+\_\+\+Storage\+\_\+\+Wipe}!persistent\+\_\+storage.\+h@{persistent\+\_\+storage.\+h}}
+\subsubsection{\texorpdfstring{Persistent\+\_\+\+Storage\+\_\+\+Wipe()}{Persistent\_Storage\_Wipe()}}
+{\footnotesize\ttfamily void Persistent\+\_\+\+Storage\+\_\+\+Wipe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This functions clears the E\+E\+P\+R\+OM by writing E\+E\+P\+R\+O\+M\+\_\+\+R\+E\+S\+E\+T\+\_\+\+V\+A\+L\+UE to each memory addres. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000032}{Test}](ID P\+E\+R\+S\+I\+S\+\_\+\+S\+T\+O\+R\+\_\+\+H\+\_\+\+T0) (S\+EV 1) Does the E\+E\+P\+R\+OM enter a valid state after this function is ran?\end{DoxyRefDesc}
+
+
+Definition at line 3 of file persistent\+\_\+storage.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{persistent__storage_8h_a639d33b8a97eee3ccfaf9b7c00537cac_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{persistent__storage_8h_aca7da667eec4409f7001ef618fa2c4b9}\label{persistent__storage_8h_aca7da667eec4409f7001ef618fa2c4b9}} 
+\index{persistent\+\_\+storage.\+h@{persistent\+\_\+storage.\+h}!Persistent\+\_\+\+Storage\+\_\+\+Write@{Persistent\+\_\+\+Storage\+\_\+\+Write}}
+\index{Persistent\+\_\+\+Storage\+\_\+\+Write@{Persistent\+\_\+\+Storage\+\_\+\+Write}!persistent\+\_\+storage.\+h@{persistent\+\_\+storage.\+h}}
+\subsubsection{\texorpdfstring{Persistent\+\_\+\+Storage\+\_\+\+Write()}{Persistent\_Storage\_Write()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void Persistent\+\_\+\+Storage\+\_\+\+Write (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{addr,  }\item[{T}]{val }\end{DoxyParamCaption})}
+
+
+
+This function writes a value of type T to the eerom. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & Memory address. \\
+\hline
+{\em val} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 36 of file persistent\+\_\+storage.\+h.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{persistent__storage_8h_aca7da667eec4409f7001ef618fa2c4b9_cgraph}
+\end{center}
+\end{figure}

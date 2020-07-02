@@ -1,0 +1,7 @@
+<map id="Communication_Execute_Function" name="Communication_Execute_Function">
+<area shape="rect" id="node2" href="$persistent__storage_8h.html#a7ca0126c55391f2e2c48dc1bd4af4c9a" title="This functions increments one of frame counters of the currently active modem in EEPROM. " alt="" coords="241,5,425,47"/>
+<area shape="rect" id="node3" href="$communication_8h.html#a03f49b9aabc52b55893829b7069efc7b" title="This function sends acknowledge for a received frame. " alt="" coords="234,71,433,98"/>
+<area shape="rect" id="node4" href="$communication_8h.html#af86331e2820ea70a7928919915937077" title="Responds to a given function id execution (internally used). " alt="" coords="493,89,644,131"/>
+<area shape="rect" id="node6" href="$communication_8h.html#a59478c57f2735f94bf2f19a272a75c02" title="This function sets the configuration of the radio, which is used to Radio.Begin(). " alt="" coords="221,173,445,199"/>
+<area shape="rect" id="node5" href="$system__info_8h.html#a4ba2aee682a65d201b020b7fcf20939c" title="Gets the callsign which is current set in EEPROM. " alt="" coords="692,97,871,123"/>
+</map>

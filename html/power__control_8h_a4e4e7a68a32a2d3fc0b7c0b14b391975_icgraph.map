@@ -1,0 +1,10 @@
+<map id="Power_Control_Charge" name="Power_Control_Charge">
+<area shape="rect" id="node2" href="$power__control_8h.html#a6e2a22c1b8940caf3a89cf6f5e21e120" title="Get the battery voltage by switching the MPPT off and then on again after reading is taken..." alt="" coords="211,71,396,112"/>
+<area shape="rect" id="node3" href="$communication_8h.html#ae4e350e62342431fda2184ff0dc47a65" title="Send the satellite&#39;s information via the configured radio settings. " alt="" coords="457,5,607,47"/>
+<area shape="rect" id="node4" href="$power__control_8h.html#aa26e5dcfde1aecf602a3a41ef6e205b8" title="Get the amount of seconds to sleep for given the battery voltage. " alt="" coords="444,71,620,112"/>
+<area shape="rect" id="node5" href="$power__control_8h.html#a3dcf47e9ee8d130075c4466692810370" title="Checks whether battery voltage is below low power limit. Will enable low power mode if that is the ca..." alt="" coords="455,136,609,177"/>
+<area shape="rect" id="node6" href="$pin__interface_8h.html#a912aff671fe4db53ca23520a1d203d6f" title="This function toggles the signal to the watchdog and writes it to the pin. " alt="" coords="668,136,833,177"/>
+<area shape="rect" id="node7" href="$communication_8h.html#a5db7440be24bedc9c14f12db46029968" title="This function transmits a morse beacon message. " alt="" coords="881,107,1032,148"/>
+<area shape="rect" id="node8" href="$power__control_8h.html#a3bff1402f7ac79b23628326e3fd7b560" title="This function delays the program execution for the given number of milliseconds, while maintaining th..." alt="" coords="882,173,1031,199"/>
+<area shape="rect" id="node9" href="$communication_8h.html#aee0a3df78da4459c808120a803c65b61" title="This function transmits a continous wave &quot;BEEP&quot;&quot;. " alt="" coords="1080,173,1260,199"/>
+</map>

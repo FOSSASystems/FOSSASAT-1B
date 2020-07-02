@@ -1,0 +1,94 @@
+\hypertarget{system__info_8h}{}\section{Fossa\+Sat1\+B/system\+\_\+info.h File Reference}
+\label{system__info_8h}\index{Fossa\+Sat1\+B/system\+\_\+info.\+h@{Fossa\+Sat1\+B/system\+\_\+info.\+h}}
+{\ttfamily \#include \char`\"{}Fossa\+Sat1\+B.\+h\char`\"{}}\newline
+Include dependency graph for system\+\_\+info.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{system__info_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{system__info_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{system__info_8h_a51295b55492a253ad9c695525c40d458}{System\+\_\+\+Info\+\_\+\+Set\+\_\+\+Callsign} (char $\ast$new\+Callsign)
+\begin{DoxyCompactList}\small\item\em Set the callsign to be used for each transmission to E\+E\+P\+R\+OM. \end{DoxyCompactList}\item 
+void \hyperlink{system__info_8h_a4ba2aee682a65d201b020b7fcf20939c}{System\+\_\+\+Info\+\_\+\+Get\+\_\+\+Callsign} (char $\ast$buff, uint8\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Gets the callsign which is current set in E\+E\+P\+R\+OM. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000007}{Todo}]this module should contain the Restart Counter logic. \end{DoxyRefDesc}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{system__info_8h_a4ba2aee682a65d201b020b7fcf20939c}\label{system__info_8h_a4ba2aee682a65d201b020b7fcf20939c}} 
+\index{system\+\_\+info.\+h@{system\+\_\+info.\+h}!System\+\_\+\+Info\+\_\+\+Get\+\_\+\+Callsign@{System\+\_\+\+Info\+\_\+\+Get\+\_\+\+Callsign}}
+\index{System\+\_\+\+Info\+\_\+\+Get\+\_\+\+Callsign@{System\+\_\+\+Info\+\_\+\+Get\+\_\+\+Callsign}!system\+\_\+info.\+h@{system\+\_\+info.\+h}}
+\subsubsection{\texorpdfstring{System\+\_\+\+Info\+\_\+\+Get\+\_\+\+Callsign()}{System\_Info\_Get\_Callsign()}}
+{\footnotesize\ttfamily void System\+\_\+\+Info\+\_\+\+Get\+\_\+\+Callsign (\begin{DoxyParamCaption}\item[{char $\ast$}]{buff,  }\item[{uint8\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Gets the callsign which is current set in E\+E\+P\+R\+OM. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000008}{Todo}]Implement a R\+AM variable to hold this since E\+E\+P\+R\+OM degrades with use, memory restrictions do not allow this to be alloced in R\+AM.\end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000050}{Test}](ID S\+Y\+S\+\_\+\+I\+N\+F\+\_\+\+T1) (S\+EV 1) Make sure that the callsign is retrieved correctly from E\+E\+P\+R\+OM.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em buff} & The destination for the callsign. \\
+\hline
+{\em len} & The length of the callsign. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 21 of file system\+\_\+info.\+cpp.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{system__info_8h_a4ba2aee682a65d201b020b7fcf20939c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{system__info_8h_a51295b55492a253ad9c695525c40d458}\label{system__info_8h_a51295b55492a253ad9c695525c40d458}} 
+\index{system\+\_\+info.\+h@{system\+\_\+info.\+h}!System\+\_\+\+Info\+\_\+\+Set\+\_\+\+Callsign@{System\+\_\+\+Info\+\_\+\+Set\+\_\+\+Callsign}}
+\index{System\+\_\+\+Info\+\_\+\+Set\+\_\+\+Callsign@{System\+\_\+\+Info\+\_\+\+Set\+\_\+\+Callsign}!system\+\_\+info.\+h@{system\+\_\+info.\+h}}
+\subsubsection{\texorpdfstring{System\+\_\+\+Info\+\_\+\+Set\+\_\+\+Callsign()}{System\_Info\_Set\_Callsign()}}
+{\footnotesize\ttfamily void System\+\_\+\+Info\+\_\+\+Set\+\_\+\+Callsign (\begin{DoxyParamCaption}\item[{char $\ast$}]{new\+Callsign }\end{DoxyParamCaption})}
+
+
+
+Set the callsign to be used for each transmission to E\+E\+P\+R\+OM. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000049}{Test}](ID S\+Y\+S\+\_\+\+I\+N\+F\+\_\+\+T0) (S\+EV 1) Make sure this function writes the callsign to E\+E\+P\+R\+OM.\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Callsign} & String containing the new callsign to use. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 3 of file system\+\_\+info.\+cpp.
+

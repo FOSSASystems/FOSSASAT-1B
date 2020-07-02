@@ -1,0 +1,171 @@
+\hypertarget{group__defines__power__management__configuration}{}\section{Power Management Configuration}
+\label{group__defines__power__management__configuration}\index{Power Management Configuration@{Power Management Configuration}}
+Collaboration diagram for Power Management Configuration\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__defines__power__management__configuration}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__defines__power__management__configuration_gab56ff9c956d5497736a78ad136ad42ce}{B\+A\+T\+T\+E\+R\+Y\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT}~3.\+8f
+\item 
+\#define \hyperlink{group__defines__power__management__configuration_ga49ce03eb4bd79a0060a41d793a946a83}{B\+A\+T\+T\+E\+R\+Y\+\_\+\+C\+W\+\_\+\+B\+E\+E\+P\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT}~3.\+8f
+\item 
+\#define \hyperlink{group__defines__power__management__configuration_gac16481577dc431a739e4a370c55ac31b}{B\+A\+T\+T\+E\+R\+Y\+\_\+\+T\+E\+M\+P\+E\+R\+A\+T\+U\+R\+E\+\_\+\+L\+I\+M\+IT}~-\/0.\+7f
+\item 
+\#define \hyperlink{group__defines__power__management__configuration_gab197bb7848461922d4807f622f8e1fa1}{W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+L\+O\+O\+P\+\_\+\+H\+E\+A\+R\+T\+B\+E\+A\+T\+\_\+\+P\+E\+R\+I\+OD}~1000
+\item 
+\#define \hyperlink{group__defines__power__management__configuration_ga9cc0ca1764367faad6417786f2bf6c31}{W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+R\+E\+S\+E\+T\+\_\+\+N\+U\+M\+\_\+\+S\+L\+E\+E\+P\+\_\+\+C\+Y\+C\+L\+ES}~4
+\item 
+\#define \hyperlink{group__defines__power__management__configuration_ga81e91715a5069cfc0e8c4e8abb09c7ca}{S\+L\+E\+E\+P\+\_\+\+L\+E\+N\+G\+T\+H\+\_\+\+C\+O\+N\+S\+T\+A\+NT}~0.\+9
+\item 
+\#define \hyperlink{group__defines__power__management__configuration_ga5570f576c017a9d49eb716091e3e6831}{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+A\+T\+T\+E\+M\+P\+TS}~4
+\item 
+\#define \hyperlink{group__defines__power__management__configuration_ga3f2ab6a21f83ae3f1af1c47852c31873}{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+S\+L\+E\+E\+P\+\_\+\+L\+E\+N\+G\+TH}~1800000
+\item 
+\#define \hyperlink{group__defines__power__management__configuration_gab47513da7a20ecfdd6fecd60fcdba7b0}{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+L\+E\+N\+G\+TH}~60
+\item 
+\#define \hyperlink{group__defines__power__management__configuration_ga19207306df03c631116fc3f6edbd0295}{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+P\+E\+R\+I\+OD}~1000
+\item 
+\#define \hyperlink{group__defines__power__management__configuration_gaa44a203cdf6536532202678823a18542}{A\+U\+T\+O\+D\+E\+P\+L\+O\+Y\+\_\+\+D\+E\+L\+AY}~1200
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000017}{Test}](ID C\+O\+N\+F\+\_\+\+P\+O\+W\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+M\+E\+N\+T\+\_\+\+T0) (S\+EV 1) Check that the satellite switches to low power mode when its voltage goes below B\+A\+T\+T\+E\+R\+Y\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT. 
+
+(ID C\+O\+N\+F\+\_\+\+P\+O\+W\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+M\+E\+N\+T\+\_\+\+T1) (S\+EV 2) Check that the satellite sends a morse beacon transmission when it switches to Low Power Mode. 
+
+(ID C\+O\+N\+F\+\_\+\+P\+O\+W\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+M\+E\+N\+T\+\_\+\+T2) (S\+EV 1) Check that the battery stops charging when the temperature goes below this threshold, and starts charging again when it is not. 
+
+(ID C\+O\+N\+F\+\_\+\+P\+O\+W\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+M\+E\+N\+T\+\_\+\+T3) (S\+EV 1) Check that the watchdog is signalled every W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+L\+O\+O\+P\+\_\+\+H\+E\+A\+R\+T\+B\+E\+A\+T\+\_\+\+P\+E\+R\+I\+OD. 
+
+(ID C\+O\+N\+F\+\_\+\+P\+O\+W\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+M\+E\+N\+T\+\_\+\+T4) (S\+EV 1) Check that the satellite sleeping times using the S\+L\+E\+E\+P\+\_\+\+L\+E\+N\+G\+T\+H\+\_\+\+C\+O\+N\+S\+T\+A\+NT is suitable to account for the Low\+Power libraries overhead. 
+
+(ID C\+O\+N\+F\+\_\+\+P\+O\+W\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+M\+E\+N\+T\+\_\+\+T5) (S\+EV 1) Check that the satellite does not deploy after D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+A\+T\+T\+E\+M\+PS has reached. 
+
+(ID C\+O\+N\+F\+\_\+\+P\+O\+W\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+M\+E\+N\+T\+\_\+\+T6) (S\+EV 1) Check that the satellite waits for this amount of time before the deploy sequence starts, this is for jettison. 
+
+(ID C\+O\+N\+F\+\_\+\+P\+O\+W\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+M\+E\+N\+T\+\_\+\+T7) (S\+EV 5) Check that each debug print waits D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+P\+E\+R\+I\+OD amount of time between each print.\end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000001}{Todo}]Julian -\/$>$ Set appropriate B\+A\+T\+T\+E\+R\+Y\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT and B\+A\+T\+T\+E\+R\+Y\+\_\+\+C\+W\+\_\+\+B\+E\+E\+P\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT\end{DoxyRefDesc}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{group__defines__power__management__configuration_gaa44a203cdf6536532202678823a18542}\label{group__defines__power__management__configuration_gaa44a203cdf6536532202678823a18542}} 
+\index{Power Management Configuration@{Power Management Configuration}!A\+U\+T\+O\+D\+E\+P\+L\+O\+Y\+\_\+\+D\+E\+L\+AY@{A\+U\+T\+O\+D\+E\+P\+L\+O\+Y\+\_\+\+D\+E\+L\+AY}}
+\index{A\+U\+T\+O\+D\+E\+P\+L\+O\+Y\+\_\+\+D\+E\+L\+AY@{A\+U\+T\+O\+D\+E\+P\+L\+O\+Y\+\_\+\+D\+E\+L\+AY}!Power Management Configuration@{Power Management Configuration}}
+\subsubsection{\texorpdfstring{A\+U\+T\+O\+D\+E\+P\+L\+O\+Y\+\_\+\+D\+E\+L\+AY}{AUTODEPLOY\_DELAY}}
+{\footnotesize\ttfamily \#define A\+U\+T\+O\+D\+E\+P\+L\+O\+Y\+\_\+\+D\+E\+L\+AY~1200}
+
+How long to wait bevore attempting automated deployment in main loop (seconds). See\+: Fossa\+Sat1\+B.\+ino 
+
+Definition at line 82 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__power__management__configuration_ga49ce03eb4bd79a0060a41d793a946a83}\label{group__defines__power__management__configuration_ga49ce03eb4bd79a0060a41d793a946a83}} 
+\index{Power Management Configuration@{Power Management Configuration}!B\+A\+T\+T\+E\+R\+Y\+\_\+\+C\+W\+\_\+\+B\+E\+E\+P\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT@{B\+A\+T\+T\+E\+R\+Y\+\_\+\+C\+W\+\_\+\+B\+E\+E\+P\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT}}
+\index{B\+A\+T\+T\+E\+R\+Y\+\_\+\+C\+W\+\_\+\+B\+E\+E\+P\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT@{B\+A\+T\+T\+E\+R\+Y\+\_\+\+C\+W\+\_\+\+B\+E\+E\+P\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT}!Power Management Configuration@{Power Management Configuration}}
+\subsubsection{\texorpdfstring{B\+A\+T\+T\+E\+R\+Y\+\_\+\+C\+W\+\_\+\+B\+E\+E\+P\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT}{BATTERY\_CW\_BEEP\_VOLTAGE\_LIMIT}}
+{\footnotesize\ttfamily \#define B\+A\+T\+T\+E\+R\+Y\+\_\+\+C\+W\+\_\+\+B\+E\+E\+P\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT~3.\+8f}
+
+Battery voltage limit to switch into morse beep (V). 
+
+Definition at line 73 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__power__management__configuration_gac16481577dc431a739e4a370c55ac31b}\label{group__defines__power__management__configuration_gac16481577dc431a739e4a370c55ac31b}} 
+\index{Power Management Configuration@{Power Management Configuration}!B\+A\+T\+T\+E\+R\+Y\+\_\+\+T\+E\+M\+P\+E\+R\+A\+T\+U\+R\+E\+\_\+\+L\+I\+M\+IT@{B\+A\+T\+T\+E\+R\+Y\+\_\+\+T\+E\+M\+P\+E\+R\+A\+T\+U\+R\+E\+\_\+\+L\+I\+M\+IT}}
+\index{B\+A\+T\+T\+E\+R\+Y\+\_\+\+T\+E\+M\+P\+E\+R\+A\+T\+U\+R\+E\+\_\+\+L\+I\+M\+IT@{B\+A\+T\+T\+E\+R\+Y\+\_\+\+T\+E\+M\+P\+E\+R\+A\+T\+U\+R\+E\+\_\+\+L\+I\+M\+IT}!Power Management Configuration@{Power Management Configuration}}
+\subsubsection{\texorpdfstring{B\+A\+T\+T\+E\+R\+Y\+\_\+\+T\+E\+M\+P\+E\+R\+A\+T\+U\+R\+E\+\_\+\+L\+I\+M\+IT}{BATTERY\_TEMPERATURE\_LIMIT}}
+{\footnotesize\ttfamily \#define B\+A\+T\+T\+E\+R\+Y\+\_\+\+T\+E\+M\+P\+E\+R\+A\+T\+U\+R\+E\+\_\+\+L\+I\+M\+IT~-\/0.\+7f}
+
+Battery charging temperature limit (deg. C). 
+
+Definition at line 74 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__power__management__configuration_gab56ff9c956d5497736a78ad136ad42ce}\label{group__defines__power__management__configuration_gab56ff9c956d5497736a78ad136ad42ce}} 
+\index{Power Management Configuration@{Power Management Configuration}!B\+A\+T\+T\+E\+R\+Y\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT@{B\+A\+T\+T\+E\+R\+Y\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT}}
+\index{B\+A\+T\+T\+E\+R\+Y\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT@{B\+A\+T\+T\+E\+R\+Y\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT}!Power Management Configuration@{Power Management Configuration}}
+\subsubsection{\texorpdfstring{B\+A\+T\+T\+E\+R\+Y\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT}{BATTERY\_VOLTAGE\_LIMIT}}
+{\footnotesize\ttfamily \#define B\+A\+T\+T\+E\+R\+Y\+\_\+\+V\+O\+L\+T\+A\+G\+E\+\_\+\+L\+I\+M\+IT~3.\+8f}
+
+Battery voltage limit to enable low power mode (V). 
+
+Definition at line 72 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__power__management__configuration_ga5570f576c017a9d49eb716091e3e6831}\label{group__defines__power__management__configuration_ga5570f576c017a9d49eb716091e3e6831}} 
+\index{Power Management Configuration@{Power Management Configuration}!D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+A\+T\+T\+E\+M\+P\+TS@{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+A\+T\+T\+E\+M\+P\+TS}}
+\index{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+A\+T\+T\+E\+M\+P\+TS@{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+A\+T\+T\+E\+M\+P\+TS}!Power Management Configuration@{Power Management Configuration}}
+\subsubsection{\texorpdfstring{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+A\+T\+T\+E\+M\+P\+TS}{DEPLOYMENT\_ATTEMPTS}}
+{\footnotesize\ttfamily \#define D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+A\+T\+T\+E\+M\+P\+TS~4}
+
+Number of deployment attempts. 
+
+Definition at line 78 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__power__management__configuration_gab47513da7a20ecfdd6fecd60fcdba7b0}\label{group__defines__power__management__configuration_gab47513da7a20ecfdd6fecd60fcdba7b0}} 
+\index{Power Management Configuration@{Power Management Configuration}!D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+L\+E\+N\+G\+TH@{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+L\+E\+N\+G\+TH}}
+\index{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+L\+E\+N\+G\+TH@{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+L\+E\+N\+G\+TH}!Power Management Configuration@{Power Management Configuration}}
+\subsubsection{\texorpdfstring{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+L\+E\+N\+G\+TH}{DEPLOYMENT\_DEBUG\_LENGTH}}
+{\footnotesize\ttfamily \#define D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+L\+E\+N\+G\+TH~60}
+
+How long to wait until the debugging print routine breaks (s). See\+: Fossa\+Sat1\+B.\+ino 
+
+Definition at line 80 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__power__management__configuration_ga19207306df03c631116fc3f6edbd0295}\label{group__defines__power__management__configuration_ga19207306df03c631116fc3f6edbd0295}} 
+\index{Power Management Configuration@{Power Management Configuration}!D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+P\+E\+R\+I\+OD@{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+P\+E\+R\+I\+OD}}
+\index{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+P\+E\+R\+I\+OD@{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+P\+E\+R\+I\+OD}!Power Management Configuration@{Power Management Configuration}}
+\subsubsection{\texorpdfstring{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+P\+E\+R\+I\+OD}{DEPLOYMENT\_DEBUG\_SAMPLE\_PERIOD}}
+{\footnotesize\ttfamily \#define D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+P\+E\+R\+I\+OD~1000}
+
+How long to wait between each debug parameter print (ms). See\+: Fossa\+Sat1\+B.\+ino 
+
+Definition at line 81 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__power__management__configuration_ga3f2ab6a21f83ae3f1af1c47852c31873}\label{group__defines__power__management__configuration_ga3f2ab6a21f83ae3f1af1c47852c31873}} 
+\index{Power Management Configuration@{Power Management Configuration}!D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+S\+L\+E\+E\+P\+\_\+\+L\+E\+N\+G\+TH@{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+S\+L\+E\+E\+P\+\_\+\+L\+E\+N\+G\+TH}}
+\index{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+S\+L\+E\+E\+P\+\_\+\+L\+E\+N\+G\+TH@{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+S\+L\+E\+E\+P\+\_\+\+L\+E\+N\+G\+TH}!Power Management Configuration@{Power Management Configuration}}
+\subsubsection{\texorpdfstring{D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+S\+L\+E\+E\+P\+\_\+\+L\+E\+N\+G\+TH}{DEPLOYMENT\_SLEEP\_LENGTH}}
+{\footnotesize\ttfamily \#define D\+E\+P\+L\+O\+Y\+M\+E\+N\+T\+\_\+\+S\+L\+E\+E\+P\+\_\+\+L\+E\+N\+G\+TH~1800000}
+
+Sleep for this period of time before deployment (ms) 
+
+Definition at line 79 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__power__management__configuration_ga81e91715a5069cfc0e8c4e8abb09c7ca}\label{group__defines__power__management__configuration_ga81e91715a5069cfc0e8c4e8abb09c7ca}} 
+\index{Power Management Configuration@{Power Management Configuration}!S\+L\+E\+E\+P\+\_\+\+L\+E\+N\+G\+T\+H\+\_\+\+C\+O\+N\+S\+T\+A\+NT@{S\+L\+E\+E\+P\+\_\+\+L\+E\+N\+G\+T\+H\+\_\+\+C\+O\+N\+S\+T\+A\+NT}}
+\index{S\+L\+E\+E\+P\+\_\+\+L\+E\+N\+G\+T\+H\+\_\+\+C\+O\+N\+S\+T\+A\+NT@{S\+L\+E\+E\+P\+\_\+\+L\+E\+N\+G\+T\+H\+\_\+\+C\+O\+N\+S\+T\+A\+NT}!Power Management Configuration@{Power Management Configuration}}
+\subsubsection{\texorpdfstring{S\+L\+E\+E\+P\+\_\+\+L\+E\+N\+G\+T\+H\+\_\+\+C\+O\+N\+S\+T\+A\+NT}{SLEEP\_LENGTH\_CONSTANT}}
+{\footnotesize\ttfamily \#define S\+L\+E\+E\+P\+\_\+\+L\+E\+N\+G\+T\+H\+\_\+\+C\+O\+N\+S\+T\+A\+NT~0.\+9}
+
+Sleep times are multiplied by this constant to compensate for the Low\+Power libraries overhead. 
+
+Definition at line 77 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__power__management__configuration_gab197bb7848461922d4807f622f8e1fa1}\label{group__defines__power__management__configuration_gab197bb7848461922d4807f622f8e1fa1}} 
+\index{Power Management Configuration@{Power Management Configuration}!W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+L\+O\+O\+P\+\_\+\+H\+E\+A\+R\+T\+B\+E\+A\+T\+\_\+\+P\+E\+R\+I\+OD@{W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+L\+O\+O\+P\+\_\+\+H\+E\+A\+R\+T\+B\+E\+A\+T\+\_\+\+P\+E\+R\+I\+OD}}
+\index{W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+L\+O\+O\+P\+\_\+\+H\+E\+A\+R\+T\+B\+E\+A\+T\+\_\+\+P\+E\+R\+I\+OD@{W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+L\+O\+O\+P\+\_\+\+H\+E\+A\+R\+T\+B\+E\+A\+T\+\_\+\+P\+E\+R\+I\+OD}!Power Management Configuration@{Power Management Configuration}}
+\subsubsection{\texorpdfstring{W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+L\+O\+O\+P\+\_\+\+H\+E\+A\+R\+T\+B\+E\+A\+T\+\_\+\+P\+E\+R\+I\+OD}{WATCHDOG\_LOOP\_HEARTBEAT\_PERIOD}}
+{\footnotesize\ttfamily \#define W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+L\+O\+O\+P\+\_\+\+H\+E\+A\+R\+T\+B\+E\+A\+T\+\_\+\+P\+E\+R\+I\+OD~1000}
+
+Watchdog heartbeat period in loop() (ms). 
+
+Definition at line 75 of file configuration.\+h.
+
+\mbox{\Hypertarget{group__defines__power__management__configuration_ga9cc0ca1764367faad6417786f2bf6c31}\label{group__defines__power__management__configuration_ga9cc0ca1764367faad6417786f2bf6c31}} 
+\index{Power Management Configuration@{Power Management Configuration}!W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+R\+E\+S\+E\+T\+\_\+\+N\+U\+M\+\_\+\+S\+L\+E\+E\+P\+\_\+\+C\+Y\+C\+L\+ES@{W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+R\+E\+S\+E\+T\+\_\+\+N\+U\+M\+\_\+\+S\+L\+E\+E\+P\+\_\+\+C\+Y\+C\+L\+ES}}
+\index{W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+R\+E\+S\+E\+T\+\_\+\+N\+U\+M\+\_\+\+S\+L\+E\+E\+P\+\_\+\+C\+Y\+C\+L\+ES@{W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+R\+E\+S\+E\+T\+\_\+\+N\+U\+M\+\_\+\+S\+L\+E\+E\+P\+\_\+\+C\+Y\+C\+L\+ES}!Power Management Configuration@{Power Management Configuration}}
+\subsubsection{\texorpdfstring{W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+R\+E\+S\+E\+T\+\_\+\+N\+U\+M\+\_\+\+S\+L\+E\+E\+P\+\_\+\+C\+Y\+C\+L\+ES}{WATCHDOG\_RESET\_NUM\_SLEEP\_CYCLES}}
+{\footnotesize\ttfamily \#define W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+R\+E\+S\+E\+T\+\_\+\+N\+U\+M\+\_\+\+S\+L\+E\+E\+P\+\_\+\+C\+Y\+C\+L\+ES~4}
+
+Number of 8-\/second sleep cycles to reset watchdog 
+
+Definition at line 76 of file configuration.\+h.
+

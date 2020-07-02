@@ -1,0 +1,7 @@
+<map id="System_Info_Get_Callsign" name="System_Info_Get_Callsign">
+<area shape="rect" id="node2" href="$communication_8h.html#a5db7440be24bedc9c14f12db46029968" title="This function transmits a morse beacon message. " alt="" coords="232,5,383,47"/>
+<area shape="rect" id="node3" href="$communication_8h.html#ab6495de804d5d54d071fe8b4dd408aba" title="This function parses the internal contents of the message using the FOSSA COMMS Protocol. " alt="" coords="236,71,379,112"/>
+<area shape="rect" id="node4" href="$communication_8h.html#af86331e2820ea70a7928919915937077" title="Responds to a given function id execution (internally used). " alt="" coords="232,136,383,177"/>
+<area shape="rect" id="node5" href="$communication_8h.html#a03f49b9aabc52b55893829b7069efc7b" title="This function sends acknowledge for a received frame. " alt="" coords="431,118,629,145"/>
+<area shape="rect" id="node6" href="$communication_8h.html#a834526d017e482716c6061772d644d5b" title="This function executes the given function id provided with the given data. " alt="" coords="677,136,845,177"/>
+</map>
