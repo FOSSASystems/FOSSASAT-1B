@@ -45,7 +45,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: Arduino-AtMega328PB
-          path: software/avr-build/*.hex software/avr-build/*.elf
+          path: software/avr-build
 
   cppcheck:
     runs-on: ubuntu-latest
