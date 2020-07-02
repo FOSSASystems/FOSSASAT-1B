@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: cd software && arduino-cli compile -v --fqbn arduino:avr:pro:cpu=8MHzatmega328 FossaSat1B --warnings=all --build-path=$PWD/avr-build/
       - run: ls -al software/avr-build
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v2
         with:
           name: Arduino-AtMega328P
           path: software/avr-build/*.hex software/avr-build/*.elf
@@ -42,10 +42,10 @@ jobs:
       - uses: actions/checkout@v2
       - run: cd software && arduino-cli compile -v --fqbn MiniCore:avr:328:bootloader=uart0,variant=modelPB,BOD=1v8,LTO=Os_flto,clock=8MHz_internal FossaSat1B --warnings=all --build-path=$PWD/avr-build/
       - run: echo $PWD && ls -al software/avr-build
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v2
         with:
           name: Arduino-AtMega328PB
-          path: software/avr-build/FossaSat1B.ino.hex software/avr-build/FossaSat1B.ino.elf software/avr-build/FossaSat1B.ino.with_bootloader.hex
+          path: software/avr-build/*.hex software/avr-build/*.elf
 
   cppcheck:
     runs-on: ubuntu-latest
