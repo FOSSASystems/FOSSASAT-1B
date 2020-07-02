@@ -19,11 +19,14 @@ jobs:
       - run: git clone https://github.com/canique/Low-Power-Canique.git $HOME/Arduino/libraries/Low-Power
       - uses: actions/checkout@v2
       - run: cd software && arduino-cli compile -v --fqbn arduino:avr:pro:cpu=8MHzatmega328 FossaSat1B --warnings=all --build-path=$PWD/avr-build/
-      - run: ls -al software/avr-build
       - uses: actions/upload-artifact@v2
         with:
           name: Arduino-AtMega328P
           path: software/avr-build/*.hex
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Arduino-AtMega328P
+          path: software/avr-build/*.elf
 
   Arduino-AtMega328PB:
     runs-on: ubuntu-latest
@@ -41,11 +44,14 @@ jobs:
       - run: git clone https://github.com/canique/Low-Power-Canique.git $HOME/Arduino/libraries/Low-Power
       - uses: actions/checkout@v2
       - run: cd software && arduino-cli compile -v --fqbn MiniCore:avr:328:bootloader=uart0,variant=modelPB,BOD=1v8,LTO=Os_flto,clock=8MHz_internal FossaSat1B --warnings=all --build-path=$PWD/avr-build/
-      - run: echo $PWD && ls -al software/avr-build
       - uses: actions/upload-artifact@v2
         with:
           name: Arduino-AtMega328PB
           path: software/avr-build/*.hex
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Arduino-AtMega328PB
+          path: software/avr-build/*.elf
 
   cppcheck:
     runs-on: ubuntu-latest
