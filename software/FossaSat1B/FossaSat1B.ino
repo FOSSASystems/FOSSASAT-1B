@@ -16,6 +16,7 @@
   #error "RadioLib is using dynamic memory management, make sure static only is enabled in RadioLib/src/BuildOpt.h"
 #endif
 
+#ifndef UNIT_TEST
 // cppcheck-suppress unusedFunction
 void setup() {
   // initialize debug port
@@ -314,3 +315,5 @@ void loop() {
   uptimeCounter += elapsedTotal;
   Persistent_Storage_Write<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR,  uptimeCounter);
 }
+#endif // UNIT_TEST
+

@@ -74,3 +74,19 @@ jobs:
           BRANCH: gh-pages
           FOLDER: software/Doxygen/html
 
+  PlatformIO-Build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt-get install python3-setuptools python3-wheel
+      - run: pip3 install platformio
+      - run: echo "::add-path::~/.local/bin"
+      - uses: actions/checkout@v2
+      - run: cd software && platformio check --fail-on-defect low --fail-on-defect medium --fail-on-defect high
+      - run: cd software && platformio run -v
+
+  PlatformIO-UnitTest:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - run: platformio update
+      - run: cd software && platformio test -e ATmega328PB -v
