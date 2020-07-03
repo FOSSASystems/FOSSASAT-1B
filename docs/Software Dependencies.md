@@ -9,4 +9,4 @@ The following is a list of all libraries and other dependencies required to buil
 * RadioLib: https://github.com/jgromes/RadioLib
 * tiny-AES-c: https://github.com/FOSSASystems/tiny-AES-c
 * INA226: https://github.com/jarzebski/Arduino-INA226
-* AVR Low Power: https://github.com/rocketscream/Low-Power
+* AVR Low Power: https://github.com/canique/Low-Power-Canique
