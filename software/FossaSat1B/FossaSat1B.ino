@@ -13,7 +13,7 @@
 #endif
 
 #if !defined(RADIOLIB_STATIC_ONLY)
-  #error "RadioLib is using dynamic memory management, make sure static only is enabled in FossaSat1B.h"
+  #error "RadioLib is using dynamic memory management, make sure static only is enabled in RadioLib/src/BuildOpt.h"
 #endif
 
 #ifndef UNIT_TEST
@@ -124,7 +124,7 @@ void setup() {
           Power_Control_Load_Configuration();
           FOSSASAT_DEBUG_PORT.println(powerConfig.val, BIN);
 
-          FOSSASAT_DEBUG_PORT.println(F("======================="));
+          FOSSASAT_DEBUG_PORT.println();
         }
 
         // pet watchdog
@@ -300,16 +300,17 @@ void loop() {
   // update uptime counter
   uint32_t activeElapsed = (millis() - activeStart + 500)/1000;
   FOSSASAT_DEBUG_PRINT(activeElapsed);
-  FOSSASAT_DEBUG_PRINTLN(F(" active"))
+  FOSSASAT_DEBUG_PRINTLN(F(" act"))
 
   uint32_t elapsedTotal = 2 + windowLenLoRa + windowLenFsk + activeElapsed + interval;
   if(beaconSent) {
-    elapsedTotal += 9; // transmitting full Morse beacon takes about 9 seconds
+    // transmitting full Morse beacon takes about 9 seconds
+    elapsedTotal += 9;
   } else {
     elapsedTotal += NUM_CW_BEEPS;
   }
   FOSSASAT_DEBUG_PRINT(elapsedTotal);
-  FOSSASAT_DEBUG_PRINTLN(F(" total"))
+  FOSSASAT_DEBUG_PRINTLN(F(" tot"))
 
   uptimeCounter += elapsedTotal;
   Persistent_Storage_Write<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR,  uptimeCounter);

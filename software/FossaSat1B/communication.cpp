@@ -13,7 +13,6 @@ void Communication_Receive_Interrupt() {
 int16_t Communication_Set_Modem(uint8_t modem) {
   int16_t state = ERR_NONE;
   FOSSASAT_DEBUG_WRITE(modem);
-  FOSSASAT_DEBUG_PRINTLN(F(" modem"));
 
   // initialize requested modem
   switch (modem) {
@@ -41,7 +40,7 @@ int16_t Communication_Set_Modem(uint8_t modem) {
         radio.setCRC(2);
       } break;
     default:
-      FOSSASAT_DEBUG_PRINT(F("Unkown "));
+      FOSSASAT_DEBUG_PRINT(F("U "));
       FOSSASAT_DEBUG_PRINTLN(modem);
       return(ERR_UNKNOWN);
   }
@@ -50,7 +49,7 @@ int16_t Communication_Set_Modem(uint8_t modem) {
   radio.setWhitening(true, WHITENING_INITIAL);
 
   // handle possible error codes
-  FOSSASAT_DEBUG_PRINT(F("Radio init "));
+  FOSSASAT_DEBUG_PRINT(F("Init "));
   FOSSASAT_DEBUG_PRINTLN(state);
   FOSSASAT_DEBUG_DELAY(10);
   if (state != ERR_NONE) {
@@ -168,7 +167,7 @@ void Communication_Send_System_Info() {
   #else
     uint8_t batteryVoltage = 4.02 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #endif
-  Communication_Frame_Add<uint8_t>(&optDataPtr, batteryVoltage, "batteryVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Communication_Frame_Add<uint8_t>(&optDataPtr, batteryVoltage, "batVolt", VOLTAGE_MULTIPLIER, "mV");
   Persistent_Storage_Update_Stats<uint8_t>(EEPROM_BATTERY_VOLTAGE_STATS_ADDR, batteryVoltage);
 
   #ifdef ENABLE_INA226
@@ -176,7 +175,7 @@ void Communication_Send_System_Info() {
   #else
     int16_t batteryChargingCurrent = 0.056 * (CURRENT_UNIT / CURRENT_MULTIPLIER);
   #endif
-  Communication_Frame_Add<int16_t>(&optDataPtr, batteryChargingCurrent, "batteryChargingCurrent", CURRENT_MULTIPLIER, "uA");
+  Communication_Frame_Add<int16_t>(&optDataPtr, batteryChargingCurrent, "batChrgCurr", CURRENT_MULTIPLIER, "uA");
   Persistent_Storage_Update_Stats<int16_t>(EEPROM_CHARGING_CURRENT_STATS_ADDR, batteryChargingCurrent);
 
   #ifdef ENABLE_INA226
@@ -184,12 +183,12 @@ void Communication_Send_System_Info() {
   #else
     uint8_t batteryChargingVoltage = 3.82 * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
   #endif
-  Communication_Frame_Add<uint8_t>(&optDataPtr, batteryChargingVoltage, "batteryChargingVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Communication_Frame_Add<uint8_t>(&optDataPtr, batteryChargingVoltage, "batChrgVolt", VOLTAGE_MULTIPLIER, "mV");
   Persistent_Storage_Update_Stats<uint8_t>(EEPROM_CHARGING_VOLTAGE_STATS_ADDR, batteryChargingVoltage);
 
   // set uptimeCounter
   uint32_t uptimeCounter = Persistent_Storage_Read<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR);
-  Communication_Frame_Add(&optDataPtr, uptimeCounter, "uptimeCounter", 1, "");
+  Communication_Frame_Add(&optDataPtr, uptimeCounter, "upCtr", 1, "");
 
   // set powerConfig variable
   Power_Control_Load_Configuration();
@@ -199,36 +198,36 @@ void Communication_Send_System_Info() {
 
   // set resetCounter variable
   uint16_t resetCounter = Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR);
-  Communication_Frame_Add(&optDataPtr, resetCounter, "resetCounter", 1, "");
+  Communication_Frame_Add(&optDataPtr, resetCounter, "rstCtr", 1, "");
 
   uint8_t solarCellAVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-  Communication_Frame_Add<uint8_t>(&optDataPtr, solarCellAVoltage, "solarCellAVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Communication_Frame_Add<uint8_t>(&optDataPtr, solarCellAVoltage, "solAVolt", VOLTAGE_MULTIPLIER, "mV");
   Persistent_Storage_Update_Stats<uint8_t>(EEPROM_CELL_A_VOLTAGE_STATS_ADDR, solarCellAVoltage);
 
   // set solarCellBVoltage variable
   uint8_t solarCellBVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-  Communication_Frame_Add<uint8_t>(&optDataPtr, solarCellBVoltage, "solarCellBVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Communication_Frame_Add<uint8_t>(&optDataPtr, solarCellBVoltage, "solBVolt", VOLTAGE_MULTIPLIER, "mV");
   Persistent_Storage_Update_Stats<uint8_t>(EEPROM_CELL_B_VOLTAGE_STATS_ADDR, solarCellBVoltage);
 
   // set solarCellCVoltage variable
   uint8_t solarCellCVoltage = Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN) * (VOLTAGE_UNIT / VOLTAGE_MULTIPLIER);
-  Communication_Frame_Add<uint8_t>(&optDataPtr, solarCellCVoltage, "solarCellCVoltage", VOLTAGE_MULTIPLIER, "mV");
+  Communication_Frame_Add<uint8_t>(&optDataPtr, solarCellCVoltage, "solCVolt", VOLTAGE_MULTIPLIER, "mV");
   Persistent_Storage_Update_Stats<uint8_t>(EEPROM_CELL_C_VOLTAGE_STATS_ADDR, solarCellCVoltage);
 
   // set batteryTemperature variable
   int16_t batteryTemperature = Pin_Interface_Read_Temperature(BATTERY_TEMP_SENSOR_ADDR) * (TEMPERATURE_UNIT / TEMPERATURE_MULTIPLIER);
-  Communication_Frame_Add<int16_t>(&optDataPtr, batteryTemperature, "batteryTemperature", TEMPERATURE_MULTIPLIER, "mdeg C");
+  Communication_Frame_Add<int16_t>(&optDataPtr, batteryTemperature, "batTmp", TEMPERATURE_MULTIPLIER, "mdeg C");
   Persistent_Storage_Update_Stats<int16_t>(EEPROM_BATTERY_TEMP_STATS_ADDR, batteryTemperature);
 
   // set boardTemperature variable
   int16_t boardTemperature = Pin_Interface_Read_Temperature(BOARD_TEMP_SENSOR_ADDR) * (TEMPERATURE_UNIT / TEMPERATURE_MULTIPLIER);
-  Communication_Frame_Add<int16_t>(&optDataPtr, boardTemperature, "boardTemperature", TEMPERATURE_MULTIPLIER, "mdeg C");
+  Communication_Frame_Add<int16_t>(&optDataPtr, boardTemperature, "brdTmp", TEMPERATURE_MULTIPLIER, "mdeg C");
   Persistent_Storage_Update_Stats<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR, boardTemperature);
 
   // set mcuTemperature variable (read twice since first value is often nonsense)
   Pin_Interface_Read_Temperature_Internal();
   int8_t mcuTemperature = Pin_Interface_Read_Temperature_Internal();
-  Communication_Frame_Add<int8_t>(&optDataPtr, mcuTemperature, "mcuTemperature", 1, "deg C");
+  Communication_Frame_Add<int8_t>(&optDataPtr, mcuTemperature, "mcuTmp", 1, "deg C");
   Persistent_Storage_Update_Stats<int8_t>(EEPROM_MCU_TEMP_STATS_ADDR, mcuTemperature);
 
   // send as raw bytes
@@ -256,7 +255,7 @@ void Communication_Process_Packet() {
 
   // check reception state
   if(state == ERR_NONE) {
-    FOSSASAT_DEBUG_PRINT(F("Got frame "));
+    FOSSASAT_DEBUG_PRINT(F("Frame "));
     FOSSASAT_DEBUG_PRINTLN(len);
     FOSSASAT_DEBUG_PRINT_BUFF(frame, len);
 
@@ -296,13 +295,13 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
   // get functionID
   int16_t functionId = FCP_Get_FunctionID(callsign, frame, len);
   if(functionId < 0) {
-    FOSSASAT_DEBUG_PRINT(F("Func. ID fail "));
+    FOSSASAT_DEBUG_PRINT(F("FID fail "));
     FOSSASAT_DEBUG_PRINTLN(functionId);
     Persistent_Storage_Increment_Frame_Counter(false);
     Communication_Acknowledge(0xFF, 0x03);
     return;
   }
-  FOSSASAT_DEBUG_PRINT(F("Func. ID = 0x"));
+  FOSSASAT_DEBUG_PRINT(F("FID = "));
   FOSSASAT_DEBUG_PRINTLN(functionId, HEX);
 
   // check encryption
@@ -310,7 +309,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
   uint8_t optData[MAX_OPT_DATA_LENGTH];
   if((functionId >= PRIVATE_OFFSET) && (functionId <= (PRIVATE_OFFSET + NUM_PRIVATE_COMMANDS))) {
     // frame contains encrypted data, decrypt
-    FOSSASAT_DEBUG_PRINTLN(F("Decrypt"));
+    FOSSASAT_DEBUG_PRINTLN(F("Decr"));
 
     // get optional data length
     optDataLen = FCP_Get_OptData_Length(callsign, frame, len, encryptionKey, password);
@@ -625,7 +624,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
         // check if there will be still some receive window open
         if((Persistent_Storage_Read<uint8_t>(EEPROM_LORA_RECEIVE_LEN_ADDR) == 0) && (Persistent_Storage_Read<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR) == 0)) {
-          FOSSASAT_DEBUG_PRINT(F("No Rx left, restore FSK"));
+          FOSSASAT_DEBUG_PRINT(F("Restore FSK"));
           Persistent_Storage_Write<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR, FSK_RECEIVE_WINDOW_LENGTH);
         }
       }
@@ -707,7 +706,7 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
   #ifdef ENABLE_TRANSMISSION_CONTROL
     Power_Control_Load_Configuration();
     if(!powerConfig.bits.transmitEnabled) {
-      FOSSASAT_DEBUG_PRINTLN(F("Tx off by cmd"));
+      FOSSASAT_DEBUG_PRINTLN(F("Tx off cmd"));
       return(ERR_TX_TIMEOUT);
     }
   #endif
@@ -716,16 +715,16 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
   radio.clearDio1Action();
 
   // print frame for debugging
-  FOSSASAT_DEBUG_PRINT(F("Sending frame "));
+  FOSSASAT_DEBUG_PRINT(F("Send "));
   FOSSASAT_DEBUG_PRINTLN(len);
   FOSSASAT_DEBUG_PRINT_BUFF(data, len);
 
   // check if modem should be switched - required for transmissions with custom settings
   uint8_t modem = currentModem;
-  FOSSASAT_DEBUG_PRINT(F("Using modem "));
+  FOSSASAT_DEBUG_PRINT(F("Using "));
   if(overrideModem) {
     FOSSASAT_DEBUG_WRITE(MODEM_LORA);
-    FOSSASAT_DEBUG_PRINTLN(F(" (overridden)"));
+    FOSSASAT_DEBUG_PRINTLN(F(" (ovr)"));
     Communication_Set_Modem(MODEM_LORA);
   } else {
     FOSSASAT_DEBUG_WRITE(modem);
@@ -739,13 +738,13 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
   } else {
     timeout = (float)radio.getTimeOnAir(len) * 1.5;
   }
-  FOSSASAT_DEBUG_PRINT(F("Timeout in: "));
+  FOSSASAT_DEBUG_PRINT(F("T/O in: "));
   FOSSASAT_DEBUG_PRINTLN(timeout);
 
   // start transmitting
   int16_t state = radio.startTransmit(data, len);
   if(state != ERR_NONE) {
-    FOSSASAT_DEBUG_PRINT(F("Tx failed "));
+    FOSSASAT_DEBUG_PRINT(F("Tx fail "));
     FOSSASAT_DEBUG_PRINTLN(state);
     return(state);
   }
@@ -762,7 +761,7 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
       #ifdef ENABLE_INTERVAL_CONTROL
       if(powerConfig.bits.lowPowerModeActive) {
         // we're below low power level, stop the transmission
-        FOSSASAT_DEBUG_PRINTLN(F("Batt low, Tx off"));
+        FOSSASAT_DEBUG_PRINTLN(F("Tx off bat"));
         radio.standby();
         return(ERR_INVALID_DATA_RATE);
       }
@@ -776,7 +775,7 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
       // timed out while transmitting
       radio.standby();
       Communication_Set_Modem(modem);
-      FOSSASAT_DEBUG_PRINTLN(F("Tx timeout"));
+      FOSSASAT_DEBUG_PRINTLN(F("Tx t/o"));
       return(ERR_TX_TIMEOUT);
     }
   }
