@@ -32,9 +32,7 @@ namespace Comms
 
 void RunTests()
 {
-    UNITY_BEGIN();
     RUN_TEST(t0);
-    UNITY_END();
 }
 
 void t0()
