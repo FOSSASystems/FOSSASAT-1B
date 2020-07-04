@@ -2,7 +2,7 @@
 
 void Persistent_Storage_Wipe() {
   // wipe EEPROM
-  FOSSASAT_DEBUG_PRINTLN(F("Wipe"));
+  FOSSASAT_DEBUG_PRINTLN(F("Wp"));
   for (uint16_t i = 0; i < EEPROM.length(); i++) {
     Persistent_Storage_Write<uint8_t>(i, EEPROM_RESET_VALUE);
   }

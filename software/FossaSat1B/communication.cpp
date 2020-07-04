@@ -40,8 +40,6 @@ int16_t Communication_Set_Modem(uint8_t modem) {
         radio.setCRC(2);
       } break;
     default:
-      FOSSASAT_DEBUG_PRINT(F("U "));
-      FOSSASAT_DEBUG_PRINTLN(modem);
       return(ERR_UNKNOWN);
   }
 
@@ -255,7 +253,7 @@ void Communication_Process_Packet() {
 
   // check reception state
   if(state == ERR_NONE) {
-    FOSSASAT_DEBUG_PRINT(F("Frame "));
+    FOSSASAT_DEBUG_PRINT(F("Frm "));
     FOSSASAT_DEBUG_PRINTLN(len);
     FOSSASAT_DEBUG_PRINT_BUFF(frame, len);
 
@@ -314,7 +312,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
     // get optional data length
     optDataLen = FCP_Get_OptData_Length(callsign, frame, len, encryptionKey, password);
     if(optDataLen < 0) {
-      FOSSASAT_DEBUG_PRINT(F("Failed "));
+      FOSSASAT_DEBUG_PRINT(F("Fail "));
       FOSSASAT_DEBUG_PRINTLN(optDataLen);
 
       // decryption failed, increment invalid frame counter and return
@@ -350,7 +348,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
     }
   } else {
     // unknown function ID
-    FOSSASAT_DEBUG_PRINT(F("Unknown ID 0x"));
+    FOSSASAT_DEBUG_PRINT(F("Unk ID "));
     FOSSASAT_DEBUG_PRINTLN(functionId, HEX);
     Persistent_Storage_Increment_Frame_Counter(false);
     Communication_Acknowledge(0xFF, 0x06);
@@ -360,7 +358,7 @@ void Comunication_Parse_Frame(uint8_t* frame, size_t len) {
   // check optional data presence
   if(optDataLen > 0) {
     // execute with optional data
-    FOSSASAT_DEBUG_PRINT(F("optDataLen = "));
+    FOSSASAT_DEBUG_PRINT(F("optLen = "));
     FOSSASAT_DEBUG_PRINTLN(optDataLen);
     FOSSASAT_DEBUG_PRINT_BUFF(optData, (uint8_t)optDataLen);
     Communication_Execute_Function(functionId, optData, optDataLen);
@@ -401,7 +399,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
           // check if the change was successful
           if(state != ERR_NONE) {
-            FOSSASAT_DEBUG_PRINT(F("Custom cfg fail "));
+            FOSSASAT_DEBUG_PRINT(F("Cfg fail "));
             FOSSASAT_DEBUG_PRINTLN(state);
           } else {
             // configuration changed successfully, transmit response
@@ -430,16 +428,16 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
         Communication_Frame_Add(&respOptDataPtr, rssi, "RSSI", 2, "dBm");
 
         uint16_t loraValid = Persistent_Storage_Read<uint16_t>(EEPROM_LORA_VALID_COUNTER_ADDR);
-        Communication_Frame_Add(&respOptDataPtr, loraValid, "LoRa valid", 1, "");
+        Communication_Frame_Add(&respOptDataPtr, loraValid, "Lv", 1, "");
 
         uint16_t loraInvalid = Persistent_Storage_Read<uint16_t>(EEPROM_LORA_INVALID_COUNTER_ADDR);
-        Communication_Frame_Add(&respOptDataPtr, loraInvalid, "LoRa invalid", 1, "");
+        Communication_Frame_Add(&respOptDataPtr, loraInvalid, "Li", 1, "");
 
         uint16_t fskValid = Persistent_Storage_Read<uint16_t>(EEPROM_FSK_VALID_COUNTER_ADDR);
-        Communication_Frame_Add(&respOptDataPtr, fskValid, "FSK valid", 1, "");
+        Communication_Frame_Add(&respOptDataPtr, fskValid, "Fv", 1, "");
 
         uint16_t fskInvalid = Persistent_Storage_Read<uint16_t>(EEPROM_FSK_INVALID_COUNTER_ADDR);
-        Communication_Frame_Add(&respOptDataPtr, fskInvalid, "FSK invalid", 1, "");
+        Communication_Frame_Add(&respOptDataPtr, fskInvalid, "Fi", 1, "");
 
         Communication_Send_Response(RESP_PACKET_INFO, respOptData, respOptDataLen);
       } break;
@@ -516,9 +514,9 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
           if(flags & 0x80) {
             // board temperature
-            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR), "", TEMPERATURE_MULTIPLIER, "mdeg C");
-            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR + 2), "", TEMPERATURE_MULTIPLIER, "mdeg C");
-            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR + 4), "", TEMPERATURE_MULTIPLIER, "mdeg C");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR), "", TEMPERATURE_MULTIPLIER, "mdg C");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR + 2), "", TEMPERATURE_MULTIPLIER, "mdg C");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR + 4), "", TEMPERATURE_MULTIPLIER, "mdg C");
             respOptDataLen += 6;
           }
 
@@ -624,7 +622,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
         // check if there will be still some receive window open
         if((Persistent_Storage_Read<uint8_t>(EEPROM_LORA_RECEIVE_LEN_ADDR) == 0) && (Persistent_Storage_Read<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR) == 0)) {
-          FOSSASAT_DEBUG_PRINT(F("Restore FSK"));
+          FOSSASAT_DEBUG_PRINT(F("Res FSK"));
           Persistent_Storage_Write<uint8_t>(EEPROM_FSK_RECEIVE_LEN_ADDR, FSK_RECEIVE_WINDOW_LENGTH);
         }
       }
@@ -721,7 +719,7 @@ int16_t Communication_Transmit(uint8_t* data, uint8_t len, bool overrideModem) {
 
   // check if modem should be switched - required for transmissions with custom settings
   uint8_t modem = currentModem;
-  FOSSASAT_DEBUG_PRINT(F("Using "));
+  FOSSASAT_DEBUG_PRINT(F("Use "));
   if(overrideModem) {
     FOSSASAT_DEBUG_WRITE(MODEM_LORA);
     FOSSASAT_DEBUG_PRINTLN(F(" (ovr)"));
