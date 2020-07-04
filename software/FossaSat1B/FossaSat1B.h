@@ -13,7 +13,6 @@
 #include <LowPower.h>
 
 // RadioLib
-#define RADIOLIB_STATIC_ONLY
 #include <RadioLib.h>
 
 // files
