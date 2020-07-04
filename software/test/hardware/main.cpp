@@ -36,7 +36,7 @@ SOFTWARE.
 #include "requirement_tests/mainprog.h"
 #include "requirement_tests/deployment.h"
 #include "requirement_tests/power_control.h"
-#include "requirement_tests/automatic_int.h"
+#include "requirement_tests/auto_int.h"
 #include "requirement_tests/hard_int.h"
 #include "requirement_tests/safe_sec.h"
 #include "requirement_tests/comms.h"
@@ -46,7 +46,24 @@ SOFTWARE.
 // https://fossasystems.github.io/FOSSASAT-1B/test.html
 // 04/07/2020
 //
-#include "doxygen_tests/doxytests.h"
+#include "unit_tests/comms.h"
+#include "unit_tests/conf_debug_macros.h"
+#include "unit_tests/conf_eeprom_addr_map.h"
+#include "unit_tests/conf_fsk_radio.h"
+#include "unit_tests/conf_ina266_conf.h"
+#include "unit_tests/conf_lora_radio.h"
+#include "unit_tests/conf_mcu_temp.h"
+#include "unit_tests/conf_morse_cw.h"
+#include "unit_tests/conf_pin_map.h"
+#include "unit_tests/conf_power_conf.h"
+#include "unit_tests/conf_power_management.h"
+#include "unit_tests/conf_radio.h"
+#include "unit_tests/conf_tmp100.h"
+#include "unit_tests/deployment.h"
+#include "unit_tests/persis_stor.h"
+#include "unit_tests/pin_interf.h"
+#include "unit_tests/power_cont.h"
+#include "unit_tests/sys_inf.h"
 
 void setup()
 {
