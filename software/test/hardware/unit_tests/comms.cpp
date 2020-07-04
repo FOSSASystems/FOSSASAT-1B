@@ -22,5 +22,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include <Arduino.h>
-#include <unity.h>
+#include "comms.h"
+
+namespace UnitTests
+{
+
+namespace Comms
+{
+
+void RunTests()
+{
+    UNITY_BEGIN();
+    RUN_TEST(t0);
+    UNITY_END();
+}
+
+void t0()
+{
+    TEST_FAIL_MESSAGE("(ID COMMS_H_T0) (SEV 1) Make sure this function is called when the radio receives data.");
+}
+
+}
+
+}

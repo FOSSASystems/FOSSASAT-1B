@@ -71,6 +71,8 @@ void setup()
     RUN_TEST(ina226_check_response);
 	RUN_TEST(ina226_check_battery_range);
 	UNITY_END();
+
+	UnitTests::Comms::RunTests();
 }
 
 void loop()

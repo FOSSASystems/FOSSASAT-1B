@@ -25,5 +25,40 @@ SOFTWARE.
 #ifndef UNIT_COMMS_T_H
 #define UNIT_COMMS_T_H
 
+#include <Arduino.h>
+#include <unity.h>
+
+namespace UnitTests
+{
+
+namespace Comms
+{
+
+extern void RunTests();
+
+/**
+ * @brief This test makes sure that the function "Communication_Receive_Interrupt()"
+ *          is called when the radio receives data.
+ * @test (ID COMMS_H_T0) (SEV 1)
+ */
+extern void t0();
+extern void t1();
+extern void t2();
+extern void t3();
+extern void t4();
+extern void t5();
+extern void t6();
+extern void t7();
+extern void t8();
+extern void t9();
+extern void t10();
+extern void t11();
+extern void t12();
+extern void t13();
+extern void t14();
+
+}
+
+}
 #endif
 
