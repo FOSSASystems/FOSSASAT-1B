@@ -43,7 +43,7 @@ jobs:
       - run: git clone https://github.com/jarzebski/Arduino-INA226.git $HOME/Arduino/libraries/Arduino-INA226
       - run: git clone https://github.com/canique/Low-Power-Canique.git $HOME/Arduino/libraries/Low-Power
       - uses: actions/checkout@v2
-      - run: cd software && arduino-cli compile -v --fqbn MiniCore:avr:328:bootloader=uart0,variant=modelPB,BOD=1v8,LTO=Os_flto,clock=8MHz_internal --build-properties compiler.cpp.extra_flags=-DRADIOLIB_STATIC_ONLY FossaSat1B --warnings=all --build-path=$PWD/avr-build/
+      - run: cd software && arduino-cli compile -v --fqbn MiniCore:avr:328:bootloader=uart0,variant=modelPB,BOD=1v8,LTO=Os_flto,clock=8MHz_internal --build-properties compiler.cpp.extra_flags="-DRADIOLIB_STATIC_ONLY -Wextra -flto -g" FossaSat1B --warnings=all --build-path=$PWD/avr-build/
       - uses: actions/upload-artifact@v2
         with:
           name: Arduino-AtMega328PB
