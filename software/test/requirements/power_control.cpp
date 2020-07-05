@@ -34,6 +34,7 @@ void PowCont_TestRunner_Start()
 *			Description: 		Check the battery charging state changes when the temperature is >0 and <0 degrees Celsius.
 *			Successful result: 	Simulate the sub-0 scenario by override the temperature sensor,
 								does the battery charging react accordingly?
+*			Date Log:			05/07/2020 - R.Bamford
 */
 void PowCont_T1()
 {
@@ -45,6 +46,7 @@ void PowCont_T1()
 *			Description: 		Check the battery charging circuit (MPPT) is switched on and off correctly.
 *			Successful result: 	When using the MPPT circuit,
 								does it switch on and off without affecting other areas of code? (check call graph)
+*			Date Log:			05/07/2020 - R.Bamford
 */
 void PowCont_T12()
 {

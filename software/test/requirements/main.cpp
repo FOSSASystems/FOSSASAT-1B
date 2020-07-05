@@ -31,13 +31,13 @@ SOFTWARE.
 // https://github.com/FOSSASystems/FOSSASAT-1B/blob/master/docs/3%20-%20Testing%20and%20Integration.md
 // 04/07/2020
 //
-#include "requirement_tests/mainprog.h"
-#include "requirement_tests/deployment.h"
-#include "requirement_tests/power_control.h"
-#include "requirement_tests/auto_int.h"
-#include "requirement_tests/hard_int.h"
-#include "requirement_tests/safe_sec.h"
-#include "requirement_tests/comms.h"
+#include "mainprog.h"
+#include "deployment.h"
+#include "power_control.h"
+#include "auto_int.h"
+#include "hard_int.h"
+#include "safe_sec.h"
+#include "comms.h"
 
 void setup()
 {

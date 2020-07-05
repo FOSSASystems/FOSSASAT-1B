@@ -20,6 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*			Date Log:			05/07/2020 - R.Bamford
 */
 
 #ifndef SAFE_SEC_T_H
@@ -32,6 +33,7 @@ extern void SafeSec_TestRunner_Start();
 *	@brief Reference ID: 		SAFESECT1
 *			Description: 		Check that the satellite correctly handles LoRa radio codes
 *			Successful result: 	When the radio outputs errors, how are they handled? check the failure modes - consult team discord to report unknown failure mode reponses.
+*			Date Log:			05/07/2020 - R.Bamford
 */
 extern void SafeSec_T1();
 
@@ -39,6 +41,7 @@ extern void SafeSec_T1();
 *	@brief Reference ID: 		SAFESECT2
 *			Description: 		Check that the transmissions content are safe and secure.
 *			Successful result: 	Transmissions do not affect other satellites negatively, make sure encrypted transmissions are encrypted by receiving them.
+*			Date Log:			05/07/2020 - R.Bamford
 */
 extern void SafeSec_T2();
 
@@ -46,6 +49,7 @@ extern void SafeSec_T2();
 *	@brief Reference ID: 		SAFESECT3
 *			Description: 		Check that the EEPROM values for errors and handle them.
 *			Successful result: 	If the eeprom values return errors, how are they handled?
+*			Date Log:			05/07/2020 - R.Bamford
 */
 extern void SafeSec_T3();
 
