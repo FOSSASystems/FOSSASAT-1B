@@ -24,7 +24,7 @@ void setup() {
   FOSSASAT_DEBUG_PORT.println();
 
   // increment reset counter
-  FOSSASAT_DEBUG_PORT.print(F("Rst "));
+  FOSSASAT_DEBUG_PORT.print('R');
   FOSSASAT_DEBUG_PORT.println(Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR));
   Persistent_Storage_Increment_Counter(EEPROM_RESTART_COUNTER_ADDR);
 
@@ -56,13 +56,13 @@ void setup() {
   #endif
 
   // setup radio
-  FOSSASAT_DEBUG_PORT.print(F("L "));
+  FOSSASAT_DEBUG_PORT.print('L');
   FOSSASAT_DEBUG_PORT.println(Communication_Set_Modem(MODEM_LORA));
-  FOSSASAT_DEBUG_PORT.print(F("F "));
+  FOSSASAT_DEBUG_PORT.print('F');
   FOSSASAT_DEBUG_PORT.println(Communication_Set_Modem(MODEM_FSK));
 
   #ifdef ENABLE_INA226
-    FOSSASAT_DEBUG_PORT.print(F("I "));
+    FOSSASAT_DEBUG_PORT.print('I');
     FOSSASAT_DEBUG_PORT.println(Power_Control_INA226_Check());
   #endif
 
@@ -70,7 +70,7 @@ void setup() {
   #ifdef ENABLE_DEPLOYMENT_SEQUENCE
     uint8_t attemptNumber = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
 
-    FOSSASAT_DEBUG_PORT.print(F("Dpl "));
+    FOSSASAT_DEBUG_PORT.print('D');
     FOSSASAT_DEBUG_PORT.println(attemptNumber);
     delay(10);
 
@@ -139,7 +139,7 @@ void setup() {
 
     } else if(Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR) <= DEPLOYMENT_ATTEMPTS) {
       // sleep before deployment
-      FOSSASAT_DEBUG_PRINT(F("Slp "));
+      FOSSASAT_DEBUG_PRINT('S');
       FOSSASAT_DEBUG_PRINTLN(DEPLOYMENT_SLEEP_LENGTH);
       FOSSASAT_DEBUG_DELAY(10);
       Power_Control_Delay(DEPLOYMENT_SLEEP_LENGTH, true, true);
@@ -280,7 +280,7 @@ void loop() {
 
   // set everything to sleep
   uint32_t interval = Power_Control_Get_Sleep_Interval();
-  FOSSASAT_DEBUG_PRINT(F("S "));
+  FOSSASAT_DEBUG_PRINT('S');
   FOSSASAT_DEBUG_PRINTLN(interval);
   FOSSASAT_DEBUG_DELAY(10);
   Power_Control_Delay(interval * SLEEP_LENGTH_CONSTANT, true, true);
@@ -299,8 +299,8 @@ void loop() {
 
   // update uptime counter
   uint32_t activeElapsed = (millis() - activeStart + 500)/1000;
-  FOSSASAT_DEBUG_PRINT(activeElapsed);
-  FOSSASAT_DEBUG_PRINTLN(F(" a"))
+  FOSSASAT_DEBUG_PRINT('a');
+  FOSSASAT_DEBUG_PRINTLN(activeElapsed);
 
   uint32_t elapsedTotal = 2 + windowLenLoRa + windowLenFsk + activeElapsed + interval;
   if(beaconSent) {
@@ -309,8 +309,8 @@ void loop() {
   } else {
     elapsedTotal += NUM_CW_BEEPS;
   }
-  FOSSASAT_DEBUG_PRINT(elapsedTotal);
-  FOSSASAT_DEBUG_PRINTLN(F(" t"))
+  FOSSASAT_DEBUG_PRINT('t');
+  FOSSASAT_DEBUG_PRINTLN(elapsedTotal);
 
   uptimeCounter += elapsedTotal;
   Persistent_Storage_Write<uint32_t>(EEPROM_UPTIME_COUNTER_ADDR,  uptimeCounter);

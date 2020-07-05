@@ -84,7 +84,7 @@ void Communication_CW_Beep(uint32_t len);
    memcpy(*buffPtr, &val, sizeof(val));
    (*buffPtr) += sizeof(val);
    FOSSASAT_DEBUG_PRINT(name);
-   FOSSASAT_DEBUG_PRINT(F(" = "));
+   FOSSASAT_DEBUG_PRINT('=');
    FOSSASAT_DEBUG_PRINT(val);
    FOSSASAT_DEBUG_PRINT('*');
    FOSSASAT_DEBUG_PRINT(mult);

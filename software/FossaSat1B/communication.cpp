@@ -506,17 +506,17 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
           if(flags & 0x40) {
             // battery temperature
-            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BATTERY_TEMP_STATS_ADDR), "", TEMPERATURE_MULTIPLIER, "mdeg C");
-            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BATTERY_TEMP_STATS_ADDR + 2), "", TEMPERATURE_MULTIPLIER, "mdeg C");
-            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BATTERY_TEMP_STATS_ADDR + 4), "", TEMPERATURE_MULTIPLIER, "mdeg C");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BATTERY_TEMP_STATS_ADDR), "", TEMPERATURE_MULTIPLIER, "mdgC");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BATTERY_TEMP_STATS_ADDR + 2), "", TEMPERATURE_MULTIPLIER, "mdgC");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BATTERY_TEMP_STATS_ADDR + 4), "", TEMPERATURE_MULTIPLIER, "mdgC");
             respOptDataLen += 6;
           }
 
           if(flags & 0x80) {
             // board temperature
-            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR), "", TEMPERATURE_MULTIPLIER, "mdg C");
-            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR + 2), "", TEMPERATURE_MULTIPLIER, "mdg C");
-            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR + 4), "", TEMPERATURE_MULTIPLIER, "mdg C");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR), "", TEMPERATURE_MULTIPLIER, "mdgC");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR + 2), "", TEMPERATURE_MULTIPLIER, "mdgC");
+            Communication_Frame_Add(&respOptDataPtr, Persistent_Storage_Read<int16_t>(EEPROM_BOARD_TEMP_STATS_ADDR + 4), "", TEMPERATURE_MULTIPLIER, "mdgC");
             respOptDataLen += 6;
           }
 
@@ -635,7 +635,7 @@ void Communication_Execute_Function(uint8_t functionId, uint8_t* optData, size_t
 
         // check number of samples is less than limit
         if(numSamples > 40) {
-          FOSSASAT_DEBUG_PRINT(F("Too many!"));
+          FOSSASAT_DEBUG_PRINT(F(">40"));
           break;
         }
 

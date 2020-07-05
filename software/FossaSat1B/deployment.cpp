@@ -1,7 +1,7 @@
 #include "deployment.h"
 
 void Deployment_Deploy() {
-  FOSSASAT_DEBUG_PRINTLN(F("Dpl"));
+  FOSSASAT_DEBUG_PRINTLN('D');
 
   // burn the nichrome wires
   digitalWrite(DIGITAL_OUT_MOSFET_1, HIGH);
