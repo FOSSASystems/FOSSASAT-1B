@@ -25,5 +25,24 @@ SOFTWARE.
 #ifndef POWER_CONTROL_T_H
 #define POWER_CONTROL_T_H
 
+extern void PowCont_TestRunner_Start();
+
+
+/**
+*	@brief Reference ID: 		POWCONT1
+*			Description: 		Check the battery charging state changes when the temperature is >0 and <0 degrees Celsius.
+*			Successful result: 	Simulate the sub-0 scenario by override the temperature sensor,
+								does the battery charging react accordingly?
+*/
+extern void PowCont_T1();
+
+/**
+*	@brief Reference ID: 		POWCONT12
+*			Description: 		Check the battery charging circuit (MPPT) is switched on and off correctly.
+*			Successful result: 	When using the MPPT circuit,
+								does it switch on and off without affecting other areas of code? (check call graph)
+*/
+extern void PowCont_T12();
+
 #endif
 
