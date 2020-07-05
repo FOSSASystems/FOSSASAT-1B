@@ -6,6 +6,7 @@
 |--|--|--|
 |08/01/2020|Created initial document.|RB|
 |27/01/2020|Updated to include successful test result.|RB|
+|5/07/2020|Entire test cases implemented in the software test system.|RB|
 
 
 ## Testing
