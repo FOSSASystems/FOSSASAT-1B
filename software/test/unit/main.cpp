@@ -26,15 +26,34 @@ SOFTWARE.
 #include <Arduino.h>
 #include <unity.h>
 
-#include "ina226.h"
+//
+// Doxygen tests
+// https://fossasystems.github.io/FOSSASAT-1B/test.html
+// 04/07/2020
+//
+#include "unit_tests/comms.h"
+#include "unit_tests/conf_debug_macros.h"
+#include "unit_tests/conf_eeprom_addr_map.h"
+#include "unit_tests/conf_fsk_radio.h"
+#include "unit_tests/conf_ina266_conf.h"
+#include "unit_tests/conf_lora_radio.h"
+#include "unit_tests/conf_mcu_temp.h"
+#include "unit_tests/conf_morse_cw.h"
+#include "unit_tests/conf_pin_map.h"
+#include "unit_tests/conf_power_conf.h"
+#include "unit_tests/conf_power_management.h"
+#include "unit_tests/conf_radio.h"
+#include "unit_tests/conf_tmp100.h"
+#include "unit_tests/deployment.h"
+#include "unit_tests/persis_stor.h"
+#include "unit_tests/pin_interf.h"
+#include "unit_tests/power_cont.h"
+#include "unit_tests/sys_inf.h"
 
 void setup()
 {
 	UNITY_BEGIN();
-    RUN_TEST(ina226_check_response);
-	RUN_TEST(ina226_check_battery_range);
 	UNITY_END();
-
 }
 
 void loop()
