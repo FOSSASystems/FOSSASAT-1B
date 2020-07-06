@@ -150,10 +150,10 @@ Functions</h2></td></tr>
 <tr class="memitem:aee0a3df78da4459c808120a803c65b61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8h.html#aee0a3df78da4459c808120a803c65b61">Communication_CW_Beep</a> (uint32_t len)</td></tr>
 <tr class="memdesc:aee0a3df78da4459c808120a803c65b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function transmits a continous wave "BEEP"".  <a href="#aee0a3df78da4459c808120a803c65b61">More...</a><br /></td></tr>
 <tr class="separator:aee0a3df78da4459c808120a803c65b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a980dd25e42aaeac1620dc7f9b42859a2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a980dd25e42aaeac1620dc7f9b42859a2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="communication_8h.html#a980dd25e42aaeac1620dc7f9b42859a2">Communication_Frame_Add</a> (uint8_t **buffPtr, T val, const char *name, uint32_t mult, const char *unit)</td></tr>
-<tr class="memdesc:a980dd25e42aaeac1620dc7f9b42859a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function adds frame entry to a frame.  <a href="#a980dd25e42aaeac1620dc7f9b42859a2">More...</a><br /></td></tr>
-<tr class="separator:a980dd25e42aaeac1620dc7f9b42859a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fab6dc9d0518cd51f80b858c81afa0f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a1fab6dc9d0518cd51f80b858c81afa0f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="communication_8h.html#a1fab6dc9d0518cd51f80b858c81afa0f">Communication_Frame_Add</a> (uint8_t **buffPtr, T val, const char *name)</td></tr>
+<tr class="memdesc:a1fab6dc9d0518cd51f80b858c81afa0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function adds frame entry to a frame.  <a href="#a1fab6dc9d0518cd51f80b858c81afa0f">More...</a><br /></td></tr>
+<tr class="separator:a1fab6dc9d0518cd51f80b858c81afa0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4e350e62342431fda2184ff0dc47a65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8h.html#ae4e350e62342431fda2184ff0dc47a65">Communication_Send_System_Info</a> ()</td></tr>
 <tr class="memdesc:ae4e350e62342431fda2184ff0dc47a65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send the satellite's information via the configured radio settings.  <a href="#ae4e350e62342431fda2184ff0dc47a65">More...</a><br /></td></tr>
 <tr class="separator:ae4e350e62342431fda2184ff0dc47a65"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -387,8 +387,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a980dd25e42aaeac1620dc7f9b42859a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a980dd25e42aaeac1620dc7f9b42859a2">&#9670;&nbsp;</a></span>Communication_Frame_Add()</h2>
+<a id="a1fab6dc9d0518cd51f80b858c81afa0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fab6dc9d0518cd51f80b858c81afa0f">&#9670;&nbsp;</a></span>Communication_Frame_Add()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -411,19 +411,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>mult</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>unit</em>&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -440,18 +428,16 @@ template&lt;typename T &gt; </div>
     <tr><td class="paramname">buffPtr</td><td>Pointer to the frame buffer. </td></tr>
     <tr><td class="paramname">val</td><td>Value to be added. </td></tr>
     <tr><td class="paramname">name</td><td>Name of the parameter (debug only); </td></tr>
-    <tr><td class="paramname">mult</td><td>Multiplier of the parameter (debug only); </td></tr>
-    <tr><td class="paramname">unit</td><td>Unit of the parameter (debug only); </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="communication_8h_source.html#l00083">83</a> of file <a class="el" href="communication_8h_source.html">communication.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="communication_8h_source.html#l00081">81</a> of file <a class="el" href="communication_8h_source.html">communication.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="communication_8h_a980dd25e42aaeac1620dc7f9b42859a2_icgraph.png" border="0" usemap="#communication_8h_a980dd25e42aaeac1620dc7f9b42859a2_icgraph" alt=""/></div>
-<map name="communication_8h_a980dd25e42aaeac1620dc7f9b42859a2_icgraph" id="communication_8h_a980dd25e42aaeac1620dc7f9b42859a2_icgraph">
+<div class="center"><img src="communication_8h_a1fab6dc9d0518cd51f80b858c81afa0f_icgraph.png" border="0" usemap="#communication_8h_a1fab6dc9d0518cd51f80b858c81afa0f_icgraph" alt=""/></div>
+<map name="communication_8h_a1fab6dc9d0518cd51f80b858c81afa0f_icgraph" id="communication_8h_a1fab6dc9d0518cd51f80b858c81afa0f_icgraph">
 <area shape="rect" id="node2" href="communication_8h.html#ae4e350e62342431fda2184ff0dc47a65" title="Send the satellite&#39;s information via the configured radio settings. " alt="" coords="240,5,391,47"/>
 </map>
 </div>
@@ -647,7 +633,7 @@ Here is the call graph for this function:</div>
 <area shape="rect" id="node2" href="power__control_8h.html#a6e2a22c1b8940caf3a89cf6f5e21e120" title="Get the battery voltage by switching the MPPT off and then on again after reading is taken..." alt="" coords="209,5,394,47"/>
 <area shape="rect" id="node5" href="power__control_8h.html#a38b1cf7d6af2bdccef1488666b05eda6" title="Gets the amperage which is being provided to the battery. " alt="" coords="204,71,399,112"/>
 <area shape="rect" id="node6" href="power__control_8h.html#ae60f6f685745e08c9ffbd6b6fbc025b9" title="Gets the charging voltage (from the solar panels) by not switching the MPPT off and taking an INA226 ..." alt="" coords="204,136,399,177"/>
-<area shape="rect" id="node7" href="communication_8h.html#a980dd25e42aaeac1620dc7f9b42859a2" title="This function adds frame entry to a frame. " alt="" coords="208,202,395,229"/>
+<area shape="rect" id="node7" href="communication_8h.html#a1fab6dc9d0518cd51f80b858c81afa0f" title="This function adds frame entry to a frame. " alt="" coords="208,202,395,229"/>
 <area shape="rect" id="node8" href="power__control_8h.html#a67027a313959753703a50352ee41b109" title="Load the configuration bytes from the EEPROM into RAM. " alt="" coords="230,253,373,295"/>
 <area shape="rect" id="node3" href="power__control_8h.html#a4e4e7a68a32a2d3fc0b7c0b14b391975" title="This function ensures that the battery is charging. &quot;set MPPT to input which enables battery charging..." alt="" coords="447,13,605,39"/>
 <area shape="rect" id="node4" href="power__control_8h.html#ac78b055f83071530eb3844378654db5e" title="Check that the INA2256 is valid. " alt="" coords="447,71,605,112"/>
