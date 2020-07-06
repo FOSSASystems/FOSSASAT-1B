@@ -27,11 +27,11 @@ void Power_Control_Charge(bool charge) {
   Power_Control_Load_Configuration();
   if(powerConfig.bits.mpptKeepAliveEnabled) {
     // force MPPT to float regardless of anything else
-    FOSSASAT_VERBOSE_PRINTLN(F("KA"));
+    FOSSASAT_VERBOSE_PRINTLN('K');
     pinMode(DIGITAL_OUT_MPPT_PIN, INPUT);
   } else if((Pin_Interface_Read_Temperature(BATTERY_TEMP_SENSOR_ADDR) < BATTERY_TEMPERATURE_LIMIT) && powerConfig.bits.mpptTempSwitchEnabled) {
     // force MPPT low, only if temperature switch is enabled
-    FOSSASAT_VERBOSE_PRINTLN(F("LT"));
+    FOSSASAT_VERBOSE_PRINTLN('L');
     pinMode(DIGITAL_OUT_MPPT_PIN, OUTPUT);
     digitalWrite(DIGITAL_OUT_MPPT_PIN, LOW);
   } else if(charge){

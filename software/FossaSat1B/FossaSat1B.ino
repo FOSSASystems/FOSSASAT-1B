@@ -43,7 +43,7 @@ void setup() {
   }
 
   // print power configuration
-  FOSSASAT_DEBUG_PORT.print(F("0b"));
+  FOSSASAT_DEBUG_PORT.print('C');
   FOSSASAT_DEBUG_PORT.println(powerConfig.val, BIN);
 
   // set temperature sensor resolution
@@ -99,13 +99,13 @@ void setup() {
             FOSSASAT_DEBUG_PORT.println(Power_Control_Get_Battery_Voltage(), 2);
           #endif
 
-          FOSSASAT_DEBUG_PORT.print(F("Sol A V\t"));
+          FOSSASAT_DEBUG_PORT.print(F("SolA V\t"));
           FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_A_VOLTAGE_PIN), 2);
 
-          FOSSASAT_DEBUG_PORT.print(F("Sol B V\t"));
+          FOSSASAT_DEBUG_PORT.print(F("SolB V\t"));
           FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_B_VOLTAGE_PIN), 2);
 
-          FOSSASAT_DEBUG_PORT.print(F("Sol C V\t"));
+          FOSSASAT_DEBUG_PORT.print(F("SolC V\t"));
           FOSSASAT_DEBUG_PORT.println(Pin_Interface_Read_Voltage(ANALOG_IN_SOLAR_C_VOLTAGE_PIN), 2);
 
           FOSSASAT_DEBUG_PORT.print(F("Bat C\t"));
@@ -120,7 +120,7 @@ void setup() {
           FOSSASAT_DEBUG_PORT.print(F("RST\t\t"));
           FOSSASAT_DEBUG_PORT.println(Persistent_Storage_Read<uint16_t>(EEPROM_RESTART_COUNTER_ADDR));
 
-          FOSSASAT_DEBUG_PORT.print(F("Pwr\t\t0b"));
+          FOSSASAT_DEBUG_PORT.print('C');
           Power_Control_Load_Configuration();
           FOSSASAT_DEBUG_PORT.println(powerConfig.val, BIN);
 
@@ -163,7 +163,7 @@ void loop() {
   uint8_t numLoops = Persistent_Storage_Read<uint8_t>(EEPROM_LOOP_COUNTER);
 
   // check battery voltage
-  FOSSASAT_DEBUG_PRINT(F("Bat "));
+  FOSSASAT_DEBUG_PRINT('B');
   #ifdef ENABLE_INA226
   float battVoltage = Power_Control_Get_Battery_Voltage();
   #else
@@ -171,7 +171,7 @@ void loop() {
   #endif
   FOSSASAT_DEBUG_PRINTLN(battVoltage, 2);
   Power_Control_Check_Battery_Limit();
-  FOSSASAT_DEBUG_PRINT(F("C 0b"));
+  FOSSASAT_DEBUG_PRINT('C');
   FOSSASAT_DEBUG_PRINTLN(powerConfig.val, BIN);
 
   // try to switch MPPT on (may be overridden by temperature check)
