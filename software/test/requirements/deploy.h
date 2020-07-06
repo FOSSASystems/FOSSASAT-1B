@@ -25,6 +25,13 @@ SOFTWARE.
 #ifndef DEPLOY_T_H
 #define DEPLOY_T_H
 
+#include <cstdint>
+
+#include "deployment.h"
+#include "configuration.h"
+#include "persistent_storage.h"
+
+
 extern void Deploy_TestRunner_Start();
 
 
@@ -87,6 +94,14 @@ extern void Deploy_T6();
 *			Date Log:			05/07/2020 - R.Bamford
 */
 extern void Deploy_T7();
+
+/**
+*	@brief Reference ID: 		DEPLOYT8
+*			Description: 		Test that the deployment system can run over the size of uint8_t used to track its number.
+*			Successful result: 	Successful result is that the number  cleanly loops to 0.
+*			Date Log:			06/07/2020 - R.Bamford
+*/
+extern void Deploy_T8();
 
 #endif
 

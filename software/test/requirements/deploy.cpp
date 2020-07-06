@@ -52,7 +52,20 @@ void Deploy_T1()
 */
 void Deploy_T2()
 {
+	// Get the EEPROM value pre-deployment.
+	uint8_t originalEEPROMValue = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
 
+	// Call the deployment sequence.
+	Deployment_Deploy(); // Blocked until finished.
+
+	// Get the EEPROM value post-deployment.
+	uint8_t newEEPROMValue = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
+
+	// Value that it should be.
+	uint8_t EEPROMCorrectValue = originalEEPROMValue + 1;
+
+	// Assert that the value and correct value are equal.
+	TEST_ASSERT_EQUAL_INT(newEEPROMValue, EEPROMCorrectValue);
 }
 
 /**
@@ -105,3 +118,61 @@ void Deploy_T6()
 void Deploy_T7()
 {
 }
+
+
+/**
+*	@brief Reference ID: 		DEPLOYT8
+*			Description: 		Test that the deployment system can run over the size of uint8_t used to track its number.
+*			Successful result: 	Successful result is that the number  cleanly loops to 0.
+*			Date Log:			06/07/2020 - R.Bamford
+*/
+void Deploy_T8()
+{
+	// 1. Save the previous number of deployments.
+	uint8_t previousNumberOfDeployments = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
+
+
+
+	// 2. Set the deployment counter to 0.
+	{
+		Persistent_Storage_Write<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR, 0);
+
+		// 3. Check the EEPROM is at 0.
+		uint8_t currentEEPROMValue = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
+		TEST_ASSERT_EQUAL_INT_MESSAGE(currentEEPROMValue, 0, "EEPROM address for deployment counter did not reset.");
+	}
+
+
+
+	// 4. Deploy 255 times
+	for (uint16_t i = 0; i < 255; i++)
+	{
+		Deployment_Deploy();
+	}
+
+
+
+
+	// 5. Check the deployment EEPROM is at 255.
+	{
+		uint8_t currentEEPROMValue = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
+		TEST_ASSERT_EQUAL_INT_MESSAGE(currentEEPROMValue, 255, "EEPROM address did not end at 255 correctly.");
+	}
+
+	// 6. Deploy 100 more times.
+	for (uint16_t i = 0; i < 100; i++)
+	{
+		Deployment_Deploy();
+	}
+
+	// 7. Check that the deployment EEPROM is at 100. (looped correctly)
+	{
+		uint8_t currentEEPROMValue = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
+		TEST_ASSERT_EQUAL_INT_MESSAGE(currentEEPROMValue, 100, "EEPROM address did not end correctly.");
+	}
+
+
+	// 8. Restore the previous number of deployments.
+	Persistent_Storage_Write<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR, previousNumberOfDeployments);
+}
+
