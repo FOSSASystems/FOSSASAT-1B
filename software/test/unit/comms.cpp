@@ -32,7 +32,7 @@ namespace Comms
 
 void RunTests()
 {
-    RUN_TEST(t0);
+    RUN_FS_TEST(t0);
 }
 
 void t0()

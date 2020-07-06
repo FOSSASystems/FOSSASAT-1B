@@ -22,32 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "../common.h"
+#ifndef COMMON_H_
+#define COMMON_H_
 
-//
-// Requirement tests
-// https://github.com/FOSSASystems/FOSSASAT-1B/blob/master/docs/3%20-%20Testing%20and%20Integration.md
-// 04/07/2020
-//
-#include "mainprog.h"
-#include "deploy.h"
-#include "pow_cont.h"
-#include "auto_int.h"
-#include "hard_int.h"
-#include "safe_sec.h"
-#include "comms.h"
+#include <Arduino.h>
+#include <stdint.h>
+#include <unity.h>
 
-void setup()
-{
-	UNITY_BEGIN();
-	
-	// Deployment tests.
-	Deploy_TestRunner_Start();
+#include "configuration.h"
 
-	UNITY_END();
-}
+#define RUN_FS_TEST(func) \
+    digitalWrite(DIGITAL_OUT_WATCHDOG_HEARTBEAT, !digitalRead(DIGITAL_OUT_WATCHDOG_HEARTBEAT)); \
+    RUN_TEST(func)
 
-void loop()
-{
-}
-
+#endif

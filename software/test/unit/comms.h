@@ -25,8 +25,7 @@ SOFTWARE.
 #ifndef UNIT_COMMS_T_H
 #define UNIT_COMMS_T_H
 
-#include <Arduino.h>
-#include <unity.h>
+#include "../common.h"
 
 namespace UnitTests
 {

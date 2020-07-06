@@ -26,8 +26,8 @@ SOFTWARE.
 
 void Deploy_TestRunner_Start()
 {
-	RUN_TEST(Deploy_T2);
-	RUN_TEST(Deploy_T8);
+	RUN_FS_TEST(Deploy_T2);
+	RUN_FS_TEST(Deploy_T8);
 }
 
 
@@ -148,9 +148,6 @@ void Deploy_T8()
 	// 4. Deploy 5 times
 	for (uint16_t i = 0; i < 5; i++)
 	{
-		// toggle watchdog pin
-		digitalWrite(DIGITAL_OUT_WATCHDOG_HEARTBEAT, !digitalRead(DIGITAL_OUT_WATCHDOG_HEARTBEAT));
-
 		Deployment_Deploy();
 	}
 
@@ -166,9 +163,6 @@ void Deploy_T8()
 	// 6. Deploy 5 more times.
 	for (uint16_t i = 0; i < 5; i++)
 	{
-		// toggle watchdog pin
-		digitalWrite(DIGITAL_OUT_WATCHDOG_HEARTBEAT, !digitalRead(DIGITAL_OUT_WATCHDOG_HEARTBEAT));
-
 		Deployment_Deploy();
 	}
 
