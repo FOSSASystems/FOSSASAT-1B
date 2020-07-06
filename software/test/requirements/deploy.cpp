@@ -148,6 +148,9 @@ void Deploy_T8()
 	// 4. Deploy 255 times
 	for (uint16_t i = 0; i < 255; i++)
 	{
+		// toggle watchdog pin
+		digitalWrite(DIGITAL_OUT_WATCHDOG_HEARTBEAT, !digitalRead(DIGITAL_OUT_WATCHDOG_HEARTBEAT));
+
 		Deployment_Deploy();
 	}
 
@@ -163,6 +166,9 @@ void Deploy_T8()
 	// 6. Deploy 100 more times.
 	for (uint16_t i = 0; i < 100; i++)
 	{
+		// toggle watchdog pin
+		digitalWrite(DIGITAL_OUT_WATCHDOG_HEARTBEAT, !digitalRead(DIGITAL_OUT_WATCHDOG_HEARTBEAT));
+		
 		Deployment_Deploy();
 	}
 
