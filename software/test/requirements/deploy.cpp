@@ -145,8 +145,8 @@ void Deploy_T8()
 
 
 
-	// 4. Deploy 255 times
-	for (uint16_t i = 0; i < 255; i++)
+	// 4. Deploy 5 times
+	for (uint16_t i = 0; i < 5; i++)
 	{
 		// toggle watchdog pin
 		digitalWrite(DIGITAL_OUT_WATCHDOG_HEARTBEAT, !digitalRead(DIGITAL_OUT_WATCHDOG_HEARTBEAT));
@@ -157,25 +157,25 @@ void Deploy_T8()
 
 
 
-	// 5. Check the deployment EEPROM is at 255.
+	// 5. Check the deployment EEPROM is at 5.
 	{
 		uint8_t currentEEPROMValue = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
-		TEST_ASSERT_EQUAL_INT_MESSAGE(currentEEPROMValue, 255, "EEPROM address did not end at 255 correctly.");
+		TEST_ASSERT_EQUAL_INT_MESSAGE(currentEEPROMValue, 5, "EEPROM address did not end at 5 correctly.");
 	}
 
-	// 6. Deploy 100 more times.
-	for (uint16_t i = 0; i < 100; i++)
+	// 6. Deploy 5 more times.
+	for (uint16_t i = 0; i < 5; i++)
 	{
 		// toggle watchdog pin
 		digitalWrite(DIGITAL_OUT_WATCHDOG_HEARTBEAT, !digitalRead(DIGITAL_OUT_WATCHDOG_HEARTBEAT));
-		
+
 		Deployment_Deploy();
 	}
 
-	// 7. Check that the deployment EEPROM is at 100. (looped correctly)
+	// 7. Check that the deployment EEPROM is at 10. (looped correctly)
 	{
 		uint8_t currentEEPROMValue = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
-		TEST_ASSERT_EQUAL_INT_MESSAGE(currentEEPROMValue, 100, "EEPROM address did not end correctly.");
+		TEST_ASSERT_EQUAL_INT_MESSAGE(currentEEPROMValue, 10, "EEPROM address did not end correctly.");
 	}
 
 
