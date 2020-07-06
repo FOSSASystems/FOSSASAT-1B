@@ -22,10 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "deployment.h"
+#include "deploy.h"
 
 void Deploy_TestRunner_Start()
 {
+	RUN_TEST(Deploy_T2);
 }
 
 
@@ -47,9 +48,11 @@ void Deploy_T1()
 *			Successful result: 	When the deployment sequence runs in jettison mode,
 								does it correctly save its state to the EEPROM?
 *			Date Log:			05/07/2020 - R.Bamford
+*								06/07/2020 - R.Bamford - First implementation.
 */
 void Deploy_T2()
 {
+
 }
 
 /**

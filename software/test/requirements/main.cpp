@@ -32,8 +32,8 @@ SOFTWARE.
 // 04/07/2020
 //
 #include "mainprog.h"
-#include "deployment.h"
-#include "power_control.h"
+#include "deploy.h"
+#include "pow_cont.h"
 #include "auto_int.h"
 #include "hard_int.h"
 #include "safe_sec.h"
@@ -42,6 +42,10 @@ SOFTWARE.
 void setup()
 {
 	UNITY_BEGIN();
+	
+	// Deployment tests.
+	Deploy_TestRunner_Start();
+
 	UNITY_END();
 }
 

@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "power_control.h"
+#include "pow_cont.h"
 
 void PowCont_TestRunner_Start()
 {
