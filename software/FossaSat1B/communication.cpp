@@ -22,7 +22,6 @@ int16_t Communication_Set_Modem(uint8_t modem) {
                             LORA_SPREADING_FACTOR,
                             LORA_CODING_RATE,
                             SYNC_WORD,
-                            LORA_OUTPUT_POWER,
                             LORA_CURRENT_LIMIT);
         radio.setCRC(true);
       break;
@@ -32,7 +31,6 @@ int16_t Communication_Set_Modem(uint8_t modem) {
                                FSK_FREQUENCY_DEVIATION,
                                FSK_RX_BANDWIDTH,
                                FSK_OUTPUT_POWER,
-                               FSK_CURRENT_LIMIT,
                                FSK_PREAMBLE_LENGTH,
                                FSK_DATA_SHAPING);
         uint8_t syncWordFSK[2] = {SYNC_WORD, SYNC_WORD};
@@ -45,6 +43,7 @@ int16_t Communication_Set_Modem(uint8_t modem) {
 
   radio.setDio2AsRfSwitch(true);
   radio.setWhitening(true, WHITENING_INITIAL);
+  radio.setCurrentLimit(FSK_CURRENT_LIMIT);
 
   // handle possible error codes
   FOSSASAT_DEBUG_PRINT(F("Init "));
