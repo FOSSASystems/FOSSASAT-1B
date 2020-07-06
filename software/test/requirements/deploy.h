@@ -25,7 +25,9 @@ SOFTWARE.
 #ifndef DEPLOY_T_H
 #define DEPLOY_T_H
 
+#include <Arduino.h>
 #include <stdint.h>
+#include <unity.h>
 
 #include "deployment.h"
 #include "configuration.h"
