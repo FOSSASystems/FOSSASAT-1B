@@ -7,5 +7,6 @@ var group__defines__radio__lora__configuration =
     [ "LORA_CARRIER_FREQUENCY", "group__defines__radio__lora__configuration.html#gafe832936c374bff5e188c400514308a8", null ],
     [ "LORA_CODING_RATE", "group__defines__radio__lora__configuration.html#ga4c6536f4c2d7ce68b90100bf64d7c17e", null ],
     [ "LORA_CURRENT_LIMIT", "group__defines__radio__lora__configuration.html#ga65acce91212130f161b96ae5003a503c", null ],
-    [ "LORA_OUTPUT_POWER", "group__defines__radio__lora__configuration.html#ga85f023404afa6ec72b6dc7fbfe6742f5", null ]
+    [ "LORA_OUTPUT_POWER", "group__defines__radio__lora__configuration.html#ga85f023404afa6ec72b6dc7fbfe6742f5", null ],
+    [ "LORA_PREAMBLE_LENGTH", "group__defines__radio__lora__configuration.html#ga1e5b496aeaf1062018a929480d244284", null ]
 ];

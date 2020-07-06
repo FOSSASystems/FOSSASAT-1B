@@ -142,6 +142,7 @@ var NAVTREEINDEX0 =
 "group__defines__radio__common__configuraiton.html#ga9c4ea33b2371bca7b91866f44f4555b7":[2,0,10,6],
 "group__defines__radio__common__configuraiton.html#gaed963c48ead7d4a77519f1d09cffa16c":[2,0,10,5],
 "group__defines__radio__lora__configuration.html":[2,0,11],
+"group__defines__radio__lora__configuration.html#ga1e5b496aeaf1062018a929480d244284":[2,0,11,8],
 "group__defines__radio__lora__configuration.html#ga33702007527b9cea6e029b919322a7a5":[2,0,11,3],
 "group__defines__radio__lora__configuration.html#ga4c6536f4c2d7ce68b90100bf64d7c17e":[2,0,11,5],
 "group__defines__radio__lora__configuration.html#ga65acce91212130f161b96ae5003a503c":[2,0,11,6],
