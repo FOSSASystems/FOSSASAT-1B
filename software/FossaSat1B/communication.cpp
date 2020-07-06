@@ -41,7 +41,6 @@ int16_t Communication_Set_Modem(uint8_t modem) {
       return(ERR_UNKNOWN);
   }
 
-  radio.setDio2AsRfSwitch(true);
   radio.setWhitening(true, WHITENING_INITIAL);
   radio.setCurrentLimit(FSK_CURRENT_LIMIT);
 
