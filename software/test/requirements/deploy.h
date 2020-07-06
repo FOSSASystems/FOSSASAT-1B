@@ -25,7 +25,7 @@ SOFTWARE.
 #ifndef DEPLOY_T_H
 #define DEPLOY_T_H
 
-#include <cstdint>
+#include <stdint.h>
 
 #include "deployment.h"
 #include "configuration.h"
