@@ -509,6 +509,7 @@
 #define LORA_SPREADING_FACTOR_ALT                       10
 #define LORA_CODING_RATE                                8           /*!< 4/8, Extended Hamming */
 #define LORA_OUTPUT_POWER                               20          /*!< dBm */
+#define LORA_PREAMBLE_LENGTH                            8           /*!< symbols */
 #define LORA_CURRENT_LIMIT                              140.0       /*!< mA */
 
 /**
