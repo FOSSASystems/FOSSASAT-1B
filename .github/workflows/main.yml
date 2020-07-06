@@ -89,4 +89,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: platformio update
-      - run: cd software && platformio test -e ATmega328PB -v
+      - run: source /proc/device-tree/hat/custom_0 && cd software && platformio test -e ATmega328PB -v --upload-port $FS_PORT --test-port $TEST_PORT
