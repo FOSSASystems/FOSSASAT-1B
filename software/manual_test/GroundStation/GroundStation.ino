@@ -40,7 +40,7 @@
 #define FREQ_DEV              5.0     // kHz SSB
 #define RX_BANDWIDTH          39.0    // kHz SSB
 #define FSK_PREAMBLE_LEN      16      // bits
-#define DATA_SHAPING          0.5     // BT product
+#define DATA_SHAPING          RADIOLIB_SHAPING_0_5     // BT product
 #define TCXO_VOLTAGE          1.6     // volts
 #define WHITENING_INITIAL     0x1FF   // initial whitening LFSR value
 
@@ -580,10 +580,10 @@ int16_t setLoRa() {
                           CODING_RATE,
                           SYNC_WORD,
                           OUTPUT_POWER,
-                          CURRENT_LIMIT,
                           LORA_PREAMBLE_LEN,
                           TCXO_VOLTAGE);
   radio.setCRC(true);
+  radio.setCurrentLimit(CURRENT_LIMIT);
   #ifdef USE_SX126X
   radio.setWhitening(true, WHITENING_INITIAL);
   #endif
@@ -596,12 +596,12 @@ int16_t setGFSK() {
                              FREQ_DEV,
                              RX_BANDWIDTH,
                              OUTPUT_POWER,
-                             CURRENT_LIMIT,
                              FSK_PREAMBLE_LEN,
-                             DATA_SHAPING,
                              TCXO_VOLTAGE);
   uint8_t syncWordFSK[2] = {SYNC_WORD, SYNC_WORD};
   radio.setSyncWord(syncWordFSK, 2);
+  radio.setDataShaping(FSK_DATA_SHAPING);
+  radio.setCurrentLimit(FSK_CURRENT_LIMIT);
   #ifdef USE_SX126X
     radio.setCRC(2);
     radio.setWhitening(true, WHITENING_INITIAL);
