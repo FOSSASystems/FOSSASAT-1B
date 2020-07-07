@@ -19,3 +19,11 @@ FOSSASAT-1B is slightly modified second iteration of the FOSSASAT-1 satellite la
 
 PCBs and Schematics are designed using EasyEDA, Java files are available for using them in said interface. 
 
+## Software
+
+The design of the FOSSASAT-1 code is a minimalist C-type structure. Everything is contained within code files whos name represents the functionality of the funtions within.
+
+The core of the communications system uses a large switch that routes received messages to function calls.
+
+The system has a large amount of configuration defines that control all aspects, this is found in the configuration.h/.cpp which again is documented thoroughly to describe it. There is a single function within the configuration "module" that controls the pin setups that can be found here: https://github.com/FOSSASystems/FOSSASAT-1B/blob/master/software/FossaSat1B/configuration.cpp#L32
+
