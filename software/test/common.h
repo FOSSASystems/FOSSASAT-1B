@@ -32,6 +32,7 @@ SOFTWARE.
 #include "configuration.h"
 
 #define RUN_FS_TEST(func) \
+	pinMode(DIGITAL_OUT_WATCHDOG_HEARTBEAT, OUTPUT); \
     digitalWrite(DIGITAL_OUT_WATCHDOG_HEARTBEAT, !digitalRead(DIGITAL_OUT_WATCHDOG_HEARTBEAT)); \
     RUN_TEST(func)
 
