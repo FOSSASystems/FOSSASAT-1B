@@ -26,12 +26,19 @@ SOFTWARE.
 #include "../common.h"
 
 #include "ina226.h"
+#include <communication.h>
+
+void lora_init()
+{
+	TEST_ASSERT(Communication_Set_Modem(MODEM_LORA) == ERR_NONE);
+}
 
 void setup()
 {
 	UNITY_BEGIN();
     RUN_FS_TEST(ina226_check_response);
 	RUN_FS_TEST(ina226_check_battery_range);
+	RUN_FS_TEST(lora_init);
 	UNITY_END();
 
 }
