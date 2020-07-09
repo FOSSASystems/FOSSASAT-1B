@@ -17,13 +17,14 @@
 // include all libraries
 #include <RadioLib.h>
 #include <FOSSA-Comms.h>
+#include "configuration.h"
 
 //#define USE_GFSK                    // uncomment to use GFSK
-#define USE_SX126X                    // uncomment to use SX126x
+//#define USE_SX126X                    // uncomment to use SX126x
 
 // pin definitions
-#define CS                    10      // SPI chip select
-#define DIO                   2       // DIO0 for SX127x, DIO1 for SX126x
+#define CS                    LORA_CS      // SPI chip select
+#define DIO                   LORA_IRQ       // DIO0 for SX127x, DIO1 for SX126x
 #define NRST                  RADIOLIB_NC      // NRST pin (optional)
 #define BUSY                  9       // BUSY pin (SX126x-only)
 
@@ -45,11 +46,12 @@
 #define WHITENING_INITIAL     0x1FF   // initial whitening LFSR value
 
 // set up radio module
-#ifdef USE_SX126X
-SX1268 radio = new Module(CS, DIO, NRST, BUSY);
-#else
-SX1278 radio = new Module(CS, DIO, NRST, RADIOLIB_NC);
-#endif
+//#ifdef USE_SX126X
+//SX1268 radio = new Module(CS, DIO, NRST, BUSY);
+//#else
+//SX1278 radio = new Module(CS, DIO, NRST, RADIOLIB_NC);
+//#endif
+SX1278 * radio;
 
 // flags
 volatile bool interruptEnabled = true;
@@ -81,7 +83,7 @@ void sendFrame(uint8_t functionId, uint8_t optDataLen = 0, uint8_t* optData = NU
   FCP_Encode(frame, callsign, functionId, optDataLen, optData);
 
   // send data
-  int state = radio.transmit(frame, len);
+  int state = radio->transmit(frame, len);
   delete[] frame;
 
   // check transmission success
@@ -100,7 +102,7 @@ void sendFrameEncrypted(uint8_t functionId, uint8_t optDataLen = 0, uint8_t* opt
   FCP_Encode(frame, callsign, functionId, optDataLen, optData, encryptionKey, password);
 
   // send data
-  int state = radio.transmit(frame, len);
+  int state = radio->transmit(frame, len);
   delete[] frame;
 
   // check transmission success
@@ -143,10 +145,10 @@ void decode(uint8_t* respFrame, uint8_t respLen) {
 
   // print packet info
   Serial.print(F("RSSI: "));
-  Serial.print(radio.getRSSI());
+  Serial.print(radio->getRSSI());
   Serial.println(F(" dBm"));
   Serial.print(F("SNR: "));
-  Serial.print(radio.getSNR());
+  Serial.print(radio->getSNR());
   Serial.println(F(" dB"));
 
   // get function ID
@@ -417,9 +419,9 @@ void getResponse(uint32_t timeout) {
       transmissionReceived = false;
 
       // read received data
-      size_t respLen = radio.getPacketLength();
+      size_t respLen = radio->getPacketLength();
       uint8_t* respFrame = new uint8_t[respLen];
-      int state = radio.readData(respFrame, respLen);
+      int state = radio->readData(respFrame, respLen);
 
       if (state == ERR_NONE) {
         decode(respFrame, respLen);
@@ -431,7 +433,7 @@ void getResponse(uint32_t timeout) {
       delete[] respFrame;
 
       // enable reception interrupt
-      radio.startReceive();
+      radio->startReceive();
       interruptEnabled = true;
     }
   }
@@ -574,7 +576,7 @@ void requestRetransmitCustom() {
 }
 
 int16_t setLoRa() {
-  int state = radio.begin(FREQUENCY,
+  int state = radio->begin(FREQUENCY,
                           BANDWIDTH,
                           SPREADING_FACTOR,
                           CODING_RATE,
@@ -582,8 +584,8 @@ int16_t setLoRa() {
                           OUTPUT_POWER,
                           LORA_PREAMBLE_LEN,
                           TCXO_VOLTAGE);
-  radio.setCRC(true);
-  radio.setCurrentLimit(CURRENT_LIMIT);
+  radio->setCRC(true);
+  radio->setCurrentLimit(CURRENT_LIMIT);
   #ifdef USE_SX126X
   radio.setWhitening(true, WHITENING_INITIAL);
   #endif
@@ -591,7 +593,7 @@ int16_t setLoRa() {
 }
 
 int16_t setGFSK() {
-  int state = radio.beginFSK(FREQUENCY,
+  int state = radio->beginFSK(FREQUENCY,
                              BIT_RATE,
                              FREQ_DEV,
                              RX_BANDWIDTH,
@@ -599,14 +601,14 @@ int16_t setGFSK() {
                              FSK_PREAMBLE_LEN,
                              TCXO_VOLTAGE);
   uint8_t syncWordFSK[2] = {SYNC_WORD, SYNC_WORD};
-  radio.setSyncWord(syncWordFSK, 2);
-  radio.setDataShaping(FSK_DATA_SHAPING);
-  radio.setCurrentLimit(FSK_CURRENT_LIMIT);
+  radio->setSyncWord(syncWordFSK, 2);
+  radio->setDataShaping(FSK_DATA_SHAPING);
+  radio->setCurrentLimit(FSK_CURRENT_LIMIT);
   #ifdef USE_SX126X
     radio.setCRC(2);
     radio.setWhitening(true, WHITENING_INITIAL);
   #else
-    radio.setCRC(true);
+    radio->setCRC(true);
   #endif
   return (state);
 }
@@ -619,11 +621,11 @@ void setRxWindows(uint8_t fsk, uint8_t lora) {
   sendFrameEncrypted(CMD_SET_RECEIVE_WINDOWS, 2, optData);
 }
 
-void sendUnknownFrame() {
-  radio.implicitHeader(strlen(callsign) + 1);
+/*void sendUnknownFrame() {
+  radio->implicitHeader(strlen(callsign) + 1);
   sendPing();
-  radio.explicitHeader();
-}
+  radio->explicitHeader();
+}*/
 
 void getStats(uint8_t mask) {
   Serial.print(F("Sending stats request ... "));
@@ -639,10 +641,13 @@ void recordSolarCells(uint8_t samples, uint16_t period) {
 }
 
 void setup() {
+  delay(1000);
   Serial.begin(115200);
   Serial.println(F("FOSSA Ground Station Demo Code"));
 
   // initialize the radio
+  SPI.begin(LORA_SCK, LORA_MISO, LORA_MOSI, LORA_CS);
+  radio = new SX1278(new Module(LORA_CS, LORA_IRQ, LORA_RST, SPI, SPISettings(2000000, MSBFIRST, SPI_MODE0)));
   #ifdef USE_GFSK
     int state = setGFSK();
   #else
@@ -658,13 +663,13 @@ void setup() {
   }
 
   #ifdef USE_SX126X
-    radio.setDio1Action(onInterrupt);
+    radio->setDio1Action(onInterrupt);
   #else
-    radio.setDio0Action(onInterrupt);
+    radio->setDio0Action(onInterrupt);
   #endif
 
   // begin listening for packets
-  radio.startReceive();
+  radio->startReceive();
 
   // provide seed for PRNG
   randomSeed(analogRead(A6));
@@ -678,9 +683,9 @@ void loop() {
     // disable reception interrupt
     interruptEnabled = false;
     #ifdef USE_SX126X
-      radio.clearDio1Action();
+      radio->clearDio1Action();
     #else
-      radio.clearDio0Action();
+      radio->clearDio0Action();
     #endif
 
     // get the first character
@@ -756,18 +761,18 @@ void loop() {
     // and the data will be the transmitted packet
     // the only workaround seems to be resetting the module
     #if defined(USE_GFSK) && defined(USE_SX126X)
-      radio.sleep(false);
+      radio->sleep(false);
       delay(10);
       setGFSK();
     #endif
 
     // set radio mode to reception
     #ifdef USE_SX126X
-      radio.setDio1Action(onInterrupt);
+      radio->setDio1Action(onInterrupt);
     #else
-      radio.setDio0Action(onInterrupt);
+      radio->setDio0Action(onInterrupt);
     #endif
-    radio.startReceive();
+    radio->startReceive();
     interruptEnabled = true;
   }
 
@@ -778,9 +783,9 @@ void loop() {
     transmissionReceived = false;
 
     // read received data
-    size_t respLen = radio.getPacketLength();
+    size_t respLen = radio->getPacketLength();
     uint8_t* respFrame = new uint8_t[respLen];
-    int state = radio.readData(respFrame, respLen);
+    int state = radio->readData(respFrame, respLen);
 
     // check reception success
     if (state == ERR_NONE) {
@@ -801,7 +806,7 @@ void loop() {
 
     // enable reception interrupt
     delete[] respFrame;
-    radio.startReceive();
+    radio->startReceive();
     interruptEnabled = true;
   }
 }
