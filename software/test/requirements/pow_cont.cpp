@@ -35,9 +35,11 @@ void PowCont_TestRunner_Start()
 *			Successful result: 	Simulate the sub-0 scenario by override the temperature sensor,
 								does the battery charging react accordingly?
 *			Date Log:			05/07/2020 - R.Bamford
+*								10/07/2020 - R.Bamford - Cannot test this since we cannot simulate temperatures.
 */
 void PowCont_T1()
 {
+	// See date log.
 
 }
 
@@ -50,5 +52,4 @@ void PowCont_T1()
 */
 void PowCont_T12()
 {
-	
 }

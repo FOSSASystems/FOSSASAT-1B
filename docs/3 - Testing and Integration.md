@@ -41,16 +41,16 @@ Use your discretion when intrepreting the successful result of a test, if unsure
 |DEPLOYT7|Check that the deployment system returns the correct value for its current state.||||When the satellite restarts, does it load the correct value from the EEPROM?|N - cannot simulate scenarios.|
 
 ## Power Control
-|Reference ID|Description|Tested (Y/N)|Tested Date (dd-mm-yyyy|Status|Successfull Result|
-|--|--|--|--|--|--|
-|POWCONT1|Check the battery charging state changes when the temperature is >0 and <0 degrees Celsius.||||Simulate the sub-0 scenario by override the temperature sensor, does the battery charging react accordingly?|
-|POWCONT12|Check the battery charging circuit (MPPT) is switched on and off correctly.||||When using the MPPT circuit, does it switch on and off without affecting other areas of code? (check call graph)|
+|Reference ID|Description|Tested (Y/N)|Tested Date (dd-mm-yyyy|Status|Successfull Result|Automated|
+|--|--|--|--|--|--|--|
+|POWCONT1|Check the battery charging state changes when the temperature is >0 and <0 degrees Celsius.||||Simulate the sub-0 scenario by override the temperature sensor, does the battery charging react accordingly?|N - Cannot test this since we cannot simulate temperatures.|
+|POWCONT12|Check the battery charging circuit (MPPT) is switched on and off correctly.||||When using the MPPT circuit, does it switch on and off without affecting other areas of code? (check call graph)||
 
 ## Automatic Interval Control
-|Reference ID|Description|Tested (Y/N)|Tested Date (dd-mm-yyyy|Status|Successful Result|
-|--|--|--|--|--|--|
-|AUTOINT1|Check that the intervals returned for a given battery charged level matches the specified table of delays.||||Simulate the battery charging level at the specified thresholds (using bounds testing too) and check the interval changes according to the specified delays (see Julian for spec)|
-|AUTOINT2|Check that the maximum and minimum intervals do not cause errors. (resetting loops)||||When the satellite is delayed, does it restart when it should? does it get into a restart loop anywhere? check this|
+|Reference ID|Description|Tested (Y/N)|Tested Date (dd-mm-yyyy|Status|Successful Result|Automated|
+|--|--|--|--|--|--|--|
+|AUTOINT1|Check that the intervals returned for a given battery charged level matches the specified table of delays.||||Simulate the battery charging level at the specified thresholds (using bounds testing too) and check the interval changes according to the specified delays (see Julian for spec)|N - Cannot test this since we cannot simulate temperatures.|
+|AUTOINT2|Check that the maximum and minimum intervals do not cause errors. (resetting loops)||||When the satellite is delayed, does it restart when it should? does it get into a restart loop anywhere? check this||
 |AUTOINT3|Check if the low power mode is enabled, if so force delay.||||If the low power mode is enabled, then make sure that the maximum interval for battery charging is used to maximise charging.
 |AUTOINT4|Check if the interval control is disabled, if so force no delay.||||If the interval control is disabled, then test that there is no interval delay.|
 
