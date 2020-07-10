@@ -25,6 +25,10 @@ SOFTWARE.
 #ifndef POWER_CONTROL_T_H
 #define POWER_CONTROL_T_H
 
+
+#include "power_control.h"
+
+
 extern void PowCont_TestRunner_Start();
 
 

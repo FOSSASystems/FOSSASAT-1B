@@ -37,12 +37,16 @@ SOFTWARE.
 #include "safe_sec.h"
 #include "comms.h"
 
+
 void setup()
 {
 	UNITY_BEGIN();
 	
 	// Deployment tests.
 	Deploy_TestRunner_Start();
+
+	// Automatic interval control tests.
+	AutoInt_TestRunner_Start();
 
 	UNITY_END();
 }

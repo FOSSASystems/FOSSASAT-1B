@@ -30,6 +30,7 @@ SOFTWARE.
 #include "deployment.h"
 #include "configuration.h"
 #include "persistent_storage.h"
+#include "pin_interface.h"
 
 
 extern void Deploy_TestRunner_Start();

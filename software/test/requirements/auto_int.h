@@ -25,6 +25,11 @@ SOFTWARE.
 #ifndef AUTO_INT_T_H
 #define AUTO_INT_T_H
 
+#include "../common.h"
+#include "power_control.h"
+#include "pin_interface.h"
+
+
 extern void AutoInt_TestRunner_Start();
 
 
