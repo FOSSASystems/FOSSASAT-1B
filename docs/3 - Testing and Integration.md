@@ -9,9 +9,17 @@
 |5/07/2020|Entire test cases implemented in the software test system.|RB|
 |06/07/2020|Added new document 3.1 Testing Additions|RB|
 
-
 ## Testing
+
 Use your discretion when intrepreting the successful result of a test, if unsure, contact FOSSA Systems at our discord channel.
+
+## Required Features for tests:
+
+1. Controlling the temperature readings.
+2. Controlling battery readings.
+3. Checking whether deployment system has physically ran.
+4. Detecting radio transmissions and interpreting them.
+5. Manually making the satellite restart without losing test run.
 
 ### Main Program
 |Reference ID|Description|Tested (Y/N)|Tested Date (dd-mm-yyyy|Status|Successful Result|Automated|

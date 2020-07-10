@@ -34,7 +34,8 @@ void AutoInt_TestRunner_Start()
 *			Description: 		Check that the intervals returned for a given battery charged level matches the specified table of delays.
 *			Successful result: 	Simulate the battery charging level at the specified thresholds (using bounds testing too) and
 								check the interval changes according to the specified delays (see Julian for spec)
-*			Date Log:			05/07/2020 - R.Bamforrd
+*			Date Log:			05/07/2020 - R.Bamford
+*								10/07/2020 - R.Bamford - Cannot test this since we cannot control battery voltage.
 */
 void AutoInt_T1()
 {
