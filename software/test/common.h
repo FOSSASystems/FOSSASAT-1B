@@ -31,6 +31,15 @@ SOFTWARE.
 
 #include "configuration.h"
 
+
+/**
+ * 10/07/2020 - R.Bamford
+ * This macro is not needed, the watchdog should always be signalled using 
+          "Pin_Interface_Watchdog_Heartbeat()" inside the test case code.
+
+    - Remove this macro please -
+ * 
+ */
 #define RUN_FS_TEST(func) \
 	pinMode(DIGITAL_OUT_WATCHDOG_HEARTBEAT, OUTPUT); \
     digitalWrite(DIGITAL_OUT_WATCHDOG_HEARTBEAT, !digitalRead(DIGITAL_OUT_WATCHDOG_HEARTBEAT)); \

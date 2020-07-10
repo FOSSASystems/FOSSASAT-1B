@@ -58,6 +58,9 @@ void Deploy_T2()
 	// Get the EEPROM value pre-deployment.
 	uint8_t originalEEPROMValue = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
 
+	// Pet the watchdog.
+	Pin_Interface_Watchdog_Heartbeat();
+
 	// Call the deployment sequence.
 	Deployment_Deploy(); // Blocked until finished.
 
@@ -66,6 +69,9 @@ void Deploy_T2()
 
 	// Value that it should be.
 	uint8_t EEPROMCorrectValue = originalEEPROMValue + 1;
+
+	// Pet the watchdog.
+	Pin_Interface_Watchdog_Heartbeat();
 
 	// Assert that the value and correct value are equal.
 	TEST_ASSERT_EQUAL_INT(newEEPROMValue, EEPROMCorrectValue);
@@ -138,9 +144,22 @@ void Deploy_T7()
 *			Description: 		Test that the deployment system can run over the size of uint8_t used to track its number.
 *			Successful result: 	Successful result is that the number  cleanly loops to 0.
 *			Date Log:			06/07/2020 - R.Bamford
+*								10/07/2020 - R.Bamford - This test case has been broken by modifiying the loop from 255+ to 5.
+*														- This test should test the EEPROM overflowing.
 */
 void Deploy_T8()
 {
+	/**
+	 * This test takes too long in the unit test process.
+	 */
+
+	TEST_ASSERT_EQUAL_INT_MESSAGE(0, 1, "This test fails because it should test EEPROM overflowing.");
+
+	return;
+
+
+
+
 	// 1. Save the previous number of deployments.
 	uint8_t previousNumberOfDeployments = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
 
