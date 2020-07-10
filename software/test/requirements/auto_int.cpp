@@ -39,6 +39,7 @@ void AutoInt_TestRunner_Start()
 */
 void AutoInt_T1()
 {
+	// See date log
 }
 
 /**
@@ -46,17 +47,149 @@ void AutoInt_T1()
 *			Description: 		Check that the maximum and minimum intervals do not cause errors. (resetting loops)
 *			Successful result: 	When the satellite is delayed, does it restart when it should?
 								does it get into a restart loop anywhere? check this
-*			Date Log:			05/07/2020 - R.Bamforrd
+*			Date Log:			05/07/2020 - R.Bamford
+*								10/07/2020 - R.Bamford - Using the values from power_control.h commit cc3330c5168ddbc09d68642ab37971dc3a5a73f3 
 */
 void AutoInt_T2()
 {
+	//
+	// 1. Check that the intervals are waiting without restarting.
+	//
+	{
+		uint32_t interval = (uint32_t)20 * (uint32_t)1000;
+
+		// 1.1 Sleep true, radio sleep true 
+		Power_Control_Delay(interval, true, true);
+		TEST_ASSERT_TRUE(true);
+
+		// 1.2. Sleep true, radio sleep false.
+		Power_Control_Delay(interval, true, false);
+		TEST_ASSERT_TRUE(true);
+
+		// 1.3. Sleep false, radio sleep true
+		Power_Control_Delay(interval, false, true);
+		TEST_ASSERT_TRUE(true);
+
+		// 1.4. Sleep false, radio sleep false
+		Power_Control_Delay(interval, false, false);
+		TEST_ASSERT_TRUE(true);
+	}
+
+
+	{
+		uint32_t interval = (uint32_t)35 * (uint32_t)1000;
+
+		// 2.1 Sleep true, radio sleep true 
+		Power_Control_Delay(interval, true, true);
+		TEST_ASSERT_TRUE(true);
+
+		// 2.2. Sleep true, radio sleep false.
+		Power_Control_Delay(interval, true, false);
+		TEST_ASSERT_TRUE(true);
+
+		// 2.3. Sleep false, radio sleep true
+		Power_Control_Delay(interval, false, true);
+		TEST_ASSERT_TRUE(true);
+
+		// 2.4. Sleep false, radio sleep false
+		Power_Control_Delay(interval, false, false);
+		TEST_ASSERT_TRUE(true);
+	}
+
+	{
+		uint32_t interval = (uint32_t)100 * (uint32_t)1000;
+
+		// 3.1 Sleep true, radio sleep true 
+		Power_Control_Delay(interval, true, true);
+		TEST_ASSERT_TRUE(true);
+
+		// 3.2. Sleep true, radio sleep false.
+		Power_Control_Delay(interval, true, false);
+		TEST_ASSERT_TRUE(true);
+
+		// 3.3. Sleep false, radio sleep true
+		Power_Control_Delay(interval, false, true);
+		TEST_ASSERT_TRUE(true);
+
+		// 3.4. Sleep false, radio sleep false
+		Power_Control_Delay(interval, false, false);
+		TEST_ASSERT_TRUE(true);
+	}
+
+	{
+		uint32_t interval = (uint32_t)160 * (uint32_t)1000;
+
+		// 4.1 Sleep true, radio sleep true 
+		Power_Control_Delay(interval, true, true);
+		TEST_ASSERT_TRUE(true);
+
+		// 4.2. Sleep true, radio sleep false.
+		Power_Control_Delay(interval, true, false);
+		TEST_ASSERT_TRUE(true);
+
+		// 4.3. Sleep false, radio sleep true
+		Power_Control_Delay(interval, false, true);
+		TEST_ASSERT_TRUE(true);
+
+		// 4.4. Sleep false, radio sleep false
+		Power_Control_Delay(interval, false, false);
+		TEST_ASSERT_TRUE(true);
+	}
+	
+	{
+		uint32_t interval = (uint32_t)180 * (uint32_t)1000;
+
+		// 5.1 Sleep true, radio sleep true 
+		Power_Control_Delay(interval, true, true);
+		TEST_ASSERT_TRUE(true);
+
+		// 5.2. Sleep true, radio sleep false.
+		Power_Control_Delay(interval, true, false);
+		TEST_ASSERT_TRUE(true);
+
+		// 5.3. Sleep false, radio sleep true
+		Power_Control_Delay(interval, false, true);
+		TEST_ASSERT_TRUE(true);
+
+		// 5.4. Sleep false, radio sleep false
+		Power_Control_Delay(interval, false, false);
+		TEST_ASSERT_TRUE(true);
+	}
+	
+	{
+		uint32_t interval = (uint32_t)240 * (uint32_t)1000;
+
+		// 6.1 Sleep true, radio sleep true 
+		Power_Control_Delay(interval, true, true);
+		TEST_ASSERT_TRUE(true);
+
+		// 6.2. Sleep true, radio sleep false.
+		Power_Control_Delay(interval, true, false);
+		TEST_ASSERT_TRUE(true);
+
+		// 6.3. Sleep false, radio sleep true
+		Power_Control_Delay(interval, false, true);
+		TEST_ASSERT_TRUE(true);
+
+		// 6.4. Sleep false, radio sleep false
+		Power_Control_Delay(interval, false, false);
+		TEST_ASSERT_TRUE(true);
+	}
+
+
+	//
+	// 7. Delay for 100 seconds to trigger a restart.
+	//
+	delay(100 * 1000);
+	TEST_ASSERT_TRUE(false);
+
 }
 
 /**
 *	@brief Reference ID: 		AUTOINT3
 *			Description: 		Check if the low power mode is enabled, if so force delay.
 *			Successful result: 	If the low power mode is enabled, then make sure that the maximum interval for battery charging is used to maximise charging.
-*			Date Log:			05/07/2020 - R.Bamforrd
+*			Date Log:			05/07/2020 - R.Bamford
 */
 void AutoInt_T3()
 {
