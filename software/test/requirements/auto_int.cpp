@@ -26,8 +26,8 @@ SOFTWARE.
 
 void AutoInt_TestRunner_Start()
 {
-	RUN_TEST(AutoInt_T2);
-	RUN_TEST(AutoInt_T3);
+	RUN_FS_TEST(AutoInt_T2);
+	RUN_FS_TEST(AutoInt_T3);
 }
 
 

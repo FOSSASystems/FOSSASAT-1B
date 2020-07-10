@@ -26,8 +26,8 @@ SOFTWARE.
 
 void Deploy_TestRunner_Start()
 {
-	RUN_TEST(Deploy_T2);
-	RUN_TEST(Deploy_T8);
+	RUN_FS_TEST(Deploy_T2);
+	RUN_FS_TEST(Deploy_T8);
 }
 
 

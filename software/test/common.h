@@ -45,7 +45,10 @@ SOFTWARE.
  * This macro is not needed, the watchdog should always be signalled using 
           "Pin_Interface_Watchdog_Heartbeat()" inside the test case code.
 
-    - Remove this macro please -
+
+ * 10/07/2020 - P.Buchegger
+ * The macro will trigger the watchdog between test runs.
+ * otherwise the posssibility is high that the watchdog will kill long running test. Please use this macro instead of RUN_TEST().
  * 
  */
 #define RUN_FS_TEST(func) \
