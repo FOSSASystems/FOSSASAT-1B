@@ -56,7 +56,7 @@ void AutoInt_T2()
 	// 1. Check that the intervals are waiting without restarting.
 	//
 	{
-		uint32_t interval = (uint32_t)20 * (uint32_t)1000;
+		uint32_t interval = INTERVAL_MIN;
 
 		// 1.1 Sleep true, radio sleep true 
 		Power_Control_Delay(interval, true, true);
@@ -77,7 +77,7 @@ void AutoInt_T2()
 
 
 	{
-		uint32_t interval = (uint32_t)35 * (uint32_t)1000;
+		uint32_t interval = INTERVAL_1;
 
 		// 2.1 Sleep true, radio sleep true 
 		Power_Control_Delay(interval, true, true);
@@ -97,7 +97,7 @@ void AutoInt_T2()
 	}
 
 	{
-		uint32_t interval = (uint32_t)100 * (uint32_t)1000;
+		uint32_t interval = INTERVAL_2;
 
 		// 3.1 Sleep true, radio sleep true 
 		Power_Control_Delay(interval, true, true);
@@ -117,7 +117,7 @@ void AutoInt_T2()
 	}
 
 	{
-		uint32_t interval = (uint32_t)160 * (uint32_t)1000;
+		uint32_t interval = INTERVAL_3;
 
 		// 4.1 Sleep true, radio sleep true 
 		Power_Control_Delay(interval, true, true);
@@ -137,7 +137,7 @@ void AutoInt_T2()
 	}
 	
 	{
-		uint32_t interval = (uint32_t)180 * (uint32_t)1000;
+		uint32_t interval = INTERVAL_4;
 
 		// 5.1 Sleep true, radio sleep true 
 		Power_Control_Delay(interval, true, true);
@@ -157,7 +157,7 @@ void AutoInt_T2()
 	}
 	
 	{
-		uint32_t interval = (uint32_t)240 * (uint32_t)1000;
+		uint32_t interval = INTERVAL_MAX;
 
 		// 6.1 Sleep true, radio sleep true 
 		Power_Control_Delay(interval, true, true);
@@ -195,19 +195,68 @@ void AutoInt_T2()
 void AutoInt_T3()
 {
 	// 1. Save current power mode setting.
-	int previousSetting = powerConfig.bits.lowPowerPowerModeActive;
+	uint8_t previousLowPowerActiveSetting = powerConfig.bits.lowPowerModeActive;
+	uint8_t previousLowPowerModeEnabledSetting = powerConfig.bits.lowPowerModeEnabled;
+	
 
-	// 2. Switch low power mode ON.
-	powerConfig.bits.lowPowerPowerModeActive = LOW_POWER_MODE_ACTIVE
+	Pin_Interface_Watchdog_Heartbeat();
 
-	// 3. Check the interval.
-	uint32_t interval = Power_Control_Get_Sleep_Interval();
-	uint32_t intervalShouldBe = (uint32_t)240 * (uint32_t)1000;
+	// 2. Low power mode active but not enabled.
+	{
+		powerConfig.bits.lowPowerModeActive = 1;
+		powerConfig.bits.lowPowerModeEnabled = 0;
 
-	TEST_ASSERT_EQUAL_UINT32(intervalShouldBe, interval);
+		// assuming it is on full power.
+		uint32_t interval = Power_Control_Get_Sleep_Interval();
+		uint32_t intervalShouldBe = INTERVAL_MAX;
+		TEST_ASSERT_EQUAL_UINT32(intervalShouldBe, interval);	
+	}
+
+	Pin_Interface_Watchdog_Heartbeat();
+
+	{
+		// 3. Low power mode not active but enabled.
+
+		// assuming it is on full power.
+		powerConfig.bits.lowPowerModeActive = 0;
+		powerConfig.bits.lowPowerModeEnabled = 1;
+
+		uint32_t interval = Power_Control_Get_Sleep_Interval();
+		TEST_ASSERT_GREATER_THAN(intervalShouldBe, INTERVAL_MIN);
+		TEST_ASSERT_LESS_THAN(intervalShouldBe, INTERVAL_MAX);	
+	}
+
+	Pin_Interface_Watchdog_Heartbeat();
+
+	{
+		// 4. Low power mode enabled and active.
+
+		// assuming full power.
+		powerConfig.bits.lowPowerModeActive = 1;
+		powerConfig.bits.lowPowerModeEnabled = 1;
+
+		uint32_t interval = Power_Control_Get_Sleep_Interval();
+		uint32_t intervalShouldBe = INTERVAL_MAX;
+		TEST_ASSERT_EQUAL_UINT32(intervalShouldBe, interval);	
+	}
+
+	Pin_Interface_Watchdog_Heartbeat();
+	
+	{
+		// 5. Low power mode disabled and not active.
+		powerConfig.bits.lowPowerModeActive = 0;
+		powerConfig.bits.lowPowerModeEnabled = 0;
+
+		uint32_t interval = Power_Control_Get_Sleep_Interval();
+		TEST_ASSERT_GREATER_THAN(intervalShouldBe, INTERVAL_MIN);
+		TEST_ASSERT_LESS_THAN(intervalShouldBe, INTERVAL_MAX);
+	}
+	
+	Pin_Interface_Watchdog_Heartbeat();
 
 	// Restore power mode setting.
-	powerConfig.bits.lowPowerPowerModeActive = previousSetting;
+	powerConfig.bits.lowPowerPowerModeActive = previousLowPowerActiveSetting;
+	powerConfig.bits.lowPowerModeEnabled = previousLowPowerModeEnabledSetting
 }
 
 /**
