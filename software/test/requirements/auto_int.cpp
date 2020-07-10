@@ -190,9 +190,23 @@ void AutoInt_T2()
 *			Description: 		Check if the low power mode is enabled, if so force delay.
 *			Successful result: 	If the low power mode is enabled, then make sure that the maximum interval for battery charging is used to maximise charging.
 *			Date Log:			05/07/2020 - R.Bamford
+*								10/07/2020 - R.Bamford - First implementation
 */
 void AutoInt_T3()
 {
+	// 1. Save current power mode setting.
+	int previousSetting = powerConfig.bits.lowPowerPowerModeActive;
+
+	// 2. Switch low power mode ON.
+	powerConfig.bits.lowPowerPowerModeActive = LOW_POWER_MODE_ACTIVE
+
+	// 3. Check the interval.
+	int interval = Power_Control_Get_Sleep_Interval();
+
+	float 
+
+	// Restore power mode setting.
+	powerConfig.bits.lowPowerPowerModeActive = previousSetting;
 }
 
 /**

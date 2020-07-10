@@ -26,8 +26,8 @@ SOFTWARE.
 
 void Deploy_TestRunner_Start()
 {
-	RUN_FS_TEST(Deploy_T2);
-	RUN_FS_TEST(Deploy_T8);
+	RUN_TEST(Deploy_T2);
+	RUN_TEST(Deploy_T8);
 }
 
 
@@ -145,25 +145,15 @@ void Deploy_T7()
 *			Successful result: 	Successful result is that the number  cleanly loops to 0.
 *			Date Log:			06/07/2020 - R.Bamford
 *								10/07/2020 - R.Bamford - This test case has been broken by modifiying the loop from 255+ to 5.
-*														- This test should test the EEPROM overflowing.
+*								10/07/2020 - R.Bamford - This test should test the EEPROM overflowing.
+*								10/07/2020 - R.Bamford - Reverted this test to 06/07/2020 with added watchdog heartbeats.
 */
 void Deploy_T8()
 {
-	/**
-	 * This test takes too long in the unit test process.
-	 */
-
-	TEST_ASSERT_EQUAL_INT_MESSAGE(0, 1, "This test fails because it should test EEPROM overflowing.");
-
-	return;
-
-
-
-
 	// 1. Save the previous number of deployments.
 	uint8_t previousNumberOfDeployments = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
 
-
+	Pin_Interface_Watchdog_Heartbeat();
 
 	// 2. Set the deployment counter to 0.
 	{
@@ -174,27 +164,36 @@ void Deploy_T8()
 		TEST_ASSERT_EQUAL_INT_MESSAGE(currentEEPROMValue, 0, "EEPROM address for deployment counter did not reset.");
 	}
 
+	Pin_Interface_Watchdog_Heartbeat();
 
 
-	// 4. Deploy 5 times
-	for (uint16_t i = 0; i < 5; i++)
+	// 4. Deploy 255 times
+	for (uint16_t i = 0; i < 255; i++)
 	{
+		Pin_Interface_Watchdog_Heartbeat();
+
 		Deployment_Deploy();
+
+		Pin_Interface_Watchdog_Heartbeat();
 	}
 
 
 
 
-	// 5. Check the deployment EEPROM is at 5.
+	// 5. Check the deployment EEPROM is at 0.
 	{
 		uint8_t currentEEPROMValue = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
-		TEST_ASSERT_EQUAL_INT_MESSAGE(currentEEPROMValue, 5, "EEPROM address did not end at 5 correctly.");
+		TEST_ASSERT_EQUAL_INT_MESSAGE(currentEEPROMValue, 0, "EEPROM address did not end at 50correctly.");
 	}
 
-	// 6. Deploy 5 more times.
-	for (uint16_t i = 0; i < 5; i++)
+	// 6. Deploy 10 more times.
+	for (uint16_t i = 0; i < 10; i++)
 	{
+		Pin_Interface_Watchdog_Heartbeat();
+
 		Deployment_Deploy();
+		
+		Pin_Interface_Watchdog_Heartbeat();
 	}
 
 	// 7. Check that the deployment EEPROM is at 10. (looped correctly)
