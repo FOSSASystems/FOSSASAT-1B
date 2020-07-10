@@ -6,4 +6,4 @@
 
 ## Questions
 
-1. When low power mode is enabled, what interval is used?
+### Q: When low power mode is enabled, what interval is used?

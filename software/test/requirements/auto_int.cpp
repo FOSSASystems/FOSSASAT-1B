@@ -201,9 +201,10 @@ void AutoInt_T3()
 	powerConfig.bits.lowPowerPowerModeActive = LOW_POWER_MODE_ACTIVE
 
 	// 3. Check the interval.
-	int interval = Power_Control_Get_Sleep_Interval();
+	uint32_t interval = Power_Control_Get_Sleep_Interval();
+	uint32_t intervalShouldBe = (uint32_t)240 * (uint32_t)1000;
 
-	float 
+	TEST_ASSERT_EQUAL_UINT32(intervalShouldBe, interval);
 
 	// Restore power mode setting.
 	powerConfig.bits.lowPowerPowerModeActive = previousSetting;
