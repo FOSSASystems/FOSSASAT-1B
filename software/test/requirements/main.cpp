@@ -45,6 +45,9 @@ void setup()
 	// Deployment tests.
 	Deploy_TestRunner_Start();
 
+	// Automatic interval control tests.
+	AutoInt_TestRunner_Start();
+
 	UNITY_END();
 }
 
