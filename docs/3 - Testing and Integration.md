@@ -58,7 +58,7 @@ Use your discretion when intrepreting the successful result of a test, if unsure
 |Reference ID|Description|Tested (Y/N)|Tested Date (dd-mm-yyyy|Status|Successful Result|Automated|
 |--|--|--|--|--|--|--|
 |AUTOINT1|Check that the intervals returned for a given battery charged level matches the specified table of delays.||||Simulate the battery charging level at the specified thresholds (using bounds testing too) and check the interval changes according to the specified delays (see Julian for spec)|N - Cannot test this since we cannot simulate temperatures.|
-|AUTOINT2|Check that the maximum and minimum intervals do not cause errors. (resetting loops)||||When the satellite is delayed, does it restart when it should? does it get into a restart loop anywhere? check this||
+|AUTOINT2|Check that the maximum and minimum intervals do not cause errors. (resetting loops)||||When the satellite is delayed, does it restart when it should? does it get into a restart loop anywhere? check this|Y|
 |AUTOINT3|Check if the low power mode is enabled, if so force delay.||||If the low power mode is enabled, then make sure that the maximum interval for battery charging is used to maximise charging.
 |AUTOINT4|Check if the interval control is disabled, if so force no delay.||||If the interval control is disabled, then test that there is no interval delay.|
 

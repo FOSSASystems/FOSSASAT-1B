@@ -263,8 +263,10 @@ void AutoInt_T3()
 *	@brief Reference ID: 		AUTOINT4
 *			Description: 		Check if the interval control is disabled, if so force no delay. 
 *			Successful result: 	If the interval control is disabled, then test that there is no interval delay.
-*			Date Log:			05/07/2020 - R.Bamforrd
+*			Date Log:			05/07/2020 - R.Bamford
+*								10/07/2020 - R.Bamford - Cannot test this since the interval control is defined as a macro.
 */
 void AutoInt_T4()
 {
+	// See date log.
 }
