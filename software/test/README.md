@@ -6,12 +6,6 @@ https://github.com/FOSSASystems/FOSSASAT-1B/blob/master/docs/3%20-%20Testing%20a
 
 Other tests based on doygen.
 
-
-
-
-
-
-
 ### Definitions
 
 | Testing Activity    | Description                                                  |

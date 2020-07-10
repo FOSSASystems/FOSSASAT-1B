@@ -32,13 +32,13 @@ Use your discretion when intrepreting the successful result of a test, if unsure
 ## Deployment
 |Reference ID|Description|Tested (Y/N)|Tested Date (dd-mm-yyyy|Status|Successful Result|Automated|
 |--|--|--|--|--|--|--|
-|DEPLOYT1|Test the deployment sequence in scenarios; debugging, integration and jettison.||||Does the deployment sequence run correctly in these 3 scenarios? the debugging deployment sequence, integration and jettison sequences are different.||
+|DEPLOYT1|Test the deployment sequence in scenarios; debugging, integration and jettison.||||Does the deployment sequence run correctly in these 3 scenarios? the debugging deployment sequence, integration and jettison sequences are different.|N - cannot simulate scenarios|
 |DEPLOYT2|Check that the deployment sequence writes to the EEPROM.|||| When the deployment sequence runs in jettison mode, does it correctly save its state to the EEPROM?| Y |
-|DEPLOYT3|Check that the deployment sequence does not run if the EEPROM state has been set.||||If the deployment sequence has ran, does it run again?||
-|DEPLOYT4|Check that the deployment sequence enable time is suitable.||||When the satellite powers the deployment mechanism, does it work correctly?||
-|DEPLOYT5|Confirm that a system information transmission is sent before the deployment sequence begins.||||Before the deployment sequence begins, does it send a transmission to notify receivers that it is about to occur?||
-|DEPLOYT6|Check that the deployment sequence transmits a success transmission afterwards.||||After the deployment sequence, does it tell receivers that it has occured?||
-|DEPLOYT7|Check that the deployment system returns the correct value for its current state.||||When the satellite restarts, does it load the correct value from the EEPROM?||
+|DEPLOYT3|Check that the deployment sequence does not run if the EEPROM state has been set.||||If the deployment sequence has ran, does it run again?|N - cannot test whether deployment has happened other than the EEPROM state.|
+|DEPLOYT4|Check that the deployment sequence enable time is suitable.||||When the satellite powers the deployment mechanism, does it work correctly?|N - no way to measure whether the deployment sequence actually physically worked.|
+|DEPLOYT5|Confirm that a system information transmission is sent before the deployment sequence begins.||||Before the deployment sequence begins, does it send a transmission to notify receivers that it is about to occur?|N - cannot test TX messages yet.|
+|DEPLOYT6|Check that the deployment sequence transmits a success transmission afterwards.||||After the deployment sequence, does it tell receivers that it has occured?|N - cannot test radio TX.|
+|DEPLOYT7|Check that the deployment system returns the correct value for its current state.||||When the satellite restarts, does it load the correct value from the EEPROM?|N - cannot simulate scenarios.|
 
 ## Power Control
 |Reference ID|Description|Tested (Y/N)|Tested Date (dd-mm-yyyy|Status|Successfull Result|

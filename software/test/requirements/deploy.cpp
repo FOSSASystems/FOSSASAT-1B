@@ -38,9 +38,11 @@ void Deploy_TestRunner_Start()
 								the debugging deployment sequence,
 								integration and jettison sequences are different.
 *			Date Log:			05/07/2020 - R.Bamford
+*								10/07/2020 - R.Bamford - Cannot simulate scenarios.
 */
 void Deploy_T1()
 {
+	// See date log.
 }
 
 /**
@@ -49,7 +51,7 @@ void Deploy_T1()
 *			Successful result: 	When the deployment sequence runs in jettison mode,
 								does it correctly save its state to the EEPROM?
 *			Date Log:			05/07/2020 - R.Bamford
-*								06/07/2020 - R.Bamford - First implementation.
+*							06/07/2020 - R.Bamford - First implementation.
 */
 void Deploy_T2()
 {
@@ -74,9 +76,11 @@ void Deploy_T2()
 *			Description: 		Check that the deployment sequence does not run if the EEPROM state has been set.
 *			Successful result: 	If the deployment sequence has ran, does it run again?
 *			Date Log:			05/07/2020 - R.Bamford
+*								10/07/2020 - R.Bamford - Cannot test whether deployment has happened other than the EEPROM state.
 */
 void Deploy_T3()
 {
+	// See date log.
 }
 
 /**
@@ -84,9 +88,11 @@ void Deploy_T3()
 *			Description: 		Check that the deployment sequence enable time is suitable.
 *			Successful result: 	When the satellite powers the deployment mechanism, does it work correctly?
 *			Date Log:			05/07/2020 - R.Bamford
+*								10/07/2020 - R.Bamford - no way to measure whether the deployment sequence actually physically worked.
 */
 void Deploy_T4()
 {
+	// See date log.
 }
 
 /**
@@ -95,9 +101,11 @@ void Deploy_T4()
 *			Successful result: 	Before the deployment sequence begins,
 								does it send a transmission to notify receivers that it is about to occur?
 *			Date Log:			05/07/2020 - R.Bamford
+*								10/07/2020 - R.Bamford - Cannot test TX messages yet.
 */
 void Deploy_T5()
 {
+	// See date log.
 }
 
 /**
@@ -105,9 +113,11 @@ void Deploy_T5()
 *			Description: 		Check that the deployment sequence transmits a success transmission afterwards.
 *			Successful result: 	After the deployment sequence, does it tell receivers that it has occured?
 *			Date Log:			05/07/2020 - R.Bamford
+*								10/07/2020 - R.Bamford - Cannot test radio TX.
 */
 void Deploy_T6()
 {
+	// See date log.
 }
 
 /**
@@ -115,9 +125,11 @@ void Deploy_T6()
 *			Description: 		Check that the deployment system returns the correct value for its current state.
 *			Successful result: 	When the satellite restarts, does it load the correct value from the EEPROM?
 *			Date Log:			05/07/2020 - R.Bamford
+*								10/07/2020 - R.Bamford - Cannot simulate scenarios.
 */
 void Deploy_T7()
 {
+	// See date log.
 }
 
 
