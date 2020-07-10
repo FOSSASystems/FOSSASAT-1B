@@ -255,7 +255,7 @@ void AutoInt_T3()
 	Pin_Interface_Watchdog_Heartbeat();
 
 	// Restore power mode setting.
-	powerConfig.bits.lowPowerPowerModeActive = previousLowPowerActiveSetting;
+	powerConfig.bits.lowPowerModeActive = previousLowPowerActiveSetting;
 	powerConfig.bits.lowPowerModeEnabled = previousLowPowerModeEnabledSetting
 }
 
