@@ -94,6 +94,12 @@ jobs:
         env:
           PLATFORMIO_AUTH_TOKEN: ${{ secrets.PLATFORMIO_AUTH_TOKEN }}
       - uses: actions/checkout@v2
-      - run: cd software && platformio remote test -e ATmega328PB -v --upload-port /dev/ttyFS --test-port /dev/ttyFS
+      - run: cd software && platformio remote test -e ATmega328PB -v --upload-port /dev/ttyFS --test-port /dev/ttyFS -i requirements -i unit
+        env:
+          PLATFORMIO_AUTH_TOKEN: ${{ secrets.PLATFORMIO_AUTH_TOKEN }}
+      - run: cd software && platformio remote test -e ATmega328PB -v --upload-port /dev/ttyFS --test-port /dev/ttyFS -i hardware -i unit
+        env:
+          PLATFORMIO_AUTH_TOKEN: ${{ secrets.PLATFORMIO_AUTH_TOKEN }}
+      - run: cd software && platformio remote test -e ATmega328PB -v --upload-port /dev/ttyFS --test-port /dev/ttyFS -i requirements -i hardware
         env:
           PLATFORMIO_AUTH_TOKEN: ${{ secrets.PLATFORMIO_AUTH_TOKEN }}
