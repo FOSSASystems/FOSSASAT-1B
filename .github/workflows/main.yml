@@ -93,3 +93,5 @@ jobs:
       - run: platformio remote update
       - uses: actions/checkout@v2
       - run: cd software && platformio remote test -e ATmega328PB -v --upload-port /dev/ttyFS --test-port /dev/ttyFS
+        env:
+          PLATFORMIO_AUTH_TOKEN: ${{ secrets.PLATFORMIO_AUTH_TOKEN }}
