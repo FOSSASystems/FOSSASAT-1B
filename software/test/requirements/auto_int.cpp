@@ -68,10 +68,10 @@ void AutoInt_T2()
 
 void AutoInt_T2_1()
 {
-	RUN_FS_TEST(AutoInt_T2_1_4);
-	RUN_FS_TEST(AutoInt_T2_1_3);
-	RUN_FS_TEST(AutoInt_T2_1_2);
 	RUN_FS_TEST(AutoInt_T2_1_1);
+	RUN_FS_TEST(AutoInt_T2_1_2);
+	RUN_FS_TEST(AutoInt_T2_1_3);
+	RUN_FS_TEST(AutoInt_T2_1_4);
 }
 
 void AutoInt_T2_1_1()
