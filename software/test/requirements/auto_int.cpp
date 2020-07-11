@@ -237,7 +237,7 @@ void AutoInt_T3()
 
 	// Restore power mode setting.
 	powerConfig.bits.lowPowerModeActive = previousLowPowerActiveSetting;
-	powerConfig.bits.lowPowerModeEnabled = previousLowPowerModeEnabledSetting
+	powerConfig.bits.lowPowerModeEnabled = previousLowPowerModeEnabledSetting;
 }
 
 /**
