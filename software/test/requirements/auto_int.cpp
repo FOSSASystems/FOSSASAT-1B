@@ -27,7 +27,7 @@ SOFTWARE.
 void AutoInt_TestRunner_Start()
 {
 	AutoInt_T2();
-	RUN_FS_TEST(AutoInt_T3);
+	//RUN_FS_TEST(AutoInt_T3);
 }
 
 
@@ -59,11 +59,11 @@ void AutoInt_T2()
 	// 1. Check that the intervals are waiting without restarting.
 	//
 	AutoInt_T2_1();
-	AutoInt_T2_2();
+	//AutoInt_T2_2();
 	AutoInt_T2_3();
-	AutoInt_T2_4();
-	AutoInt_T2_5();
-	AutoInt_T2_6();
+	//AutoInt_T2_4();
+	//AutoInt_T2_5();
+	//AutoInt_T2_6();
 }
 
 void AutoInt_T2_1()
@@ -288,9 +288,12 @@ void AutoInt_T2_6_4()
 *			Successful result: 	If the low power mode is enabled, then make sure that the maximum interval for battery charging is used to maximise charging.
 *			Date Log:			05/07/2020 - R.Bamford
 *								10/07/2020 - R.Bamford - First implementation
+*								11/07/2020 - P.Buchegger - testing like this currently not possible as we cant change the battery voltage.
 */
 void AutoInt_T3()
 {
+	Power_Control_Setup_INA226();
+
 	// 1. Save current power mode setting.
 	uint8_t previousLowPowerActiveSetting = powerConfig.bits.lowPowerModeActive;
 	uint8_t previousLowPowerModeEnabledSetting = powerConfig.bits.lowPowerModeEnabled;
