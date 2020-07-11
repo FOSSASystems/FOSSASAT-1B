@@ -33,17 +33,17 @@ SOFTWARE.
 
 
 // these are the interval times for the power control (power_control.cpp)
-#define INTERVAL_MIN (uint32_t)20 * (uint32_t)1000
-#define INTERVAL_1 (uint32_t)35 * (uint32_t)1000
-#define INTERVAL_2 (uint32_t)100 * (uint32_t)1000
-#define INTERVAL_3 (uint32_t)160 * (uint32_t)1000;
-#define INTERVAL_4 (uint32_t)180 * (uint32_t)1000;
-#define INTERVAL_MAX (uint32_t)240 * (uint32_t)1000;
+#define INTERVAL_MIN	(20 * 1000)
+#define INTERVAL_1		(35 * 1000)
+#define INTERVAL_2		(100 * 1000)
+#define INTERVAL_3		(160 * 1000)
+#define INTERVAL_4		(180 * 1000)
+#define INTERVAL_MAX	(240 * 1000)
 
 /**
  * 10/07/2020 - R.Bamford
  * This macro is not needed, the watchdog should always be signalled using 
-          "Pin_Interface_Watchdog_Heartbeat()" inside the test case code.
+		  "Pin_Interface_Watchdog_Heartbeat()" inside the test case code.
 
 
  * 10/07/2020 - P.Buchegger
@@ -53,7 +53,7 @@ SOFTWARE.
  */
 #define RUN_FS_TEST(func) \
 	pinMode(DIGITAL_OUT_WATCHDOG_HEARTBEAT, OUTPUT); \
-    digitalWrite(DIGITAL_OUT_WATCHDOG_HEARTBEAT, !digitalRead(DIGITAL_OUT_WATCHDOG_HEARTBEAT)); \
-    RUN_TEST(func)
+	digitalWrite(DIGITAL_OUT_WATCHDOG_HEARTBEAT, !digitalRead(DIGITAL_OUT_WATCHDOG_HEARTBEAT)); \
+	RUN_TEST(func)
 
 #endif

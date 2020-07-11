@@ -51,6 +51,7 @@ void AutoInt_T1()
 								does it get into a restart loop anywhere? check this
 *			Date Log:			05/07/2020 - R.Bamford
 *								10/07/2020 - R.Bamford - Using the values from power_control.h commit cc3330c5168ddbc09d68642ab37971dc3a5a73f3 
+*								11/07/2020 - P.Buchegger - You can't restart the satellite in unit test mode. Just the unit test will start from the beginning.
 */
 void AutoInt_T2()
 {
@@ -177,14 +178,6 @@ void AutoInt_T2()
 		Power_Control_Delay(interval, false, false);
 		TEST_ASSERT_TRUE(true);
 	}
-
-
-	//
-	// 7. Delay for 100 seconds to trigger a restart.
-	//
-	delay(100 * 1000);
-	TEST_ASSERT_TRUE(false);
-
 }
 
 /**
@@ -199,50 +192,37 @@ void AutoInt_T3()
 	// 1. Save current power mode setting.
 	uint8_t previousLowPowerActiveSetting = powerConfig.bits.lowPowerModeActive;
 	uint8_t previousLowPowerModeEnabledSetting = powerConfig.bits.lowPowerModeEnabled;
-	
-
-	Pin_Interface_Watchdog_Heartbeat();
 
 	// 2. Low power mode active but not enabled.
 	{
 		powerConfig.bits.lowPowerModeActive = 1;
 		powerConfig.bits.lowPowerModeEnabled = 0;
 
-		// assuming it is on full power.
 		uint32_t interval = Power_Control_Get_Sleep_Interval();
-		uint32_t intervalShouldBe = INTERVAL_MAX;
-		TEST_ASSERT_EQUAL_UINT32(intervalShouldBe, interval);	
+
+		TEST_ASSERT_EQUAL_UINT32(INTERVAL_MAX, interval);
 	}
 
-	Pin_Interface_Watchdog_Heartbeat();
-
+	// 3. Low power mode not active but enabled.
 	{
-		// 3. Low power mode not active but enabled.
-
-		// assuming it is on full power.
 		powerConfig.bits.lowPowerModeActive = 0;
 		powerConfig.bits.lowPowerModeEnabled = 1;
 
 		uint32_t interval = Power_Control_Get_Sleep_Interval();
-		TEST_ASSERT_GREATER_THAN(intervalShouldBe, INTERVAL_MIN);
-		TEST_ASSERT_LESS_THAN(intervalShouldBe, INTERVAL_MAX);	
+
+		TEST_ASSERT_GREATER_THAN(INTERVAL_MIN, interval);
+		TEST_ASSERT_LESS_THAN(INTERVAL_MAX, interval);
 	}
 
-	Pin_Interface_Watchdog_Heartbeat();
-
+	// 4. Low power mode enabled and active.
 	{
-		// 4. Low power mode enabled and active.
-
-		// assuming full power.
 		powerConfig.bits.lowPowerModeActive = 1;
 		powerConfig.bits.lowPowerModeEnabled = 1;
 
 		uint32_t interval = Power_Control_Get_Sleep_Interval();
-		uint32_t intervalShouldBe = INTERVAL_MAX;
-		TEST_ASSERT_EQUAL_UINT32(intervalShouldBe, interval);	
-	}
 
-	Pin_Interface_Watchdog_Heartbeat();
+		TEST_ASSERT_EQUAL_UINT32(INTERVAL_MAX, interval);	
+	}
 	
 	{
 		// 5. Low power mode disabled and not active.
@@ -250,11 +230,10 @@ void AutoInt_T3()
 		powerConfig.bits.lowPowerModeEnabled = 0;
 
 		uint32_t interval = Power_Control_Get_Sleep_Interval();
-		TEST_ASSERT_GREATER_THAN(intervalShouldBe, INTERVAL_MIN);
-		TEST_ASSERT_LESS_THAN(intervalShouldBe, INTERVAL_MAX);
+
+		TEST_ASSERT_GREATER_THAN(INTERVAL_MIN, interval);
+		TEST_ASSERT_LESS_THAN(INTERVAL_MAX, interval);
 	}
-	
-	Pin_Interface_Watchdog_Heartbeat();
 
 	// Restore power mode setting.
 	powerConfig.bits.lowPowerModeActive = previousLowPowerActiveSetting;
