@@ -25,7 +25,7 @@ SOFTWARE.
 #ifndef COMMS_T_H
 #define COMMS_T_H
 
-extern void Comms_TestRunner_Start();
+void Comms_TestRunner_Start();
 
 
 /**
@@ -34,7 +34,7 @@ extern void Comms_TestRunner_Start();
 *			Successful result: 	When the transmissions are enabled and disabled, does the satellite stop transmitting and start transmitting again correctly?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T1();
+void Comms_T1();
 
 /**
 *	@brief Reference ID: 		COMMST2
@@ -42,7 +42,7 @@ extern void Comms_T1();
 *			Successful result: 	Send the satellite a repeater command and receive it with a radio.
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T2();
+void Comms_T2();
 
 /**
 *	@brief Reference ID: 		COMMST3
@@ -50,7 +50,7 @@ extern void Comms_T2();
 *			Successful result: 	Send a PING command to the satellite and receive a PONG command from a seperate radio.
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T3();
+void Comms_T3();
 
 /**
 *	@brief Reference ID: 		COMMST4
@@ -58,7 +58,7 @@ extern void Comms_T3();
 *			Successful result: 	Send the satellite a callsign change command and then receive a transmissions of the new callsign
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T4();
+void Comms_T4();
 
 /**
 *	@brief Reference ID: 		COMMST5
@@ -66,7 +66,7 @@ extern void Comms_T4();
 *			Successful result: 	Make sure protected security features cannot be invoked without permission
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T5();
+void Comms_T5();
 
 /**
 *	@brief Reference ID: 		COMMST6
@@ -74,7 +74,7 @@ extern void Comms_T5();
 *			Successful result: 	
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T6();
+void Comms_T6();
 
 /**
 *	@brief Reference ID: 		COMMST7
@@ -82,7 +82,7 @@ extern void Comms_T6();
 *			Successful result: 	
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T7();
+void Comms_T7();
 
 /**
 *	@brief Reference ID: 		COMMST8
@@ -90,7 +90,7 @@ extern void Comms_T7();
 *			Successful result: 	
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T8();
+void Comms_T8();
 
 /**
 *	@brief Reference ID: 		COMMST9
@@ -98,7 +98,7 @@ extern void Comms_T8();
 *			Successful result: 	
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T9();
+void Comms_T9();
 
 /**
 *	@brief Reference ID: 		COMMST10
@@ -106,7 +106,7 @@ extern void Comms_T9();
 *			Successful result: 	
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T10();
+void Comms_T10();
 
 /**
 *	@brief Reference ID: 		COMMST11
@@ -114,7 +114,7 @@ extern void Comms_T10();
 *			Successful result: 	
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T11();
+void Comms_T11();
 
 /**
 *	@brief Reference ID: 		COMMST12
@@ -122,7 +122,7 @@ extern void Comms_T11();
 *			Successful result: 	
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T12();
+void Comms_T12();
 
 /**
 *	@brief Reference ID: 		COMMST13
@@ -130,7 +130,7 @@ extern void Comms_T12();
 *			Successful result: 	
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T13();
+void Comms_T13();
 
 /**
 *	@brief Reference ID: 		COMMST14
@@ -138,7 +138,7 @@ extern void Comms_T13();
 *			Successful result: 	
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T14();
+void Comms_T14();
 
 /**
 *	@brief Reference ID: 		COMMST15
@@ -146,7 +146,7 @@ extern void Comms_T14();
 *			Successful result: 	
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T15();
+void Comms_T15();
 
 /**
 *	@brief Reference ID: 		COMMST16
@@ -154,7 +154,7 @@ extern void Comms_T15();
 *			Successful result: 	
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T16();
+void Comms_T16();
 
 /**
 *	@brief Reference ID: 		COMMST17
@@ -162,7 +162,7 @@ extern void Comms_T16();
 *			Successful result: 	
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T17();
+void Comms_T17();
 
 /**
 *	@brief Reference ID: 		COMMST18
@@ -170,7 +170,7 @@ extern void Comms_T17();
 *			Successful result: 	
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T18();
+void Comms_T18();
 
 /**
 *	@brief Reference ID: 		COMMST19
@@ -178,7 +178,7 @@ extern void Comms_T18();
 *			Successful result: 	
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Comms_T19();
+void Comms_T19();
 
 
 #endif

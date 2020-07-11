@@ -29,7 +29,7 @@ SOFTWARE.
 #include "power_control.h"
 
 
-extern void PowCont_TestRunner_Start();
+void PowCont_TestRunner_Start();
 
 
 /**
@@ -39,7 +39,7 @@ extern void PowCont_TestRunner_Start();
 								does the battery charging react accordingly?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void PowCont_T1();
+void PowCont_T1();
 
 /**
 *	@brief Reference ID: 		POWCONT12
@@ -48,7 +48,7 @@ extern void PowCont_T1();
 								does it switch on and off without affecting other areas of code? (check call graph)
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void PowCont_T12();
+void PowCont_T12();
 
 #endif
 

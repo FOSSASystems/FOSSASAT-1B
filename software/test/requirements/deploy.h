@@ -33,7 +33,7 @@ SOFTWARE.
 #include "pin_interface.h"
 
 
-extern void Deploy_TestRunner_Start();
+void Deploy_TestRunner_Start();
 
 
 /**
@@ -44,7 +44,7 @@ extern void Deploy_TestRunner_Start();
 								integration and jettison sequences are different.
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Deploy_T1();
+void Deploy_T1();
 
 /**
 *	@brief Reference ID: 		DEPLOYT2
@@ -53,7 +53,7 @@ extern void Deploy_T1();
 								does it correctly save its state to the EEPROM?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Deploy_T2();
+void Deploy_T2();
 
 /**
 *	@brief Reference ID: 		DEPLOYT3
@@ -61,7 +61,7 @@ extern void Deploy_T2();
 *			Successful result: 	If the deployment sequence has ran, does it run again?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Deploy_T3();
+void Deploy_T3();
 
 /**
 *	@brief Reference ID: 		DEPLOYT4
@@ -69,7 +69,7 @@ extern void Deploy_T3();
 *			Successful result: 	When the satellite powers the deployment mechanism, does it work correctly?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Deploy_T4();
+void Deploy_T4();
 
 /**
 *	@brief Reference ID: 		DEPLOYT5
@@ -78,7 +78,7 @@ extern void Deploy_T4();
 								does it send a transmission to notify receivers that it is about to occur?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Deploy_T5();
+void Deploy_T5();
 
 /**
 *	@brief Reference ID: 		DEPLOYT6
@@ -86,7 +86,7 @@ extern void Deploy_T5();
 *			Successful result: 	After the deployment sequence, does it tell receivers that it has occured?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Deploy_T6();
+void Deploy_T6();
 
 /**
 *	@brief Reference ID: 		DEPLOYT7
@@ -94,7 +94,7 @@ extern void Deploy_T6();
 *			Successful result: 	When the satellite restarts, does it load the correct value from the EEPROM?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void Deploy_T7();
+void Deploy_T7();
 
 /**
 *	@brief Reference ID: 		DEPLOYT8
@@ -102,7 +102,7 @@ extern void Deploy_T7();
 *			Successful result: 	Successful result is that the number  cleanly loops to 0.
 *			Date Log:			06/07/2020 - R.Bamford
 */
-extern void Deploy_T8();
+void Deploy_T8();
 
 #endif
 

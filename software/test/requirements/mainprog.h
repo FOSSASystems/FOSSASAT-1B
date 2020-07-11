@@ -25,7 +25,7 @@ SOFTWARE.
 #ifndef MAIN_PROG_T_H
 #define MAIN_PROG_T_H
 
-extern void MainProg_TestRunner_Start();
+void MainProg_TestRunner_Start();
 
 
 /**
@@ -36,7 +36,7 @@ extern void MainProg_TestRunner_Start();
 								Do they match the indended use?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void MainProg_T1();
+void MainProg_T1();
 
 
 /**
@@ -45,7 +45,7 @@ extern void MainProg_T1();
 *			Successful result: 	Do all pins attach to their intended component pin correctly?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void MainProg_T2();
+void MainProg_T2();
 
 /**
 * 	@brief Reference ID: 		MAINPROGT3
@@ -53,7 +53,7 @@ extern void MainProg_T2();
 *			Successful result: 	Are all the radio exceptions created handled?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void MainProg_T3();
+void MainProg_T3();
 
 /**
 * 	@brief Reference ID: 		MAINPROGT4
@@ -62,7 +62,7 @@ extern void MainProg_T3();
 								does it run the entire program without having memory issues?.
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void MainProg_T4();
+void MainProg_T4();
 
 /**
 * 	@brief Reference ID: 		MAINPROGT5
@@ -70,7 +70,7 @@ extern void MainProg_T4();
 *			Successful result: 	Can the satellite transmissions be received by a radio?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void MainProg_T5();
+void MainProg_T5();
 
 /**
 * 	@brief Reference ID: 		MAINPROGT6
@@ -78,7 +78,7 @@ extern void MainProg_T5();
 *			Successful result: 	Do all pins attach to their intended component pin correctly?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void MainProg_T6();
+void MainProg_T6();
 
 /**
 * 	@brief Reference ID: 		MAINPROGT7
@@ -86,7 +86,7 @@ extern void MainProg_T6();
 *			Successful result: 	When the radio is changed, does the satellite still transmit and receive correctly?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void MainProg_T7();
+void MainProg_T7();
 
 /**
 * 	@brief Reference ID: 		MAINPROGT8
@@ -94,7 +94,7 @@ extern void MainProg_T7();
 *			Successful result: 	When the satellite is delayed, does it react the way you intended?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void MainProg_T8();
+void MainProg_T8();
 
 /**
 * 	@brief Reference ID: 		MAINPROGT9
@@ -102,7 +102,7 @@ extern void MainProg_T8();
 *			Successful result: 	When you run the software on the related hardware, does it run how it should for a long time?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void MainProg_T9();
+void MainProg_T9();
 
 /**
 * 	@brief Reference ID: 		MAINPROGT10
@@ -110,7 +110,7 @@ extern void MainProg_T9();
 *			Successful result: 	Does the hardware watchdog cause any issues with restarting during its operation? For example causing restarts in long functions?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void MainProg_T10();
+void MainProg_T10();
 
 /**
 * 	@brief Reference ID: 		MAINPROGT11
@@ -118,7 +118,7 @@ extern void MainProg_T10();
 *			Successful result: 	When the satellite transmits in any mode, does it correctly send transmissions without the watchdog interefering, even with long transmissions
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void MainProg_T11();
+void MainProg_T11();
 
 /**
 * 	@brief Reference ID: 		MAINPROGT12
@@ -126,7 +126,7 @@ extern void MainProg_T11();
 *			Successful result: 	Does the code of the satellite enter any sections of code that cause it to restart over and over again? (check restart command useage)
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void MainProg_T12();
+void MainProg_T12();
 
 #endif
 

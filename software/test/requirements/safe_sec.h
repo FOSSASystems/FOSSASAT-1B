@@ -26,7 +26,7 @@ SOFTWARE.
 #ifndef SAFE_SEC_T_H
 #define SAFE_SEC_T_H
 
-extern void SafeSec_TestRunner_Start();
+void SafeSec_TestRunner_Start();
 
 
 /**
@@ -35,7 +35,7 @@ extern void SafeSec_TestRunner_Start();
 *			Successful result: 	When the radio outputs errors, how are they handled? check the failure modes - consult team discord to report unknown failure mode reponses.
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void SafeSec_T1();
+void SafeSec_T1();
 
 /**
 *	@brief Reference ID: 		SAFESECT2
@@ -43,7 +43,7 @@ extern void SafeSec_T1();
 *			Successful result: 	Transmissions do not affect other satellites negatively, make sure encrypted transmissions are encrypted by receiving them.
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void SafeSec_T2();
+void SafeSec_T2();
 
 /**
 *	@brief Reference ID: 		SAFESECT3
@@ -51,7 +51,7 @@ extern void SafeSec_T2();
 *			Successful result: 	If the eeprom values return errors, how are they handled?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void SafeSec_T3();
+void SafeSec_T3();
 
 #endif
 

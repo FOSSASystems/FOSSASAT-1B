@@ -33,8 +33,8 @@ SOFTWARE.
 
 
 // these are the interval times for the power control (power_control.cpp)
-#define INTERVAL_MIN	(20 * 1000UL)
-#define INTERVAL_1		(35 * 1000UL)
+#define INTERVAL_MIN	( 20 * 1000UL)
+#define INTERVAL_1		( 35 * 1000UL)
 #define INTERVAL_2		(100 * 1000UL)
 #define INTERVAL_3		(160 * 1000UL)
 #define INTERVAL_4		(180 * 1000UL)

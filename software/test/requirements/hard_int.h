@@ -25,7 +25,7 @@ SOFTWARE.
 #ifndef HARD_INT_T_H
 #define HARD_INT_T_H
 
-extern void HardInt_TestRunner_Start();
+void HardInt_TestRunner_Start();
 
 
 /**
@@ -34,7 +34,7 @@ extern void HardInt_TestRunner_Start();
 *			Successful result: 	Check that the voltage readings are ok, different scenarios such as broken component, disconnected component.etc
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void HardInt_T1();
+void HardInt_T1();
 
 /**
 *	@brief Reference ID: 		HARDINT2
@@ -42,7 +42,7 @@ extern void HardInt_T1();
 *			Successful result: 	When the MPPT is disabled, make sure that the battery voltage is output.
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void HardInt_T2();
+void HardInt_T2();
 
 /**
 *	@brief Reference ID: 		HARDINT3
@@ -50,7 +50,7 @@ extern void HardInt_T2();
 *			Successful result: 	When the MPPT is enabled, double check that the voltage it reads matches the battery charging voltage.
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void HardInt_T3();
+void HardInt_T3();
 
 /**
 *	@brief Reference ID: 		HARDINT4
@@ -58,7 +58,7 @@ extern void HardInt_T3();
 *			Successful result: 	Disconnect the watchdog, does the satellite restart?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void HardInt_T4();
+void HardInt_T4();
 
 /**
 *	@brief Reference ID: 		HARDINT5
@@ -66,7 +66,7 @@ extern void HardInt_T4();
 *			Successful result: 	Doublecheck that the battery charging voltage reads correct values i.e. values that make sense.
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void HardInt_T5();
+void HardInt_T5();
 
 /**
 *	@brief Reference ID: 		HARDINT6
@@ -74,7 +74,7 @@ extern void HardInt_T5();
 *			Successful result: 	double check that the battery voltage read is correct and makes sense.
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void HardInt_T6();
+void HardInt_T6();
 
 /**
 *	@brief Reference ID: 		HARDINT7
@@ -82,7 +82,7 @@ extern void HardInt_T6();
 *			Successful result: 	Double check the voltage readings.
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void HardInt_T7();
+void HardInt_T7();
 
 
 /**
@@ -91,7 +91,7 @@ extern void HardInt_T7();
 *			Successful result: 	Double check the battery temperature readings are ok.
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void HardInt_T8();
+void HardInt_T8();
 
 /**
 *	@brief Reference ID: 		HARDINT9
@@ -99,7 +99,7 @@ extern void HardInt_T8();
 *			Successful result: 	Double check that the battery voltage
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void HardInt_T9();
+void HardInt_T9();
 
 /**
 *	@brief Reference ID: 		HARDINT11
@@ -107,7 +107,7 @@ extern void HardInt_T9();
 *			Successful result: 	Look at all the sensor readings together, do they all make sense?
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void HardInt_T11();
+void HardInt_T11();
 
 #endif
 

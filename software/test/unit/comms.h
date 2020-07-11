@@ -33,28 +33,28 @@ namespace UnitTests
 namespace Comms
 {
 
-extern void RunTests();
+void RunTests();
 
 /**
  * @brief This test makes sure that the function "Communication_Receive_Interrupt()"
  *          is called when the radio receives data.
  * @test (ID COMMS_H_T0) (SEV 1)
  */
-extern void t0();
-extern void t1();
-extern void t2();
-extern void t3();
-extern void t4();
-extern void t5();
-extern void t6();
-extern void t7();
-extern void t8();
-extern void t9();
-extern void t10();
-extern void t11();
-extern void t12();
-extern void t13();
-extern void t14();
+void t0();
+void t1();
+void t2();
+void t3();
+void t4();
+void t5();
+void t6();
+void t7();
+void t8();
+void t9();
+void t10();
+void t11();
+void t12();
+void t13();
+void t14();
 
 }
 
