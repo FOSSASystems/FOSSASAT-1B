@@ -58,9 +58,6 @@ void Deploy_T2()
 	// Get the EEPROM value pre-deployment.
 	uint8_t originalEEPROMValue = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
 
-	// Pet the watchdog.
-	Pin_Interface_Watchdog_Heartbeat();
-
 	// Call the deployment sequence.
 	Deployment_Deploy(); // Blocked until finished.
 
@@ -69,9 +66,6 @@ void Deploy_T2()
 
 	// Value that it should be.
 	uint8_t EEPROMCorrectValue = originalEEPROMValue + 1;
-
-	// Pet the watchdog.
-	Pin_Interface_Watchdog_Heartbeat();
 
 	// Assert that the value and correct value are equal.
 	TEST_ASSERT_EQUAL_INT(newEEPROMValue, EEPROMCorrectValue);
@@ -153,55 +147,38 @@ void Deploy_T8()
 	// 1. Save the previous number of deployments.
 	uint8_t previousNumberOfDeployments = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
 
-	Pin_Interface_Watchdog_Heartbeat();
-
 	// 2. Set the deployment counter to 0.
 	{
 		Persistent_Storage_Write<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR, 0);
 
 		// 3. Check the EEPROM is at 0.
 		uint8_t currentEEPROMValue = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
-		TEST_ASSERT_EQUAL_INT_MESSAGE(currentEEPROMValue, 0, "EEPROM address for deployment counter did not reset.");
+		TEST_ASSERT_EQUAL_INT_MESSAGE(0, currentEEPROMValue, "EEPROM address for deployment counter did not reset.");
 	}
 
-	Pin_Interface_Watchdog_Heartbeat();
-
-
-	// 4. Deploy 255 times
-	for (uint16_t i = 0; i < 255; i++)
+	// 4. Deploy 256 times
+	for (uint16_t i = 0; i < 256; i++)
 	{
-		Pin_Interface_Watchdog_Heartbeat();
-
 		Deployment_Deploy();
-
-		Pin_Interface_Watchdog_Heartbeat();
 	}
-
-
-
 
 	// 5. Check the deployment EEPROM is at 0.
 	{
 		uint8_t currentEEPROMValue = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
-		TEST_ASSERT_EQUAL_INT_MESSAGE(currentEEPROMValue, 0, "EEPROM address did not end at 50correctly.");
+		TEST_ASSERT_EQUAL_INT_MESSAGE(0, currentEEPROMValue, "EEPROM address did not end at 0 correctly.");
 	}
 
 	// 6. Deploy 10 more times.
 	for (uint16_t i = 0; i < 10; i++)
 	{
-		Pin_Interface_Watchdog_Heartbeat();
-
 		Deployment_Deploy();
-		
-		Pin_Interface_Watchdog_Heartbeat();
 	}
 
 	// 7. Check that the deployment EEPROM is at 10. (looped correctly)
 	{
 		uint8_t currentEEPROMValue = Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR);
-		TEST_ASSERT_EQUAL_INT_MESSAGE(currentEEPROMValue, 10, "EEPROM address did not end correctly.");
+		TEST_ASSERT_EQUAL_INT_MESSAGE(10, currentEEPROMValue, "EEPROM address did not end correctly.");
 	}
-
 
 	// 8. Restore the previous number of deployments.
 	Persistent_Storage_Write<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR, previousNumberOfDeployments);
