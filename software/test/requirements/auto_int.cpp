@@ -26,7 +26,7 @@ SOFTWARE.
 
 void AutoInt_TestRunner_Start()
 {
-	RUN_FS_TEST(AutoInt_T2);
+	AutoInt_T2();
 	RUN_FS_TEST(AutoInt_T3);
 }
 
@@ -58,126 +58,228 @@ void AutoInt_T2()
 	//
 	// 1. Check that the intervals are waiting without restarting.
 	//
-	{
-		uint32_t interval = INTERVAL_MIN;
+	AutoInt_T2_1();
+	AutoInt_T2_2();
+	AutoInt_T2_3();
+	AutoInt_T2_4();
+	AutoInt_T2_5();
+	AutoInt_T2_6();
+}
 
-		// 1.1 Sleep true, radio sleep true 
-		Power_Control_Delay(interval, true, true);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_1()
+{
+	RUN_FS_TEST(AutoInt_T2_1_1);
+	RUN_FS_TEST(AutoInt_T2_1_2);
+	RUN_FS_TEST(AutoInt_T2_1_3);
+	RUN_FS_TEST(AutoInt_T2_1_4);
+}
 
-		// 1.2. Sleep true, radio sleep false.
-		Power_Control_Delay(interval, true, false);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_1_1()
+{
+	// 1.1 Sleep true, radio sleep true 
+	Power_Control_Delay(INTERVAL_MIN, true, true);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 1.3. Sleep false, radio sleep true
-		Power_Control_Delay(interval, false, true);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_1_2()
+{
+	// 1.2. Sleep true, radio sleep false.
+	Power_Control_Delay(INTERVAL_MIN, true, false);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 1.4. Sleep false, radio sleep false
-		Power_Control_Delay(interval, false, false);
-		TEST_ASSERT_TRUE(true);
-	}
+void AutoInt_T2_1_3()
+{
+	// 1.3. Sleep false, radio sleep true
+	Power_Control_Delay(INTERVAL_MIN, false, true);
+	TEST_ASSERT_TRUE(true);
+}
 
+void AutoInt_T2_1_4()
+{
+	// 1.4. Sleep false, radio sleep false
+	Power_Control_Delay(INTERVAL_MIN, false, false);
+	TEST_ASSERT_TRUE(true);
+}
 
-	{
-		uint32_t interval = INTERVAL_1;
+void AutoInt_T2_2()
+{
+	RUN_FS_TEST(AutoInt_T2_2_1);
+	RUN_FS_TEST(AutoInt_T2_2_2);
+	RUN_FS_TEST(AutoInt_T2_2_3);
+	RUN_FS_TEST(AutoInt_T2_2_4);
+}
 
-		// 2.1 Sleep true, radio sleep true 
-		Power_Control_Delay(interval, true, true);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_2_1()
+{
+	// 2.1 Sleep true, radio sleep true 
+	Power_Control_Delay(INTERVAL_1, true, true);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 2.2. Sleep true, radio sleep false.
-		Power_Control_Delay(interval, true, false);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_2_2()
+{
+	// 2.2. Sleep true, radio sleep false.
+	Power_Control_Delay(INTERVAL_1, true, false);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 2.3. Sleep false, radio sleep true
-		Power_Control_Delay(interval, false, true);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_2_3()
+{
+	// 2.3. Sleep false, radio sleep true
+	Power_Control_Delay(INTERVAL_1, false, true);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 2.4. Sleep false, radio sleep false
-		Power_Control_Delay(interval, false, false);
-		TEST_ASSERT_TRUE(true);
-	}
+void AutoInt_T2_2_4()
+{
+	// 2.4. Sleep false, radio sleep false
+	Power_Control_Delay(INTERVAL_1, false, false);
+	TEST_ASSERT_TRUE(true);
+}
 
-	{
-		uint32_t interval = INTERVAL_2;
+void AutoInt_T2_3()
+{
+	RUN_FS_TEST(AutoInt_T2_3_1);
+	RUN_FS_TEST(AutoInt_T2_3_2);
+	RUN_FS_TEST(AutoInt_T2_3_3);
+	RUN_FS_TEST(AutoInt_T2_3_4);
+}
 
-		// 3.1 Sleep true, radio sleep true 
-		Power_Control_Delay(interval, true, true);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_3_1()
+{
+	// 3.1 Sleep true, radio sleep true 
+	Power_Control_Delay(INTERVAL_2, true, true);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 3.2. Sleep true, radio sleep false.
-		Power_Control_Delay(interval, true, false);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_3_2()
+{
+	// 3.2. Sleep true, radio sleep false.
+	Power_Control_Delay(INTERVAL_2, true, false);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 3.3. Sleep false, radio sleep true
-		Power_Control_Delay(interval, false, true);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_3_3()
+{
+	// 3.3. Sleep false, radio sleep true
+	Power_Control_Delay(INTERVAL_2, false, true);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 3.4. Sleep false, radio sleep false
-		Power_Control_Delay(interval, false, false);
-		TEST_ASSERT_TRUE(true);
-	}
+void AutoInt_T2_3_4()
+{
+	// 3.4. Sleep false, radio sleep false
+	Power_Control_Delay(INTERVAL_2, false, false);
+	TEST_ASSERT_TRUE(true);
+}
 
-	{
-		uint32_t interval = INTERVAL_3;
+void AutoInt_T2_4()
+{
+	RUN_FS_TEST(AutoInt_T2_4_1);
+	RUN_FS_TEST(AutoInt_T2_4_2);
+	RUN_FS_TEST(AutoInt_T2_4_3);
+	RUN_FS_TEST(AutoInt_T2_4_4);
+}
 
-		// 4.1 Sleep true, radio sleep true 
-		Power_Control_Delay(interval, true, true);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_4_1()
+{
+	// 4.1 Sleep true, radio sleep true 
+	Power_Control_Delay(INTERVAL_3, true, true);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 4.2. Sleep true, radio sleep false.
-		Power_Control_Delay(interval, true, false);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_4_2()
+{
+	// 4.2. Sleep true, radio sleep false.
+	Power_Control_Delay(INTERVAL_3, true, false);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 4.3. Sleep false, radio sleep true
-		Power_Control_Delay(interval, false, true);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_4_3()
+{
+	// 4.3. Sleep false, radio sleep true
+	Power_Control_Delay(INTERVAL_3, false, true);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 4.4. Sleep false, radio sleep false
-		Power_Control_Delay(interval, false, false);
-		TEST_ASSERT_TRUE(true);
-	}
-	
-	{
-		uint32_t interval = INTERVAL_4;
+void AutoInt_T2_4_4()
+{
+	// 4.4. Sleep false, radio sleep false
+	Power_Control_Delay(INTERVAL_3, false, false);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 5.1 Sleep true, radio sleep true 
-		Power_Control_Delay(interval, true, true);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_5()
+{
+	RUN_FS_TEST(AutoInt_T2_5_1);
+	RUN_FS_TEST(AutoInt_T2_5_2);
+	RUN_FS_TEST(AutoInt_T2_5_3);
+	RUN_FS_TEST(AutoInt_T2_5_4);
+}
 
-		// 5.2. Sleep true, radio sleep false.
-		Power_Control_Delay(interval, true, false);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_5_1()
+{
+	// 5.1 Sleep true, radio sleep true 
+	Power_Control_Delay(INTERVAL_4, true, true);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 5.3. Sleep false, radio sleep true
-		Power_Control_Delay(interval, false, true);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_5_2()
+{
+	// 5.2. Sleep true, radio sleep false.
+	Power_Control_Delay(INTERVAL_4, true, false);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 5.4. Sleep false, radio sleep false
-		Power_Control_Delay(interval, false, false);
-		TEST_ASSERT_TRUE(true);
-	}
-	
-	{
-		uint32_t interval = INTERVAL_MAX;
+void AutoInt_T2_5_3()
+{
+	// 5.3. Sleep false, radio sleep true
+	Power_Control_Delay(INTERVAL_4, false, true);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 6.1 Sleep true, radio sleep true 
-		Power_Control_Delay(interval, true, true);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_5_4()
+{
+	// 5.4. Sleep false, radio sleep false
+	Power_Control_Delay(INTERVAL_4, false, false);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 6.2. Sleep true, radio sleep false.
-		Power_Control_Delay(interval, true, false);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_6()
+{
+	RUN_FS_TEST(AutoInt_T2_6_1);
+	RUN_FS_TEST(AutoInt_T2_6_2);
+	RUN_FS_TEST(AutoInt_T2_6_3);
+	RUN_FS_TEST(AutoInt_T2_6_4);
+}
 
-		// 6.3. Sleep false, radio sleep true
-		Power_Control_Delay(interval, false, true);
-		TEST_ASSERT_TRUE(true);
+void AutoInt_T2_6_1()
+{
+	// 6.1 Sleep true, radio sleep true 
+	Power_Control_Delay(INTERVAL_MAX, true, true);
+	TEST_ASSERT_TRUE(true);
+}
 
-		// 6.4. Sleep false, radio sleep false
-		Power_Control_Delay(interval, false, false);
-		TEST_ASSERT_TRUE(true);
-	}
+void AutoInt_T2_6_2()
+{
+	// 6.2. Sleep true, radio sleep false.
+	Power_Control_Delay(INTERVAL_MAX, true, false);
+	TEST_ASSERT_TRUE(true);
+}
+
+void AutoInt_T2_6_3()
+{
+	// 6.3. Sleep false, radio sleep true
+	Power_Control_Delay(INTERVAL_MAX, false, true);
+	TEST_ASSERT_TRUE(true);
+}
+
+void AutoInt_T2_6_4()
+{
+	// 6.4. Sleep false, radio sleep false
+	Power_Control_Delay(INTERVAL_MAX, false, false);
+	TEST_ASSERT_TRUE(true);
 }
 
 /**

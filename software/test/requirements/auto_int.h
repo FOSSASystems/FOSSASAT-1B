@@ -30,7 +30,7 @@ SOFTWARE.
 #include "pin_interface.h"
 
 
-extern void AutoInt_TestRunner_Start();
+void AutoInt_TestRunner_Start();
 
 
 /**
@@ -40,7 +40,7 @@ extern void AutoInt_TestRunner_Start();
 								check the interval changes according to the specified delays (see Julian for spec)
 *			Date Log:			05/07/2020 - R.Bamford			
 */
-extern void AutoInt_T1();
+void AutoInt_T1();
 
 /**
 *	@brief Reference ID: 		AUTOINT2
@@ -49,7 +49,37 @@ extern void AutoInt_T1();
 								does it get into a restart loop anywhere? check this
 *			Date Log:			05/07/2020 - R.Bamford
 */
-extern void AutoInt_T2();
+void AutoInt_T2();
+void AutoInt_T2_1();
+void AutoInt_T2_1_1();
+void AutoInt_T2_1_2();
+void AutoInt_T2_1_3();
+void AutoInt_T2_1_4();
+void AutoInt_T2_2();
+void AutoInt_T2_2_1();
+void AutoInt_T2_2_2();
+void AutoInt_T2_2_3();
+void AutoInt_T2_2_4();
+void AutoInt_T2_3();
+void AutoInt_T2_3_1();
+void AutoInt_T2_3_2();
+void AutoInt_T2_3_3();
+void AutoInt_T2_3_4();
+void AutoInt_T2_4();
+void AutoInt_T2_4_1();
+void AutoInt_T2_4_2();
+void AutoInt_T2_4_3();
+void AutoInt_T2_4_4();
+void AutoInt_T2_5();
+void AutoInt_T2_5_1();
+void AutoInt_T2_5_2();
+void AutoInt_T2_5_3();
+void AutoInt_T2_5_4();
+void AutoInt_T2_6();
+void AutoInt_T2_6_1();
+void AutoInt_T2_6_2();
+void AutoInt_T2_6_3();
+void AutoInt_T2_6_4();
 
 /**
 *	@brief Reference ID: 		AUTOINT3
@@ -57,7 +87,7 @@ extern void AutoInt_T2();
 *			Successful result: 	If the low power mode is enabled, then make sure that the maximum interval for battery charging is used to maximise charging.
 *			Date Log:			05/07/2020 - R.Bamforrd
 */
-extern void AutoInt_T3();
+void AutoInt_T3();
 
 /**
 *	@brief Reference ID: 		AUTOINT4
@@ -65,7 +95,7 @@ extern void AutoInt_T3();
 *			Successful result: 	If the interval control is disabled, then test that there is no interval delay.
 *			Date Log:			05/07/2020 - R.Bamforrd
 */
-extern void AutoInt_T4();
+void AutoInt_T4();
 
 #endif
 
