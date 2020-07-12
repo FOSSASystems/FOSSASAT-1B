@@ -38,7 +38,7 @@ void setup()
 	UNITY_BEGIN();
     RUN_FS_TEST(ina226_check_response);
 	RUN_FS_TEST(ina226_check_battery_range);
-	//RUN_FS_TEST(lora_init);
+	RUN_FS_TEST(lora_init);
 	UNITY_END();
 
 }
