@@ -10,6 +10,6 @@ void ina226_check_response()
 
 void ina226_check_battery_range()
 {
-	TEST_ASSERT_FLOAT_WITHIN(0.1, 5.0, Power_Control_Get_Battery_Voltage());
+	TEST_ASSERT_FLOAT_WITHIN(1.0, 5.0, Power_Control_Get_Battery_Voltage());
 }
 
