@@ -85,7 +85,7 @@ jobs:
       - run: cd software && platformio run -v
 
   PlatformIO-UnitTest:
-    runs-on: self-hosted
+    runs-on: FS-1B_short
     steps:
       - uses: actions/checkout@v2
       - run: platformio update
