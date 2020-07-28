@@ -135,7 +135,9 @@ void setup() {
       }
 
       // increment deployment counter
+      FOSSASAT_DEBUG_PORT.println(F("INTDONE"));
       Persistent_Storage_Write<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR, attemptNumber + 1);
+      Power_Control_Delay(DEPLOYMENT_SLEEP_LENGTH, true, true);
 
     } else if(Persistent_Storage_Read<uint8_t>(EEPROM_DEPLOYMENT_COUNTER_ADDR) <= DEPLOYMENT_ATTEMPTS) {
       // sleep before deployment
