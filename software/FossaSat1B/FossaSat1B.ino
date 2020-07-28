@@ -201,7 +201,7 @@ void loop() {
     // this isn't the loop to transmit full Morse beacon, or the battery is low, transmit CW beeps
     for(uint8_t i = 0; i < NUM_CW_BEEPS; i++) {
       Communication_CW_Beep(500 * SLEEP_LENGTH_CONSTANT);
-      Power_Control_Delay(delayLen * SLEEP_LENGTH_CONSTANT, true);
+      Power_Control_Delay(delayLen * 1000 * SLEEP_LENGTH_CONSTANT, true);
     }
   }
 
