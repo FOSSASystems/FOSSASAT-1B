@@ -193,8 +193,8 @@ void loop() {
     beaconSent = true;
   } else {
     // set delay between beeps according to battery voltage
-    float delayLen = battVoltage * 1000.0 - MORSE_BATTERY_MIN;
-    if(battVoltage * 1000.0 < MORSE_BATTERY_MIN + MORSE_BATTERY_STEP) {
+    float delayLen = battVoltage - MORSE_BATTERY_MIN;
+    if(battVoltage < MORSE_BATTERY_MIN + MORSE_BATTERY_STEP) {
       delayLen = MORSE_BATTERY_STEP;
     }
 
