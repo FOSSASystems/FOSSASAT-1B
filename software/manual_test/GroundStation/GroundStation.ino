@@ -600,8 +600,8 @@ int16_t setGFSK() {
                              TCXO_VOLTAGE);
   uint8_t syncWordFSK[2] = {SYNC_WORD, SYNC_WORD};
   radio.setSyncWord(syncWordFSK, 2);
-  radio.setDataShaping(FSK_DATA_SHAPING);
-  radio.setCurrentLimit(FSK_CURRENT_LIMIT);
+  radio.setDataShaping(DATA_SHAPING);
+  radio.setCurrentLimit(CURRENT_LIMIT);
   #ifdef USE_SX126X
     radio.setCRC(2);
     radio.setWhitening(true, WHITENING_INITIAL);
