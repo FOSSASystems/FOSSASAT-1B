@@ -1,4 +1,0 @@
-<map id="Persistent_Storage_Wipe" name="Persistent_Storage_Wipe">
-<area shape="rect" id="node2" href="$power__control_8h.html#a18bd8cf80280cfba12636778283abf78" title="Saves the configuration bytes from RAM into EEPROM. " alt="" coords="252,5,404,47"/>
-<area shape="rect" id="node3" href="$system__info_8h.html#a51295b55492a253ad9c695525c40d458" title="Set the callsign to be used for each transmission to EEPROM. " alt="" coords="235,71,421,98"/>
-</map>

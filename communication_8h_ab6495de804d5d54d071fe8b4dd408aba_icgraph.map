@@ -1,6 +1,0 @@
-<map id="Comunication_Parse_Frame" name="Comunication_Parse_Frame">
-<area shape="rect" id="node2" href="$communication_8h.html#ad5052f7320724c62bfab348ea62c66ce" title="This function reads the contents of the radio when it receives a transmission. " alt="" coords="205,29,385,71"/>
-<area shape="rect" id="node3" href="$communication_8h.html#a980dd25e42aaeac1620dc7f9b42859a2" title="This function adds frame entry to a frame. " alt="" coords="433,61,636,87"/>
-<area shape="rect" id="node4" href="$communication_8h.html#ae4e350e62342431fda2184ff0dc47a65" title="Send the satellite&#39;s information via the configured radio settings. " alt="" coords="684,5,847,47"/>
-<area shape="rect" id="node5" href="$communication_8h.html#a834526d017e482716c6061772d644d5b" title="This function executes the given function id provided with the given data. " alt="" coords="895,76,1076,117"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="Power_Control_Get_Sleep_Interval" name="Power_Control_Get_Sleep_Interval">
-<area shape="rect" id="node2" href="$power__control_8h.html#a6e2a22c1b8940caf3a89cf6f5e21e120" title="Get the battery voltage by switching the MPPT off and then on again after reading is taken..." alt="" coords="229,27,415,69"/>
-<area shape="rect" id="node3" href="$power__control_8h.html#a4e4e7a68a32a2d3fc0b7c0b14b391975" title="This function ensures that the battery is charging. &quot;set MPPT to input which enables battery charging..." alt="" coords="463,5,621,32"/>
-<area shape="rect" id="node4" href="$power__control_8h.html#ac78b055f83071530eb3844378654db5e" title="Check that the INA2256 is valid. " alt="" coords="463,57,621,98"/>
-</map>

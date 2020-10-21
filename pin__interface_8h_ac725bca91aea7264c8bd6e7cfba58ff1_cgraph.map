@@ -1,9 +1,0 @@
-<map id="Pin_Interface_Watchdog_Heartbeat" name="Pin_Interface_Watchdog_Heartbeat">
-<area shape="rect" id="node2" href="$power__control_8h.html#a3dcf47e9ee8d130075c4466692810370" title="Checks whether battery voltage is below low power limit. Will enable low power mode if that is the ca..." alt="" coords="227,64,385,105"/>
-<area shape="rect" id="node3" href="$power__control_8h.html#a67027a313959753703a50352ee41b109" title="Load the configuration bytes from the EEPROM into RAM. " alt="" coords="901,5,1052,47"/>
-<area shape="rect" id="node4" href="$power__control_8h.html#a6e2a22c1b8940caf3a89cf6f5e21e120" title="Get the battery voltage by switching the MPPT off and then on again after reading is taken..." alt="" coords="433,64,631,105"/>
-<area shape="rect" id="node8" href="$power__control_8h.html#a18bd8cf80280cfba12636778283abf78" title="Saves the configuration bytes from RAM into EEPROM. " alt="" coords="456,129,608,171"/>
-<area shape="rect" id="node5" href="$power__control_8h.html#a4e4e7a68a32a2d3fc0b7c0b14b391975" title="This function ensures that the battery is charging. &quot;set MPPT to input which enables battery charging..." alt="" coords="683,67,849,94"/>
-<area shape="rect" id="node7" href="$power__control_8h.html#a9fbadbeff1c82c6268c5b6ed878aedc7" title="Check that the INA2256 is valid. " alt="" coords="679,119,853,160"/>
-<area shape="rect" id="node6" href="$pin__interface_8h.html#a19d8eea2c4cc2711fb370569770ea4e7" title="This function reads the TMP100&#39;s value from its wire address. " alt="" coords="905,71,1048,112"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="Power_Control_Charge" name="Power_Control_Charge">
-<area shape="rect" id="node2" href="$power__control_8h.html#a67027a313959753703a50352ee41b109" title="Load the configuration bytes from the EEPROM into RAM. " alt="" coords="220,5,371,47"/>
-<area shape="rect" id="node3" href="$pin__interface_8h.html#a19d8eea2c4cc2711fb370569770ea4e7" title="This function reads the TMP100&#39;s value from its wire address. " alt="" coords="224,71,367,112"/>
-</map>

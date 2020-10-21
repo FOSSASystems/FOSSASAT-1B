@@ -1,5 +1,0 @@
-<map id="Pin_Interface_Watchdog_Heartbeat" name="Pin_Interface_Watchdog_Heartbeat">
-<area shape="rect" id="node2" href="$communication_8h.html#a5db7440be24bedc9c14f12db46029968" title="This function transmits a morse beacon message. " alt="" coords="219,5,369,47"/>
-<area shape="rect" id="node3" href="$power__control_8h.html#a3bff1402f7ac79b23628326e3fd7b560" title="This function delays the program execution for the given number of milliseconds, while maintaining th..." alt="" coords="219,71,369,98"/>
-<area shape="rect" id="node4" href="$communication_8h.html#aee0a3df78da4459c808120a803c65b61" title="This function transmits a continous wave &quot;BEEP&quot;&quot;. " alt="" coords="417,71,597,98"/>
-</map>

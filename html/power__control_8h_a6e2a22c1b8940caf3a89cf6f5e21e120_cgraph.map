@@ -1,4 +1,0 @@
-<map id="Power_Control_Get_Battery_Voltage" name="Power_Control_Get_Battery_Voltage">
-<area shape="rect" id="node2" href="$power__control_8h.html#a4e4e7a68a32a2d3fc0b7c0b14b391975" title="This function ensures that the battery is charging. &quot;set MPPT to input which enables battery charging..." alt="" coords="239,5,397,32"/>
-<area shape="rect" id="node3" href="$power__control_8h.html#ac78b055f83071530eb3844378654db5e" title="Check that the INA2256 is valid. " alt="" coords="239,57,397,98"/>
-</map>
