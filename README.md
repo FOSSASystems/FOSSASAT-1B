@@ -1,4 +1,4 @@
-# FOSSASAT-1B
+
 
 [![Build Status](https://github.com/FOSSASystems/FOSSASAT-1B/workflows/CI/badge.svg)](https://github.com/FOSSASystems/FOSSASAT-1B/actions)
 
@@ -14,6 +14,13 @@ FOSSASAT-1B is slightly modified second iteration of the FOSSASAT-1 satellite la
 - Added Watchdog external connection for programming
 - Passive attitude control re-designed
 
+## Launch
+
+FOSSASAT-1B was initially launched in the maiden mission of the firefly Alpha which experienced in an in-flight failure, subsequently it was launched into space on a second Firefly Alpha vehicle in October of 2022. Below is the first packet received from space! The satellite re-entered after 2 days in orbit due to a low insertion altitude. 
+
+<br>
+<img width="1408" height="637" alt="image" src="https://github.com/user-attachments/assets/66898fcf-0deb-44eb-b1ae-e7e9153f5bd6" />
+<br>
 
 ## Hardware
 
