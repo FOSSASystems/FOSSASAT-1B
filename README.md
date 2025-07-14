@@ -4,7 +4,9 @@
 
 [Doxygen Documentation](https://fossasystems.github.io/FOSSASAT-1B)
 
-FOSSASAT-1B is slightly modified second iteration of the FOSSASAT-1 satellite launched in December of 2019 Second generation 1P Satellite. It is set to launch with FOSSASAT-2 aboard the Alpha Firefly rocket in Q2-3 2020 into a 300km LEO orbit. The following differences are listed:
+## FOSSASAT-1B
+
+FOSSASAT-1B is slightly modified second iteration of the FOSSASAT-1 satellite launched in December of 2019. It is set to launch with FOSSASAT-2 aboard the Alpha Firefly rocket in Q2-3 2020 into a 300km LEO orbit. The following differences are listed:
 
 - Use of IXYS Cells instead of TrisolX
 - No deployable Solar Panels
@@ -13,6 +15,14 @@ FOSSASAT-1B is slightly modified second iteration of the FOSSASAT-1 satellite la
 - DRF1268 has RST and SW connections modified
 - Added Watchdog external connection for programming
 - Passive attitude control re-designed
+
+<br>
+Picture of FOSSASAT-1B (Left) next to FOSSASAT-2
+<br>
+<br>
+<img width="704" height="520" alt="image" src="https://www.nanosats.eu/img/sat/FossaSat-2.jpg" />
+
+<br>
 
 ## Launch
 
