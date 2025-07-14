@@ -1,3 +1,4 @@
 <map id="FSK Radio Configuration" name="FSK Radio Configuration">
-<area shape="rect" id="node1" href="$group__defines__radio__lora__configuration.html" title="DescriptionValueUnits &#160;Carrier Frequency.436.7MHz Bandwidth.125.0KHz dual sideband Spreading Factor..." alt="" coords="5,5,177,32"/>
+<area shape="rect" id="Node000002" href="$group__defines__radio__lora__configuration.html" title=" " alt="" coords="5,5,192,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="240,5,419,31"/>
 </map>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['lora_20radio_20configuration',['LoRa Radio Configuration',['../group__defines__radio__lora__configuration.html',1,'']]]
+  ['identifiers_0',['Modem Identifiers',['../group__defines__radio__modem__configuration.html',1,'']]],
+  ['ina226_20configuration_1',['INA226 Configuration',['../group__defines__ina226__configuration.html',1,'']]]
 ];

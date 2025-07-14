@@ -1,9 +1,9 @@
 <map id="Communication_Send_System_Info" name="Communication_Send_System_Info">
-<area shape="rect" id="node2" href="$power__control_8h.html#a6e2a22c1b8940caf3a89cf6f5e21e120" title="Get the battery voltage by switching the MPPT off and then on again after reading is taken..." alt="" coords="209,5,394,47"/>
-<area shape="rect" id="node5" href="$power__control_8h.html#a38b1cf7d6af2bdccef1488666b05eda6" title="Gets the amperage which is being provided to the battery. " alt="" coords="204,71,399,112"/>
-<area shape="rect" id="node6" href="$power__control_8h.html#ae60f6f685745e08c9ffbd6b6fbc025b9" title="Gets the charging voltage (from the solar panels) by not switching the MPPT off and taking an INA226 ..." alt="" coords="204,136,399,177"/>
-<area shape="rect" id="node7" href="$communication_8h.html#a1fab6dc9d0518cd51f80b858c81afa0f" title="This function adds frame entry to a frame. " alt="" coords="208,202,395,229"/>
-<area shape="rect" id="node8" href="$power__control_8h.html#a67027a313959753703a50352ee41b109" title="Load the configuration bytes from the EEPROM into RAM. " alt="" coords="230,253,373,295"/>
-<area shape="rect" id="node3" href="$power__control_8h.html#a4e4e7a68a32a2d3fc0b7c0b14b391975" title="This function ensures that the battery is charging. &quot;set MPPT to input which enables battery charging..." alt="" coords="447,13,605,39"/>
-<area shape="rect" id="node4" href="$power__control_8h.html#ac78b055f83071530eb3844378654db5e" title="Check that the INA2256 is valid. " alt="" coords="447,71,605,112"/>
+<area shape="rect" id="Node000001" title="Send the satellite&#39;s information via the configured radio settings." alt="" coords="5,23,169,63"/>
+<area shape="rect" id="Node000002" href="$communication_8h.html#a1fab6dc9d0518cd51f80b858c81afa0f" title="This function adds frame entry to a frame." alt="" coords="217,5,423,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,32,203,28,204,33,170,37"/>
+<area shape="rect" id="Node000003" href="$persistent__storage_8h.html#a188438a1c042e8a73932cab87f5b66ec" title="This function reads a value of type T from EEPROM." alt="" coords="471,31,655,56"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="169,41,457,41,457,46,169,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="423,26,458,30,457,35,422,31"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="523,32,515,22,519,12,536,6,563,4,597,8,607,13,610,18,606,21,603,17,596,13,563,9,537,11,523,16,520,22,527,29"/>
 </map>

@@ -1,0 +1,6 @@
+<map id="Persistent_Storage_Increment_Frame_Counter" name="Persistent_Storage_Increment_Frame_Counter">
+<area shape="rect" id="Node000001" title="This functions increments one of frame counters of the currently active modem in EEPROM." alt="" coords="5,22,207,62"/>
+<area shape="rect" id="Node000002" href="$persistent__storage_8h.html#a188438a1c042e8a73932cab87f5b66ec" title="This function reads a value of type T from EEPROM." alt="" coords="255,29,439,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="207,39,241,39,241,45,207,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="308,31,299,21,304,11,320,5,347,3,380,7,393,16,390,20,378,11,347,8,321,10,307,15,305,20,312,27"/>
+</map>

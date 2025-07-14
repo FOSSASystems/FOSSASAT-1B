@@ -1,3 +1,5 @@
 <map id="powerConfig_t" name="powerConfig_t">
-<area shape="rect" id="node2" href="$structpower_config_bits__t.html" title="Power configuration strutcture, each entry is one bit long. Total 1 byte, lowPowerModeActive is the l..." alt="" coords="5,5,135,32"/>
+<area shape="rect" id="Node000001" title="Union to quickly access power configuration bits or the entire single&#45;byte value." alt="" coords="18,93,133,119"/>
+<area shape="rect" id="Node000002" href="$structpower_config_bits__t.html" title="Power configuration strutcture, each entry is one bit long. Total 1 byte, lowPowerModeActive is the l..." alt="" coords="5,5,145,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,45,78,93,73,93,73,45"/>
 </map>

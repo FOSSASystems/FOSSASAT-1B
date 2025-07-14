@@ -1,3 +1,6 @@
 <map id="Communication_Send_Response" name="Communication_Send_Response">
-<area shape="rect" id="node2" href="$system__info_8h.html#a4ba2aee682a65d201b020b7fcf20939c" title="Gets the callsign which is current set in EEPROM. " alt="" coords="204,13,383,39"/>
+<area shape="rect" id="Node000001" title="Responds to a given function id execution (internally used)." alt="" coords="5,22,169,62"/>
+<area shape="rect" id="Node000002" href="$persistent__storage_8h.html#a188438a1c042e8a73932cab87f5b66ec" title="This function reads a value of type T from EEPROM." alt="" coords="217,29,401,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,39,204,39,204,45,170,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="273,31,265,21,269,11,284,5,309,3,340,6,352,15,349,20,338,11,309,8,286,10,273,15,271,20,277,28"/>
 </map>

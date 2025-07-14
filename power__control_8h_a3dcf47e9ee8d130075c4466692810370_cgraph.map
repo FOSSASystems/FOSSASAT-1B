@@ -1,7 +1,6 @@
 <map id="Power_Control_Check_Battery_Limit" name="Power_Control_Check_Battery_Limit">
-<area shape="rect" id="node2" href="$power__control_8h.html#a67027a313959753703a50352ee41b109" title="Load the configuration bytes from the EEPROM into RAM. " alt="" coords="228,5,371,47"/>
-<area shape="rect" id="node3" href="$power__control_8h.html#a6e2a22c1b8940caf3a89cf6f5e21e120" title="Get the battery voltage by switching the MPPT off and then on again after reading is taken..." alt="" coords="207,71,392,112"/>
-<area shape="rect" id="node6" href="$power__control_8h.html#a18bd8cf80280cfba12636778283abf78" title="Saves the configuration bytes from RAM into EEPROM. " alt="" coords="227,136,372,177"/>
-<area shape="rect" id="node4" href="$power__control_8h.html#a4e4e7a68a32a2d3fc0b7c0b14b391975" title="This function ensures that the battery is charging. &quot;set MPPT to input which enables battery charging..." alt="" coords="441,49,598,75"/>
-<area shape="rect" id="node5" href="$power__control_8h.html#ac78b055f83071530eb3844378654db5e" title="Check that the INA2256 is valid. " alt="" coords="440,100,599,141"/>
+<area shape="rect" id="Node000001" title="Checks whether battery voltage is below low power limit. Will enable low power mode if that is the ca..." alt="" coords="5,22,168,62"/>
+<area shape="rect" id="Node000002" href="$persistent__storage_8h.html#a188438a1c042e8a73932cab87f5b66ec" title="This function reads a value of type T from EEPROM." alt="" coords="216,29,400,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,39,202,39,202,45,168,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="272,31,264,21,268,11,283,5,308,3,339,6,351,15,348,20,337,11,308,8,284,10,272,15,269,20,276,28"/>
 </map>

@@ -1,0 +1,6 @@
+<map id="Pin_Interface_Read_Temperature_Internal" name="Pin_Interface_Read_Temperature_Internal">
+<area shape="rect" id="Node000001" title="This function reads the MCU&#39;s internal temperature." alt="" coords="5,22,173,62"/>
+<area shape="rect" id="Node000002" href="$persistent__storage_8h.html#a188438a1c042e8a73932cab87f5b66ec" title="This function reads a value of type T from EEPROM." alt="" coords="221,29,405,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,39,207,39,207,45,174,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="277,31,269,21,273,11,288,5,313,3,345,7,357,16,354,20,343,11,313,8,289,10,277,15,274,20,281,27"/>
+</map>

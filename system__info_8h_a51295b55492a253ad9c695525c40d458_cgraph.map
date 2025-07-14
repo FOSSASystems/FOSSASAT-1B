@@ -1,0 +1,6 @@
+<map id="System_Info_Set_Callsign" name="System_Info_Set_Callsign">
+<area shape="rect" id="Node000001" title="Set the callsign to be used for each transmission to EEPROM." alt="" coords="5,29,196,55"/>
+<area shape="rect" id="Node000002" href="$persistent__storage_8h.html#a188438a1c042e8a73932cab87f5b66ec" title="This function reads a value of type T from EEPROM." alt="" coords="244,29,428,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,39,230,39,230,45,196,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="298,31,290,21,294,11,310,5,336,3,369,7,382,16,378,20,367,11,336,8,311,10,297,15,295,20,302,27"/>
+</map>

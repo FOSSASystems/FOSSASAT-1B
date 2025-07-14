@@ -4,7 +4,7 @@ var dir_2e566f4363524a8cd3498eb2a8eca6ae =
     [ "communication.h", "communication_8h.html", "communication_8h" ],
     [ "configuration.cpp", "configuration_8cpp_source.html", null ],
     [ "configuration.h", "configuration_8h_source.html", null ],
-    [ "debugging_utilities.h", "debugging__utilities_8h.html", "debugging__utilities_8h" ],
+    [ "debugging_utilities.h", "debugging__utilities_8h.html", null ],
     [ "deployment.cpp", "deployment_8cpp_source.html", null ],
     [ "deployment.h", "deployment_8h.html", "deployment_8h" ],
     [ "FossaSat1B.h", "_fossa_sat1_b_8h_source.html", null ],

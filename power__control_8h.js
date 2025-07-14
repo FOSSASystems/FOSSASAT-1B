@@ -1,7 +1,7 @@
 var power__control_8h =
 [
-    [ "powerConfigBits_t", "structpower_config_bits__t.html", "structpower_config_bits__t" ],
-    [ "powerConfig_t", "unionpower_config__t.html", "unionpower_config__t" ],
+    [ "powerConfigBits_t", "structpower_config_bits__t.html", null ],
+    [ "powerConfig_t", "unionpower_config__t.html", null ],
     [ "Power_Control_Charge", "power__control_8h.html#a4e4e7a68a32a2d3fc0b7c0b14b391975", null ],
     [ "Power_Control_Check_Battery_Limit", "power__control_8h.html#a3dcf47e9ee8d130075c4466692810370", null ],
     [ "Power_Control_Delay", "power__control_8h.html#a3bff1402f7ac79b23628326e3fd7b560", null ],

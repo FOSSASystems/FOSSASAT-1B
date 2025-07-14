@@ -1,3 +1,7 @@
 <map id="Communication_Frame_Add" name="Communication_Frame_Add">
-<area shape="rect" id="node2" href="$communication_8h.html#ae4e350e62342431fda2184ff0dc47a65" title="Send the satellite&#39;s information via the configured radio settings. " alt="" coords="240,5,391,47"/>
+<area shape="rect" id="Node000001" title="This function adds frame entry to a frame." alt="" coords="236,45,441,70"/>
+<area shape="rect" id="Node000002" href="$communication_8cpp.html#a851428eb1afa9cb602d64f263f39d709" title="This function executes the given function id provided with the given data." alt="" coords="5,5,188,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,45,188,40,188,35,229,40"/>
+<area shape="rect" id="Node000003" href="$communication_8cpp.html#ae4e350e62342431fda2184ff0dc47a65" title="Send the satellite&#39;s information via the configured radio settings." alt="" coords="15,69,179,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="229,74,179,81,179,76,229,69"/>
 </map>

@@ -1,4 +1,6 @@
 <map id="Communication_Acknowledge" name="Communication_Acknowledge">
-<area shape="rect" id="node2" href="$communication_8h.html#af86331e2820ea70a7928919915937077" title="Responds to a given function id execution (internally used). " alt="" coords="252,5,403,47"/>
-<area shape="rect" id="node3" href="$system__info_8h.html#a4ba2aee682a65d201b020b7fcf20939c" title="Gets the callsign which is current set in EEPROM. " alt="" coords="451,13,629,39"/>
+<area shape="rect" id="Node000001" title="This function sends acknowledge for a received frame." alt="" coords="5,29,224,55"/>
+<area shape="rect" id="Node000002" href="$persistent__storage_8h.html#a188438a1c042e8a73932cab87f5b66ec" title="This function reads a value of type T from EEPROM." alt="" coords="272,29,456,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="224,39,258,39,258,45,224,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="324,31,315,21,320,11,336,5,364,3,399,7,409,11,413,17,408,20,405,15,398,12,364,8,337,10,323,15,320,20,328,27"/>
 </map>

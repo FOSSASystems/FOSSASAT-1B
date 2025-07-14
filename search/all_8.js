@@ -1,14 +1,12 @@
 var searchData=
 [
-  ['lora_20radio_20configuration',['LoRa Radio Configuration',['../group__defines__radio__lora__configuration.html',1,'']]],
-  ['lastheartbeat',['lastHeartbeat',['../group__defines__global__variables.html#gad3d1c7107632ee3536eb442026fe08fa',1,'lastHeartbeat():&#160;configuration.cpp'],['../group__defines__global__variables.html#gad3d1c7107632ee3536eb442026fe08fa',1,'lastHeartbeat():&#160;configuration.cpp']]],
-  ['lora_5fbandwidth',['LORA_BANDWIDTH',['../group__defines__radio__lora__configuration.html#ga33702007527b9cea6e029b919322a7a5',1,'configuration.h']]],
-  ['lora_5fcarrier_5ffrequency',['LORA_CARRIER_FREQUENCY',['../group__defines__radio__lora__configuration.html#gafe832936c374bff5e188c400514308a8',1,'configuration.h']]],
-  ['lora_5fcoding_5frate',['LORA_CODING_RATE',['../group__defines__radio__lora__configuration.html#ga4c6536f4c2d7ce68b90100bf64d7c17e',1,'configuration.h']]],
-  ['lora_5fcurrent_5flimit',['LORA_CURRENT_LIMIT',['../group__defines__radio__lora__configuration.html#ga65acce91212130f161b96ae5003a503c',1,'configuration.h']]],
-  ['lora_5foutput_5fpower',['LORA_OUTPUT_POWER',['../group__defines__radio__lora__configuration.html#ga85f023404afa6ec72b6dc7fbfe6742f5',1,'configuration.h']]],
-  ['lora_5fpreamble_5flength',['LORA_PREAMBLE_LENGTH',['../group__defines__radio__lora__configuration.html#ga1e5b496aeaf1062018a929480d244284',1,'configuration.h']]],
-  ['lora_5freceive_5fwindow_5flength',['LORA_RECEIVE_WINDOW_LENGTH',['../group__defines__radio__common__configuraiton.html#ga3b4956886146ec23bf4177b7aef17b3d',1,'configuration.h']]],
-  ['low_5fpower_5fmode_5factive',['LOW_POWER_MODE_ACTIVE',['../group__defines__default__power__configuration.html#gad0d7265d491052179cfbffc68a891cc6',1,'configuration.h']]],
-  ['low_5fpower_5fmode_5fenabled',['LOW_POWER_MODE_ENABLED',['../group__defines__default__power__configuration.html#ga7ce14dbd42484c75f63fb7557f9d133a',1,'configuration.h']]]
+  ['identifiers_0',['Modem Identifiers',['../group__defines__radio__modem__configuration.html',1,'']]],
+  ['ina_1',['ina',['../group__defines__global__variables.html#gabef7273c58516662eed53fda518d0eaa',1,'ina:&#160;configuration.cpp'],['../group__defines__global__variables.html#gabef7273c58516662eed53fda518d0eaa',1,'ina:&#160;configuration.cpp']]],
+  ['ina226_20configuration_2',['INA226 Configuration',['../group__defines__ina226__configuration.html',1,'']]],
+  ['ina_5faddr_3',['INA_ADDR',['../group__defines__ina226__configuration.html#gad742a86ac5089cdfc6bb385de8dae4de',1,'configuration.h']]],
+  ['ina_5fmanufacturer_5fid_4',['INA_MANUFACTURER_ID',['../group__defines__ina226__configuration.html#gaa5387a1fef1c3a301c558d631851456a',1,'configuration.h']]],
+  ['ina_5fmax_5fcurrent_5',['INA_MAX_CURRENT',['../group__defines__ina226__configuration.html#ga30ad8caf4e8a6f008591d8a6e2ec6d9c',1,'configuration.h']]],
+  ['ina_5freg_5fmanufacturer_5fid_6',['INA_REG_MANUFACTURER_ID',['../group__defines__ina226__configuration.html#ga03a691e35444e414c3256b234ec19abf',1,'configuration.h']]],
+  ['ina_5frshunt_7',['INA_RSHUNT',['../group__defines__ina226__configuration.html#gae50e821d99cc5d3696877fd921049ea3',1,'configuration.h']]],
+  ['interruptsenabled_8',['interruptsenabled',['../group__defines__global__variables.html#gac4e4a006083dd62a0a607861795b74ad',1,'interruptsEnabled:&#160;configuration.cpp'],['../group__defines__global__variables.html#gac4e4a006083dd62a0a607861795b74ad',1,'interruptsEnabled:&#160;configuration.cpp']]]
 ];

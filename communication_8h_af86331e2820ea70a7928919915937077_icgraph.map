@@ -1,4 +1,0 @@
-<map id="Communication_Send_Response" name="Communication_Send_Response">
-<area shape="rect" id="node2" href="$communication_8h.html#a03f49b9aabc52b55893829b7069efc7b" title="This function sends acknowledge for a received frame. " alt="" coords="204,5,403,32"/>
-<area shape="rect" id="node3" href="$communication_8h.html#a834526d017e482716c6061772d644d5b" title="This function executes the given function id provided with the given data. " alt="" coords="451,23,619,65"/>
-</map>

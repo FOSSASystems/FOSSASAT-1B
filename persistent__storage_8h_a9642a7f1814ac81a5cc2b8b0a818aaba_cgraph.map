@@ -1,0 +1,6 @@
+<map id="Persistent_Storage_Increment_Counter" name="Persistent_Storage_Increment_Counter">
+<area shape="rect" id="Node000001" title="This functions increments 2&#45;byte counter in EEPROM." alt="" coords="5,22,159,62"/>
+<area shape="rect" id="Node000002" href="$persistent__storage_8h.html#a188438a1c042e8a73932cab87f5b66ec" title="This function reads a value of type T from EEPROM." alt="" coords="207,29,391,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,39,193,39,193,45,159,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="263,31,256,21,260,11,274,5,299,3,329,6,341,15,337,20,327,11,299,8,276,10,263,15,261,20,267,28"/>
+</map>

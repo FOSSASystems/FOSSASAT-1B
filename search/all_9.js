@@ -1,20 +1,16 @@
 var searchData=
 [
-  ['mcu_20temperature_20sensor_20configuration',['MCU Temperature Sensor Configuration',['../group__defines__mcu__temperature__configuration.html',1,'']]],
-  ['modem_20identifiers',['Modem Identifiers',['../group__defines__radio__modem__configuration.html',1,'']]],
-  ['morse_2fcw_20radio_20configuration',['Morse/CW Radio Configuration',['../group__defines__radio__morse__cw__configuration.html',1,'']]],
-  ['max_5fnum_5fof_5fblocks',['MAX_NUM_OF_BLOCKS',['../group__defines__radio__common__configuraiton.html#ga89986fbe657f799f601b5b92f7632ece',1,'configuration.h']]],
-  ['max_5fopt_5fdata_5flength',['MAX_OPT_DATA_LENGTH',['../group__defines__string__memory__limits.html#gae4e308c6dc1882b7571c0eef47e07800',1,'configuration.h']]],
-  ['max_5fradio_5fbuffer_5flength',['MAX_RADIO_BUFFER_LENGTH',['../group__defines__string__memory__limits.html#ga03d448ca7b11d1c3e1768aebdda93af2',1,'configuration.h']]],
-  ['max_5fstring_5flength',['MAX_STRING_LENGTH',['../group__defines__string__memory__limits.html#ga6789ebc0df71a8ef76bfbb4fb5f74aad',1,'configuration.h']]],
-  ['mcu_5ftemp_5fcoefficient',['MCU_TEMP_COEFFICIENT',['../group__defines__mcu__temperature__configuration.html#ga4e9608050340ba03f9225c9037e73d6a',1,'configuration.h']]],
-  ['mcu_5ftemp_5foffset',['MCU_TEMP_OFFSET',['../group__defines__mcu__temperature__configuration.html#ga9c0099995bb74deac3678037a53abed3',1,'configuration.h']]],
-  ['morse',['morse',['../group__defines__global__variables.html#gad7b71738b4bf5134ae10234ed8dee889',1,'configuration.h']]],
-  ['morse_5fbattery_5fmin',['MORSE_BATTERY_MIN',['../group__defines__radio__morse__cw__configuration.html#ga4573c7b1d2f3cdaddadb3fe7aae6de6f',1,'configuration.h']]],
-  ['morse_5fbattery_5fstep',['MORSE_BATTERY_STEP',['../group__defines__radio__morse__cw__configuration.html#ga2d1e75f9b5a4f4217800b4cc91f2bcbb',1,'configuration.h']]],
-  ['morse_5fbeacon_5floop_5ffreq',['MORSE_BEACON_LOOP_FREQ',['../group__defines__radio__morse__cw__configuration.html#gab3651b3dc8b84b12fe86ec9a8a9aaaae',1,'configuration.h']]],
-  ['morse_5fpreamble_5flength',['MORSE_PREAMBLE_LENGTH',['../group__defines__radio__morse__cw__configuration.html#ga7713a1dd2dd939f0314fb6abf067deb5',1,'configuration.h']]],
-  ['morse_5fspeed',['MORSE_SPEED',['../group__defines__radio__morse__cw__configuration.html#ga7ecb6f014f236823544c51e3d9d43c30',1,'configuration.h']]],
-  ['mppt_5fkeep_5falive_5fenabled',['MPPT_KEEP_ALIVE_ENABLED',['../group__defines__default__power__configuration.html#ga06ae8011cff9fec1f6b3720b99f55f62',1,'configuration.h']]],
-  ['mppt_5ftemp_5fswitch_5fenabled',['MPPT_TEMP_SWITCH_ENABLED',['../group__defines__default__power__configuration.html#gac1bce12d866de62b4b9eadcf81f8acb8',1,'configuration.h']]]
+  ['lastheartbeat_0',['lastheartbeat',['../group__defines__global__variables.html#gad3d1c7107632ee3536eb442026fe08fa',1,'lastHeartbeat:&#160;configuration.cpp'],['../group__defines__global__variables.html#gad3d1c7107632ee3536eb442026fe08fa',1,'lastHeartbeat:&#160;configuration.cpp']]],
+  ['limits_1',['String Limits',['../group__defines__string__memory__limits.html',1,'']]],
+  ['list_2',['list',['../test.html',1,'Test List'],['../todo.html',1,'Todo List']]],
+  ['lora_20radio_20configuration_3',['LoRa Radio Configuration',['../group__defines__radio__lora__configuration.html',1,'']]],
+  ['lora_5fbandwidth_4',['LORA_BANDWIDTH',['../group__defines__radio__lora__configuration.html#ga33702007527b9cea6e029b919322a7a5',1,'configuration.h']]],
+  ['lora_5fcarrier_5ffrequency_5',['LORA_CARRIER_FREQUENCY',['../group__defines__radio__lora__configuration.html#gafe832936c374bff5e188c400514308a8',1,'configuration.h']]],
+  ['lora_5fcoding_5frate_6',['LORA_CODING_RATE',['../group__defines__radio__lora__configuration.html#ga4c6536f4c2d7ce68b90100bf64d7c17e',1,'configuration.h']]],
+  ['lora_5fcurrent_5flimit_7',['LORA_CURRENT_LIMIT',['../group__defines__radio__lora__configuration.html#ga65acce91212130f161b96ae5003a503c',1,'configuration.h']]],
+  ['lora_5foutput_5fpower_8',['LORA_OUTPUT_POWER',['../group__defines__radio__lora__configuration.html#ga85f023404afa6ec72b6dc7fbfe6742f5',1,'configuration.h']]],
+  ['lora_5fpreamble_5flength_9',['LORA_PREAMBLE_LENGTH',['../group__defines__radio__lora__configuration.html#ga1e5b496aeaf1062018a929480d244284',1,'configuration.h']]],
+  ['lora_5freceive_5fwindow_5flength_10',['LORA_RECEIVE_WINDOW_LENGTH',['../group__defines__radio__common__configuraiton.html#ga3b4956886146ec23bf4177b7aef17b3d',1,'configuration.h']]],
+  ['low_5fpower_5fmode_5factive_11',['LOW_POWER_MODE_ACTIVE',['../group__defines__default__power__configuration.html#gad0d7265d491052179cfbffc68a891cc6',1,'configuration.h']]],
+  ['low_5fpower_5fmode_5fenabled_12',['LOW_POWER_MODE_ENABLED',['../group__defines__default__power__configuration.html#ga7ce14dbd42484c75f63fb7557f9d133a',1,'configuration.h']]]
 ];

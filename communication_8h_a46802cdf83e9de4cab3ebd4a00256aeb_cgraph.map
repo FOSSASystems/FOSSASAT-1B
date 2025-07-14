@@ -1,3 +1,6 @@
 <map id="Communication_Transmit" name="Communication_Transmit">
-<area shape="rect" id="node2" href="$power__control_8h.html#a67027a313959753703a50352ee41b109" title="Load the configuration bytes from the EEPROM into RAM. " alt="" coords="224,5,367,47"/>
+<area shape="rect" id="Node000001" title="Transmits the given data." alt="" coords="5,29,193,55"/>
+<area shape="rect" id="Node000002" href="$persistent__storage_8h.html#a188438a1c042e8a73932cab87f5b66ec" title="This function reads a value of type T from EEPROM." alt="" coords="241,29,425,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,39,228,39,228,45,193,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="296,31,287,21,292,11,307,5,333,3,366,7,378,16,375,20,364,11,333,8,308,10,295,15,293,20,300,27"/>
 </map>

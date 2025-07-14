@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['battery_5fcw_5fbeep_5fvoltage_5flimit',['BATTERY_CW_BEEP_VOLTAGE_LIMIT',['../group__defines__power__management__configuration.html#ga49ce03eb4bd79a0060a41d793a946a83',1,'configuration.h']]],
-  ['battery_5ftemp_5fsensor_5faddr',['BATTERY_TEMP_SENSOR_ADDR',['../group__defines__tmp100__configuration.html#gacdbd26cf9028150bbe6cb0734e4d7674',1,'configuration.h']]],
-  ['battery_5ftemperature_5flimit',['BATTERY_TEMPERATURE_LIMIT',['../group__defines__power__management__configuration.html#gac16481577dc431a739e4a370c55ac31b',1,'configuration.h']]],
-  ['battery_5fvoltage_5flimit',['BATTERY_VOLTAGE_LIMIT',['../group__defines__power__management__configuration.html#gab56ff9c956d5497736a78ad136ad42ce',1,'configuration.h']]],
-  ['board_5ftemp_5fsensor_5faddr',['BOARD_TEMP_SENSOR_ADDR',['../group__defines__tmp100__configuration.html#gaa038d9fe5bc1bccc19789a7a958065f6',1,'configuration.h']]]
+  ['address_20map_0',['EEPROM Address Map',['../group__defines__eeprom__address__map.html',1,'']]],
+  ['analog_5fin_5frandom_5fseed_1',['ANALOG_IN_RANDOM_SEED',['../group__defines__pin__map.html#ga2c37472ba18c707ade2c29026d3ae381',1,'configuration.h']]],
+  ['analog_5fin_5fsolar_5fa_5fvoltage_5fpin_2',['ANALOG_IN_SOLAR_A_VOLTAGE_PIN',['../group__defines__pin__map.html#gaab66db65014df66541ac9eaa673ca3a2',1,'configuration.h']]],
+  ['analog_5fin_5fsolar_5fb_5fvoltage_5fpin_3',['ANALOG_IN_SOLAR_B_VOLTAGE_PIN',['../group__defines__pin__map.html#ga8c7edf17cc2aeb690516a5a191a4f3fc',1,'configuration.h']]],
+  ['analog_5fin_5fsolar_5fc_5fvoltage_5fpin_4',['ANALOG_IN_SOLAR_C_VOLTAGE_PIN',['../group__defines__pin__map.html#ga0810e1baf8fee374bd20c12df8035bb3',1,'configuration.h']]],
+  ['autodeploy_5fdelay_5',['AUTODEPLOY_DELAY',['../group__defines__power__management__configuration.html#gaa44a203cdf6536532202678823a18542',1,'configuration.h']]]
 ];

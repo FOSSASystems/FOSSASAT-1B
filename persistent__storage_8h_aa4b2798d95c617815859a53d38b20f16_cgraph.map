@@ -1,0 +1,6 @@
+<map id="Persistent_Storage_Update_Stats" name="Persistent_Storage_Update_Stats">
+<area shape="rect" id="Node000001" title="Updates minimum, average and maximum stats in EEPROM." alt="" coords="5,22,149,62"/>
+<area shape="rect" id="Node000002" href="$persistent__storage_8h.html#a188438a1c042e8a73932cab87f5b66ec" title="This function reads a value of type T from EEPROM." alt="" coords="197,29,381,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,39,184,39,184,45,150,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="255,31,247,21,251,11,266,5,289,3,319,6,330,15,327,20,317,11,289,8,267,10,255,15,253,20,259,28"/>
+</map>

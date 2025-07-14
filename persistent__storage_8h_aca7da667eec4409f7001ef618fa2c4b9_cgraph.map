@@ -1,5 +1,6 @@
 <map id="Persistent_Storage_Write" name="Persistent_Storage_Write">
-<area shape="rect" id="node2" href="$persistent__storage_8h.html#a639d33b8a97eee3ccfaf9b7c00537cac" title="This functions clears the EEPROM by writing EEPROM_RESET_VALUE to each memory addres. " alt="" coords="193,5,364,32"/>
-<area shape="rect" id="node3" href="$persistent__storage_8h.html#a9642a7f1814ac81a5cc2b8b0a818aaba" title="This functions increments 2&#45;byte counter in EEPROM. " alt="" coords="209,57,349,98"/>
-<area shape="rect" id="node4" href="$persistent__storage_8h.html#a7ca0126c55391f2e2c48dc1bd4af4c9a" title="This functions increments one of frame counters of the currently active modem in EEPROM. " alt="" coords="187,122,371,163"/>
+<area shape="rect" id="Node000001" title="This function writes a value of type T to the eerom." alt="" coords="5,22,149,62"/>
+<area shape="rect" id="Node000002" href="$persistent__storage_8h.html#a188438a1c042e8a73932cab87f5b66ec" title="This function reads a value of type T from EEPROM." alt="" coords="197,29,381,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,39,184,39,184,45,150,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="255,31,247,21,251,11,266,5,289,3,319,6,330,15,327,20,317,11,289,8,267,10,255,15,253,20,259,28"/>
 </map>

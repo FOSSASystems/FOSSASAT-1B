@@ -1,7 +1,9 @@
 <map id="Communication_Execute_Function" name="Communication_Execute_Function">
-<area shape="rect" id="node2" href="$persistent__storage_8h.html#a7ca0126c55391f2e2c48dc1bd4af4c9a" title="This functions increments one of frame counters of the currently active modem in EEPROM. " alt="" coords="241,5,425,47"/>
-<area shape="rect" id="node3" href="$communication_8h.html#a03f49b9aabc52b55893829b7069efc7b" title="This function sends acknowledge for a received frame. " alt="" coords="234,71,433,98"/>
-<area shape="rect" id="node4" href="$communication_8h.html#af86331e2820ea70a7928919915937077" title="Responds to a given function id execution (internally used). " alt="" coords="493,89,644,131"/>
-<area shape="rect" id="node6" href="$communication_8h.html#a59478c57f2735f94bf2f19a272a75c02" title="This function sets the configuration of the radio, which is used to Radio.Begin(). " alt="" coords="221,173,445,199"/>
-<area shape="rect" id="node5" href="$system__info_8h.html#a4ba2aee682a65d201b020b7fcf20939c" title="Gets the callsign which is current set in EEPROM. " alt="" coords="692,97,871,123"/>
+<area shape="rect" id="Node000001" title="This function executes the given function id provided with the given data." alt="" coords="5,23,188,63"/>
+<area shape="rect" id="Node000002" href="$communication_8h.html#a1fab6dc9d0518cd51f80b858c81afa0f" title="This function adds frame entry to a frame." alt="" coords="236,5,441,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,31,222,28,223,33,188,36"/>
+<area shape="rect" id="Node000003" href="$persistent__storage_8h.html#a188438a1c042e8a73932cab87f5b66ec" title="This function reads a value of type T from EEPROM." alt="" coords="489,31,673,56"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="188,41,476,41,476,46,188,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="442,26,476,30,476,35,441,31"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="542,32,533,22,538,12,554,6,581,4,616,8,625,13,629,18,625,21,622,17,614,13,581,9,555,11,541,16,539,22,546,29"/>
 </map>

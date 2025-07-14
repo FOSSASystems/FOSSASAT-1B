@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['fsk_20radio_20configuration',['FSK Radio Configuration',['../group__defines__radio__non__ism__band__fsk__configuraiton.html',1,'']]]
+  ['eeprom_20address_20map_0',['EEPROM Address Map',['../group__defines__eeprom__address__map.html',1,'']]],
+  ['eeprom_20variables_1',['EEPROM Variables',['../group__defines__eeprom__variables.html',1,'']]]
 ];

@@ -1,0 +1,6 @@
+<map id="Power_Control_Charge" name="Power_Control_Charge">
+<area shape="rect" id="Node000001" title="This function ensures that the battery is charging. &quot;set MPPT to input which enables battery charging..." alt="" coords="5,29,175,55"/>
+<area shape="rect" id="Node000002" href="$persistent__storage_8h.html#a188438a1c042e8a73932cab87f5b66ec" title="This function reads a value of type T from EEPROM." alt="" coords="223,29,407,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,39,209,39,209,45,175,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="278,31,270,21,274,11,290,5,315,3,346,7,358,16,355,20,344,11,315,8,291,10,278,15,275,20,282,27"/>
+</map>

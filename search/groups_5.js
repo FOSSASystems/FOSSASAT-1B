@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ina226_20configuration',['INA226 Configuration',['../group__defines__ina226__configuration.html',1,'']]]
+  ['global_20variables_0',['Global Variables',['../group__defines__global__variables.html',1,'']]]
 ];
